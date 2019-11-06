@@ -1,0 +1,394 @@
+enum Status {
+	ACTIVE,DEACTIVE, DRAFT
+}
+
+enum NameOfBank{
+	HDFC, SBI, ICICI, ANDHRABANK
+}
+
+enum TypeOfCollege{
+	PRIVATE, PUBLIC, SEMIGOVERNMENT
+}
+
+enum StaffType{
+	TEACHING, NONTEACHING, GUEST
+}
+
+enum Gender {
+    MALE, FEMALE, OTHER
+}
+
+enum Religion{
+   HINDU,MUSLIM,CHRISTIAN,SIKH,BUDH
+}
+
+enum Caste{
+	GENERAL,OBC,SC,ST
+}
+
+enum Bloodgroup{
+  APOSITIVE,ANEGATIVE, ABPOSITIVE,ABNEGATIVE,OPOSITIVE,ONEGATIVE,BPOSITIVE,BNEGATIVE
+}
+
+enum BatchEnum{
+	FIRSTYEAR,SECONDYEAR,THIRDYEAR,FOURTHYEAR
+}
+
+enum SectionEnum{
+	A,B,C,D
+}
+
+enum RelationWithStudentEnum{
+	FATHER,MOTHER,GUARDIAN
+}
+
+enum SubTypeEnum{
+	COMMON,ELECTIVE
+}
+
+enum Disability{
+	YES, NO
+}
+
+enum MaritalStatus{
+	MARRIED, SINGLE, DIVORCED, WIDOWED
+}
+
+entity Country{
+	CountryName String 
+	CountryCode String 
+	IsdCode String
+}
+
+entity Currency{
+	CurrencyName String 
+	CurrencyCode String
+	CurrencySymbol String
+}
+
+entity State{
+	StateName String 
+	DivisionType String 
+	StateCode String 
+}
+
+entity City{
+	CityName String 
+	CityCode String
+	StdCode String
+}
+
+entity UserPreference{
+	userId String
+	academicYearId Long
+	collegeId Long
+	branchId Long
+	departmentId Long
+	courseId Long
+	semesterId Long
+	batchId Long
+	sectionId Long
+	classId Long
+}
+
+entity College {
+	shortName String 
+	logoPath String
+	backgroundImagePath String
+	instructionInformation String
+	logoFileName String
+	backgroundImageFileName String
+}
+
+entity Branch{
+	branchName String 
+	address1 String 
+	address2 String 
+	branchHead String 
+}
+
+entity LegalEntity{
+	logoPath String
+	logoFileName String
+	logoFile String
+	legalNameOfTheCollege String 
+	typeOfCollege TypeOfCollege 
+	dateOfIncorporation LocalDate 
+	registeredOfficeAddress1 String 
+	registeredOfficeAddress2 String
+	registeredOfficeAddress3 String
+	registeredOfficeAddress4 String
+	registeredOfficeAddress5 String
+	collegeIdentificationNumber String 
+	pan String 
+	tan String 
+	tanCircleNumber String 
+	citTdsLocation String 
+	formSignatory Long 
+	pfNumber String 
+	pfRegistrationDate LocalDate 
+	pfSignatory Long 
+	esiNumber String 
+	esiRegistrationDate LocalDate 
+	esiSignatory Long 
+	ptNumber String 
+	ptRegistrationDate LocalDate 
+	ptSignatory Long 
+}
+
+entity AuthorizedSignatory{
+	signatoryName String 
+	signatoryFatherName String 
+	signatoryDesignation String 
+	address1 String 
+	address2 String
+	address3 String
+	address4 String
+	address5 String
+	email String 
+	panCardNumber String 
+}
+
+entity BankAccounts{
+	nameOfBank NameOfBank 
+	accountNumber String 
+	typeOfAccount String 
+	ifscCode String 
+	branchAddress String 
+	corporateId String 
+}
+
+entity ExceptionRecord {
+	exceptionSource String
+	exceptionType String
+	exceptionRecord String
+	exceptionDate LocalDate
+	user String
+}
+
+entity PaymentRequestResponse {
+	requestMerchantID String
+	requestUniqueTransactionNo String
+	requestTxnAmount String
+	requestCurrencyType String
+	requestTypeField1 String
+	requestSecurityID String
+	requestTypeField2 String
+	requestTxtadditional1 String
+	requestTxtadditional2 String
+	requestTxtadditional3 String
+	requestTxtadditional4 String
+	requestTxtadditional5 String
+	requestTxtadditional6 String
+	requestTxtadditional7 String
+	requestRu String
+	requestCheckSum String
+	requestMsg String
+
+	responseMerchantID String
+	responseUniqueTransactionNo String
+	responseTxnReferenceNo String
+	responseBankReferenceNo String
+	responseTxnAmount String
+	responseBankID String
+	responseBankMerchantID String
+	responseTxnType String
+	responseCurrencyName String
+	responseItemCode String
+	responseSecurityType String
+	responseSecurityID String
+	responseSecurityPassword String
+	responseTxnDate String
+	responseAuthStatus String
+	responseSettlementType String
+	responseAdditionalInfo1 String
+	responseAdditionalInfo2 String
+	responseAdditionalInfo3 String
+	responseAdditionalInfo4 String
+	responseAdditionalInfo5 String
+	responseAdditionalInfo6 String
+	responseAdditionalInfo7 String
+	responseErrorStatus String
+	responseErrorDescription String
+	responseCheckSum String
+	responseMsg String
+	user String
+	requestTxnDate LocalDate
+	requestTxnTime String
+}
+
+entity AcademicYear{
+	year String 
+	startDate LocalDate 
+	endDate LocalDate 
+	status Status 
+}
+
+entity Holiday{
+	holidayDesc String 
+	holidayDate LocalDate 
+	holidayStatus Status 
+}
+
+entity Term{
+	termsDesc String 
+	startDate LocalDate 
+	endDate LocalDate 
+	termStatus Status 
+}
+
+entity Department{
+	name String 
+	description String 
+	deptHead String 		
+}
+
+entity Batch{
+	batch BatchEnum
+}
+
+entity Section{
+	section SectionEnum
+}
+
+entity Teacher{
+	teacherName String 
+	teacherMiddleName String 
+	teacherLastName String 
+	fatherName String 
+	fatherMiddleName String 
+	fatherLastName String 
+	spouseName String
+	spouseMiddleName String
+	spouseLastName String
+	motherName String 
+	motherMiddleName String 
+	motherLastName String 
+	aadharNo Long 
+	dateOfBirth LocalDate 
+	placeOfBirth String 
+	religion Religion 
+	caste Caste 
+	subCaste String 
+	age Integer 
+	sex Gender 
+	bloodGroup Bloodgroup 
+	addressLineOne String 
+	addressLineTwo String 
+	addressLineThree String 
+	town String 
+	state String 
+	country String 
+	pincode Long 
+	teacherContactNumber String 
+	alternateContactNumber String
+	teacherEmailAddress String 
+	alternateEmailAddress String
+	relationWithStaff RelationWithStudentEnum 
+	emergencyContactName String 
+	emergencyContactMiddleName String
+	emergencyContactLastName String 
+	emergencyContactNo String 
+	emergencyContactEmailAddress String 
+	uploadPhoto String 
+	status Status 
+	employeeId Long
+	designation String 
+	staffType StaffType 
+}
+
+entity Teach{
+	desc String
+}
+
+entity AttendanceMaster{
+	desc String
+}
+
+entity Subject{
+	subjectCode String 
+	subjectType SubTypeEnum 
+	subjectDesc  String 
+	status Status 
+}
+
+entity Employee {
+	employeeName String 
+	designation String 
+	joiningDate LocalDate 
+	jobEndDate LocalDate
+	resignationDate LocalDate
+	resignationAcceptanceDate LocalDate
+	aadharNo String
+	panNo String
+	passportNo String
+	primaryContactNo String
+	secondaryContactNo String
+	employeeFatherName String
+	employeeMotherName String
+	primaryAddress String
+	secondaryAddress String
+	employeeAddress String
+	personalMailId String
+	officialMailId String
+	disability Disability
+	drivingLicenceNo String
+	drivingLicenceValidity LocalDate
+	gender Gender
+	typeOfEmployment String
+	managerId Long
+	status Status
+	maritalStatus MaritalStatus
+	vehicleId Long
+	transportRouteId Long
+	branchId Long
+}
+
+entity Notifications {
+	messageCode String
+	message String maxlength(2000)
+	status Status
+	createdBy String
+	createdOn LocalDate
+	updatedBy String
+	updatedOn LocalDate
+}
+
+relationship ManyToOne {
+	Currency{Country} to Country
+	State{Country} to Country,
+	City{State} to State,
+	Branch{college} to College,
+	Branch{city} to City,
+	Branch{state} to State,
+	LegalEntity{branch} to Branch,
+	LegalEntity{college} to College,
+	LegalEntity{state} to State,
+	LegalEntity{city} to City,
+	AuthorizedSignatory{branch} to Branch,
+	AuthorizedSignatory{college} to College,
+	BankAccounts{branch} to Branch,
+	BankAccounts{college} to College,
+	Department{branch} to Branch,
+	Department{academicyear} to AcademicYear,
+	Subject{department} to Department,
+	Batch{department} to Department,
+	Section{batch} to Batch,
+	Holiday{academicyear} to AcademicYear,
+	Term{academicyear} to AcademicYear,
+	Teacher {department} to Department,
+	Teacher{branch} to Branch,
+	Subject{batch} to Batch,
+	Teach{subject} to Subject,
+	Teach{teacher} to Teacher,
+	AttendanceMaster{batch} to Batch,
+	AttendanceMaster{section} to Section,
+	AttendanceMaster{teach} to Teach,
+	PaymentRequestResponse{branch} to Branch
+	PaymentRequestResponse{academicYear} to AcademicYear
+	Notifications{academicYear} to AcademicYear
+}
+
+
+dto * with mapstruct
+service all with serviceImpl

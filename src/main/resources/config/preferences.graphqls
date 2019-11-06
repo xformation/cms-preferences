@@ -1,0 +1,10 @@
+
+
+type Query {
+	getAbc: Long
+}
+
+type Mutation {
+	getAbc: Long
+}
+
