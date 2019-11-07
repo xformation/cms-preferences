@@ -1,22 +1,19 @@
 package com.synectiks.pref.config;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.github.vanroy.springdata.jest.JestElasticsearchTemplate;
-import com.github.vanroy.springdata.jest.mapper.DefaultJestResultsMapper;
-import io.searchbox.client.JestClient;
+import java.io.IOException;
+
+import org.elasticsearch.client.Client;
 import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.EntityMapper;
-import org.springframework.data.elasticsearch.core.convert.ElasticsearchConverter;
-import org.springframework.data.elasticsearch.core.mapping.SimpleElasticsearchMappingContext;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
-import java.io.IOException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 @Configuration
 @EnableConfigurationProperties(ElasticsearchProperties.class)
@@ -33,18 +30,23 @@ public class ElasticsearchConfiguration {
         return new CustomEntityMapper(mapper);
     }
 
-    @Bean
-    @Primary
-    public ElasticsearchOperations elasticsearchTemplate(final JestClient jestClient,
-                                                         final ElasticsearchConverter elasticsearchConverter,
-                                                         final SimpleElasticsearchMappingContext simpleElasticsearchMappingContext,
-                                                         EntityMapper mapper) {
-        return new JestElasticsearchTemplate(
-            jestClient,
-            elasticsearchConverter,
-            new DefaultJestResultsMapper(simpleElasticsearchMappingContext, mapper));
-    }
+//    @Bean
+//    @Primary
+//    public ElasticsearchOperations elasticsearchTemplate(final JestClient jestClient,
+//                                                         final ElasticsearchConverter elasticsearchConverter,
+//                                                         final SimpleElasticsearchMappingContext simpleElasticsearchMappingContext,
+//                                                         EntityMapper mapper) {
+//        return new JestElasticsearchTemplate(
+//            jestClient,
+//            elasticsearchConverter,
+//            new DefaultJestResultsMapper(simpleElasticsearchMappingContext, mapper));
+//    }
 
+    @Bean
+    public ElasticsearchTemplate elasticsearchTemplate(Client client, Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder) {
+        return new ElasticsearchTemplate(client, new CustomEntityMapper(jackson2ObjectMapperBuilder.createXmlMapper(false).build()));
+    }
+    
     public class CustomEntityMapper implements EntityMapper {
 
         private ObjectMapper objectMapper;

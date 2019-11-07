@@ -1,5 +1,34 @@
 package com.synectiks.pref.web.rest;
 
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.codahale.metrics.annotation.Timed;
 import com.synectiks.pref.config.Constants;
 import com.synectiks.pref.domain.User;
 import com.synectiks.pref.repository.UserRepository;
@@ -11,37 +40,15 @@ import com.synectiks.pref.service.dto.UserDTO;
 import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
 import com.synectiks.pref.web.rest.errors.EmailAlreadyUsedException;
 import com.synectiks.pref.web.rest.errors.LoginAlreadyUsedException;
+import com.synectiks.pref.web.rest.util.HeaderUtil;
+import com.synectiks.pref.web.rest.util.PaginationUtil;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing users.
  * <p>
- * This class accesses the {@link User} entity, and needs to fetch its collection of authorities.
+ * This class accesses the User entity, and needs to fetch its collection of authorities.
  * <p>
  * For a normal use-case, it would be better to have an eager relationship between User and Authority,
  * and send everything to the client side: there would be no View Model and DTO, a lot less code, and an outer-join
@@ -68,9 +75,6 @@ public class UserResource {
 
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
 
-    @Value("${jhipster.clientApp.name}")
-    private String applicationName;
-
     private final UserService userService;
 
     private final UserRepository userRepository;
@@ -88,19 +92,20 @@ public class UserResource {
     }
 
     /**
-     * {@code POST  /users}  : Creates a new user.
+     * POST  /users  : Creates a new user.
      * <p>
      * Creates a new user if the login and email are not already used, and sends an
      * mail with an activation link.
      * The user needs to be activated on creation.
      *
-     * @param userDTO the user to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new user, or with status {@code 400 (Bad Request)} if the login or email is already in use.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     * @throws BadRequestAlertException {@code 400 (Bad Request)} if the login or email is already in use.
+     * @param userDTO the user to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new user, or with status 400 (Bad Request) if the login or email is already in use
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @throws BadRequestAlertException 400 (Bad Request) if the login or email is already in use
      */
     @PostMapping("/users")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDTO) throws URISyntaxException {
         log.debug("REST request to save User : {}", userDTO);
 
@@ -115,21 +120,22 @@ public class UserResource {
             User newUser = userService.createUser(userDTO);
             mailService.sendCreationEmail(newUser);
             return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
-                .headers(HeaderUtil.createAlert(applicationName,  "userManagement.created", newUser.getLogin()))
+                .headers(HeaderUtil.createAlert( "A user is created with identifier " + newUser.getLogin(), newUser.getLogin()))
                 .body(newUser);
         }
     }
 
     /**
-     * {@code PUT /users} : Updates an existing User.
+     * PUT /users : Updates an existing User.
      *
-     * @param userDTO the user to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated user.
-     * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already in use.
-     * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already in use.
+     * @param userDTO the user to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated user
+     * @throws EmailAlreadyUsedException 400 (Bad Request) if the email is already in use
+     * @throws LoginAlreadyUsedException 400 (Bad Request) if the login is already in use
      */
     @PutMapping("/users")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserDTO userDTO) {
         log.debug("REST request to update User : {}", userDTO);
         Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
@@ -143,41 +149,42 @@ public class UserResource {
         Optional<UserDTO> updatedUser = userService.updateUser(userDTO);
 
         return ResponseUtil.wrapOrNotFound(updatedUser,
-            HeaderUtil.createAlert(applicationName, "userManagement.updated", userDTO.getLogin()));
+            HeaderUtil.createAlert("A user is updated with identifier " + userDTO.getLogin(), userDTO.getLogin()));
     }
 
     /**
-     * {@code GET /users} : get all users.
+     * GET /users : get all users.
      *
-     * @param queryParams a {@link MultiValueMap} query parameters.
-     * @param uriBuilder a {@link UriComponentsBuilder} URI builder.
-     * @param pageable the pagination information.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and with body all users
      */
     @GetMapping("/users")
-    public ResponseEntity<List<UserDTO>> getAllUsers(@RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, Pageable pageable) {
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * Gets a list of all roles.
-     * @return a string list of all roles.
+     * @return a string list of the all of the roles
      */
     @GetMapping("/users/authorities")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public List<String> getAuthorities() {
         return userService.getAuthorities();
     }
 
     /**
-     * {@code GET /users/:login} : get the "login" user.
+     * GET /users/:login : get the "login" user.
      *
-     * @param login the login of the user to find.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the "login" user, or with status {@code 404 (Not Found)}.
+     * @param login the login of the user to find
+     * @return the ResponseEntity with status 200 (OK) and with body the "login" user, or with status 404 (Not Found)
      */
     @GetMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
+    @Timed
     public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
         return ResponseUtil.wrapOrNotFound(
@@ -186,26 +193,29 @@ public class UserResource {
     }
 
     /**
-     * {@code DELETE /users/:login} : delete the "login" User.
+     * DELETE /users/:login : delete the "login" User.
      *
-     * @param login the login of the user to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     * @param login the login of the user to delete
+     * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteUser(@PathVariable String login) {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
-        return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "userManagement.deleted", login)).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert( "A user is deleted with identifier " + login, login)).build();
     }
 
     /**
-     * {@code SEARCH /_search/users/:query} : search for the User corresponding to the query.
+     * SEARCH /_search/users/:query : search for the User corresponding
+     * to the query.
      *
-     * @param query the query to search.
-     * @return the result of the search.
+     * @param query the query to search
+     * @return the result of the search
      */
     @GetMapping("/_search/users/{query}")
+    @Timed
     public List<User> search(@PathVariable String query) {
         return StreamSupport
             .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)

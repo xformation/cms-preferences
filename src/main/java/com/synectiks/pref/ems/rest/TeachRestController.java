@@ -22,8 +22,8 @@ import com.synectiks.pref.business.service.CommonService;
 import com.synectiks.pref.domain.Teach;
 import com.synectiks.pref.repository.TeachRepository;
 import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
+import com.synectiks.pref.web.rest.util.HeaderUtil;
 
-import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 
 /**
@@ -37,7 +37,7 @@ public class TeachRestController {
 
     private static final String ENTITY_NAME = "teach";
     
-    @Value("${jhipster.clientApp.name}")
+    
     private String applicationName;
     
     @Autowired

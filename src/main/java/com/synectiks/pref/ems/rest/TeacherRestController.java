@@ -35,8 +35,8 @@ import com.synectiks.pref.repository.DepartmentRepository;
 import com.synectiks.pref.repository.TeacherRepository;
 import com.synectiks.pref.service.util.CommonUtil;
 import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
+import com.synectiks.pref.web.rest.util.HeaderUtil;
 
-import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 
 /**
@@ -50,7 +50,7 @@ public class TeacherRestController {
 
     private static final String ENTITY_NAME = "teacher";
 
-    @Value("${jhipster.clientApp.name}")
+    
     private String applicationName;
     
     @Autowired

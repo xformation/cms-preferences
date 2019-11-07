@@ -32,8 +32,7 @@ import com.synectiks.pref.repository.CollegeRepository;
 import com.synectiks.pref.repository.StateRepository;
 import com.synectiks.pref.service.util.CommonUtil;
 import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
-
-import io.github.jhipster.web.util.HeaderUtil;
+import com.synectiks.pref.web.rest.util.HeaderUtil;
 
 /**
  * REST controller for managing Branch.
@@ -45,7 +44,7 @@ public class BranchRestController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private static final String ENTITY_NAME = "branch";
 	
-	@Value("${jhipster.clientApp.name}")
+	
     private String applicationName;
 	
 	@Autowired

@@ -26,8 +26,8 @@ import com.synectiks.pref.repository.AcademicYearRepository;
 import com.synectiks.pref.service.util.CommonUtil;
 import com.synectiks.pref.service.util.DateFormatUtil;
 import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
+import com.synectiks.pref.web.rest.util.HeaderUtil;
 
-import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 
 /**
@@ -41,7 +41,7 @@ public class AcademicYearRestController {
 
     private static final String ENTITY_NAME = "academicYear";
     
-    @Value("${jhipster.clientApp.name}")
+    
     private String applicationName;
     
     @Autowired

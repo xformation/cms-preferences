@@ -29,8 +29,8 @@ import com.synectiks.pref.exceptions.FilePathNotFoundException;
 import com.synectiks.pref.repository.LegalEntityRepository;
 import com.synectiks.pref.service.util.CommonUtil;
 import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
+import com.synectiks.pref.web.rest.util.HeaderUtil;
 
-import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import io.micrometer.core.annotation.Timed;
 
@@ -44,7 +44,7 @@ public class LegalEntityRestController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private static final String ENTITY_NAME = "LegalEntity";
 	
-	@Value("${jhipster.clientApp.name}")
+	
     private String applicationName;
 	
 	@Autowired

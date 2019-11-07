@@ -5,7 +5,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -31,9 +30,7 @@ import com.synectiks.pref.repository.BatchRepository;
 import com.synectiks.pref.repository.SectionRepository;
 import com.synectiks.pref.service.util.CommonUtil;
 import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
-
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import com.synectiks.pref.web.rest.util.HeaderUtil;
 
 /**
  * REST controller for managing Section.
@@ -46,7 +43,7 @@ public class SectionRestController {
 	
 	private static final String ENTITY_NAME = "section";
 	
-	@Value("${jhipster.clientApp.name}")
+	
     private String applicationName;
 	
 	@Autowired

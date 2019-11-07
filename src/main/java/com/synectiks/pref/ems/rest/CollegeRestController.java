@@ -28,7 +28,7 @@ public class CollegeRestController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Value("${jhipster.clientApp.name}")
+	
     private String applicationName;
 	
 	@Autowired

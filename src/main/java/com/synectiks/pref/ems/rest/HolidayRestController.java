@@ -33,8 +33,8 @@ import com.synectiks.pref.repository.HolidayRepository;
 import com.synectiks.pref.service.util.CommonUtil;
 import com.synectiks.pref.service.util.DateFormatUtil;
 import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
+import com.synectiks.pref.web.rest.util.HeaderUtil;
 
-import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 
 @RestController
@@ -44,7 +44,7 @@ public class HolidayRestController {
     private final Logger logger = LoggerFactory.getLogger(HolidayRestController.class);
     private static final String ENTITY_NAME = "holiday";
 
-    @Value("${jhipster.clientApp.name}")
+    
     private String applicationName;
     
     @Autowired

@@ -29,8 +29,7 @@ import com.synectiks.pref.repository.BranchRepository;
 import com.synectiks.pref.repository.CollegeRepository;
 import com.synectiks.pref.service.util.CommonUtil;
 import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
-
-import io.github.jhipster.web.util.HeaderUtil;
+import com.synectiks.pref.web.rest.util.HeaderUtil;
 
 /**
  * REST controller for managing BankAccount.
@@ -42,7 +41,7 @@ public class BankAccountRestController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private static final String ENTITY_NAME = "BankAccounts";
 	
-	@Value("${jhipster.clientApp.name}")
+	
     private String applicationName;
 	
 	@Autowired

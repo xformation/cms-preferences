@@ -26,8 +26,7 @@ import com.synectiks.pref.domain.enumeration.Status;
 import com.synectiks.pref.domain.vo.CmsSubjectVo;
 import com.synectiks.pref.repository.SubjectRepository;
 import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
-
-import io.github.jhipster.web.util.HeaderUtil;
+import com.synectiks.pref.web.rest.util.HeaderUtil;
 
 /**
  * REST controller for managing Subject and Teach.
@@ -39,7 +38,7 @@ public class SubjectRestController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private static final String ENTITY_NAME = "subject";
 	
-	@Value("${jhipster.clientApp.name}")
+	
     private String applicationName;
 	
 	@Autowired

@@ -20,7 +20,7 @@ public class SemesterRestController {
 
     private static final String ENTITY_NAME = "semester";
     
-    @Value("${jhipster.clientApp.name}")
+    
     private String applicationName;
     
     @Autowired

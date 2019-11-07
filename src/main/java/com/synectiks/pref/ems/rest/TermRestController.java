@@ -33,8 +33,8 @@ import com.synectiks.pref.repository.TermRepository;
 import com.synectiks.pref.service.util.CommonUtil;
 import com.synectiks.pref.service.util.DateFormatUtil;
 import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
+import com.synectiks.pref.web.rest.util.HeaderUtil;
 
-import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 
 @RestController
@@ -45,7 +45,7 @@ public class TermRestController {
 
     private static final String ENTITY_NAME = "term";
 
-    @Value("${jhipster.clientApp.name}")
+    
     private String applicationName;
     
     @Autowired
