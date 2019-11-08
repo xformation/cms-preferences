@@ -101,6 +101,54 @@ public class Base64FileProcessor  {
 		return res;
 	}
 	
+	public QueryResult createFileFromBase64String(String base64EncodeStr, String filePath, String fileName, String fileExt) throws FilePathNotFoundException, FileNameNotFoundException, BranchIdNotFoundException {
+		logger.info("Start creating file from base64 encoded string.");
+		
+		if(filePath == null) {
+			throw new FilePathNotFoundException("File path not provided to save uploaded file");
+		}
+		if(fileName == null) {
+			fileName = getDefaultValues();
+		}
+		
+		File f = new File(filePath);
+		if(!f.exists()) {
+			f.mkdirs();
+		}
+		
+		QueryResult res = new QueryResult();
+		res.setStatusCode(0);
+		res.setStatusDesc("File created successfully from base64 encoded string.");
+		
+		String[] strings = null;
+		String extension = null;
+		String base64Str = null;
+		if(CommonUtil.isNullOrEmpty(fileExt)) {
+			strings = base64EncodeStr.split(",");
+			extension =	  getFileExtensionFromBase64Srting(strings[0]);
+			base64Str = strings[1];
+		}else {
+			extension = fileExt;
+			base64Str = base64EncodeStr;
+		}
+		
+		String absFileName = filePath+File.separator+fileName+"."+extension;
+		
+		byte[] data = DatatypeConverter.parseBase64Binary(base64Str);
+		f = new File(absFileName);
+		
+		logger.debug("Starting file creation from base64 encoded string.");
+		try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(f))) {
+		    outputStream.write(data);
+		} catch (IOException e) {
+		    logger.error("Exception while creating file from base64 encoded string: ",e);
+		    res.setStatusCode(1);
+			res.setStatusDesc("Exception while creating file from base64 encoded string.");
+		}
+		logger.info("File created successfully from base64 encoded string.");
+		return res;
+	}
+	
 	private String getDefaultValues() {
 		String systemGeneratedFileName = RandomStringUtils.random(12, true, true);
 		logger.debug("Random file name : "+systemGeneratedFileName);
