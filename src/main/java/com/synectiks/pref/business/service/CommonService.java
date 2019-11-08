@@ -1,9 +1,11 @@
 package com.synectiks.pref.business.service;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +34,7 @@ import com.synectiks.pref.domain.City;
 import com.synectiks.pref.domain.College;
 import com.synectiks.pref.domain.Department;
 import com.synectiks.pref.domain.Holiday;
+import com.synectiks.pref.domain.Lecture;
 import com.synectiks.pref.domain.Notifications;
 import com.synectiks.pref.domain.Section;
 import com.synectiks.pref.domain.State;
@@ -44,6 +47,7 @@ import com.synectiks.pref.domain.enumeration.SectionEnum;
 import com.synectiks.pref.domain.enumeration.Status;
 import com.synectiks.pref.domain.vo.CmsAcademicYearVo;
 import com.synectiks.pref.domain.vo.CmsDepartmentVo;
+import com.synectiks.pref.domain.vo.CmsLectureVo;
 import com.synectiks.pref.domain.vo.CmsNotificationsVo;
 import com.synectiks.pref.domain.vo.CmsTermVo;
 import com.synectiks.pref.domain.vo.Config;
@@ -1470,20 +1474,29 @@ public class CommonService {
         return batch;
     }
 
-//    public List<Lecture> getAllLecturesAlreadyScheduled(List<AttendanceMaster> amList, CmsLectureVo vo) {
-//
-//        LocalDate lecDate = DateFormatUtil.convertStringToLocalDate(vo.getStrLecDate(), "MM/dd/yyyy");
-//
-//        @SuppressWarnings("unchecked")
-//        List<Lecture> list = this.entityManager.createQuery("select l from Lecture l where l.lecDate = :lcDate and l.startTime = :stTime and l.endTime = :ndTime and l.attendancemaster in (:amId) ")
-//            .setParameter("lcDate", lecDate)
-//            .setParameter("stTime", vo.getStartTime())
-//            .setParameter("ndTime", vo.getEndTime())
-//            .setParameter("amId", amList)
-//            .getResultList();
-//        return list;
-//    }
+    public List<Lecture> getAllLecturesAlreadyScheduled(List<AttendanceMaster> amList, CmsLectureVo vo) {
 
+        LocalDate lecDate = DateFormatUtil.convertStringToLocalDate(vo.getStrLecDate(), "MM/dd/yyyy");
+
+        @SuppressWarnings("unchecked")
+        List<Lecture> list = this.entityManager.createQuery("select l from Lecture l where l.lecDate = :lcDate and l.startTime = :stTime and l.endTime = :ndTime and l.attendancemaster in (:amId) ")
+            .setParameter("lcDate", lecDate)
+            .setParameter("stTime", vo.getStartTime())
+            .setParameter("ndTime", vo.getEndTime())
+            .setParameter("amId", amList)
+            .getResultList();
+        return list;
+    }
+
+    public List<Lecture> getLectures(LocalDate startDate, LocalDate endDate) {
+      @SuppressWarnings("unchecked")
+      List<Lecture> list = this.entityManager.createQuery("select l from Lecture l where l.lecDate between :startDate and :endDate ")
+          .setParameter("startDate", startDate)
+          .setParameter("endDate", endDate)
+          .getResultList();
+      return list;
+    }
+    
     public static void main(String a[]) {
 //        String dt = "10/10/2019";
 //        LocalDate ld = DateFormatUtil.convertStringToLocalDate(dt, "MM/dd/yyyy");
