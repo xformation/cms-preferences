@@ -35,6 +35,9 @@ spring:
         url: jdbc:postgresql://localhost:5432/preferences
         username: postgres
         password: postgres
+        hikari:
+          poolName: Hikari
+          auto-commit: true
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL

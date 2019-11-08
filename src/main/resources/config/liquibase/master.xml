@@ -2,7 +2,7 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <property name="now" value="now()" dbms="h2"/>
     <property name="now" value="current_timestamp" dbms="postgresql"/>
@@ -38,6 +38,8 @@
     <include file="config/liquibase/changelog/20191105083601_added_entity_Subject.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191105083602_added_entity_Employee.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191105083603_added_entity_Notifications.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191107170942_added_entity_Lecture.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191107170943_added_entity_MetaLecture.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20191105083541_added_entity_constraints_Currency.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191105083542_added_entity_constraints_State.xml" relativeToChangelogFile="false"/>
@@ -57,5 +59,7 @@
     <include file="config/liquibase/changelog/20191105083600_added_entity_constraints_AttendanceMaster.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191105083601_added_entity_constraints_Subject.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191105083603_added_entity_constraints_Notifications.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191107170942_added_entity_constraints_Lecture.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191107170943_added_entity_constraints_MetaLecture.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

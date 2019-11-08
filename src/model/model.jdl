@@ -354,6 +354,20 @@ entity Notifications {
 	updatedOn LocalDate
 }
 
+entity Lecture{
+	lecDate LocalDate required
+	lastUpdatedOn LocalDate required
+	lastUpdatedBy String required
+	startTime String required
+	endTime String required
+}
+
+entity MetaLecture{
+	weekDay String
+  	startTime String
+  	endTime String
+}
+
 relationship ManyToOne {
 	Currency{Country} to Country
 	State{Country} to Country,
@@ -387,8 +401,16 @@ relationship ManyToOne {
 	PaymentRequestResponse{branch} to Branch
 	PaymentRequestResponse{academicYear} to AcademicYear
 	Notifications{academicYear} to AcademicYear
+	Lecture{attendancemaster} to AttendanceMaster,
+	MetaLecture{branch} to Branch,
+	MetaLecture{department} to Department,
+	MetaLecture{subject} to Subject,
+	MetaLecture{teacher} to Teacher,
+	MetaLecture{term} to Term,
+	MetaLecture{academicyear} to AcademicYear,
+	MetaLecture{section} to Section,
+	MetaLecture{batch} to Batch
 }
-
 
 dto * with mapstruct
 service all with serviceImpl

@@ -1,11 +1,11 @@
 id;subject_code;subject_type;subject_desc;status
-1;Dynamic;COMMON;Internal;DEACTIVE
-2;Regional;COMMON;Lead;ACTIVE
-3;El Salvador Chair;COMMON;Principal generating Global;DEACTIVE
-4;payment Coordinator;COMMON;Harbor;ACTIVE
-5;parsing;ELECTIVE;Customer Station flexibility;ACTIVE
-6;SMTP Kansas Belarussian Ruble;ELECTIVE;Metal Oklahoma;ACTIVE
+1;Dynamic;COMMON;Internal;ACTIVE
+2;Regional;COMMON;Lead;DRAFT
+3;El Salvador Chair;ELECTIVE;Principal generating Global;DEACTIVE
+4;payment Coordinator;COMMON;Harbor;DEACTIVE
+5;parsing;COMMON;Customer Station flexibility;ACTIVE
+6;SMTP Kansas Belarussian Ruble;ELECTIVE;Metal Oklahoma;DEACTIVE
 7;supply-chains Producer Generic;ELECTIVE;Borders optical;DEACTIVE
 8;Venezuela;COMMON;interactive bypass;DRAFT
-9;Intelligent Steel Tuna secondary;COMMON;payment;DEACTIVE
-10;Monaco Soft Regional;COMMON;Officer Seychelles Rupee;DEACTIVE
+9;Intelligent Steel Tuna secondary;ELECTIVE;payment;ACTIVE
+10;Monaco Soft Regional;ELECTIVE;Officer Seychelles Rupee;DEACTIVE
