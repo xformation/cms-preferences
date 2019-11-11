@@ -1,1 +1,1 @@
-java -jar target/preferences-0.0.1-SNAPSHOT.jar
+java -jar target/preferences-0.0.1-SNAPSHOT.jar --SERVER_PORT=9091 > console.log &
