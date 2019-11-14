@@ -48,26 +48,26 @@ public class CollegeRestController {
 		}
 		int status = 400;
 		College college = new College();
-		college.setShortName(cmsCollegeVo.getShortName());
-        college.setInstructionInformation(cmsCollegeVo.getInstructionInformation());
+		college.collegeName(cmsCollegeVo.getCollegeName());
+//        college.setInstructionInformation(cmsCollegeVo.getInstructionInformation());
         college = collegeRepository.save(college);
 		try {
 			String filePath = Paths.get("", applicationProperties.getImagePath()).toString();
-			if(cmsCollegeVo.getBgImage() != null) {
+//			if(cmsCollegeVo.getBgImage() != null) {
+////				String filePath = Paths.get("", Constants.CMS_IMAGE_FILE_PATH+File.separator+college.getId()).toString();
+//				college.setBackgroundImagePath(filePath);
+//				String fileName = Constants.CMS_COLLEGE_BACKGROUND_IMAGE_FILE_NAME;
+//				String ext = base64FileProcessor.getFileExtensionFromBase64Srting(cmsCollegeVo.getBgImage().split(",")[0]);
+//				college.setBackgroundImageFileName(Constants.CMS_COLLEGE_BACKGROUND_IMAGE_FILE_NAME+"."+ext);
+//				base64FileProcessor.createFileFromBase64String(cmsCollegeVo.getBgImage(), filePath, fileName, null);
+//			}
+			if(cmsCollegeVo.getLogoFile() != null) {
 //				String filePath = Paths.get("", Constants.CMS_IMAGE_FILE_PATH+File.separator+college.getId()).toString();
-				college.setBackgroundImagePath(filePath);
-				String fileName = Constants.CMS_COLLEGE_BACKGROUND_IMAGE_FILE_NAME;
-				String ext = base64FileProcessor.getFileExtensionFromBase64Srting(cmsCollegeVo.getBgImage().split(",")[0]);
-				college.setBackgroundImageFileName(Constants.CMS_COLLEGE_BACKGROUND_IMAGE_FILE_NAME+"."+ext);
-				base64FileProcessor.createFileFromBase64String(cmsCollegeVo.getBgImage(), filePath, fileName, null);
-			}
-			if(cmsCollegeVo.getLogoImage() != null) {
-//				String filePath = Paths.get("", Constants.CMS_IMAGE_FILE_PATH+File.separator+college.getId()).toString();
-				college.setLogoPath(filePath);
+				college.setLogoFilePath(filePath);
 				String fileName = Constants.CMS_COLLEGE_LOGO_FILE_NAME;
-				String ext = base64FileProcessor.getFileExtensionFromBase64Srting(cmsCollegeVo.getLogoImage().split(",")[0]);
+				String ext = base64FileProcessor.getFileExtensionFromBase64Srting(cmsCollegeVo.getLogoFile().split(",")[0]);
 				college.setLogoFileName(Constants.CMS_COLLEGE_LOGO_FILE_NAME+"."+ext);
-				base64FileProcessor.createFileFromBase64String(cmsCollegeVo.getLogoImage(), filePath, fileName, null);
+				base64FileProcessor.createFileFromBase64String(cmsCollegeVo.getLogoFile(), filePath, fileName, null);
 			}
 			
 	        logger.info("REST request to create a new college completed successfully.");

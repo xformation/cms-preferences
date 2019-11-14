@@ -1,129 +1,79 @@
 package com.synectiks.pref.domain.vo;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A College.
  */
-public class CmsCollegeVo implements Serializable {
+public class CmsCollegeVo extends CmsCommonVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String shortName;
-    private String logoPath;
-    private String backgroundImagePath; 
-    private String instructionInformation;
-    private String logoImage;
-    private String bgImage;
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getShortName() {
-        return shortName;
-    }
-
-    public CmsCollegeVo shortName(String shortName) {
-        this.shortName = shortName;
-        return this;
-    }
-
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
-    }
-
-    public String getLogoPath() {
-        return logoPath;
-    }
-
-    public CmsCollegeVo logoPath(String logoPath) {
-        this.logoPath = logoPath;
-        return this;
-    }
-
-    public void setLogoPath(String logoPath) {
-        this.logoPath = logoPath;
-    }
-
-    public String getBackgroundImagePath() {
-        return backgroundImagePath;
-    }
-
-    public CmsCollegeVo backgroundImagePath(String backgroundImagePath) {
-        this.backgroundImagePath = backgroundImagePath;
-        return this;
-    }
-
-    public void setBackgroundImagePath(String backgroundImagePath) {
-        this.backgroundImagePath = backgroundImagePath;
-    }
-
-    public String getInstructionInformation() {
-        return instructionInformation;
-    }
-
-    public CmsCollegeVo instructionInformation(String instructionInformation) {
-        this.instructionInformation = instructionInformation;
-        return this;
-    }
-
-    public void setInstructionInformation(String instructionInformation) {
-        this.instructionInformation = instructionInformation;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        CmsCollegeVo college = (CmsCollegeVo) o;
-        if (college.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), college.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "College{" +
-            "id=" + getId() +
-            ", shortName='" + getShortName() + "'" +
-            ", logoPath='" + getLogoPath() + "'" +
-            ", backgroundImagePath='" + getBackgroundImagePath() + "'" +
-            ", instructionInformation='" + getInstructionInformation() + "'" +
-            "}";
-    }
-
-	public String getLogoImage() {
-		return logoImage;
+    private String collegeName;
+    private String logoFilePath;
+    private String logoFileName;
+    private String logoFileExtension;
+    private String logoFile; // base64 encoded string
+    
+	public Long getId() {
+		return id;
 	}
-
-	public void setLogoImage(String logoImage) {
-		this.logoImage = logoImage;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
-	public String getBgImage() {
-		return bgImage;
+	public String getCollegeName() {
+		return collegeName;
 	}
-
-	public void setBgImage(String bgImage) {
-		this.bgImage = bgImage;
+	public void setCollegeName(String collegeName) {
+		this.collegeName = collegeName;
 	}
+	public String getLogoFilePath() {
+		return logoFilePath;
+	}
+	public void setLogoFilePath(String logoFilePath) {
+		this.logoFilePath = logoFilePath;
+	}
+	public String getLogoFileName() {
+		return logoFileName;
+	}
+	public void setLogoFileName(String logoFileName) {
+		this.logoFileName = logoFileName;
+	}
+	public String getLogoFileExtension() {
+		return logoFileExtension;
+	}
+	public void setLogoFileExtension(String logoFileExtension) {
+		this.logoFileExtension = logoFileExtension;
+	}
+	public String getLogoFile() {
+		return logoFile;
+	}
+	public void setLogoFile(String logoFile) {
+		this.logoFile = logoFile;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((collegeName == null) ? 0 : collegeName.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CmsCollegeVo other = (CmsCollegeVo) obj;
+		if (collegeName == null) {
+			if (other.collegeName != null)
+				return false;
+		} else if (!collegeName.equals(other.collegeName))
+			return false;
+		return true;
+	}
+    
 }

@@ -101,7 +101,7 @@ public class Base64FileProcessor  {
 		return res;
 	}
 	
-	public QueryResult createFileFromBase64String(String base64EncodeStr, String filePath, String fileName, String fileExt) throws FilePathNotFoundException, FileNameNotFoundException, BranchIdNotFoundException {
+	public QueryResult createFileFromBase64String(String base64EncodeStr, String filePath, String fileName, String fileExt) throws FilePathNotFoundException, FileNameNotFoundException {
 		logger.info("Start creating file from base64 encoded string.");
 		
 		if(filePath == null) {

@@ -1,10 +1,48 @@
-
+scalar Date
 
 type Query {
 	getAbc: Long
 }
 
 type Mutation {
-	getAbc: Long
+	addCollege(input: CollegeInput!): CollegePayload!
 }
 
+type CollegePayload {
+	cmsCollegeVo: CmsCollegeVo
+}
+
+input CollegeInput {
+	collegeName: String 
+    logoFilePath: String 
+    logoFileName: String 
+    logoFileExtension: String 
+    logoFile: String
+    createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    status: String 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    errorCode: String 
+    errorDescription: String 
+}
+
+type CmsCollegeVo {
+	id: Long 
+    collegeName: String 
+    logoFilePath: String 
+    logoFileName: String 
+    logoFileExtension: String 
+    logoFile: String
+    createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    status: String 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    errorCode: String 
+    errorDescription: String 
+}

@@ -92,19 +92,31 @@ entity UserPreference{
 }
 
 entity College {
-	shortName String 
-	logoPath String
-	backgroundImagePath String
-	instructionInformation String
+	collegeName String 
+	logoFilePath String
 	logoFileName String
-	backgroundImageFileName String
+	logoFileExtension String
+	createdBy String
+	createdOn LocalDate
+	updatedBy String
+	updatedOn LocalDate
+	Status String
 }
 
 entity Branch{
 	branchName String 
-	address1 String 
-	address2 String 
-	branchHead String 
+	address String 
+	branchHead String
+	cellPhoneNo String
+	landLinePhonoNo String
+	emailId String
+	faxNo String
+	isMainBranch Boolean
+	createdBy String
+	createdOn LocalDate
+	updatedBy String
+	updatedOn LocalDate
+	Status String
 }
 
 entity LegalEntity{

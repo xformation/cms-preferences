@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * A Branch.
@@ -25,14 +26,41 @@ public class Branch implements Serializable {
     @Column(name = "branch_name")
     private String branchName;
 
-    @Column(name = "address_1")
-    private String address1;
-
-    @Column(name = "address_2")
-    private String address2;
+    @Column(name = "address")
+    private String address;
 
     @Column(name = "branch_head")
     private String branchHead;
+
+    @Column(name = "cell_phone_no")
+    private String cellPhoneNo;
+
+    @Column(name = "land_line_phono_no")
+    private String landLinePhonoNo;
+
+    @Column(name = "email_id")
+    private String emailId;
+
+    @Column(name = "fax_no")
+    private String faxNo;
+
+    @Column(name = "is_main_branch")
+    private Boolean isMainBranch;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "created_on")
+    private LocalDate createdOn;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @Column(name = "updated_on")
+    private LocalDate updatedOn;
+
+    @Column(name = "status")
+    private String status;
 
     @ManyToOne
     @JsonIgnoreProperties("branches")
@@ -68,30 +96,17 @@ public class Branch implements Serializable {
         this.branchName = branchName;
     }
 
-    public String getAddress1() {
-        return address1;
+    public String getAddress() {
+        return address;
     }
 
-    public Branch address1(String address1) {
-        this.address1 = address1;
+    public Branch address(String address) {
+        this.address = address;
         return this;
     }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
-    public String getAddress2() {
-        return address2;
-    }
-
-    public Branch address2(String address2) {
-        this.address2 = address2;
-        return this;
-    }
-
-    public void setAddress2(String address2) {
-        this.address2 = address2;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getBranchHead() {
@@ -105,6 +120,136 @@ public class Branch implements Serializable {
 
     public void setBranchHead(String branchHead) {
         this.branchHead = branchHead;
+    }
+
+    public String getCellPhoneNo() {
+        return cellPhoneNo;
+    }
+
+    public Branch cellPhoneNo(String cellPhoneNo) {
+        this.cellPhoneNo = cellPhoneNo;
+        return this;
+    }
+
+    public void setCellPhoneNo(String cellPhoneNo) {
+        this.cellPhoneNo = cellPhoneNo;
+    }
+
+    public String getLandLinePhonoNo() {
+        return landLinePhonoNo;
+    }
+
+    public Branch landLinePhonoNo(String landLinePhonoNo) {
+        this.landLinePhonoNo = landLinePhonoNo;
+        return this;
+    }
+
+    public void setLandLinePhonoNo(String landLinePhonoNo) {
+        this.landLinePhonoNo = landLinePhonoNo;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public Branch emailId(String emailId) {
+        this.emailId = emailId;
+        return this;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public String getFaxNo() {
+        return faxNo;
+    }
+
+    public Branch faxNo(String faxNo) {
+        this.faxNo = faxNo;
+        return this;
+    }
+
+    public void setFaxNo(String faxNo) {
+        this.faxNo = faxNo;
+    }
+
+    public Boolean isIsMainBranch() {
+        return isMainBranch;
+    }
+
+    public Branch isMainBranch(Boolean isMainBranch) {
+        this.isMainBranch = isMainBranch;
+        return this;
+    }
+
+    public void setIsMainBranch(Boolean isMainBranch) {
+        this.isMainBranch = isMainBranch;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public Branch createdBy(String createdBy) {
+        this.createdBy = createdBy;
+        return this;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDate getCreatedOn() {
+        return createdOn;
+    }
+
+    public Branch createdOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+        return this;
+    }
+
+    public void setCreatedOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public Branch updatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+        return this;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public LocalDate getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public Branch updatedOn(LocalDate updatedOn) {
+        this.updatedOn = updatedOn;
+        return this;
+    }
+
+    public void setUpdatedOn(LocalDate updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Branch status(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public College getCollege() {
@@ -168,9 +313,18 @@ public class Branch implements Serializable {
         return "Branch{" +
             "id=" + getId() +
             ", branchName='" + getBranchName() + "'" +
-            ", address1='" + getAddress1() + "'" +
-            ", address2='" + getAddress2() + "'" +
+            ", address='" + getAddress() + "'" +
             ", branchHead='" + getBranchHead() + "'" +
+            ", cellPhoneNo='" + getCellPhoneNo() + "'" +
+            ", landLinePhonoNo='" + getLandLinePhonoNo() + "'" +
+            ", emailId='" + getEmailId() + "'" +
+            ", faxNo='" + getFaxNo() + "'" +
+            ", isMainBranch='" + isIsMainBranch() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", createdOn='" + getCreatedOn() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
+            ", updatedOn='" + getUpdatedOn() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 }

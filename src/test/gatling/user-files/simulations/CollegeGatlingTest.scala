@@ -76,12 +76,15 @@ class CollegeGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "shortName":"SAMPLE_TEXT"
-                , "logoPath":"SAMPLE_TEXT"
-                , "backgroundImagePath":"SAMPLE_TEXT"
-                , "instructionInformation":"SAMPLE_TEXT"
+                , "collegeName":"SAMPLE_TEXT"
+                , "logoFilePath":"SAMPLE_TEXT"
                 , "logoFileName":"SAMPLE_TEXT"
-                , "backgroundImageFileName":"SAMPLE_TEXT"
+                , "logoFileExtension":"SAMPLE_TEXT"
+                , "createdBy":"SAMPLE_TEXT"
+                , "createdOn":"2020-01-01T00:00:00.000Z"
+                , "updatedBy":"SAMPLE_TEXT"
+                , "updatedOn":"2020-01-01T00:00:00.000Z"
+                , "status":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_college_url"))).exitHereIfFailed

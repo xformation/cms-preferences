@@ -70,8 +70,8 @@ public class BranchRestController {
         State s = this.stateRepository.findById(cmsBranchVo.getStateId()).get();
         City c = this.cityRepository.findById(cmsBranchVo.getCityId()).get();
         College clg = this.collegeRepository.findById(cmsBranchVo.getCollegeId()).get();
-        b.setAddress1(cmsBranchVo.getAddress1());
-        b.setAddress2(cmsBranchVo.getAddress2());
+        b.setAddress(cmsBranchVo.getAddress1()+", "+cmsBranchVo.getAddress2());
+//        b.setAddress2(cmsBranchVo.getAddress2());
         b.setBranchHead(cmsBranchVo.getBranchHead());
         b.setBranchName(cmsBranchVo.getBranchName());
         b.setCity(c);
@@ -94,8 +94,8 @@ public class BranchRestController {
         State s = this.stateRepository.findById(cmsBranchVo.getStateId()).get();
         City c = this.cityRepository.findById(cmsBranchVo.getCityId()).get();
         College clg = this.collegeRepository.findById(cmsBranchVo.getCollegeId()).get();
-        b.setAddress1(cmsBranchVo.getAddress1());
-        b.setAddress2(cmsBranchVo.getAddress2());
+        b.setAddress(cmsBranchVo.getAddress1()+", "+cmsBranchVo.getAddress2());
+//        b.setAddress2(cmsBranchVo.getAddress2());
         b.setBranchHead(cmsBranchVo.getBranchHead());
         b.setBranchName(cmsBranchVo.getBranchName());
         b.setCity(c);
@@ -114,15 +114,15 @@ public class BranchRestController {
 		List<Branch> list = branchRepository.findAll();
 		List<CmsBranchVo> ls = new ArrayList<>();
 		for(Branch br : list) {
-			CmsBranchVo vo = new CmsBranchVo();
-			vo.setAddress1(br.getAddress1());
-	        vo.setAddress2(br.getAddress2());
-	        vo.setBranchHead(br.getBranchHead());
-	        vo.setBranchName(br.getBranchName());
-	        vo.setCity(br.getCity());
-	        vo.setState(br.getState());
-	        vo.setCollege(br.getCollege());
-	        vo.setId(br.getId());
+			CmsBranchVo vo = CommonUtil.createCopyProperties(br, CmsBranchVo.class);
+			vo.setAddress1(br.getAddress());
+//	        vo.setAddress2(br.getAddress2());
+//	        vo.setBranchHead(br.getBranchHead());
+//	        vo.setBranchName(br.getBranchName());
+//	        vo.setCity(br.getCity());
+//	        vo.setState(br.getState());
+//	        vo.setCollege(br.getCollege());
+//	        vo.setId(br.getId());
 	        ls.add(vo);
 		}
         return ls;

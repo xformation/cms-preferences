@@ -77,9 +77,18 @@ class BranchGatlingTest extends Simulation {
             .body(StringBody("""{
                 "id":null
                 , "branchName":"SAMPLE_TEXT"
-                , "address1":"SAMPLE_TEXT"
-                , "address2":"SAMPLE_TEXT"
+                , "address":"SAMPLE_TEXT"
                 , "branchHead":"SAMPLE_TEXT"
+                , "cellPhoneNo":"SAMPLE_TEXT"
+                , "landLinePhonoNo":"SAMPLE_TEXT"
+                , "emailId":"SAMPLE_TEXT"
+                , "faxNo":"SAMPLE_TEXT"
+                , "isMainBranch":null
+                , "createdBy":"SAMPLE_TEXT"
+                , "createdOn":"2020-01-01T00:00:00.000Z"
+                , "updatedBy":"SAMPLE_TEXT"
+                , "updatedOn":"2020-01-01T00:00:00.000Z"
+                , "status":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_branch_url"))).exitHereIfFailed

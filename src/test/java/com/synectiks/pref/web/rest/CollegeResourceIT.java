@@ -23,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,23 +42,32 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = PreferencesApp.class)
 public class CollegeResourceIT {
 
-    private static final String DEFAULT_SHORT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_SHORT_NAME = "BBBBBBBBBB";
+    private static final String DEFAULT_COLLEGE_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_COLLEGE_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_LOGO_PATH = "AAAAAAAAAA";
-    private static final String UPDATED_LOGO_PATH = "BBBBBBBBBB";
-
-    private static final String DEFAULT_BACKGROUND_IMAGE_PATH = "AAAAAAAAAA";
-    private static final String UPDATED_BACKGROUND_IMAGE_PATH = "BBBBBBBBBB";
-
-    private static final String DEFAULT_INSTRUCTION_INFORMATION = "AAAAAAAAAA";
-    private static final String UPDATED_INSTRUCTION_INFORMATION = "BBBBBBBBBB";
+    private static final String DEFAULT_LOGO_FILE_PATH = "AAAAAAAAAA";
+    private static final String UPDATED_LOGO_FILE_PATH = "BBBBBBBBBB";
 
     private static final String DEFAULT_LOGO_FILE_NAME = "AAAAAAAAAA";
     private static final String UPDATED_LOGO_FILE_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_BACKGROUND_IMAGE_FILE_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_BACKGROUND_IMAGE_FILE_NAME = "BBBBBBBBBB";
+    private static final String DEFAULT_LOGO_FILE_EXTENSION = "AAAAAAAAAA";
+    private static final String UPDATED_LOGO_FILE_EXTENSION = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_CREATED_ON = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_ON = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_UPDATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_UPDATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_UPDATED_ON = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_UPDATED_ON = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBB";
 
     @Autowired
     private CollegeRepository collegeRepository;
@@ -114,12 +125,15 @@ public class CollegeResourceIT {
      */
     public static College createEntity(EntityManager em) {
         College college = new College()
-            .shortName(DEFAULT_SHORT_NAME)
-            .logoPath(DEFAULT_LOGO_PATH)
-            .backgroundImagePath(DEFAULT_BACKGROUND_IMAGE_PATH)
-            .instructionInformation(DEFAULT_INSTRUCTION_INFORMATION)
+            .collegeName(DEFAULT_COLLEGE_NAME)
+            .logoFilePath(DEFAULT_LOGO_FILE_PATH)
             .logoFileName(DEFAULT_LOGO_FILE_NAME)
-            .backgroundImageFileName(DEFAULT_BACKGROUND_IMAGE_FILE_NAME);
+            .logoFileExtension(DEFAULT_LOGO_FILE_EXTENSION)
+            .createdBy(DEFAULT_CREATED_BY)
+            .createdOn(DEFAULT_CREATED_ON)
+            .updatedBy(DEFAULT_UPDATED_BY)
+            .updatedOn(DEFAULT_UPDATED_ON)
+            .status(DEFAULT_STATUS);
         return college;
     }
     /**
@@ -130,12 +144,15 @@ public class CollegeResourceIT {
      */
     public static College createUpdatedEntity(EntityManager em) {
         College college = new College()
-            .shortName(UPDATED_SHORT_NAME)
-            .logoPath(UPDATED_LOGO_PATH)
-            .backgroundImagePath(UPDATED_BACKGROUND_IMAGE_PATH)
-            .instructionInformation(UPDATED_INSTRUCTION_INFORMATION)
+            .collegeName(UPDATED_COLLEGE_NAME)
+            .logoFilePath(UPDATED_LOGO_FILE_PATH)
             .logoFileName(UPDATED_LOGO_FILE_NAME)
-            .backgroundImageFileName(UPDATED_BACKGROUND_IMAGE_FILE_NAME);
+            .logoFileExtension(UPDATED_LOGO_FILE_EXTENSION)
+            .createdBy(UPDATED_CREATED_BY)
+            .createdOn(UPDATED_CREATED_ON)
+            .updatedBy(UPDATED_UPDATED_BY)
+            .updatedOn(UPDATED_UPDATED_ON)
+            .status(UPDATED_STATUS);
         return college;
     }
 
@@ -160,12 +177,15 @@ public class CollegeResourceIT {
         List<College> collegeList = collegeRepository.findAll();
         assertThat(collegeList).hasSize(databaseSizeBeforeCreate + 1);
         College testCollege = collegeList.get(collegeList.size() - 1);
-        assertThat(testCollege.getShortName()).isEqualTo(DEFAULT_SHORT_NAME);
-        assertThat(testCollege.getLogoPath()).isEqualTo(DEFAULT_LOGO_PATH);
-        assertThat(testCollege.getBackgroundImagePath()).isEqualTo(DEFAULT_BACKGROUND_IMAGE_PATH);
-        assertThat(testCollege.getInstructionInformation()).isEqualTo(DEFAULT_INSTRUCTION_INFORMATION);
+        assertThat(testCollege.getCollegeName()).isEqualTo(DEFAULT_COLLEGE_NAME);
+        assertThat(testCollege.getLogoFilePath()).isEqualTo(DEFAULT_LOGO_FILE_PATH);
         assertThat(testCollege.getLogoFileName()).isEqualTo(DEFAULT_LOGO_FILE_NAME);
-        assertThat(testCollege.getBackgroundImageFileName()).isEqualTo(DEFAULT_BACKGROUND_IMAGE_FILE_NAME);
+        assertThat(testCollege.getLogoFileExtension()).isEqualTo(DEFAULT_LOGO_FILE_EXTENSION);
+        assertThat(testCollege.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
+        assertThat(testCollege.getCreatedOn()).isEqualTo(DEFAULT_CREATED_ON);
+        assertThat(testCollege.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
+        assertThat(testCollege.getUpdatedOn()).isEqualTo(DEFAULT_UPDATED_ON);
+        assertThat(testCollege.getStatus()).isEqualTo(DEFAULT_STATUS);
 
         // Validate the College in Elasticsearch
         verify(mockCollegeSearchRepository, times(1)).save(testCollege);
@@ -206,12 +226,15 @@ public class CollegeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(college.getId().intValue())))
-            .andExpect(jsonPath("$.[*].shortName").value(hasItem(DEFAULT_SHORT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].logoPath").value(hasItem(DEFAULT_LOGO_PATH.toString())))
-            .andExpect(jsonPath("$.[*].backgroundImagePath").value(hasItem(DEFAULT_BACKGROUND_IMAGE_PATH.toString())))
-            .andExpect(jsonPath("$.[*].instructionInformation").value(hasItem(DEFAULT_INSTRUCTION_INFORMATION.toString())))
+            .andExpect(jsonPath("$.[*].collegeName").value(hasItem(DEFAULT_COLLEGE_NAME.toString())))
+            .andExpect(jsonPath("$.[*].logoFilePath").value(hasItem(DEFAULT_LOGO_FILE_PATH.toString())))
             .andExpect(jsonPath("$.[*].logoFileName").value(hasItem(DEFAULT_LOGO_FILE_NAME.toString())))
-            .andExpect(jsonPath("$.[*].backgroundImageFileName").value(hasItem(DEFAULT_BACKGROUND_IMAGE_FILE_NAME.toString())));
+            .andExpect(jsonPath("$.[*].logoFileExtension").value(hasItem(DEFAULT_LOGO_FILE_EXTENSION.toString())))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())))
+            .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY.toString())))
+            .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
     
     @Test
@@ -225,12 +248,15 @@ public class CollegeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(college.getId().intValue()))
-            .andExpect(jsonPath("$.shortName").value(DEFAULT_SHORT_NAME.toString()))
-            .andExpect(jsonPath("$.logoPath").value(DEFAULT_LOGO_PATH.toString()))
-            .andExpect(jsonPath("$.backgroundImagePath").value(DEFAULT_BACKGROUND_IMAGE_PATH.toString()))
-            .andExpect(jsonPath("$.instructionInformation").value(DEFAULT_INSTRUCTION_INFORMATION.toString()))
+            .andExpect(jsonPath("$.collegeName").value(DEFAULT_COLLEGE_NAME.toString()))
+            .andExpect(jsonPath("$.logoFilePath").value(DEFAULT_LOGO_FILE_PATH.toString()))
             .andExpect(jsonPath("$.logoFileName").value(DEFAULT_LOGO_FILE_NAME.toString()))
-            .andExpect(jsonPath("$.backgroundImageFileName").value(DEFAULT_BACKGROUND_IMAGE_FILE_NAME.toString()));
+            .andExpect(jsonPath("$.logoFileExtension").value(DEFAULT_LOGO_FILE_EXTENSION.toString()))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()))
+            .andExpect(jsonPath("$.createdOn").value(DEFAULT_CREATED_ON.toString()))
+            .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY.toString()))
+            .andExpect(jsonPath("$.updatedOn").value(DEFAULT_UPDATED_ON.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
     @Test
@@ -254,12 +280,15 @@ public class CollegeResourceIT {
         // Disconnect from session so that the updates on updatedCollege are not directly saved in db
         em.detach(updatedCollege);
         updatedCollege
-            .shortName(UPDATED_SHORT_NAME)
-            .logoPath(UPDATED_LOGO_PATH)
-            .backgroundImagePath(UPDATED_BACKGROUND_IMAGE_PATH)
-            .instructionInformation(UPDATED_INSTRUCTION_INFORMATION)
+            .collegeName(UPDATED_COLLEGE_NAME)
+            .logoFilePath(UPDATED_LOGO_FILE_PATH)
             .logoFileName(UPDATED_LOGO_FILE_NAME)
-            .backgroundImageFileName(UPDATED_BACKGROUND_IMAGE_FILE_NAME);
+            .logoFileExtension(UPDATED_LOGO_FILE_EXTENSION)
+            .createdBy(UPDATED_CREATED_BY)
+            .createdOn(UPDATED_CREATED_ON)
+            .updatedBy(UPDATED_UPDATED_BY)
+            .updatedOn(UPDATED_UPDATED_ON)
+            .status(UPDATED_STATUS);
         CollegeDTO collegeDTO = collegeMapper.toDto(updatedCollege);
 
         restCollegeMockMvc.perform(put("/api/colleges")
@@ -271,12 +300,15 @@ public class CollegeResourceIT {
         List<College> collegeList = collegeRepository.findAll();
         assertThat(collegeList).hasSize(databaseSizeBeforeUpdate);
         College testCollege = collegeList.get(collegeList.size() - 1);
-        assertThat(testCollege.getShortName()).isEqualTo(UPDATED_SHORT_NAME);
-        assertThat(testCollege.getLogoPath()).isEqualTo(UPDATED_LOGO_PATH);
-        assertThat(testCollege.getBackgroundImagePath()).isEqualTo(UPDATED_BACKGROUND_IMAGE_PATH);
-        assertThat(testCollege.getInstructionInformation()).isEqualTo(UPDATED_INSTRUCTION_INFORMATION);
+        assertThat(testCollege.getCollegeName()).isEqualTo(UPDATED_COLLEGE_NAME);
+        assertThat(testCollege.getLogoFilePath()).isEqualTo(UPDATED_LOGO_FILE_PATH);
         assertThat(testCollege.getLogoFileName()).isEqualTo(UPDATED_LOGO_FILE_NAME);
-        assertThat(testCollege.getBackgroundImageFileName()).isEqualTo(UPDATED_BACKGROUND_IMAGE_FILE_NAME);
+        assertThat(testCollege.getLogoFileExtension()).isEqualTo(UPDATED_LOGO_FILE_EXTENSION);
+        assertThat(testCollege.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
+        assertThat(testCollege.getCreatedOn()).isEqualTo(UPDATED_CREATED_ON);
+        assertThat(testCollege.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
+        assertThat(testCollege.getUpdatedOn()).isEqualTo(UPDATED_UPDATED_ON);
+        assertThat(testCollege.getStatus()).isEqualTo(UPDATED_STATUS);
 
         // Validate the College in Elasticsearch
         verify(mockCollegeSearchRepository, times(1)).save(testCollege);
@@ -337,12 +369,15 @@ public class CollegeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(college.getId().intValue())))
-            .andExpect(jsonPath("$.[*].shortName").value(hasItem(DEFAULT_SHORT_NAME)))
-            .andExpect(jsonPath("$.[*].logoPath").value(hasItem(DEFAULT_LOGO_PATH)))
-            .andExpect(jsonPath("$.[*].backgroundImagePath").value(hasItem(DEFAULT_BACKGROUND_IMAGE_PATH)))
-            .andExpect(jsonPath("$.[*].instructionInformation").value(hasItem(DEFAULT_INSTRUCTION_INFORMATION)))
+            .andExpect(jsonPath("$.[*].collegeName").value(hasItem(DEFAULT_COLLEGE_NAME)))
+            .andExpect(jsonPath("$.[*].logoFilePath").value(hasItem(DEFAULT_LOGO_FILE_PATH)))
             .andExpect(jsonPath("$.[*].logoFileName").value(hasItem(DEFAULT_LOGO_FILE_NAME)))
-            .andExpect(jsonPath("$.[*].backgroundImageFileName").value(hasItem(DEFAULT_BACKGROUND_IMAGE_FILE_NAME)));
+            .andExpect(jsonPath("$.[*].logoFileExtension").value(hasItem(DEFAULT_LOGO_FILE_EXTENSION)))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
+            .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)))
+            .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
     }
 
     @Test

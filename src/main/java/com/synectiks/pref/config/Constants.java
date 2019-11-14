@@ -1,6 +1,8 @@
 package com.synectiks.pref.config;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.synectiks.pref.domain.vo.Config;
@@ -122,5 +124,12 @@ public interface Constants {
     String RESPONSE_URL = "http://localhost:8080/api/cmspaymentresponse";
 	String PAYMENT_STATUS_FAILED = "550";
 	String PAYMENT_REDIRECT_URL = "http://localhost:3000/payment-response";
+	
+	String ERROR_COLLEGE_ALREADY_EXISTS = "College alreay exists. Application allows only one college.";
+	String VALIDATION_FAILURE = "Business validation failed: ";
+	String STATUS_ACTIVE = "ACTIVE";
+	String STATUS_DEACTIVE = "DEACTIVE";
+	String STATUS_DRAFT = "DRAFT";
+	
 	
 }

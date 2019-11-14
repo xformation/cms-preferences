@@ -1,4 +1,5 @@
 package com.synectiks.pref.service.dto;
+import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -9,17 +10,23 @@ public class CollegeDTO implements Serializable {
 
     private Long id;
 
-    private String shortName;
+    private String collegeName;
 
-    private String logoPath;
-
-    private String backgroundImagePath;
-
-    private String instructionInformation;
+    private String logoFilePath;
 
     private String logoFileName;
 
-    private String backgroundImageFileName;
+    private String logoFileExtension;
+
+    private String createdBy;
+
+    private LocalDate createdOn;
+
+    private String updatedBy;
+
+    private LocalDate updatedOn;
+
+    private String status;
 
 
     public Long getId() {
@@ -30,36 +37,20 @@ public class CollegeDTO implements Serializable {
         this.id = id;
     }
 
-    public String getShortName() {
-        return shortName;
+    public String getCollegeName() {
+        return collegeName;
     }
 
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
     }
 
-    public String getLogoPath() {
-        return logoPath;
+    public String getLogoFilePath() {
+        return logoFilePath;
     }
 
-    public void setLogoPath(String logoPath) {
-        this.logoPath = logoPath;
-    }
-
-    public String getBackgroundImagePath() {
-        return backgroundImagePath;
-    }
-
-    public void setBackgroundImagePath(String backgroundImagePath) {
-        this.backgroundImagePath = backgroundImagePath;
-    }
-
-    public String getInstructionInformation() {
-        return instructionInformation;
-    }
-
-    public void setInstructionInformation(String instructionInformation) {
-        this.instructionInformation = instructionInformation;
+    public void setLogoFilePath(String logoFilePath) {
+        this.logoFilePath = logoFilePath;
     }
 
     public String getLogoFileName() {
@@ -70,12 +61,52 @@ public class CollegeDTO implements Serializable {
         this.logoFileName = logoFileName;
     }
 
-    public String getBackgroundImageFileName() {
-        return backgroundImageFileName;
+    public String getLogoFileExtension() {
+        return logoFileExtension;
     }
 
-    public void setBackgroundImageFileName(String backgroundImageFileName) {
-        this.backgroundImageFileName = backgroundImageFileName;
+    public void setLogoFileExtension(String logoFileExtension) {
+        this.logoFileExtension = logoFileExtension;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDate getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public LocalDate getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDate updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
@@ -103,12 +134,15 @@ public class CollegeDTO implements Serializable {
     public String toString() {
         return "CollegeDTO{" +
             "id=" + getId() +
-            ", shortName='" + getShortName() + "'" +
-            ", logoPath='" + getLogoPath() + "'" +
-            ", backgroundImagePath='" + getBackgroundImagePath() + "'" +
-            ", instructionInformation='" + getInstructionInformation() + "'" +
+            ", collegeName='" + getCollegeName() + "'" +
+            ", logoFilePath='" + getLogoFilePath() + "'" +
             ", logoFileName='" + getLogoFileName() + "'" +
-            ", backgroundImageFileName='" + getBackgroundImageFileName() + "'" +
+            ", logoFileExtension='" + getLogoFileExtension() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", createdOn='" + getCreatedOn() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
+            ", updatedOn='" + getUpdatedOn() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 }

@@ -1,4 +1,5 @@
 package com.synectiks.pref.service.dto;
+import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,11 +12,29 @@ public class BranchDTO implements Serializable {
 
     private String branchName;
 
-    private String address1;
-
-    private String address2;
+    private String address;
 
     private String branchHead;
+
+    private String cellPhoneNo;
+
+    private String landLinePhonoNo;
+
+    private String emailId;
+
+    private String faxNo;
+
+    private Boolean isMainBranch;
+
+    private String createdBy;
+
+    private LocalDate createdOn;
+
+    private String updatedBy;
+
+    private LocalDate updatedOn;
+
+    private String status;
 
 
     private Long collegeId;
@@ -40,20 +59,12 @@ public class BranchDTO implements Serializable {
         this.branchName = branchName;
     }
 
-    public String getAddress1() {
-        return address1;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
-    public String getAddress2() {
-        return address2;
-    }
-
-    public void setAddress2(String address2) {
-        this.address2 = address2;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getBranchHead() {
@@ -62,6 +73,86 @@ public class BranchDTO implements Serializable {
 
     public void setBranchHead(String branchHead) {
         this.branchHead = branchHead;
+    }
+
+    public String getCellPhoneNo() {
+        return cellPhoneNo;
+    }
+
+    public void setCellPhoneNo(String cellPhoneNo) {
+        this.cellPhoneNo = cellPhoneNo;
+    }
+
+    public String getLandLinePhonoNo() {
+        return landLinePhonoNo;
+    }
+
+    public void setLandLinePhonoNo(String landLinePhonoNo) {
+        this.landLinePhonoNo = landLinePhonoNo;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public String getFaxNo() {
+        return faxNo;
+    }
+
+    public void setFaxNo(String faxNo) {
+        this.faxNo = faxNo;
+    }
+
+    public Boolean isIsMainBranch() {
+        return isMainBranch;
+    }
+
+    public void setIsMainBranch(Boolean isMainBranch) {
+        this.isMainBranch = isMainBranch;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDate getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public LocalDate getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDate updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getCollegeId() {
@@ -114,9 +205,18 @@ public class BranchDTO implements Serializable {
         return "BranchDTO{" +
             "id=" + getId() +
             ", branchName='" + getBranchName() + "'" +
-            ", address1='" + getAddress1() + "'" +
-            ", address2='" + getAddress2() + "'" +
+            ", address='" + getAddress() + "'" +
             ", branchHead='" + getBranchHead() + "'" +
+            ", cellPhoneNo='" + getCellPhoneNo() + "'" +
+            ", landLinePhonoNo='" + getLandLinePhonoNo() + "'" +
+            ", emailId='" + getEmailId() + "'" +
+            ", faxNo='" + getFaxNo() + "'" +
+            ", isMainBranch='" + isIsMainBranch() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", createdOn='" + getCreatedOn() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
+            ", updatedOn='" + getUpdatedOn() + "'" +
+            ", status='" + getStatus() + "'" +
             ", college=" + getCollegeId() +
             ", city=" + getCityId() +
             ", state=" + getStateId() +
