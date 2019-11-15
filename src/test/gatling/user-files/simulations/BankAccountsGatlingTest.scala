@@ -76,7 +76,7 @@ class BankAccountsGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "nameOfBank":"HDFC"
+                , "bankName":"SAMPLE_TEXT"
                 , "accountNumber":"SAMPLE_TEXT"
                 , "typeOfAccount":"SAMPLE_TEXT"
                 , "ifscCode":"SAMPLE_TEXT"

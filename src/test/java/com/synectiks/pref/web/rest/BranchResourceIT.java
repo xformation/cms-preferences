@@ -48,14 +48,17 @@ public class BranchResourceIT {
     private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
     private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
 
+    private static final String DEFAULT_PIN_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_PIN_CODE = "BBBBBBBBBB";
+
     private static final String DEFAULT_BRANCH_HEAD = "AAAAAAAAAA";
     private static final String UPDATED_BRANCH_HEAD = "BBBBBBBBBB";
 
     private static final String DEFAULT_CELL_PHONE_NO = "AAAAAAAAAA";
     private static final String UPDATED_CELL_PHONE_NO = "BBBBBBBBBB";
 
-    private static final String DEFAULT_LAND_LINE_PHONO_NO = "AAAAAAAAAA";
-    private static final String UPDATED_LAND_LINE_PHONO_NO = "BBBBBBBBBB";
+    private static final String DEFAULT_LAND_LINE_PHONE_NO = "AAAAAAAAAA";
+    private static final String UPDATED_LAND_LINE_PHONE_NO = "BBBBBBBBBB";
 
     private static final String DEFAULT_EMAIL_ID = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL_ID = "BBBBBBBBBB";
@@ -63,8 +66,11 @@ public class BranchResourceIT {
     private static final String DEFAULT_FAX_NO = "AAAAAAAAAA";
     private static final String UPDATED_FAX_NO = "BBBBBBBBBB";
 
-    private static final Boolean DEFAULT_IS_MAIN_BRANCH = false;
-    private static final Boolean UPDATED_IS_MAIN_BRANCH = true;
+    private static final String DEFAULT_IS_MAIN_BRANCH = "AAA";
+    private static final String UPDATED_IS_MAIN_BRANCH = "BBB";
+
+    private static final LocalDate DEFAULT_START_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_START_DATE = LocalDate.now(ZoneId.systemDefault());
 
     private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
     private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
@@ -139,12 +145,14 @@ public class BranchResourceIT {
         Branch branch = new Branch()
             .branchName(DEFAULT_BRANCH_NAME)
             .address(DEFAULT_ADDRESS)
+            .pinCode(DEFAULT_PIN_CODE)
             .branchHead(DEFAULT_BRANCH_HEAD)
             .cellPhoneNo(DEFAULT_CELL_PHONE_NO)
-            .landLinePhonoNo(DEFAULT_LAND_LINE_PHONO_NO)
+            .landLinePhoneNo(DEFAULT_LAND_LINE_PHONE_NO)
             .emailId(DEFAULT_EMAIL_ID)
             .faxNo(DEFAULT_FAX_NO)
             .isMainBranch(DEFAULT_IS_MAIN_BRANCH)
+            .startDate(DEFAULT_START_DATE)
             .createdBy(DEFAULT_CREATED_BY)
             .createdOn(DEFAULT_CREATED_ON)
             .updatedBy(DEFAULT_UPDATED_BY)
@@ -162,12 +170,14 @@ public class BranchResourceIT {
         Branch branch = new Branch()
             .branchName(UPDATED_BRANCH_NAME)
             .address(UPDATED_ADDRESS)
+            .pinCode(UPDATED_PIN_CODE)
             .branchHead(UPDATED_BRANCH_HEAD)
             .cellPhoneNo(UPDATED_CELL_PHONE_NO)
-            .landLinePhonoNo(UPDATED_LAND_LINE_PHONO_NO)
+            .landLinePhoneNo(UPDATED_LAND_LINE_PHONE_NO)
             .emailId(UPDATED_EMAIL_ID)
             .faxNo(UPDATED_FAX_NO)
             .isMainBranch(UPDATED_IS_MAIN_BRANCH)
+            .startDate(UPDATED_START_DATE)
             .createdBy(UPDATED_CREATED_BY)
             .createdOn(UPDATED_CREATED_ON)
             .updatedBy(UPDATED_UPDATED_BY)
@@ -199,12 +209,14 @@ public class BranchResourceIT {
         Branch testBranch = branchList.get(branchList.size() - 1);
         assertThat(testBranch.getBranchName()).isEqualTo(DEFAULT_BRANCH_NAME);
         assertThat(testBranch.getAddress()).isEqualTo(DEFAULT_ADDRESS);
+        assertThat(testBranch.getPinCode()).isEqualTo(DEFAULT_PIN_CODE);
         assertThat(testBranch.getBranchHead()).isEqualTo(DEFAULT_BRANCH_HEAD);
         assertThat(testBranch.getCellPhoneNo()).isEqualTo(DEFAULT_CELL_PHONE_NO);
-        assertThat(testBranch.getLandLinePhonoNo()).isEqualTo(DEFAULT_LAND_LINE_PHONO_NO);
+        assertThat(testBranch.getLandLinePhoneNo()).isEqualTo(DEFAULT_LAND_LINE_PHONE_NO);
         assertThat(testBranch.getEmailId()).isEqualTo(DEFAULT_EMAIL_ID);
         assertThat(testBranch.getFaxNo()).isEqualTo(DEFAULT_FAX_NO);
-        assertThat(testBranch.isIsMainBranch()).isEqualTo(DEFAULT_IS_MAIN_BRANCH);
+        assertThat(testBranch.getIsMainBranch()).isEqualTo(DEFAULT_IS_MAIN_BRANCH);
+        assertThat(testBranch.getStartDate()).isEqualTo(DEFAULT_START_DATE);
         assertThat(testBranch.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
         assertThat(testBranch.getCreatedOn()).isEqualTo(DEFAULT_CREATED_ON);
         assertThat(testBranch.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
@@ -252,12 +264,14 @@ public class BranchResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(branch.getId().intValue())))
             .andExpect(jsonPath("$.[*].branchName").value(hasItem(DEFAULT_BRANCH_NAME.toString())))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
+            .andExpect(jsonPath("$.[*].pinCode").value(hasItem(DEFAULT_PIN_CODE.toString())))
             .andExpect(jsonPath("$.[*].branchHead").value(hasItem(DEFAULT_BRANCH_HEAD.toString())))
             .andExpect(jsonPath("$.[*].cellPhoneNo").value(hasItem(DEFAULT_CELL_PHONE_NO.toString())))
-            .andExpect(jsonPath("$.[*].landLinePhonoNo").value(hasItem(DEFAULT_LAND_LINE_PHONO_NO.toString())))
+            .andExpect(jsonPath("$.[*].landLinePhoneNo").value(hasItem(DEFAULT_LAND_LINE_PHONE_NO.toString())))
             .andExpect(jsonPath("$.[*].emailId").value(hasItem(DEFAULT_EMAIL_ID.toString())))
             .andExpect(jsonPath("$.[*].faxNo").value(hasItem(DEFAULT_FAX_NO.toString())))
-            .andExpect(jsonPath("$.[*].isMainBranch").value(hasItem(DEFAULT_IS_MAIN_BRANCH.booleanValue())))
+            .andExpect(jsonPath("$.[*].isMainBranch").value(hasItem(DEFAULT_IS_MAIN_BRANCH.toString())))
+            .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())))
             .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
             .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY.toString())))
@@ -278,12 +292,14 @@ public class BranchResourceIT {
             .andExpect(jsonPath("$.id").value(branch.getId().intValue()))
             .andExpect(jsonPath("$.branchName").value(DEFAULT_BRANCH_NAME.toString()))
             .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
+            .andExpect(jsonPath("$.pinCode").value(DEFAULT_PIN_CODE.toString()))
             .andExpect(jsonPath("$.branchHead").value(DEFAULT_BRANCH_HEAD.toString()))
             .andExpect(jsonPath("$.cellPhoneNo").value(DEFAULT_CELL_PHONE_NO.toString()))
-            .andExpect(jsonPath("$.landLinePhonoNo").value(DEFAULT_LAND_LINE_PHONO_NO.toString()))
+            .andExpect(jsonPath("$.landLinePhoneNo").value(DEFAULT_LAND_LINE_PHONE_NO.toString()))
             .andExpect(jsonPath("$.emailId").value(DEFAULT_EMAIL_ID.toString()))
             .andExpect(jsonPath("$.faxNo").value(DEFAULT_FAX_NO.toString()))
-            .andExpect(jsonPath("$.isMainBranch").value(DEFAULT_IS_MAIN_BRANCH.booleanValue()))
+            .andExpect(jsonPath("$.isMainBranch").value(DEFAULT_IS_MAIN_BRANCH.toString()))
+            .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()))
             .andExpect(jsonPath("$.createdOn").value(DEFAULT_CREATED_ON.toString()))
             .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY.toString()))
@@ -314,12 +330,14 @@ public class BranchResourceIT {
         updatedBranch
             .branchName(UPDATED_BRANCH_NAME)
             .address(UPDATED_ADDRESS)
+            .pinCode(UPDATED_PIN_CODE)
             .branchHead(UPDATED_BRANCH_HEAD)
             .cellPhoneNo(UPDATED_CELL_PHONE_NO)
-            .landLinePhonoNo(UPDATED_LAND_LINE_PHONO_NO)
+            .landLinePhoneNo(UPDATED_LAND_LINE_PHONE_NO)
             .emailId(UPDATED_EMAIL_ID)
             .faxNo(UPDATED_FAX_NO)
             .isMainBranch(UPDATED_IS_MAIN_BRANCH)
+            .startDate(UPDATED_START_DATE)
             .createdBy(UPDATED_CREATED_BY)
             .createdOn(UPDATED_CREATED_ON)
             .updatedBy(UPDATED_UPDATED_BY)
@@ -338,12 +356,14 @@ public class BranchResourceIT {
         Branch testBranch = branchList.get(branchList.size() - 1);
         assertThat(testBranch.getBranchName()).isEqualTo(UPDATED_BRANCH_NAME);
         assertThat(testBranch.getAddress()).isEqualTo(UPDATED_ADDRESS);
+        assertThat(testBranch.getPinCode()).isEqualTo(UPDATED_PIN_CODE);
         assertThat(testBranch.getBranchHead()).isEqualTo(UPDATED_BRANCH_HEAD);
         assertThat(testBranch.getCellPhoneNo()).isEqualTo(UPDATED_CELL_PHONE_NO);
-        assertThat(testBranch.getLandLinePhonoNo()).isEqualTo(UPDATED_LAND_LINE_PHONO_NO);
+        assertThat(testBranch.getLandLinePhoneNo()).isEqualTo(UPDATED_LAND_LINE_PHONE_NO);
         assertThat(testBranch.getEmailId()).isEqualTo(UPDATED_EMAIL_ID);
         assertThat(testBranch.getFaxNo()).isEqualTo(UPDATED_FAX_NO);
-        assertThat(testBranch.isIsMainBranch()).isEqualTo(UPDATED_IS_MAIN_BRANCH);
+        assertThat(testBranch.getIsMainBranch()).isEqualTo(UPDATED_IS_MAIN_BRANCH);
+        assertThat(testBranch.getStartDate()).isEqualTo(UPDATED_START_DATE);
         assertThat(testBranch.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testBranch.getCreatedOn()).isEqualTo(UPDATED_CREATED_ON);
         assertThat(testBranch.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
@@ -411,12 +431,14 @@ public class BranchResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(branch.getId().intValue())))
             .andExpect(jsonPath("$.[*].branchName").value(hasItem(DEFAULT_BRANCH_NAME)))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
+            .andExpect(jsonPath("$.[*].pinCode").value(hasItem(DEFAULT_PIN_CODE)))
             .andExpect(jsonPath("$.[*].branchHead").value(hasItem(DEFAULT_BRANCH_HEAD)))
             .andExpect(jsonPath("$.[*].cellPhoneNo").value(hasItem(DEFAULT_CELL_PHONE_NO)))
-            .andExpect(jsonPath("$.[*].landLinePhonoNo").value(hasItem(DEFAULT_LAND_LINE_PHONO_NO)))
+            .andExpect(jsonPath("$.[*].landLinePhoneNo").value(hasItem(DEFAULT_LAND_LINE_PHONE_NO)))
             .andExpect(jsonPath("$.[*].emailId").value(hasItem(DEFAULT_EMAIL_ID)))
             .andExpect(jsonPath("$.[*].faxNo").value(hasItem(DEFAULT_FAX_NO)))
-            .andExpect(jsonPath("$.[*].isMainBranch").value(hasItem(DEFAULT_IS_MAIN_BRANCH.booleanValue())))
+            .andExpect(jsonPath("$.[*].isMainBranch").value(hasItem(DEFAULT_IS_MAIN_BRANCH)))
+            .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
             .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
             .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)))

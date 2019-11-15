@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import com.synectiks.pref.domain.enumeration.TypeOfCollege;
-
 /**
  * A VO for the LegalEntity entity.
  */
@@ -21,7 +19,7 @@ public class CmsLegalEntityVo implements Serializable {
     
     private String legalNameOfTheCollege;
 
-    private TypeOfCollege typeOfCollege;
+    private String typeOfCollege;
 
     private LocalDate dateOfIncorporation;
 
@@ -105,11 +103,11 @@ public class CmsLegalEntityVo implements Serializable {
         this.legalNameOfTheCollege = legalNameOfTheCollege;
     }
 
-    public TypeOfCollege getTypeOfCollege() {
+    public String getTypeOfCollege() {
         return typeOfCollege;
     }
 
-    public void setTypeOfCollege(TypeOfCollege typeOfCollege) {
+    public void setTypeOfCollege(String typeOfCollege) {
         this.typeOfCollege = typeOfCollege;
     }
 

@@ -1,5 +1,6 @@
 package com.synectiks.pref.service.dto;
 import java.time.LocalDate;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,17 +15,22 @@ public class BranchDTO implements Serializable {
 
     private String address;
 
+    private String pinCode;
+
     private String branchHead;
 
     private String cellPhoneNo;
 
-    private String landLinePhonoNo;
+    private String landLinePhoneNo;
 
     private String emailId;
 
     private String faxNo;
 
-    private Boolean isMainBranch;
+    @Size(max = 3)
+    private String isMainBranch;
+
+    private LocalDate startDate;
 
     private String createdBy;
 
@@ -67,6 +73,14 @@ public class BranchDTO implements Serializable {
         this.address = address;
     }
 
+    public String getPinCode() {
+        return pinCode;
+    }
+
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
+    }
+
     public String getBranchHead() {
         return branchHead;
     }
@@ -83,12 +97,12 @@ public class BranchDTO implements Serializable {
         this.cellPhoneNo = cellPhoneNo;
     }
 
-    public String getLandLinePhonoNo() {
-        return landLinePhonoNo;
+    public String getLandLinePhoneNo() {
+        return landLinePhoneNo;
     }
 
-    public void setLandLinePhonoNo(String landLinePhonoNo) {
-        this.landLinePhonoNo = landLinePhonoNo;
+    public void setLandLinePhoneNo(String landLinePhoneNo) {
+        this.landLinePhoneNo = landLinePhoneNo;
     }
 
     public String getEmailId() {
@@ -107,12 +121,20 @@ public class BranchDTO implements Serializable {
         this.faxNo = faxNo;
     }
 
-    public Boolean isIsMainBranch() {
+    public String getIsMainBranch() {
         return isMainBranch;
     }
 
-    public void setIsMainBranch(Boolean isMainBranch) {
+    public void setIsMainBranch(String isMainBranch) {
         this.isMainBranch = isMainBranch;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public String getCreatedBy() {
@@ -206,12 +228,14 @@ public class BranchDTO implements Serializable {
             "id=" + getId() +
             ", branchName='" + getBranchName() + "'" +
             ", address='" + getAddress() + "'" +
+            ", pinCode='" + getPinCode() + "'" +
             ", branchHead='" + getBranchHead() + "'" +
             ", cellPhoneNo='" + getCellPhoneNo() + "'" +
-            ", landLinePhonoNo='" + getLandLinePhonoNo() + "'" +
+            ", landLinePhoneNo='" + getLandLinePhoneNo() + "'" +
             ", emailId='" + getEmailId() + "'" +
             ", faxNo='" + getFaxNo() + "'" +
-            ", isMainBranch='" + isIsMainBranch() + "'" +
+            ", isMainBranch='" + getIsMainBranch() + "'" +
+            ", startDate='" + getStartDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", createdOn='" + getCreatedOn() + "'" +
             ", updatedBy='" + getUpdatedBy() + "'" +

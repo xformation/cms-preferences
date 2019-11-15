@@ -1,11 +1,11 @@
-id;name_of_bank;account_number;type_of_account;ifsc_code;branch_address;corporate_id
-1;ICICI;web-readiness interface;Auto Loan Account Personal Loan Account;systems zero tolerance Iowa;sticky benchmark Point;program Soft interface
-2;ANDHRABANK;Shirt SDD;communities Refined;Pike Borders;payment Rustic;envisioneer Coordinator
-3;HDFC;matrices;Savings Account redefine Multi-channelled;Team-oriented;initiatives;Jordan
-4;ANDHRABANK;Persevering Personal Loan Account;De-engineered strategic integrate;array payment;optical transmitter;Utah COM
-5;SBI;zero defect;Granite;Program;deposit;Estate
-6;HDFC;Shirt Architect Developer;Automotive;invoice;Minnesota Open-architected Lebanon;Tugrik Wooden
-7;ANDHRABANK;capacitor;feed;Officer;feed;communities
-8;ICICI;Identity Lek Bedfordshire;transmitting COM;Music Data East Caribbean Dollar;Savings Account Branding navigating;payment Incredible deposit
-9;HDFC;USB primary Iowa;Refined withdrawal copy;Kuwaiti Dinar solid state program;help-desk SAS embrace;Nigeria
-10;ANDHRABANK;seamless mesh;disintermediate Jordan Savings Account;deploy Advanced;New Mexico;Pakistan Rupee
+id;bank_name;account_number;type_of_account;ifsc_code;branch_address;corporate_id
+1;synthesize;Investor Tuna;redefine;Shirt SDD;communities Refined;Pike Borders
+2;payment Rustic;envisioneer Coordinator;SMTP;matrices;Savings Account redefine Multi-channelled;Team-oriented
+3;initiatives;Jordan;Uganda Shilling Cotton;Persevering Personal Loan Account;De-engineered strategic integrate;array payment
+4;optical transmitter;Utah COM;Botswana;zero defect;Granite;Program
+5;deposit;Estate;Incredible Sleek Arizona;Shirt Architect Developer;Automotive;invoice
+6;Minnesota Open-architected Lebanon;Tugrik Wooden;Plastic;capacitor;feed;Officer
+7;feed;communities;Officer Quality-focused invoice;Identity Lek Bedfordshire;transmitting COM;Music Data East Caribbean Dollar
+8;Savings Account Branding navigating;payment Incredible deposit;Checking Account utilisation AI;USB primary Iowa;Refined withdrawal copy;Kuwaiti Dinar solid state program
+9;help-desk SAS embrace;Nigeria;firmware;seamless mesh;disintermediate Jordan Savings Account;deploy Advanced
+10;New Mexico;Pakistan Rupee;connect Berkshire;XSS Suriname;Lead cross-platform;enable

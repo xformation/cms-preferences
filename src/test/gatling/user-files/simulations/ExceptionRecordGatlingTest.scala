@@ -78,7 +78,7 @@ class ExceptionRecordGatlingTest extends Simulation {
                 "id":null
                 , "exceptionSource":"SAMPLE_TEXT"
                 , "exceptionType":"SAMPLE_TEXT"
-                , "exceptionRecord":"SAMPLE_TEXT"
+                , "exception":"SAMPLE_TEXT"
                 , "exceptionDate":"2020-01-01T00:00:00.000Z"
                 , "user":"SAMPLE_TEXT"
                 }""")).asJson

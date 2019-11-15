@@ -76,16 +76,12 @@ class AuthorizedSignatoryGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "signatoryName":"SAMPLE_TEXT"
-                , "signatoryFatherName":"SAMPLE_TEXT"
-                , "signatoryDesignation":"SAMPLE_TEXT"
-                , "address1":"SAMPLE_TEXT"
-                , "address2":"SAMPLE_TEXT"
-                , "address3":"SAMPLE_TEXT"
-                , "address4":"SAMPLE_TEXT"
-                , "address5":"SAMPLE_TEXT"
+                , "name":"SAMPLE_TEXT"
+                , "fatherName":"SAMPLE_TEXT"
+                , "designation":"SAMPLE_TEXT"
+                , "address":"SAMPLE_TEXT"
                 , "email":"SAMPLE_TEXT"
-                , "panCardNumber":"SAMPLE_TEXT"
+                , "panNo":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_authorizedSignatory_url"))).exitHereIfFailed

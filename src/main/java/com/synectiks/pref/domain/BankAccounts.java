@@ -6,8 +6,6 @@ import javax.persistence.*;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 
-import com.synectiks.pref.domain.enumeration.NameOfBank;
-
 /**
  * A BankAccounts.
  */
@@ -24,9 +22,8 @@ public class BankAccounts implements Serializable {
     @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "name_of_bank")
-    private NameOfBank nameOfBank;
+    @Column(name = "bank_name")
+    private String bankName;
 
     @Column(name = "account_number")
     private String accountNumber;
@@ -47,10 +44,6 @@ public class BankAccounts implements Serializable {
     @JsonIgnoreProperties("bankAccounts")
     private Branch branch;
 
-    @ManyToOne
-    @JsonIgnoreProperties("bankAccounts")
-    private College college;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -60,17 +53,17 @@ public class BankAccounts implements Serializable {
         this.id = id;
     }
 
-    public NameOfBank getNameOfBank() {
-        return nameOfBank;
+    public String getBankName() {
+        return bankName;
     }
 
-    public BankAccounts nameOfBank(NameOfBank nameOfBank) {
-        this.nameOfBank = nameOfBank;
+    public BankAccounts bankName(String bankName) {
+        this.bankName = bankName;
         return this;
     }
 
-    public void setNameOfBank(NameOfBank nameOfBank) {
-        this.nameOfBank = nameOfBank;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
     public String getAccountNumber() {
@@ -150,19 +143,6 @@ public class BankAccounts implements Serializable {
     public void setBranch(Branch branch) {
         this.branch = branch;
     }
-
-    public College getCollege() {
-        return college;
-    }
-
-    public BankAccounts college(College college) {
-        this.college = college;
-        return this;
-    }
-
-    public void setCollege(College college) {
-        this.college = college;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -185,7 +165,7 @@ public class BankAccounts implements Serializable {
     public String toString() {
         return "BankAccounts{" +
             "id=" + getId() +
-            ", nameOfBank='" + getNameOfBank() + "'" +
+            ", bankName='" + getBankName() + "'" +
             ", accountNumber='" + getAccountNumber() + "'" +
             ", typeOfAccount='" + getTypeOfAccount() + "'" +
             ", ifscCode='" + getIfscCode() + "'" +

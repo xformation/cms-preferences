@@ -334,7 +334,7 @@ public class LectureService {
                     	er.setExceptionDate(LocalDate.now());
                     	er.setExceptionSource("EMS Application. api/cmslectures rest api. addLectures() method");
                     	er.setExceptionType("DuplicateRecordFoundException");
-                    	er.setExceptionRecord(lecture.toString().length() > 255 ? lecture.toString().substring(0, 250) : lecture.toString());
+                    	er.setException(lecture.toString().length() > 255 ? lecture.toString().substring(0, 250) : lecture.toString());
                     	this.exceptionRecordRepository.save(er);
                     }
         			

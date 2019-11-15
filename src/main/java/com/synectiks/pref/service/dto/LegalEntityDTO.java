@@ -2,7 +2,6 @@ package com.synectiks.pref.service.dto;
 import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.Objects;
-import com.synectiks.pref.domain.enumeration.TypeOfCollege;
 
 /**
  * A DTO for the {@link com.synectiks.pref.domain.LegalEntity} entity.
@@ -11,27 +10,19 @@ public class LegalEntityDTO implements Serializable {
 
     private Long id;
 
-    private String logoPath;
+    private String logoFilePath;
 
     private String logoFileName;
 
-    private String logoFile;
+    private String logoFileExtension;
 
-    private String legalNameOfTheCollege;
+    private String legalNameOfCollege;
 
-    private TypeOfCollege typeOfCollege;
+    private String typeOfCollege;
 
     private LocalDate dateOfIncorporation;
 
-    private String registeredOfficeAddress1;
-
-    private String registeredOfficeAddress2;
-
-    private String registeredOfficeAddress3;
-
-    private String registeredOfficeAddress4;
-
-    private String registeredOfficeAddress5;
+    private String registeredOfficeAddress;
 
     private String collegeIdentificationNumber;
 
@@ -66,12 +57,6 @@ public class LegalEntityDTO implements Serializable {
 
     private Long branchId;
 
-    private Long collegeId;
-
-    private Long stateId;
-
-    private Long cityId;
-
     public Long getId() {
         return id;
     }
@@ -80,12 +65,12 @@ public class LegalEntityDTO implements Serializable {
         this.id = id;
     }
 
-    public String getLogoPath() {
-        return logoPath;
+    public String getLogoFilePath() {
+        return logoFilePath;
     }
 
-    public void setLogoPath(String logoPath) {
-        this.logoPath = logoPath;
+    public void setLogoFilePath(String logoFilePath) {
+        this.logoFilePath = logoFilePath;
     }
 
     public String getLogoFileName() {
@@ -96,27 +81,27 @@ public class LegalEntityDTO implements Serializable {
         this.logoFileName = logoFileName;
     }
 
-    public String getLogoFile() {
-        return logoFile;
+    public String getLogoFileExtension() {
+        return logoFileExtension;
     }
 
-    public void setLogoFile(String logoFile) {
-        this.logoFile = logoFile;
+    public void setLogoFileExtension(String logoFileExtension) {
+        this.logoFileExtension = logoFileExtension;
     }
 
-    public String getLegalNameOfTheCollege() {
-        return legalNameOfTheCollege;
+    public String getLegalNameOfCollege() {
+        return legalNameOfCollege;
     }
 
-    public void setLegalNameOfTheCollege(String legalNameOfTheCollege) {
-        this.legalNameOfTheCollege = legalNameOfTheCollege;
+    public void setLegalNameOfCollege(String legalNameOfCollege) {
+        this.legalNameOfCollege = legalNameOfCollege;
     }
 
-    public TypeOfCollege getTypeOfCollege() {
+    public String getTypeOfCollege() {
         return typeOfCollege;
     }
 
-    public void setTypeOfCollege(TypeOfCollege typeOfCollege) {
+    public void setTypeOfCollege(String typeOfCollege) {
         this.typeOfCollege = typeOfCollege;
     }
 
@@ -128,44 +113,12 @@ public class LegalEntityDTO implements Serializable {
         this.dateOfIncorporation = dateOfIncorporation;
     }
 
-    public String getRegisteredOfficeAddress1() {
-        return registeredOfficeAddress1;
+    public String getRegisteredOfficeAddress() {
+        return registeredOfficeAddress;
     }
 
-    public void setRegisteredOfficeAddress1(String registeredOfficeAddress1) {
-        this.registeredOfficeAddress1 = registeredOfficeAddress1;
-    }
-
-    public String getRegisteredOfficeAddress2() {
-        return registeredOfficeAddress2;
-    }
-
-    public void setRegisteredOfficeAddress2(String registeredOfficeAddress2) {
-        this.registeredOfficeAddress2 = registeredOfficeAddress2;
-    }
-
-    public String getRegisteredOfficeAddress3() {
-        return registeredOfficeAddress3;
-    }
-
-    public void setRegisteredOfficeAddress3(String registeredOfficeAddress3) {
-        this.registeredOfficeAddress3 = registeredOfficeAddress3;
-    }
-
-    public String getRegisteredOfficeAddress4() {
-        return registeredOfficeAddress4;
-    }
-
-    public void setRegisteredOfficeAddress4(String registeredOfficeAddress4) {
-        this.registeredOfficeAddress4 = registeredOfficeAddress4;
-    }
-
-    public String getRegisteredOfficeAddress5() {
-        return registeredOfficeAddress5;
-    }
-
-    public void setRegisteredOfficeAddress5(String registeredOfficeAddress5) {
-        this.registeredOfficeAddress5 = registeredOfficeAddress5;
+    public void setRegisteredOfficeAddress(String registeredOfficeAddress) {
+        this.registeredOfficeAddress = registeredOfficeAddress;
     }
 
     public String getCollegeIdentificationNumber() {
@@ -296,30 +249,6 @@ public class LegalEntityDTO implements Serializable {
         this.branchId = branchId;
     }
 
-    public Long getCollegeId() {
-        return collegeId;
-    }
-
-    public void setCollegeId(Long collegeId) {
-        this.collegeId = collegeId;
-    }
-
-    public Long getStateId() {
-        return stateId;
-    }
-
-    public void setStateId(Long stateId) {
-        this.stateId = stateId;
-    }
-
-    public Long getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(Long cityId) {
-        this.cityId = cityId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -345,17 +274,13 @@ public class LegalEntityDTO implements Serializable {
     public String toString() {
         return "LegalEntityDTO{" +
             "id=" + getId() +
-            ", logoPath='" + getLogoPath() + "'" +
+            ", logoFilePath='" + getLogoFilePath() + "'" +
             ", logoFileName='" + getLogoFileName() + "'" +
-            ", logoFile='" + getLogoFile() + "'" +
-            ", legalNameOfTheCollege='" + getLegalNameOfTheCollege() + "'" +
+            ", logoFileExtension='" + getLogoFileExtension() + "'" +
+            ", legalNameOfCollege='" + getLegalNameOfCollege() + "'" +
             ", typeOfCollege='" + getTypeOfCollege() + "'" +
             ", dateOfIncorporation='" + getDateOfIncorporation() + "'" +
-            ", registeredOfficeAddress1='" + getRegisteredOfficeAddress1() + "'" +
-            ", registeredOfficeAddress2='" + getRegisteredOfficeAddress2() + "'" +
-            ", registeredOfficeAddress3='" + getRegisteredOfficeAddress3() + "'" +
-            ", registeredOfficeAddress4='" + getRegisteredOfficeAddress4() + "'" +
-            ", registeredOfficeAddress5='" + getRegisteredOfficeAddress5() + "'" +
+            ", registeredOfficeAddress='" + getRegisteredOfficeAddress() + "'" +
             ", collegeIdentificationNumber='" + getCollegeIdentificationNumber() + "'" +
             ", pan='" + getPan() + "'" +
             ", tan='" + getTan() + "'" +
@@ -372,9 +297,6 @@ public class LegalEntityDTO implements Serializable {
             ", ptRegistrationDate='" + getPtRegistrationDate() + "'" +
             ", ptSignatory=" + getPtSignatory() +
             ", branch=" + getBranchId() +
-            ", college=" + getCollegeId() +
-            ", state=" + getStateId() +
-            ", city=" + getCityId() +
             "}";
     }
 }

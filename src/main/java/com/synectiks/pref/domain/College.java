@@ -1,4 +1,5 @@
 package com.synectiks.pref.domain;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
@@ -48,6 +49,10 @@ public class College implements Serializable {
 
     @Column(name = "status")
     private String status;
+
+    @ManyToOne
+    @JsonIgnoreProperties("colleges")
+    private Country country;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -173,6 +178,19 @@ public class College implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public College country(Country country) {
+        this.country = country;
+        return this;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

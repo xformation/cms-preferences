@@ -16,7 +16,7 @@ public class CmsCommonVo implements Serializable{
     private String status;
     private String strCreatedOn;
     private String strUpdatedOn;
-    private String errorCode;
+    private Long errorCode;
     private String errorDescription;
     
     
@@ -62,10 +62,10 @@ public class CmsCommonVo implements Serializable{
 	public void setStrUpdatedOn(String strUpdatedOn) {
 		this.strUpdatedOn = strUpdatedOn;
 	}
-	public String getErrorCode() {
+	public Long getErrorCode() {
 		return errorCode;
 	}
-	public void setErrorCode(String errorCode) {
+	public void setErrorCode(Long errorCode) {
 		this.errorCode = errorCode;
 	}
 	public String getErrorDescription() {

@@ -1,7 +1,6 @@
 package com.synectiks.pref.service.dto;
 import java.io.Serializable;
 import java.util.Objects;
-import com.synectiks.pref.domain.enumeration.NameOfBank;
 
 /**
  * A DTO for the {@link com.synectiks.pref.domain.BankAccounts} entity.
@@ -10,7 +9,7 @@ public class BankAccountsDTO implements Serializable {
 
     private Long id;
 
-    private NameOfBank nameOfBank;
+    private String bankName;
 
     private String accountNumber;
 
@@ -25,8 +24,6 @@ public class BankAccountsDTO implements Serializable {
 
     private Long branchId;
 
-    private Long collegeId;
-
     public Long getId() {
         return id;
     }
@@ -35,12 +32,12 @@ public class BankAccountsDTO implements Serializable {
         this.id = id;
     }
 
-    public NameOfBank getNameOfBank() {
-        return nameOfBank;
+    public String getBankName() {
+        return bankName;
     }
 
-    public void setNameOfBank(NameOfBank nameOfBank) {
-        this.nameOfBank = nameOfBank;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
     public String getAccountNumber() {
@@ -91,14 +88,6 @@ public class BankAccountsDTO implements Serializable {
         this.branchId = branchId;
     }
 
-    public Long getCollegeId() {
-        return collegeId;
-    }
-
-    public void setCollegeId(Long collegeId) {
-        this.collegeId = collegeId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -124,14 +113,13 @@ public class BankAccountsDTO implements Serializable {
     public String toString() {
         return "BankAccountsDTO{" +
             "id=" + getId() +
-            ", nameOfBank='" + getNameOfBank() + "'" +
+            ", bankName='" + getBankName() + "'" +
             ", accountNumber='" + getAccountNumber() + "'" +
             ", typeOfAccount='" + getTypeOfAccount() + "'" +
             ", ifscCode='" + getIfscCode() + "'" +
             ", branchAddress='" + getBranchAddress() + "'" +
             ", corporateId='" + getCorporateId() + "'" +
             ", branch=" + getBranchId() +
-            ", college=" + getCollegeId() +
             "}";
     }
 }

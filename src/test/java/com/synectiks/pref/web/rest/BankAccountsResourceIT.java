@@ -34,15 +34,14 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.synectiks.pref.domain.enumeration.NameOfBank;
 /**
  * Integration tests for the {@Link BankAccountsResource} REST controller.
  */
 @SpringBootTest(classes = PreferencesApp.class)
 public class BankAccountsResourceIT {
 
-    private static final NameOfBank DEFAULT_NAME_OF_BANK = NameOfBank.HDFC;
-    private static final NameOfBank UPDATED_NAME_OF_BANK = NameOfBank.SBI;
+    private static final String DEFAULT_BANK_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_BANK_NAME = "BBBBBBBBBB";
 
     private static final String DEFAULT_ACCOUNT_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_ACCOUNT_NUMBER = "BBBBBBBBBB";
@@ -115,7 +114,7 @@ public class BankAccountsResourceIT {
      */
     public static BankAccounts createEntity(EntityManager em) {
         BankAccounts bankAccounts = new BankAccounts()
-            .nameOfBank(DEFAULT_NAME_OF_BANK)
+            .bankName(DEFAULT_BANK_NAME)
             .accountNumber(DEFAULT_ACCOUNT_NUMBER)
             .typeOfAccount(DEFAULT_TYPE_OF_ACCOUNT)
             .ifscCode(DEFAULT_IFSC_CODE)
@@ -131,7 +130,7 @@ public class BankAccountsResourceIT {
      */
     public static BankAccounts createUpdatedEntity(EntityManager em) {
         BankAccounts bankAccounts = new BankAccounts()
-            .nameOfBank(UPDATED_NAME_OF_BANK)
+            .bankName(UPDATED_BANK_NAME)
             .accountNumber(UPDATED_ACCOUNT_NUMBER)
             .typeOfAccount(UPDATED_TYPE_OF_ACCOUNT)
             .ifscCode(UPDATED_IFSC_CODE)
@@ -161,7 +160,7 @@ public class BankAccountsResourceIT {
         List<BankAccounts> bankAccountsList = bankAccountsRepository.findAll();
         assertThat(bankAccountsList).hasSize(databaseSizeBeforeCreate + 1);
         BankAccounts testBankAccounts = bankAccountsList.get(bankAccountsList.size() - 1);
-        assertThat(testBankAccounts.getNameOfBank()).isEqualTo(DEFAULT_NAME_OF_BANK);
+        assertThat(testBankAccounts.getBankName()).isEqualTo(DEFAULT_BANK_NAME);
         assertThat(testBankAccounts.getAccountNumber()).isEqualTo(DEFAULT_ACCOUNT_NUMBER);
         assertThat(testBankAccounts.getTypeOfAccount()).isEqualTo(DEFAULT_TYPE_OF_ACCOUNT);
         assertThat(testBankAccounts.getIfscCode()).isEqualTo(DEFAULT_IFSC_CODE);
@@ -207,7 +206,7 @@ public class BankAccountsResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(bankAccounts.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nameOfBank").value(hasItem(DEFAULT_NAME_OF_BANK.toString())))
+            .andExpect(jsonPath("$.[*].bankName").value(hasItem(DEFAULT_BANK_NAME.toString())))
             .andExpect(jsonPath("$.[*].accountNumber").value(hasItem(DEFAULT_ACCOUNT_NUMBER.toString())))
             .andExpect(jsonPath("$.[*].typeOfAccount").value(hasItem(DEFAULT_TYPE_OF_ACCOUNT.toString())))
             .andExpect(jsonPath("$.[*].ifscCode").value(hasItem(DEFAULT_IFSC_CODE.toString())))
@@ -226,7 +225,7 @@ public class BankAccountsResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(bankAccounts.getId().intValue()))
-            .andExpect(jsonPath("$.nameOfBank").value(DEFAULT_NAME_OF_BANK.toString()))
+            .andExpect(jsonPath("$.bankName").value(DEFAULT_BANK_NAME.toString()))
             .andExpect(jsonPath("$.accountNumber").value(DEFAULT_ACCOUNT_NUMBER.toString()))
             .andExpect(jsonPath("$.typeOfAccount").value(DEFAULT_TYPE_OF_ACCOUNT.toString()))
             .andExpect(jsonPath("$.ifscCode").value(DEFAULT_IFSC_CODE.toString()))
@@ -255,7 +254,7 @@ public class BankAccountsResourceIT {
         // Disconnect from session so that the updates on updatedBankAccounts are not directly saved in db
         em.detach(updatedBankAccounts);
         updatedBankAccounts
-            .nameOfBank(UPDATED_NAME_OF_BANK)
+            .bankName(UPDATED_BANK_NAME)
             .accountNumber(UPDATED_ACCOUNT_NUMBER)
             .typeOfAccount(UPDATED_TYPE_OF_ACCOUNT)
             .ifscCode(UPDATED_IFSC_CODE)
@@ -272,7 +271,7 @@ public class BankAccountsResourceIT {
         List<BankAccounts> bankAccountsList = bankAccountsRepository.findAll();
         assertThat(bankAccountsList).hasSize(databaseSizeBeforeUpdate);
         BankAccounts testBankAccounts = bankAccountsList.get(bankAccountsList.size() - 1);
-        assertThat(testBankAccounts.getNameOfBank()).isEqualTo(UPDATED_NAME_OF_BANK);
+        assertThat(testBankAccounts.getBankName()).isEqualTo(UPDATED_BANK_NAME);
         assertThat(testBankAccounts.getAccountNumber()).isEqualTo(UPDATED_ACCOUNT_NUMBER);
         assertThat(testBankAccounts.getTypeOfAccount()).isEqualTo(UPDATED_TYPE_OF_ACCOUNT);
         assertThat(testBankAccounts.getIfscCode()).isEqualTo(UPDATED_IFSC_CODE);
@@ -338,7 +337,7 @@ public class BankAccountsResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(bankAccounts.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nameOfBank").value(hasItem(DEFAULT_NAME_OF_BANK.toString())))
+            .andExpect(jsonPath("$.[*].bankName").value(hasItem(DEFAULT_BANK_NAME)))
             .andExpect(jsonPath("$.[*].accountNumber").value(hasItem(DEFAULT_ACCOUNT_NUMBER)))
             .andExpect(jsonPath("$.[*].typeOfAccount").value(hasItem(DEFAULT_TYPE_OF_ACCOUNT)))
             .andExpect(jsonPath("$.[*].ifscCode").value(hasItem(DEFAULT_IFSC_CODE)))

@@ -65,15 +65,15 @@ public class LegalEntityRestController {
         }
         
         LegalEntity legalEntity = CommonUtil.createCopyProperties(cmsLegalEntityVo, LegalEntity.class);
-        if(cmsLegalEntityVo.getCollegeId() != null && cmsLegalEntityVo.getCollegeId() > 0) {
-        	legalEntity.setCollege(this.commonService.getCollegeById(cmsLegalEntityVo.getCollegeId()));
-        }
-        if(cmsLegalEntityVo.getStateId() != null && cmsLegalEntityVo.getStateId() > 0) {
-        	legalEntity.setState(this.commonService.getStateById(cmsLegalEntityVo.getStateId()));
-        }
-        if(cmsLegalEntityVo.getCityId() != null && cmsLegalEntityVo.getCityId() > 0) {
-        	legalEntity.setCity(this.commonService.getCityById(cmsLegalEntityVo.getCityId()));
-        }
+//        if(cmsLegalEntityVo.getCollegeId() != null && cmsLegalEntityVo.getCollegeId() > 0) {
+//        	legalEntity.setCollege(this.commonService.getCollegeById(cmsLegalEntityVo.getCollegeId()));
+//        }
+//        if(cmsLegalEntityVo.getStateId() != null && cmsLegalEntityVo.getStateId() > 0) {
+//        	legalEntity.setState(this.commonService.getStateById(cmsLegalEntityVo.getStateId()));
+//        }
+//        if(cmsLegalEntityVo.getCityId() != null && cmsLegalEntityVo.getCityId() > 0) {
+//        	legalEntity.setCity(this.commonService.getCityById(cmsLegalEntityVo.getCityId()));
+//        }
         if(cmsLegalEntityVo.getBranchId() != null && cmsLegalEntityVo.getBranchId() > 0) {
         	legalEntity.setBranch(this.commonService.getBranchById(cmsLegalEntityVo.getBranchId()));
         }
@@ -83,10 +83,11 @@ public class LegalEntityRestController {
         	logoFile = cmsLegalEntityVo.getLogoFile();
         	String ext = base64FileProcessor.getFileExtensionFromBase64Srting(cmsLegalEntityVo.getLogoFile().split(",")[0]);
 //        	base64FileProcessor.createFileFromBase64String(cmsLegalEntityVo.getLogoFile(), Constants.CMS_IMAGE_FILE_PATH, Constants.CMS_LEGAL_ENTITY_LOGO_FILE_NAME, null);
-        	fileName = Constants.CMS_LEGAL_ENTITY_LOGO_FILE_NAME +"_CollegeId_"+legalEntity.getCollege().getId()+(legalEntity.getBranch() != null ? "_BranchId_"+legalEntity.getBranch().getId() : "");
+
+//        	fileName = Constants.CMS_LEGAL_ENTITY_LOGO_FILE_NAME +"_CollegeId_"+legalEntity.getCollege().getId()+(legalEntity.getBranch() != null ? "_BranchId_"+legalEntity.getBranch().getId() : "");
         	legalEntity.setLogoFileName(fileName+"."+ext);
-        	legalEntity.setLogoPath(Constants.CMS_IMAGE_FILE_PATH);
-        	legalEntity.setLogoFile(null);
+//        	legalEntity.setLogoPath(Constants.CMS_IMAGE_FILE_PATH);
+//        	legalEntity.setLogoFile(null);
         }
         
         
@@ -117,9 +118,9 @@ public class LegalEntityRestController {
         CmsLegalEntityVo cvo = null;
         for(LegalEntity l: le) {
         	cvo = CommonUtil.createCopyProperties(l, CmsLegalEntityVo.class);
-        	if(l.getCollege() != null) {
-        		cvo.setCollegeId(l.getCollege().getId());
-        	}
+//        	if(l.getCollege() != null) {
+//        		cvo.setCollegeId(l.getCollege().getId());
+//        	}
         	cle.add(cvo);
         }
         return cle;
@@ -136,7 +137,7 @@ public class LegalEntityRestController {
         if(legalEntity.isPresent()) {
         	LegalEntity le = legalEntity.get();
         	cvo = CommonUtil.createCopyProperties(le, CmsLegalEntityVo.class);
-        	cvo.setCollegeId(le.getCollege().getId());
+//        	cvo.setCollegeId(le.getCollege().getId());
         }
         Optional<CmsLegalEntityVo> ocvo = Optional.of(cvo);
         return ResponseUtil.wrapOrNotFound(ocvo);

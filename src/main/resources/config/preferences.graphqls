@@ -5,7 +5,7 @@ type Query {
 }
 
 type Mutation {
-	addCollege(input: CollegeInput!): CollegePayload!
+	addCollege(input: CollegeInput): CollegePayload
 }
 
 type CollegePayload {
@@ -18,15 +18,7 @@ input CollegeInput {
     logoFileName: String 
     logoFileExtension: String 
     logoFile: String
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    status: String 
-    strCreatedOn: String 
-    strUpdatedOn: String 
-    errorCode: String 
-    errorDescription: String 
+    status: String   
 }
 
 type CmsCollegeVo {
@@ -43,6 +35,6 @@ type CmsCollegeVo {
     status: String 
     strCreatedOn: String 
     strUpdatedOn: String 
-    errorCode: String 
+    errorCode: Long 
     errorDescription: String 
 }

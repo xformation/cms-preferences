@@ -10,6 +10,8 @@
     <!--
         Added the entity Branch.
     -->
+	
+	
     <changeSet id="20191105083546-1" author="jhipster">
         <createTable tableName="branch">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
@@ -23,6 +25,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="pin_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="branch_head" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -31,7 +37,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="land_line_phono_no" type="varchar(255)">
+            <column name="land_line_phone_no" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
@@ -43,7 +49,11 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="is_main_branch" type="boolean">
+            <column name="is_main_branch" type="varchar(3)" >
+                <constraints nullable="true" />
+            </column>
+
+            <column name="start_date" type="date">
                 <constraints nullable="true" />
             </column>
 
@@ -105,12 +115,14 @@
             <column name="id" type="numeric"/>
             <column name="branch_name" type="string"/>
             <column name="address" type="string"/>
+            <column name="pin_code" type="string"/>
             <column name="branch_head" type="string"/>
             <column name="cell_phone_no" type="string"/>
-            <column name="land_line_phono_no" type="string"/>
+            <column name="land_line_phone_no" type="string"/>
             <column name="email_id" type="string"/>
             <column name="fax_no" type="string"/>
-            <column name="is_main_branch" type="boolean"/>
+            <column name="is_main_branch" type="string"/>
+            <column name="start_date" type="date"/>
             <column name="created_by" type="string"/>
             <column name="created_on" type="date"/>
             <column name="updated_by" type="string"/>

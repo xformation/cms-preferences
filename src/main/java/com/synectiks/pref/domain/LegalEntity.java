@@ -7,8 +7,6 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import com.synectiks.pref.domain.enumeration.TypeOfCollege;
-
 /**
  * A LegalEntity.
  */
@@ -25,39 +23,26 @@ public class LegalEntity implements Serializable {
     @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
-    @Column(name = "logo_path")
-    private String logoPath;
+    @Column(name = "logo_file_path")
+    private String logoFilePath;
 
     @Column(name = "logo_file_name")
     private String logoFileName;
 
-    @Column(name = "logo_file")
-    private String logoFile;
+    @Column(name = "logo_file_extension")
+    private String logoFileExtension;
 
-    @Column(name = "legal_name_of_the_college")
-    private String legalNameOfTheCollege;
+    @Column(name = "legal_name_of_college")
+    private String legalNameOfCollege;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "type_of_college")
-    private TypeOfCollege typeOfCollege;
+    private String typeOfCollege;
 
     @Column(name = "date_of_incorporation")
     private LocalDate dateOfIncorporation;
 
-    @Column(name = "registered_office_address_1")
-    private String registeredOfficeAddress1;
-
-    @Column(name = "registered_office_address_2")
-    private String registeredOfficeAddress2;
-
-    @Column(name = "registered_office_address_3")
-    private String registeredOfficeAddress3;
-
-    @Column(name = "registered_office_address_4")
-    private String registeredOfficeAddress4;
-
-    @Column(name = "registered_office_address_5")
-    private String registeredOfficeAddress5;
+    @Column(name = "registered_office_address")
+    private String registeredOfficeAddress;
 
     @Column(name = "college_identification_number")
     private String collegeIdentificationNumber;
@@ -108,18 +93,6 @@ public class LegalEntity implements Serializable {
     @JsonIgnoreProperties("legalEntities")
     private Branch branch;
 
-    @ManyToOne
-    @JsonIgnoreProperties("legalEntities")
-    private College college;
-
-    @ManyToOne
-    @JsonIgnoreProperties("legalEntities")
-    private State state;
-
-    @ManyToOne
-    @JsonIgnoreProperties("legalEntities")
-    private City city;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -129,17 +102,17 @@ public class LegalEntity implements Serializable {
         this.id = id;
     }
 
-    public String getLogoPath() {
-        return logoPath;
+    public String getLogoFilePath() {
+        return logoFilePath;
     }
 
-    public LegalEntity logoPath(String logoPath) {
-        this.logoPath = logoPath;
+    public LegalEntity logoFilePath(String logoFilePath) {
+        this.logoFilePath = logoFilePath;
         return this;
     }
 
-    public void setLogoPath(String logoPath) {
-        this.logoPath = logoPath;
+    public void setLogoFilePath(String logoFilePath) {
+        this.logoFilePath = logoFilePath;
     }
 
     public String getLogoFileName() {
@@ -155,42 +128,42 @@ public class LegalEntity implements Serializable {
         this.logoFileName = logoFileName;
     }
 
-    public String getLogoFile() {
-        return logoFile;
+    public String getLogoFileExtension() {
+        return logoFileExtension;
     }
 
-    public LegalEntity logoFile(String logoFile) {
-        this.logoFile = logoFile;
+    public LegalEntity logoFileExtension(String logoFileExtension) {
+        this.logoFileExtension = logoFileExtension;
         return this;
     }
 
-    public void setLogoFile(String logoFile) {
-        this.logoFile = logoFile;
+    public void setLogoFileExtension(String logoFileExtension) {
+        this.logoFileExtension = logoFileExtension;
     }
 
-    public String getLegalNameOfTheCollege() {
-        return legalNameOfTheCollege;
+    public String getLegalNameOfCollege() {
+        return legalNameOfCollege;
     }
 
-    public LegalEntity legalNameOfTheCollege(String legalNameOfTheCollege) {
-        this.legalNameOfTheCollege = legalNameOfTheCollege;
+    public LegalEntity legalNameOfCollege(String legalNameOfCollege) {
+        this.legalNameOfCollege = legalNameOfCollege;
         return this;
     }
 
-    public void setLegalNameOfTheCollege(String legalNameOfTheCollege) {
-        this.legalNameOfTheCollege = legalNameOfTheCollege;
+    public void setLegalNameOfCollege(String legalNameOfCollege) {
+        this.legalNameOfCollege = legalNameOfCollege;
     }
 
-    public TypeOfCollege getTypeOfCollege() {
+    public String getTypeOfCollege() {
         return typeOfCollege;
     }
 
-    public LegalEntity typeOfCollege(TypeOfCollege typeOfCollege) {
+    public LegalEntity typeOfCollege(String typeOfCollege) {
         this.typeOfCollege = typeOfCollege;
         return this;
     }
 
-    public void setTypeOfCollege(TypeOfCollege typeOfCollege) {
+    public void setTypeOfCollege(String typeOfCollege) {
         this.typeOfCollege = typeOfCollege;
     }
 
@@ -207,69 +180,17 @@ public class LegalEntity implements Serializable {
         this.dateOfIncorporation = dateOfIncorporation;
     }
 
-    public String getRegisteredOfficeAddress1() {
-        return registeredOfficeAddress1;
+    public String getRegisteredOfficeAddress() {
+        return registeredOfficeAddress;
     }
 
-    public LegalEntity registeredOfficeAddress1(String registeredOfficeAddress1) {
-        this.registeredOfficeAddress1 = registeredOfficeAddress1;
+    public LegalEntity registeredOfficeAddress(String registeredOfficeAddress) {
+        this.registeredOfficeAddress = registeredOfficeAddress;
         return this;
     }
 
-    public void setRegisteredOfficeAddress1(String registeredOfficeAddress1) {
-        this.registeredOfficeAddress1 = registeredOfficeAddress1;
-    }
-
-    public String getRegisteredOfficeAddress2() {
-        return registeredOfficeAddress2;
-    }
-
-    public LegalEntity registeredOfficeAddress2(String registeredOfficeAddress2) {
-        this.registeredOfficeAddress2 = registeredOfficeAddress2;
-        return this;
-    }
-
-    public void setRegisteredOfficeAddress2(String registeredOfficeAddress2) {
-        this.registeredOfficeAddress2 = registeredOfficeAddress2;
-    }
-
-    public String getRegisteredOfficeAddress3() {
-        return registeredOfficeAddress3;
-    }
-
-    public LegalEntity registeredOfficeAddress3(String registeredOfficeAddress3) {
-        this.registeredOfficeAddress3 = registeredOfficeAddress3;
-        return this;
-    }
-
-    public void setRegisteredOfficeAddress3(String registeredOfficeAddress3) {
-        this.registeredOfficeAddress3 = registeredOfficeAddress3;
-    }
-
-    public String getRegisteredOfficeAddress4() {
-        return registeredOfficeAddress4;
-    }
-
-    public LegalEntity registeredOfficeAddress4(String registeredOfficeAddress4) {
-        this.registeredOfficeAddress4 = registeredOfficeAddress4;
-        return this;
-    }
-
-    public void setRegisteredOfficeAddress4(String registeredOfficeAddress4) {
-        this.registeredOfficeAddress4 = registeredOfficeAddress4;
-    }
-
-    public String getRegisteredOfficeAddress5() {
-        return registeredOfficeAddress5;
-    }
-
-    public LegalEntity registeredOfficeAddress5(String registeredOfficeAddress5) {
-        this.registeredOfficeAddress5 = registeredOfficeAddress5;
-        return this;
-    }
-
-    public void setRegisteredOfficeAddress5(String registeredOfficeAddress5) {
-        this.registeredOfficeAddress5 = registeredOfficeAddress5;
+    public void setRegisteredOfficeAddress(String registeredOfficeAddress) {
+        this.registeredOfficeAddress = registeredOfficeAddress;
     }
 
     public String getCollegeIdentificationNumber() {
@@ -479,45 +400,6 @@ public class LegalEntity implements Serializable {
     public void setBranch(Branch branch) {
         this.branch = branch;
     }
-
-    public College getCollege() {
-        return college;
-    }
-
-    public LegalEntity college(College college) {
-        this.college = college;
-        return this;
-    }
-
-    public void setCollege(College college) {
-        this.college = college;
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public LegalEntity state(State state) {
-        this.state = state;
-        return this;
-    }
-
-    public void setState(State state) {
-        this.state = state;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public LegalEntity city(City city) {
-        this.city = city;
-        return this;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -540,17 +422,13 @@ public class LegalEntity implements Serializable {
     public String toString() {
         return "LegalEntity{" +
             "id=" + getId() +
-            ", logoPath='" + getLogoPath() + "'" +
+            ", logoFilePath='" + getLogoFilePath() + "'" +
             ", logoFileName='" + getLogoFileName() + "'" +
-            ", logoFile='" + getLogoFile() + "'" +
-            ", legalNameOfTheCollege='" + getLegalNameOfTheCollege() + "'" +
+            ", logoFileExtension='" + getLogoFileExtension() + "'" +
+            ", legalNameOfCollege='" + getLegalNameOfCollege() + "'" +
             ", typeOfCollege='" + getTypeOfCollege() + "'" +
             ", dateOfIncorporation='" + getDateOfIncorporation() + "'" +
-            ", registeredOfficeAddress1='" + getRegisteredOfficeAddress1() + "'" +
-            ", registeredOfficeAddress2='" + getRegisteredOfficeAddress2() + "'" +
-            ", registeredOfficeAddress3='" + getRegisteredOfficeAddress3() + "'" +
-            ", registeredOfficeAddress4='" + getRegisteredOfficeAddress4() + "'" +
-            ", registeredOfficeAddress5='" + getRegisteredOfficeAddress5() + "'" +
+            ", registeredOfficeAddress='" + getRegisteredOfficeAddress() + "'" +
             ", collegeIdentificationNumber='" + getCollegeIdentificationNumber() + "'" +
             ", pan='" + getPan() + "'" +
             ", tan='" + getTan() + "'" +

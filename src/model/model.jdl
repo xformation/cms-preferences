@@ -2,14 +2,6 @@ enum Status {
 	ACTIVE,DEACTIVE, DRAFT
 }
 
-enum NameOfBank{
-	HDFC, SBI, ICICI, ANDHRABANK
-}
-
-enum TypeOfCollege{
-	PRIVATE, PUBLIC, SEMIGOVERNMENT
-}
-
 enum StaffType{
 	TEACHING, NONTEACHING, GUEST
 }
@@ -105,13 +97,15 @@ entity College {
 
 entity Branch{
 	branchName String 
-	address String 
+	address String
+	pinCode String 
 	branchHead String
 	cellPhoneNo String
-	landLinePhonoNo String
+	landLinePhoneNo String
 	emailId String
 	faxNo String
-	isMainBranch Boolean
+	isMainBranch String maxlength(3)
+	startDate LocalDate
 	createdBy String
 	createdOn LocalDate
 	updatedBy String
@@ -120,17 +114,13 @@ entity Branch{
 }
 
 entity LegalEntity{
-	logoPath String
+	logoFilePath String
 	logoFileName String
-	logoFile String
-	legalNameOfTheCollege String 
-	typeOfCollege TypeOfCollege 
+	logoFileExtension String
+	legalNameOfCollege String 
+	typeOfCollege String 
 	dateOfIncorporation LocalDate 
-	registeredOfficeAddress1 String 
-	registeredOfficeAddress2 String
-	registeredOfficeAddress3 String
-	registeredOfficeAddress4 String
-	registeredOfficeAddress5 String
+	registeredOfficeAddress String 
 	collegeIdentificationNumber String 
 	pan String 
 	tan String 
@@ -149,20 +139,16 @@ entity LegalEntity{
 }
 
 entity AuthorizedSignatory{
-	signatoryName String 
-	signatoryFatherName String 
-	signatoryDesignation String 
-	address1 String 
-	address2 String
-	address3 String
-	address4 String
-	address5 String
+	name String 
+	fatherName String 
+	designation String 
+	address String 
 	email String 
-	panCardNumber String 
+	panNo String 
 }
 
 entity BankAccounts{
-	nameOfBank NameOfBank 
+	bankName String 
 	accountNumber String 
 	typeOfAccount String 
 	ifscCode String 
@@ -173,7 +159,7 @@ entity BankAccounts{
 entity ExceptionRecord {
 	exceptionSource String
 	exceptionType String
-	exceptionRecord String
+	exception String maxlength(5000)
 	exceptionDate LocalDate
 	user String
 }
@@ -381,20 +367,16 @@ entity MetaLecture{
 }
 
 relationship ManyToOne {
-	Currency{Country} to Country
-	State{Country} to Country,
-	City{State} to State,
+	Currency{country} to Country
+	State{country} to Country,
+	City{state} to State,
+	College{country} to Country
 	Branch{college} to College,
 	Branch{city} to City,
 	Branch{state} to State,
 	LegalEntity{branch} to Branch,
-	LegalEntity{college} to College,
-	LegalEntity{state} to State,
-	LegalEntity{city} to City,
 	AuthorizedSignatory{branch} to Branch,
-	AuthorizedSignatory{college} to College,
 	BankAccounts{branch} to Branch,
-	BankAccounts{college} to College,
 	Department{branch} to Branch,
 	Department{academicyear} to AcademicYear,
 	Subject{department} to Department,

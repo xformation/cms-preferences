@@ -78,12 +78,14 @@ class BranchGatlingTest extends Simulation {
                 "id":null
                 , "branchName":"SAMPLE_TEXT"
                 , "address":"SAMPLE_TEXT"
+                , "pinCode":"SAMPLE_TEXT"
                 , "branchHead":"SAMPLE_TEXT"
                 , "cellPhoneNo":"SAMPLE_TEXT"
-                , "landLinePhonoNo":"SAMPLE_TEXT"
+                , "landLinePhoneNo":"SAMPLE_TEXT"
                 , "emailId":"SAMPLE_TEXT"
                 , "faxNo":"SAMPLE_TEXT"
-                , "isMainBranch":null
+                , "isMainBranch":"SAMPLE_TEXT"
+                , "startDate":"2020-01-01T00:00:00.000Z"
                 , "createdBy":"SAMPLE_TEXT"
                 , "createdOn":"2020-01-01T00:00:00.000Z"
                 , "updatedBy":"SAMPLE_TEXT"

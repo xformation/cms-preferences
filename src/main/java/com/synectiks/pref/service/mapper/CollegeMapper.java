@@ -8,10 +8,14 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link College} and its DTO {@link CollegeDTO}.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {CountryMapper.class})
 public interface CollegeMapper extends EntityMapper<CollegeDTO, College> {
 
+    @Mapping(source = "country.id", target = "countryId")
+    CollegeDTO toDto(College college);
 
+    @Mapping(source = "countryId", target = "country")
+    College toEntity(CollegeDTO collegeDTO);
 
     default College fromId(Long id) {
         if (id == null) {

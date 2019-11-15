@@ -23,7 +23,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="exception_record" type="varchar(255)">
+            <column name="exception" type="varchar(5000)">
                 <constraints nullable="true" />
             </column>
 
@@ -61,7 +61,7 @@
             <column name="id" type="numeric"/>
             <column name="exception_source" type="string"/>
             <column name="exception_type" type="string"/>
-            <column name="exception_record" type="string"/>
+            <column name="exception" type="string"/>
             <column name="exception_date" type="date"/>
             <column name="jhi_user" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->

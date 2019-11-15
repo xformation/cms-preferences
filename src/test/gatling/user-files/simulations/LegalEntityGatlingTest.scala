@@ -76,17 +76,13 @@ class LegalEntityGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "logoPath":"SAMPLE_TEXT"
+                , "logoFilePath":"SAMPLE_TEXT"
                 , "logoFileName":"SAMPLE_TEXT"
-                , "logoFile":"SAMPLE_TEXT"
-                , "legalNameOfTheCollege":"SAMPLE_TEXT"
-                , "typeOfCollege":"PRIVATE"
+                , "logoFileExtension":"SAMPLE_TEXT"
+                , "legalNameOfCollege":"SAMPLE_TEXT"
+                , "typeOfCollege":"SAMPLE_TEXT"
                 , "dateOfIncorporation":"2020-01-01T00:00:00.000Z"
-                , "registeredOfficeAddress1":"SAMPLE_TEXT"
-                , "registeredOfficeAddress2":"SAMPLE_TEXT"
-                , "registeredOfficeAddress3":"SAMPLE_TEXT"
-                , "registeredOfficeAddress4":"SAMPLE_TEXT"
-                , "registeredOfficeAddress5":"SAMPLE_TEXT"
+                , "registeredOfficeAddress":"SAMPLE_TEXT"
                 , "collegeIdentificationNumber":"SAMPLE_TEXT"
                 , "pan":"SAMPLE_TEXT"
                 , "tan":"SAMPLE_TEXT"

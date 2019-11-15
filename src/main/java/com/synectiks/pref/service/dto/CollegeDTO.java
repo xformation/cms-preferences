@@ -29,6 +29,8 @@ public class CollegeDTO implements Serializable {
     private String status;
 
 
+    private Long countryId;
+
     public Long getId() {
         return id;
     }
@@ -109,6 +111,14 @@ public class CollegeDTO implements Serializable {
         this.status = status;
     }
 
+    public Long getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Long countryId) {
+        this.countryId = countryId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -143,6 +153,7 @@ public class CollegeDTO implements Serializable {
             ", updatedBy='" + getUpdatedBy() + "'" +
             ", updatedOn='" + getUpdatedOn() + "'" +
             ", status='" + getStatus() + "'" +
+            ", country=" + getCountryId() +
             "}";
     }
 }

@@ -40,35 +40,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = PreferencesApp.class)
 public class AuthorizedSignatoryResourceIT {
 
-    private static final String DEFAULT_SIGNATORY_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_SIGNATORY_NAME = "BBBBBBBBBB";
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_SIGNATORY_FATHER_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_SIGNATORY_FATHER_NAME = "BBBBBBBBBB";
+    private static final String DEFAULT_FATHER_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_FATHER_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_SIGNATORY_DESIGNATION = "AAAAAAAAAA";
-    private static final String UPDATED_SIGNATORY_DESIGNATION = "BBBBBBBBBB";
+    private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
+    private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
 
-    private static final String DEFAULT_ADDRESS_1 = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_1 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ADDRESS_2 = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_2 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ADDRESS_3 = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_3 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ADDRESS_4 = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_4 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ADDRESS_5 = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_5 = "BBBBBBBBBB";
+    private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
+    private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
 
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PAN_CARD_NUMBER = "AAAAAAAAAA";
-    private static final String UPDATED_PAN_CARD_NUMBER = "BBBBBBBBBB";
+    private static final String DEFAULT_PAN_NO = "AAAAAAAAAA";
+    private static final String UPDATED_PAN_NO = "BBBBBBBBBB";
 
     @Autowired
     private AuthorizedSignatoryRepository authorizedSignatoryRepository;
@@ -126,16 +114,12 @@ public class AuthorizedSignatoryResourceIT {
      */
     public static AuthorizedSignatory createEntity(EntityManager em) {
         AuthorizedSignatory authorizedSignatory = new AuthorizedSignatory()
-            .signatoryName(DEFAULT_SIGNATORY_NAME)
-            .signatoryFatherName(DEFAULT_SIGNATORY_FATHER_NAME)
-            .signatoryDesignation(DEFAULT_SIGNATORY_DESIGNATION)
-            .address1(DEFAULT_ADDRESS_1)
-            .address2(DEFAULT_ADDRESS_2)
-            .address3(DEFAULT_ADDRESS_3)
-            .address4(DEFAULT_ADDRESS_4)
-            .address5(DEFAULT_ADDRESS_5)
+            .name(DEFAULT_NAME)
+            .fatherName(DEFAULT_FATHER_NAME)
+            .designation(DEFAULT_DESIGNATION)
+            .address(DEFAULT_ADDRESS)
             .email(DEFAULT_EMAIL)
-            .panCardNumber(DEFAULT_PAN_CARD_NUMBER);
+            .panNo(DEFAULT_PAN_NO);
         return authorizedSignatory;
     }
     /**
@@ -146,16 +130,12 @@ public class AuthorizedSignatoryResourceIT {
      */
     public static AuthorizedSignatory createUpdatedEntity(EntityManager em) {
         AuthorizedSignatory authorizedSignatory = new AuthorizedSignatory()
-            .signatoryName(UPDATED_SIGNATORY_NAME)
-            .signatoryFatherName(UPDATED_SIGNATORY_FATHER_NAME)
-            .signatoryDesignation(UPDATED_SIGNATORY_DESIGNATION)
-            .address1(UPDATED_ADDRESS_1)
-            .address2(UPDATED_ADDRESS_2)
-            .address3(UPDATED_ADDRESS_3)
-            .address4(UPDATED_ADDRESS_4)
-            .address5(UPDATED_ADDRESS_5)
+            .name(UPDATED_NAME)
+            .fatherName(UPDATED_FATHER_NAME)
+            .designation(UPDATED_DESIGNATION)
+            .address(UPDATED_ADDRESS)
             .email(UPDATED_EMAIL)
-            .panCardNumber(UPDATED_PAN_CARD_NUMBER);
+            .panNo(UPDATED_PAN_NO);
         return authorizedSignatory;
     }
 
@@ -180,16 +160,12 @@ public class AuthorizedSignatoryResourceIT {
         List<AuthorizedSignatory> authorizedSignatoryList = authorizedSignatoryRepository.findAll();
         assertThat(authorizedSignatoryList).hasSize(databaseSizeBeforeCreate + 1);
         AuthorizedSignatory testAuthorizedSignatory = authorizedSignatoryList.get(authorizedSignatoryList.size() - 1);
-        assertThat(testAuthorizedSignatory.getSignatoryName()).isEqualTo(DEFAULT_SIGNATORY_NAME);
-        assertThat(testAuthorizedSignatory.getSignatoryFatherName()).isEqualTo(DEFAULT_SIGNATORY_FATHER_NAME);
-        assertThat(testAuthorizedSignatory.getSignatoryDesignation()).isEqualTo(DEFAULT_SIGNATORY_DESIGNATION);
-        assertThat(testAuthorizedSignatory.getAddress1()).isEqualTo(DEFAULT_ADDRESS_1);
-        assertThat(testAuthorizedSignatory.getAddress2()).isEqualTo(DEFAULT_ADDRESS_2);
-        assertThat(testAuthorizedSignatory.getAddress3()).isEqualTo(DEFAULT_ADDRESS_3);
-        assertThat(testAuthorizedSignatory.getAddress4()).isEqualTo(DEFAULT_ADDRESS_4);
-        assertThat(testAuthorizedSignatory.getAddress5()).isEqualTo(DEFAULT_ADDRESS_5);
+        assertThat(testAuthorizedSignatory.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testAuthorizedSignatory.getFatherName()).isEqualTo(DEFAULT_FATHER_NAME);
+        assertThat(testAuthorizedSignatory.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
+        assertThat(testAuthorizedSignatory.getAddress()).isEqualTo(DEFAULT_ADDRESS);
         assertThat(testAuthorizedSignatory.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testAuthorizedSignatory.getPanCardNumber()).isEqualTo(DEFAULT_PAN_CARD_NUMBER);
+        assertThat(testAuthorizedSignatory.getPanNo()).isEqualTo(DEFAULT_PAN_NO);
 
         // Validate the AuthorizedSignatory in Elasticsearch
         verify(mockAuthorizedSignatorySearchRepository, times(1)).save(testAuthorizedSignatory);
@@ -230,16 +206,12 @@ public class AuthorizedSignatoryResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(authorizedSignatory.getId().intValue())))
-            .andExpect(jsonPath("$.[*].signatoryName").value(hasItem(DEFAULT_SIGNATORY_NAME.toString())))
-            .andExpect(jsonPath("$.[*].signatoryFatherName").value(hasItem(DEFAULT_SIGNATORY_FATHER_NAME.toString())))
-            .andExpect(jsonPath("$.[*].signatoryDesignation").value(hasItem(DEFAULT_SIGNATORY_DESIGNATION.toString())))
-            .andExpect(jsonPath("$.[*].address1").value(hasItem(DEFAULT_ADDRESS_1.toString())))
-            .andExpect(jsonPath("$.[*].address2").value(hasItem(DEFAULT_ADDRESS_2.toString())))
-            .andExpect(jsonPath("$.[*].address3").value(hasItem(DEFAULT_ADDRESS_3.toString())))
-            .andExpect(jsonPath("$.[*].address4").value(hasItem(DEFAULT_ADDRESS_4.toString())))
-            .andExpect(jsonPath("$.[*].address5").value(hasItem(DEFAULT_ADDRESS_5.toString())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].fatherName").value(hasItem(DEFAULT_FATHER_NAME.toString())))
+            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION.toString())))
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
-            .andExpect(jsonPath("$.[*].panCardNumber").value(hasItem(DEFAULT_PAN_CARD_NUMBER.toString())));
+            .andExpect(jsonPath("$.[*].panNo").value(hasItem(DEFAULT_PAN_NO.toString())));
     }
     
     @Test
@@ -253,16 +225,12 @@ public class AuthorizedSignatoryResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(authorizedSignatory.getId().intValue()))
-            .andExpect(jsonPath("$.signatoryName").value(DEFAULT_SIGNATORY_NAME.toString()))
-            .andExpect(jsonPath("$.signatoryFatherName").value(DEFAULT_SIGNATORY_FATHER_NAME.toString()))
-            .andExpect(jsonPath("$.signatoryDesignation").value(DEFAULT_SIGNATORY_DESIGNATION.toString()))
-            .andExpect(jsonPath("$.address1").value(DEFAULT_ADDRESS_1.toString()))
-            .andExpect(jsonPath("$.address2").value(DEFAULT_ADDRESS_2.toString()))
-            .andExpect(jsonPath("$.address3").value(DEFAULT_ADDRESS_3.toString()))
-            .andExpect(jsonPath("$.address4").value(DEFAULT_ADDRESS_4.toString()))
-            .andExpect(jsonPath("$.address5").value(DEFAULT_ADDRESS_5.toString()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.fatherName").value(DEFAULT_FATHER_NAME.toString()))
+            .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION.toString()))
+            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
-            .andExpect(jsonPath("$.panCardNumber").value(DEFAULT_PAN_CARD_NUMBER.toString()));
+            .andExpect(jsonPath("$.panNo").value(DEFAULT_PAN_NO.toString()));
     }
 
     @Test
@@ -286,16 +254,12 @@ public class AuthorizedSignatoryResourceIT {
         // Disconnect from session so that the updates on updatedAuthorizedSignatory are not directly saved in db
         em.detach(updatedAuthorizedSignatory);
         updatedAuthorizedSignatory
-            .signatoryName(UPDATED_SIGNATORY_NAME)
-            .signatoryFatherName(UPDATED_SIGNATORY_FATHER_NAME)
-            .signatoryDesignation(UPDATED_SIGNATORY_DESIGNATION)
-            .address1(UPDATED_ADDRESS_1)
-            .address2(UPDATED_ADDRESS_2)
-            .address3(UPDATED_ADDRESS_3)
-            .address4(UPDATED_ADDRESS_4)
-            .address5(UPDATED_ADDRESS_5)
+            .name(UPDATED_NAME)
+            .fatherName(UPDATED_FATHER_NAME)
+            .designation(UPDATED_DESIGNATION)
+            .address(UPDATED_ADDRESS)
             .email(UPDATED_EMAIL)
-            .panCardNumber(UPDATED_PAN_CARD_NUMBER);
+            .panNo(UPDATED_PAN_NO);
         AuthorizedSignatoryDTO authorizedSignatoryDTO = authorizedSignatoryMapper.toDto(updatedAuthorizedSignatory);
 
         restAuthorizedSignatoryMockMvc.perform(put("/api/authorized-signatories")
@@ -307,16 +271,12 @@ public class AuthorizedSignatoryResourceIT {
         List<AuthorizedSignatory> authorizedSignatoryList = authorizedSignatoryRepository.findAll();
         assertThat(authorizedSignatoryList).hasSize(databaseSizeBeforeUpdate);
         AuthorizedSignatory testAuthorizedSignatory = authorizedSignatoryList.get(authorizedSignatoryList.size() - 1);
-        assertThat(testAuthorizedSignatory.getSignatoryName()).isEqualTo(UPDATED_SIGNATORY_NAME);
-        assertThat(testAuthorizedSignatory.getSignatoryFatherName()).isEqualTo(UPDATED_SIGNATORY_FATHER_NAME);
-        assertThat(testAuthorizedSignatory.getSignatoryDesignation()).isEqualTo(UPDATED_SIGNATORY_DESIGNATION);
-        assertThat(testAuthorizedSignatory.getAddress1()).isEqualTo(UPDATED_ADDRESS_1);
-        assertThat(testAuthorizedSignatory.getAddress2()).isEqualTo(UPDATED_ADDRESS_2);
-        assertThat(testAuthorizedSignatory.getAddress3()).isEqualTo(UPDATED_ADDRESS_3);
-        assertThat(testAuthorizedSignatory.getAddress4()).isEqualTo(UPDATED_ADDRESS_4);
-        assertThat(testAuthorizedSignatory.getAddress5()).isEqualTo(UPDATED_ADDRESS_5);
+        assertThat(testAuthorizedSignatory.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testAuthorizedSignatory.getFatherName()).isEqualTo(UPDATED_FATHER_NAME);
+        assertThat(testAuthorizedSignatory.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
+        assertThat(testAuthorizedSignatory.getAddress()).isEqualTo(UPDATED_ADDRESS);
         assertThat(testAuthorizedSignatory.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testAuthorizedSignatory.getPanCardNumber()).isEqualTo(UPDATED_PAN_CARD_NUMBER);
+        assertThat(testAuthorizedSignatory.getPanNo()).isEqualTo(UPDATED_PAN_NO);
 
         // Validate the AuthorizedSignatory in Elasticsearch
         verify(mockAuthorizedSignatorySearchRepository, times(1)).save(testAuthorizedSignatory);
@@ -377,16 +337,12 @@ public class AuthorizedSignatoryResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(authorizedSignatory.getId().intValue())))
-            .andExpect(jsonPath("$.[*].signatoryName").value(hasItem(DEFAULT_SIGNATORY_NAME)))
-            .andExpect(jsonPath("$.[*].signatoryFatherName").value(hasItem(DEFAULT_SIGNATORY_FATHER_NAME)))
-            .andExpect(jsonPath("$.[*].signatoryDesignation").value(hasItem(DEFAULT_SIGNATORY_DESIGNATION)))
-            .andExpect(jsonPath("$.[*].address1").value(hasItem(DEFAULT_ADDRESS_1)))
-            .andExpect(jsonPath("$.[*].address2").value(hasItem(DEFAULT_ADDRESS_2)))
-            .andExpect(jsonPath("$.[*].address3").value(hasItem(DEFAULT_ADDRESS_3)))
-            .andExpect(jsonPath("$.[*].address4").value(hasItem(DEFAULT_ADDRESS_4)))
-            .andExpect(jsonPath("$.[*].address5").value(hasItem(DEFAULT_ADDRESS_5)))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].fatherName").value(hasItem(DEFAULT_FATHER_NAME)))
+            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
-            .andExpect(jsonPath("$.[*].panCardNumber").value(hasItem(DEFAULT_PAN_CARD_NUMBER)));
+            .andExpect(jsonPath("$.[*].panNo").value(hasItem(DEFAULT_PAN_NO)));
     }
 
     @Test

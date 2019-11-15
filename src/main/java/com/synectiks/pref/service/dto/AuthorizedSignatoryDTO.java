@@ -9,30 +9,20 @@ public class AuthorizedSignatoryDTO implements Serializable {
 
     private Long id;
 
-    private String signatoryName;
+    private String name;
 
-    private String signatoryFatherName;
+    private String fatherName;
 
-    private String signatoryDesignation;
+    private String designation;
 
-    private String address1;
-
-    private String address2;
-
-    private String address3;
-
-    private String address4;
-
-    private String address5;
+    private String address;
 
     private String email;
 
-    private String panCardNumber;
+    private String panNo;
 
 
     private Long branchId;
-
-    private Long collegeId;
 
     public Long getId() {
         return id;
@@ -42,68 +32,36 @@ public class AuthorizedSignatoryDTO implements Serializable {
         this.id = id;
     }
 
-    public String getSignatoryName() {
-        return signatoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setSignatoryName(String signatoryName) {
-        this.signatoryName = signatoryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getSignatoryFatherName() {
-        return signatoryFatherName;
+    public String getFatherName() {
+        return fatherName;
     }
 
-    public void setSignatoryFatherName(String signatoryFatherName) {
-        this.signatoryFatherName = signatoryFatherName;
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
     }
 
-    public String getSignatoryDesignation() {
-        return signatoryDesignation;
+    public String getDesignation() {
+        return designation;
     }
 
-    public void setSignatoryDesignation(String signatoryDesignation) {
-        this.signatoryDesignation = signatoryDesignation;
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
-    public String getAddress1() {
-        return address1;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
-    public String getAddress2() {
-        return address2;
-    }
-
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
-
-    public String getAddress3() {
-        return address3;
-    }
-
-    public void setAddress3(String address3) {
-        this.address3 = address3;
-    }
-
-    public String getAddress4() {
-        return address4;
-    }
-
-    public void setAddress4(String address4) {
-        this.address4 = address4;
-    }
-
-    public String getAddress5() {
-        return address5;
-    }
-
-    public void setAddress5(String address5) {
-        this.address5 = address5;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getEmail() {
@@ -114,12 +72,12 @@ public class AuthorizedSignatoryDTO implements Serializable {
         this.email = email;
     }
 
-    public String getPanCardNumber() {
-        return panCardNumber;
+    public String getPanNo() {
+        return panNo;
     }
 
-    public void setPanCardNumber(String panCardNumber) {
-        this.panCardNumber = panCardNumber;
+    public void setPanNo(String panNo) {
+        this.panNo = panNo;
     }
 
     public Long getBranchId() {
@@ -128,14 +86,6 @@ public class AuthorizedSignatoryDTO implements Serializable {
 
     public void setBranchId(Long branchId) {
         this.branchId = branchId;
-    }
-
-    public Long getCollegeId() {
-        return collegeId;
-    }
-
-    public void setCollegeId(Long collegeId) {
-        this.collegeId = collegeId;
     }
 
     @Override
@@ -163,18 +113,13 @@ public class AuthorizedSignatoryDTO implements Serializable {
     public String toString() {
         return "AuthorizedSignatoryDTO{" +
             "id=" + getId() +
-            ", signatoryName='" + getSignatoryName() + "'" +
-            ", signatoryFatherName='" + getSignatoryFatherName() + "'" +
-            ", signatoryDesignation='" + getSignatoryDesignation() + "'" +
-            ", address1='" + getAddress1() + "'" +
-            ", address2='" + getAddress2() + "'" +
-            ", address3='" + getAddress3() + "'" +
-            ", address4='" + getAddress4() + "'" +
-            ", address5='" + getAddress5() + "'" +
+            ", name='" + getName() + "'" +
+            ", fatherName='" + getFatherName() + "'" +
+            ", designation='" + getDesignation() + "'" +
+            ", address='" + getAddress() + "'" +
             ", email='" + getEmail() + "'" +
-            ", panCardNumber='" + getPanCardNumber() + "'" +
+            ", panNo='" + getPanNo() + "'" +
             ", branch=" + getBranchId() +
-            ", college=" + getCollegeId() +
             "}";
     }
 }

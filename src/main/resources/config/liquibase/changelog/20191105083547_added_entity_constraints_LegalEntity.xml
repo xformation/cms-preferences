@@ -14,23 +14,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="branch"/>
 
-        <addForeignKeyConstraint baseColumnNames="college_id"
-                                 baseTableName="legal_entity"
-                                 constraintName="fk_legal_entity_college_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="college"/>
-
-        <addForeignKeyConstraint baseColumnNames="state_id"
-                                 baseTableName="legal_entity"
-                                 constraintName="fk_legal_entity_state_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="state"/>
-
-        <addForeignKeyConstraint baseColumnNames="city_id"
-                                 baseTableName="legal_entity"
-                                 constraintName="fk_legal_entity_city_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="city"/>
-
     </changeSet>
 </databaseChangeLog>

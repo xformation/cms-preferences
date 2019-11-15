@@ -64,7 +64,7 @@ public class BankAccountRestController {
         
         BankAccounts ba = CommonUtil.createCopyProperties(cmsBankAccountsVo, BankAccounts.class);
         ba.setBranch(b);
-        ba.setCollege(clg);
+//        ba.setCollege(clg);
         
         ba = bankAccountsRepository.save(ba);
         
@@ -85,7 +85,7 @@ public class BankAccountRestController {
         
         BankAccounts ba = CommonUtil.createCopyProperties(cmsBankAccountsVo, BankAccounts.class);
         ba.setBranch(b);
-        ba.setCollege(clg);
+//        ba.setCollege(clg);
         
         ba = bankAccountsRepository.save(ba);
         return ResponseEntity.ok()
@@ -101,7 +101,7 @@ public class BankAccountRestController {
 		for(BankAccounts ba : list) {
 			CmsBankAccountsVo vo = CommonUtil.createCopyProperties(ba, CmsBankAccountsVo.class);
 			vo.setBranchId(ba.getBranch().getId());
-			vo.setCollegeId(ba.getCollege().getId());
+//			vo.setCollegeId(ba.getCollege().getId());
 	        ls.add(vo);
 		}
         return ls;
@@ -115,14 +115,14 @@ public class BankAccountRestController {
 		}
 		College college = this.collegeRepository.findById(id).get();
 		BankAccounts ba = new BankAccounts();
-		ba.setCollege(college);
+//		ba.setCollege(college);
 		Example<BankAccounts> example = Example.of(ba);
 		List<BankAccounts> list = bankAccountsRepository.findAll(example);
 		List<CmsBankAccountsVo> ls = new ArrayList<>();
 		for(BankAccounts bas : list) {
 			CmsBankAccountsVo vo = CommonUtil.createCopyProperties(bas, CmsBankAccountsVo.class);
 			vo.setBranchId(bas.getBranch().getId());
-			vo.setCollegeId(bas.getCollege().getId());
+//			vo.setCollegeId(bas.getCollege().getId());
 	        ls.add(vo);
 		}
         return ls;

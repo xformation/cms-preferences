@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import com.synectiks.pref.domain.Branch;
 import com.synectiks.pref.domain.College;
-import com.synectiks.pref.domain.enumeration.NameOfBank;
 
 /**
  * A Vo for the BankAccounts entity.
@@ -13,7 +12,7 @@ import com.synectiks.pref.domain.enumeration.NameOfBank;
 public class CmsBankAccountsVo implements Serializable {
 
     private Long id;
-    private NameOfBank nameOfBank;
+    private String nameOfBank;
     private String accountNumber;
     private String typeOfAccount;
     private String ifscCode;
@@ -32,11 +31,11 @@ public class CmsBankAccountsVo implements Serializable {
         this.id = id;
     }
 
-    public NameOfBank getNameOfBank() {
+    public String getNameOfBank() {
         return nameOfBank;
     }
 
-    public void setNameOfBank(NameOfBank nameOfBank) {
+    public void setNameOfBank(String nameOfBank) {
         this.nameOfBank = nameOfBank;
     }
 

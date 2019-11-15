@@ -130,6 +130,10 @@ public interface Constants {
 	String STATUS_ACTIVE = "ACTIVE";
 	String STATUS_DEACTIVE = "DEACTIVE";
 	String STATUS_DRAFT = "DRAFT";
-	
+	String PRIVATE = "PRIVATE";
+	String PUBLIC = "PUBLIC";
+	String SEMI_GOVERNMENT = "SEMI-GOVERNMENT";
+	String YES = "YES";
+	String NO = "NO";
 	
 }

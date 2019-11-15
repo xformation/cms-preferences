@@ -2,6 +2,7 @@ package com.synectiks.pref.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
@@ -29,14 +30,17 @@ public class Branch implements Serializable {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "pin_code")
+    private String pinCode;
+
     @Column(name = "branch_head")
     private String branchHead;
 
     @Column(name = "cell_phone_no")
     private String cellPhoneNo;
 
-    @Column(name = "land_line_phono_no")
-    private String landLinePhonoNo;
+    @Column(name = "land_line_phone_no")
+    private String landLinePhoneNo;
 
     @Column(name = "email_id")
     private String emailId;
@@ -44,8 +48,12 @@ public class Branch implements Serializable {
     @Column(name = "fax_no")
     private String faxNo;
 
-    @Column(name = "is_main_branch")
-    private Boolean isMainBranch;
+    @Size(max = 3)
+    @Column(name = "is_main_branch", length = 3)
+    private String isMainBranch;
+
+    @Column(name = "start_date")
+    private LocalDate startDate;
 
     @Column(name = "created_by")
     private String createdBy;
@@ -109,6 +117,19 @@ public class Branch implements Serializable {
         this.address = address;
     }
 
+    public String getPinCode() {
+        return pinCode;
+    }
+
+    public Branch pinCode(String pinCode) {
+        this.pinCode = pinCode;
+        return this;
+    }
+
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
+    }
+
     public String getBranchHead() {
         return branchHead;
     }
@@ -135,17 +156,17 @@ public class Branch implements Serializable {
         this.cellPhoneNo = cellPhoneNo;
     }
 
-    public String getLandLinePhonoNo() {
-        return landLinePhonoNo;
+    public String getLandLinePhoneNo() {
+        return landLinePhoneNo;
     }
 
-    public Branch landLinePhonoNo(String landLinePhonoNo) {
-        this.landLinePhonoNo = landLinePhonoNo;
+    public Branch landLinePhoneNo(String landLinePhoneNo) {
+        this.landLinePhoneNo = landLinePhoneNo;
         return this;
     }
 
-    public void setLandLinePhonoNo(String landLinePhonoNo) {
-        this.landLinePhonoNo = landLinePhonoNo;
+    public void setLandLinePhoneNo(String landLinePhoneNo) {
+        this.landLinePhoneNo = landLinePhoneNo;
     }
 
     public String getEmailId() {
@@ -174,17 +195,30 @@ public class Branch implements Serializable {
         this.faxNo = faxNo;
     }
 
-    public Boolean isIsMainBranch() {
+    public String getIsMainBranch() {
         return isMainBranch;
     }
 
-    public Branch isMainBranch(Boolean isMainBranch) {
+    public Branch isMainBranch(String isMainBranch) {
         this.isMainBranch = isMainBranch;
         return this;
     }
 
-    public void setIsMainBranch(Boolean isMainBranch) {
+    public void setIsMainBranch(String isMainBranch) {
         this.isMainBranch = isMainBranch;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public Branch startDate(LocalDate startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public String getCreatedBy() {
@@ -314,12 +348,14 @@ public class Branch implements Serializable {
             "id=" + getId() +
             ", branchName='" + getBranchName() + "'" +
             ", address='" + getAddress() + "'" +
+            ", pinCode='" + getPinCode() + "'" +
             ", branchHead='" + getBranchHead() + "'" +
             ", cellPhoneNo='" + getCellPhoneNo() + "'" +
-            ", landLinePhonoNo='" + getLandLinePhonoNo() + "'" +
+            ", landLinePhoneNo='" + getLandLinePhoneNo() + "'" +
             ", emailId='" + getEmailId() + "'" +
             ", faxNo='" + getFaxNo() + "'" +
-            ", isMainBranch='" + isIsMainBranch() + "'" +
+            ", isMainBranch='" + getIsMainBranch() + "'" +
+            ", startDate='" + getStartDate() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", createdOn='" + getCreatedOn() + "'" +
             ", updatedBy='" + getUpdatedBy() + "'" +

@@ -36,45 +36,32 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.synectiks.pref.domain.enumeration.TypeOfCollege;
 /**
  * Integration tests for the {@Link LegalEntityResource} REST controller.
  */
 @SpringBootTest(classes = PreferencesApp.class)
 public class LegalEntityResourceIT {
 
-    private static final String DEFAULT_LOGO_PATH = "AAAAAAAAAA";
-    private static final String UPDATED_LOGO_PATH = "BBBBBBBBBB";
+    private static final String DEFAULT_LOGO_FILE_PATH = "AAAAAAAAAA";
+    private static final String UPDATED_LOGO_FILE_PATH = "BBBBBBBBBB";
 
     private static final String DEFAULT_LOGO_FILE_NAME = "AAAAAAAAAA";
     private static final String UPDATED_LOGO_FILE_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_LOGO_FILE = "AAAAAAAAAA";
-    private static final String UPDATED_LOGO_FILE = "BBBBBBBBBB";
+    private static final String DEFAULT_LOGO_FILE_EXTENSION = "AAAAAAAAAA";
+    private static final String UPDATED_LOGO_FILE_EXTENSION = "BBBBBBBBBB";
 
-    private static final String DEFAULT_LEGAL_NAME_OF_THE_COLLEGE = "AAAAAAAAAA";
-    private static final String UPDATED_LEGAL_NAME_OF_THE_COLLEGE = "BBBBBBBBBB";
+    private static final String DEFAULT_LEGAL_NAME_OF_COLLEGE = "AAAAAAAAAA";
+    private static final String UPDATED_LEGAL_NAME_OF_COLLEGE = "BBBBBBBBBB";
 
-    private static final TypeOfCollege DEFAULT_TYPE_OF_COLLEGE = TypeOfCollege.PRIVATE;
-    private static final TypeOfCollege UPDATED_TYPE_OF_COLLEGE = TypeOfCollege.PUBLIC;
+    private static final String DEFAULT_TYPE_OF_COLLEGE = "AAAAAAAAAA";
+    private static final String UPDATED_TYPE_OF_COLLEGE = "BBBBBBBBBB";
 
     private static final LocalDate DEFAULT_DATE_OF_INCORPORATION = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE_OF_INCORPORATION = LocalDate.now(ZoneId.systemDefault());
 
-    private static final String DEFAULT_REGISTERED_OFFICE_ADDRESS_1 = "AAAAAAAAAA";
-    private static final String UPDATED_REGISTERED_OFFICE_ADDRESS_1 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_REGISTERED_OFFICE_ADDRESS_2 = "AAAAAAAAAA";
-    private static final String UPDATED_REGISTERED_OFFICE_ADDRESS_2 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_REGISTERED_OFFICE_ADDRESS_3 = "AAAAAAAAAA";
-    private static final String UPDATED_REGISTERED_OFFICE_ADDRESS_3 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_REGISTERED_OFFICE_ADDRESS_4 = "AAAAAAAAAA";
-    private static final String UPDATED_REGISTERED_OFFICE_ADDRESS_4 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_REGISTERED_OFFICE_ADDRESS_5 = "AAAAAAAAAA";
-    private static final String UPDATED_REGISTERED_OFFICE_ADDRESS_5 = "BBBBBBBBBB";
+    private static final String DEFAULT_REGISTERED_OFFICE_ADDRESS = "AAAAAAAAAA";
+    private static final String UPDATED_REGISTERED_OFFICE_ADDRESS = "BBBBBBBBBB";
 
     private static final String DEFAULT_COLLEGE_IDENTIFICATION_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_COLLEGE_IDENTIFICATION_NUMBER = "BBBBBBBBBB";
@@ -177,17 +164,13 @@ public class LegalEntityResourceIT {
      */
     public static LegalEntity createEntity(EntityManager em) {
         LegalEntity legalEntity = new LegalEntity()
-            .logoPath(DEFAULT_LOGO_PATH)
+            .logoFilePath(DEFAULT_LOGO_FILE_PATH)
             .logoFileName(DEFAULT_LOGO_FILE_NAME)
-            .logoFile(DEFAULT_LOGO_FILE)
-            .legalNameOfTheCollege(DEFAULT_LEGAL_NAME_OF_THE_COLLEGE)
+            .logoFileExtension(DEFAULT_LOGO_FILE_EXTENSION)
+            .legalNameOfCollege(DEFAULT_LEGAL_NAME_OF_COLLEGE)
             .typeOfCollege(DEFAULT_TYPE_OF_COLLEGE)
             .dateOfIncorporation(DEFAULT_DATE_OF_INCORPORATION)
-            .registeredOfficeAddress1(DEFAULT_REGISTERED_OFFICE_ADDRESS_1)
-            .registeredOfficeAddress2(DEFAULT_REGISTERED_OFFICE_ADDRESS_2)
-            .registeredOfficeAddress3(DEFAULT_REGISTERED_OFFICE_ADDRESS_3)
-            .registeredOfficeAddress4(DEFAULT_REGISTERED_OFFICE_ADDRESS_4)
-            .registeredOfficeAddress5(DEFAULT_REGISTERED_OFFICE_ADDRESS_5)
+            .registeredOfficeAddress(DEFAULT_REGISTERED_OFFICE_ADDRESS)
             .collegeIdentificationNumber(DEFAULT_COLLEGE_IDENTIFICATION_NUMBER)
             .pan(DEFAULT_PAN)
             .tan(DEFAULT_TAN)
@@ -213,17 +196,13 @@ public class LegalEntityResourceIT {
      */
     public static LegalEntity createUpdatedEntity(EntityManager em) {
         LegalEntity legalEntity = new LegalEntity()
-            .logoPath(UPDATED_LOGO_PATH)
+            .logoFilePath(UPDATED_LOGO_FILE_PATH)
             .logoFileName(UPDATED_LOGO_FILE_NAME)
-            .logoFile(UPDATED_LOGO_FILE)
-            .legalNameOfTheCollege(UPDATED_LEGAL_NAME_OF_THE_COLLEGE)
+            .logoFileExtension(UPDATED_LOGO_FILE_EXTENSION)
+            .legalNameOfCollege(UPDATED_LEGAL_NAME_OF_COLLEGE)
             .typeOfCollege(UPDATED_TYPE_OF_COLLEGE)
             .dateOfIncorporation(UPDATED_DATE_OF_INCORPORATION)
-            .registeredOfficeAddress1(UPDATED_REGISTERED_OFFICE_ADDRESS_1)
-            .registeredOfficeAddress2(UPDATED_REGISTERED_OFFICE_ADDRESS_2)
-            .registeredOfficeAddress3(UPDATED_REGISTERED_OFFICE_ADDRESS_3)
-            .registeredOfficeAddress4(UPDATED_REGISTERED_OFFICE_ADDRESS_4)
-            .registeredOfficeAddress5(UPDATED_REGISTERED_OFFICE_ADDRESS_5)
+            .registeredOfficeAddress(UPDATED_REGISTERED_OFFICE_ADDRESS)
             .collegeIdentificationNumber(UPDATED_COLLEGE_IDENTIFICATION_NUMBER)
             .pan(UPDATED_PAN)
             .tan(UPDATED_TAN)
@@ -263,17 +242,13 @@ public class LegalEntityResourceIT {
         List<LegalEntity> legalEntityList = legalEntityRepository.findAll();
         assertThat(legalEntityList).hasSize(databaseSizeBeforeCreate + 1);
         LegalEntity testLegalEntity = legalEntityList.get(legalEntityList.size() - 1);
-        assertThat(testLegalEntity.getLogoPath()).isEqualTo(DEFAULT_LOGO_PATH);
+        assertThat(testLegalEntity.getLogoFilePath()).isEqualTo(DEFAULT_LOGO_FILE_PATH);
         assertThat(testLegalEntity.getLogoFileName()).isEqualTo(DEFAULT_LOGO_FILE_NAME);
-        assertThat(testLegalEntity.getLogoFile()).isEqualTo(DEFAULT_LOGO_FILE);
-        assertThat(testLegalEntity.getLegalNameOfTheCollege()).isEqualTo(DEFAULT_LEGAL_NAME_OF_THE_COLLEGE);
+        assertThat(testLegalEntity.getLogoFileExtension()).isEqualTo(DEFAULT_LOGO_FILE_EXTENSION);
+        assertThat(testLegalEntity.getLegalNameOfCollege()).isEqualTo(DEFAULT_LEGAL_NAME_OF_COLLEGE);
         assertThat(testLegalEntity.getTypeOfCollege()).isEqualTo(DEFAULT_TYPE_OF_COLLEGE);
         assertThat(testLegalEntity.getDateOfIncorporation()).isEqualTo(DEFAULT_DATE_OF_INCORPORATION);
-        assertThat(testLegalEntity.getRegisteredOfficeAddress1()).isEqualTo(DEFAULT_REGISTERED_OFFICE_ADDRESS_1);
-        assertThat(testLegalEntity.getRegisteredOfficeAddress2()).isEqualTo(DEFAULT_REGISTERED_OFFICE_ADDRESS_2);
-        assertThat(testLegalEntity.getRegisteredOfficeAddress3()).isEqualTo(DEFAULT_REGISTERED_OFFICE_ADDRESS_3);
-        assertThat(testLegalEntity.getRegisteredOfficeAddress4()).isEqualTo(DEFAULT_REGISTERED_OFFICE_ADDRESS_4);
-        assertThat(testLegalEntity.getRegisteredOfficeAddress5()).isEqualTo(DEFAULT_REGISTERED_OFFICE_ADDRESS_5);
+        assertThat(testLegalEntity.getRegisteredOfficeAddress()).isEqualTo(DEFAULT_REGISTERED_OFFICE_ADDRESS);
         assertThat(testLegalEntity.getCollegeIdentificationNumber()).isEqualTo(DEFAULT_COLLEGE_IDENTIFICATION_NUMBER);
         assertThat(testLegalEntity.getPan()).isEqualTo(DEFAULT_PAN);
         assertThat(testLegalEntity.getTan()).isEqualTo(DEFAULT_TAN);
@@ -329,17 +304,13 @@ public class LegalEntityResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(legalEntity.getId().intValue())))
-            .andExpect(jsonPath("$.[*].logoPath").value(hasItem(DEFAULT_LOGO_PATH.toString())))
+            .andExpect(jsonPath("$.[*].logoFilePath").value(hasItem(DEFAULT_LOGO_FILE_PATH.toString())))
             .andExpect(jsonPath("$.[*].logoFileName").value(hasItem(DEFAULT_LOGO_FILE_NAME.toString())))
-            .andExpect(jsonPath("$.[*].logoFile").value(hasItem(DEFAULT_LOGO_FILE.toString())))
-            .andExpect(jsonPath("$.[*].legalNameOfTheCollege").value(hasItem(DEFAULT_LEGAL_NAME_OF_THE_COLLEGE.toString())))
+            .andExpect(jsonPath("$.[*].logoFileExtension").value(hasItem(DEFAULT_LOGO_FILE_EXTENSION.toString())))
+            .andExpect(jsonPath("$.[*].legalNameOfCollege").value(hasItem(DEFAULT_LEGAL_NAME_OF_COLLEGE.toString())))
             .andExpect(jsonPath("$.[*].typeOfCollege").value(hasItem(DEFAULT_TYPE_OF_COLLEGE.toString())))
             .andExpect(jsonPath("$.[*].dateOfIncorporation").value(hasItem(DEFAULT_DATE_OF_INCORPORATION.toString())))
-            .andExpect(jsonPath("$.[*].registeredOfficeAddress1").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS_1.toString())))
-            .andExpect(jsonPath("$.[*].registeredOfficeAddress2").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS_2.toString())))
-            .andExpect(jsonPath("$.[*].registeredOfficeAddress3").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS_3.toString())))
-            .andExpect(jsonPath("$.[*].registeredOfficeAddress4").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS_4.toString())))
-            .andExpect(jsonPath("$.[*].registeredOfficeAddress5").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS_5.toString())))
+            .andExpect(jsonPath("$.[*].registeredOfficeAddress").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].collegeIdentificationNumber").value(hasItem(DEFAULT_COLLEGE_IDENTIFICATION_NUMBER.toString())))
             .andExpect(jsonPath("$.[*].pan").value(hasItem(DEFAULT_PAN.toString())))
             .andExpect(jsonPath("$.[*].tan").value(hasItem(DEFAULT_TAN.toString())))
@@ -368,17 +339,13 @@ public class LegalEntityResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(legalEntity.getId().intValue()))
-            .andExpect(jsonPath("$.logoPath").value(DEFAULT_LOGO_PATH.toString()))
+            .andExpect(jsonPath("$.logoFilePath").value(DEFAULT_LOGO_FILE_PATH.toString()))
             .andExpect(jsonPath("$.logoFileName").value(DEFAULT_LOGO_FILE_NAME.toString()))
-            .andExpect(jsonPath("$.logoFile").value(DEFAULT_LOGO_FILE.toString()))
-            .andExpect(jsonPath("$.legalNameOfTheCollege").value(DEFAULT_LEGAL_NAME_OF_THE_COLLEGE.toString()))
+            .andExpect(jsonPath("$.logoFileExtension").value(DEFAULT_LOGO_FILE_EXTENSION.toString()))
+            .andExpect(jsonPath("$.legalNameOfCollege").value(DEFAULT_LEGAL_NAME_OF_COLLEGE.toString()))
             .andExpect(jsonPath("$.typeOfCollege").value(DEFAULT_TYPE_OF_COLLEGE.toString()))
             .andExpect(jsonPath("$.dateOfIncorporation").value(DEFAULT_DATE_OF_INCORPORATION.toString()))
-            .andExpect(jsonPath("$.registeredOfficeAddress1").value(DEFAULT_REGISTERED_OFFICE_ADDRESS_1.toString()))
-            .andExpect(jsonPath("$.registeredOfficeAddress2").value(DEFAULT_REGISTERED_OFFICE_ADDRESS_2.toString()))
-            .andExpect(jsonPath("$.registeredOfficeAddress3").value(DEFAULT_REGISTERED_OFFICE_ADDRESS_3.toString()))
-            .andExpect(jsonPath("$.registeredOfficeAddress4").value(DEFAULT_REGISTERED_OFFICE_ADDRESS_4.toString()))
-            .andExpect(jsonPath("$.registeredOfficeAddress5").value(DEFAULT_REGISTERED_OFFICE_ADDRESS_5.toString()))
+            .andExpect(jsonPath("$.registeredOfficeAddress").value(DEFAULT_REGISTERED_OFFICE_ADDRESS.toString()))
             .andExpect(jsonPath("$.collegeIdentificationNumber").value(DEFAULT_COLLEGE_IDENTIFICATION_NUMBER.toString()))
             .andExpect(jsonPath("$.pan").value(DEFAULT_PAN.toString()))
             .andExpect(jsonPath("$.tan").value(DEFAULT_TAN.toString()))
@@ -417,17 +384,13 @@ public class LegalEntityResourceIT {
         // Disconnect from session so that the updates on updatedLegalEntity are not directly saved in db
         em.detach(updatedLegalEntity);
         updatedLegalEntity
-            .logoPath(UPDATED_LOGO_PATH)
+            .logoFilePath(UPDATED_LOGO_FILE_PATH)
             .logoFileName(UPDATED_LOGO_FILE_NAME)
-            .logoFile(UPDATED_LOGO_FILE)
-            .legalNameOfTheCollege(UPDATED_LEGAL_NAME_OF_THE_COLLEGE)
+            .logoFileExtension(UPDATED_LOGO_FILE_EXTENSION)
+            .legalNameOfCollege(UPDATED_LEGAL_NAME_OF_COLLEGE)
             .typeOfCollege(UPDATED_TYPE_OF_COLLEGE)
             .dateOfIncorporation(UPDATED_DATE_OF_INCORPORATION)
-            .registeredOfficeAddress1(UPDATED_REGISTERED_OFFICE_ADDRESS_1)
-            .registeredOfficeAddress2(UPDATED_REGISTERED_OFFICE_ADDRESS_2)
-            .registeredOfficeAddress3(UPDATED_REGISTERED_OFFICE_ADDRESS_3)
-            .registeredOfficeAddress4(UPDATED_REGISTERED_OFFICE_ADDRESS_4)
-            .registeredOfficeAddress5(UPDATED_REGISTERED_OFFICE_ADDRESS_5)
+            .registeredOfficeAddress(UPDATED_REGISTERED_OFFICE_ADDRESS)
             .collegeIdentificationNumber(UPDATED_COLLEGE_IDENTIFICATION_NUMBER)
             .pan(UPDATED_PAN)
             .tan(UPDATED_TAN)
@@ -454,17 +417,13 @@ public class LegalEntityResourceIT {
         List<LegalEntity> legalEntityList = legalEntityRepository.findAll();
         assertThat(legalEntityList).hasSize(databaseSizeBeforeUpdate);
         LegalEntity testLegalEntity = legalEntityList.get(legalEntityList.size() - 1);
-        assertThat(testLegalEntity.getLogoPath()).isEqualTo(UPDATED_LOGO_PATH);
+        assertThat(testLegalEntity.getLogoFilePath()).isEqualTo(UPDATED_LOGO_FILE_PATH);
         assertThat(testLegalEntity.getLogoFileName()).isEqualTo(UPDATED_LOGO_FILE_NAME);
-        assertThat(testLegalEntity.getLogoFile()).isEqualTo(UPDATED_LOGO_FILE);
-        assertThat(testLegalEntity.getLegalNameOfTheCollege()).isEqualTo(UPDATED_LEGAL_NAME_OF_THE_COLLEGE);
+        assertThat(testLegalEntity.getLogoFileExtension()).isEqualTo(UPDATED_LOGO_FILE_EXTENSION);
+        assertThat(testLegalEntity.getLegalNameOfCollege()).isEqualTo(UPDATED_LEGAL_NAME_OF_COLLEGE);
         assertThat(testLegalEntity.getTypeOfCollege()).isEqualTo(UPDATED_TYPE_OF_COLLEGE);
         assertThat(testLegalEntity.getDateOfIncorporation()).isEqualTo(UPDATED_DATE_OF_INCORPORATION);
-        assertThat(testLegalEntity.getRegisteredOfficeAddress1()).isEqualTo(UPDATED_REGISTERED_OFFICE_ADDRESS_1);
-        assertThat(testLegalEntity.getRegisteredOfficeAddress2()).isEqualTo(UPDATED_REGISTERED_OFFICE_ADDRESS_2);
-        assertThat(testLegalEntity.getRegisteredOfficeAddress3()).isEqualTo(UPDATED_REGISTERED_OFFICE_ADDRESS_3);
-        assertThat(testLegalEntity.getRegisteredOfficeAddress4()).isEqualTo(UPDATED_REGISTERED_OFFICE_ADDRESS_4);
-        assertThat(testLegalEntity.getRegisteredOfficeAddress5()).isEqualTo(UPDATED_REGISTERED_OFFICE_ADDRESS_5);
+        assertThat(testLegalEntity.getRegisteredOfficeAddress()).isEqualTo(UPDATED_REGISTERED_OFFICE_ADDRESS);
         assertThat(testLegalEntity.getCollegeIdentificationNumber()).isEqualTo(UPDATED_COLLEGE_IDENTIFICATION_NUMBER);
         assertThat(testLegalEntity.getPan()).isEqualTo(UPDATED_PAN);
         assertThat(testLegalEntity.getTan()).isEqualTo(UPDATED_TAN);
@@ -540,17 +499,13 @@ public class LegalEntityResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(legalEntity.getId().intValue())))
-            .andExpect(jsonPath("$.[*].logoPath").value(hasItem(DEFAULT_LOGO_PATH)))
+            .andExpect(jsonPath("$.[*].logoFilePath").value(hasItem(DEFAULT_LOGO_FILE_PATH)))
             .andExpect(jsonPath("$.[*].logoFileName").value(hasItem(DEFAULT_LOGO_FILE_NAME)))
-            .andExpect(jsonPath("$.[*].logoFile").value(hasItem(DEFAULT_LOGO_FILE)))
-            .andExpect(jsonPath("$.[*].legalNameOfTheCollege").value(hasItem(DEFAULT_LEGAL_NAME_OF_THE_COLLEGE)))
-            .andExpect(jsonPath("$.[*].typeOfCollege").value(hasItem(DEFAULT_TYPE_OF_COLLEGE.toString())))
+            .andExpect(jsonPath("$.[*].logoFileExtension").value(hasItem(DEFAULT_LOGO_FILE_EXTENSION)))
+            .andExpect(jsonPath("$.[*].legalNameOfCollege").value(hasItem(DEFAULT_LEGAL_NAME_OF_COLLEGE)))
+            .andExpect(jsonPath("$.[*].typeOfCollege").value(hasItem(DEFAULT_TYPE_OF_COLLEGE)))
             .andExpect(jsonPath("$.[*].dateOfIncorporation").value(hasItem(DEFAULT_DATE_OF_INCORPORATION.toString())))
-            .andExpect(jsonPath("$.[*].registeredOfficeAddress1").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS_1)))
-            .andExpect(jsonPath("$.[*].registeredOfficeAddress2").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS_2)))
-            .andExpect(jsonPath("$.[*].registeredOfficeAddress3").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS_3)))
-            .andExpect(jsonPath("$.[*].registeredOfficeAddress4").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS_4)))
-            .andExpect(jsonPath("$.[*].registeredOfficeAddress5").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS_5)))
+            .andExpect(jsonPath("$.[*].registeredOfficeAddress").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS)))
             .andExpect(jsonPath("$.[*].collegeIdentificationNumber").value(hasItem(DEFAULT_COLLEGE_IDENTIFICATION_NUMBER)))
             .andExpect(jsonPath("$.[*].pan").value(hasItem(DEFAULT_PAN)))
             .andExpect(jsonPath("$.[*].tan").value(hasItem(DEFAULT_TAN)))

@@ -48,8 +48,8 @@ public class ExceptionRecordResourceIT {
     private static final String DEFAULT_EXCEPTION_TYPE = "AAAAAAAAAA";
     private static final String UPDATED_EXCEPTION_TYPE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_EXCEPTION_RECORD = "AAAAAAAAAA";
-    private static final String UPDATED_EXCEPTION_RECORD = "BBBBBBBBBB";
+    private static final String DEFAULT_EXCEPTION = "AAAAAAAAAA";
+    private static final String UPDATED_EXCEPTION = "BBBBBBBBBB";
 
     private static final LocalDate DEFAULT_EXCEPTION_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_EXCEPTION_DATE = LocalDate.now(ZoneId.systemDefault());
@@ -115,7 +115,7 @@ public class ExceptionRecordResourceIT {
         ExceptionRecord exceptionRecord = new ExceptionRecord()
             .exceptionSource(DEFAULT_EXCEPTION_SOURCE)
             .exceptionType(DEFAULT_EXCEPTION_TYPE)
-            .exceptionRecord(DEFAULT_EXCEPTION_RECORD)
+            .exception(DEFAULT_EXCEPTION)
             .exceptionDate(DEFAULT_EXCEPTION_DATE)
             .user(DEFAULT_USER);
         return exceptionRecord;
@@ -130,7 +130,7 @@ public class ExceptionRecordResourceIT {
         ExceptionRecord exceptionRecord = new ExceptionRecord()
             .exceptionSource(UPDATED_EXCEPTION_SOURCE)
             .exceptionType(UPDATED_EXCEPTION_TYPE)
-            .exceptionRecord(UPDATED_EXCEPTION_RECORD)
+            .exception(UPDATED_EXCEPTION)
             .exceptionDate(UPDATED_EXCEPTION_DATE)
             .user(UPDATED_USER);
         return exceptionRecord;
@@ -159,7 +159,7 @@ public class ExceptionRecordResourceIT {
         ExceptionRecord testExceptionRecord = exceptionRecordList.get(exceptionRecordList.size() - 1);
         assertThat(testExceptionRecord.getExceptionSource()).isEqualTo(DEFAULT_EXCEPTION_SOURCE);
         assertThat(testExceptionRecord.getExceptionType()).isEqualTo(DEFAULT_EXCEPTION_TYPE);
-        assertThat(testExceptionRecord.getExceptionRecord()).isEqualTo(DEFAULT_EXCEPTION_RECORD);
+        assertThat(testExceptionRecord.getException()).isEqualTo(DEFAULT_EXCEPTION);
         assertThat(testExceptionRecord.getExceptionDate()).isEqualTo(DEFAULT_EXCEPTION_DATE);
         assertThat(testExceptionRecord.getUser()).isEqualTo(DEFAULT_USER);
 
@@ -204,7 +204,7 @@ public class ExceptionRecordResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(exceptionRecord.getId().intValue())))
             .andExpect(jsonPath("$.[*].exceptionSource").value(hasItem(DEFAULT_EXCEPTION_SOURCE.toString())))
             .andExpect(jsonPath("$.[*].exceptionType").value(hasItem(DEFAULT_EXCEPTION_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].exceptionRecord").value(hasItem(DEFAULT_EXCEPTION_RECORD.toString())))
+            .andExpect(jsonPath("$.[*].exception").value(hasItem(DEFAULT_EXCEPTION.toString())))
             .andExpect(jsonPath("$.[*].exceptionDate").value(hasItem(DEFAULT_EXCEPTION_DATE.toString())))
             .andExpect(jsonPath("$.[*].user").value(hasItem(DEFAULT_USER.toString())));
     }
@@ -222,7 +222,7 @@ public class ExceptionRecordResourceIT {
             .andExpect(jsonPath("$.id").value(exceptionRecord.getId().intValue()))
             .andExpect(jsonPath("$.exceptionSource").value(DEFAULT_EXCEPTION_SOURCE.toString()))
             .andExpect(jsonPath("$.exceptionType").value(DEFAULT_EXCEPTION_TYPE.toString()))
-            .andExpect(jsonPath("$.exceptionRecord").value(DEFAULT_EXCEPTION_RECORD.toString()))
+            .andExpect(jsonPath("$.exception").value(DEFAULT_EXCEPTION.toString()))
             .andExpect(jsonPath("$.exceptionDate").value(DEFAULT_EXCEPTION_DATE.toString()))
             .andExpect(jsonPath("$.user").value(DEFAULT_USER.toString()));
     }
@@ -250,7 +250,7 @@ public class ExceptionRecordResourceIT {
         updatedExceptionRecord
             .exceptionSource(UPDATED_EXCEPTION_SOURCE)
             .exceptionType(UPDATED_EXCEPTION_TYPE)
-            .exceptionRecord(UPDATED_EXCEPTION_RECORD)
+            .exception(UPDATED_EXCEPTION)
             .exceptionDate(UPDATED_EXCEPTION_DATE)
             .user(UPDATED_USER);
         ExceptionRecordDTO exceptionRecordDTO = exceptionRecordMapper.toDto(updatedExceptionRecord);
@@ -266,7 +266,7 @@ public class ExceptionRecordResourceIT {
         ExceptionRecord testExceptionRecord = exceptionRecordList.get(exceptionRecordList.size() - 1);
         assertThat(testExceptionRecord.getExceptionSource()).isEqualTo(UPDATED_EXCEPTION_SOURCE);
         assertThat(testExceptionRecord.getExceptionType()).isEqualTo(UPDATED_EXCEPTION_TYPE);
-        assertThat(testExceptionRecord.getExceptionRecord()).isEqualTo(UPDATED_EXCEPTION_RECORD);
+        assertThat(testExceptionRecord.getException()).isEqualTo(UPDATED_EXCEPTION);
         assertThat(testExceptionRecord.getExceptionDate()).isEqualTo(UPDATED_EXCEPTION_DATE);
         assertThat(testExceptionRecord.getUser()).isEqualTo(UPDATED_USER);
 
@@ -331,7 +331,7 @@ public class ExceptionRecordResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(exceptionRecord.getId().intValue())))
             .andExpect(jsonPath("$.[*].exceptionSource").value(hasItem(DEFAULT_EXCEPTION_SOURCE)))
             .andExpect(jsonPath("$.[*].exceptionType").value(hasItem(DEFAULT_EXCEPTION_TYPE)))
-            .andExpect(jsonPath("$.[*].exceptionRecord").value(hasItem(DEFAULT_EXCEPTION_RECORD)))
+            .andExpect(jsonPath("$.[*].exception").value(hasItem(DEFAULT_EXCEPTION)))
             .andExpect(jsonPath("$.[*].exceptionDate").value(hasItem(DEFAULT_EXCEPTION_DATE.toString())))
             .andExpect(jsonPath("$.[*].user").value(hasItem(DEFAULT_USER)));
     }

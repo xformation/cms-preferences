@@ -541,7 +541,7 @@ public class AcademicSubjectService {
 		ExceptionRecord obj = new ExceptionRecord(); 
 		obj.setExceptionSource("AcademicSubjectService");
 		obj.setExceptionType("DataNotFoundException : ");
-		obj.setExceptionRecord("Section :"+se.toString()+" for batch : "+batch.getBatch().toString()+" not found");
+		obj.setException("Section :"+se.toString()+" for batch : "+batch.getBatch().toString()+" not found");
 		obj.setExceptionDate(LocalDate.now());
 		return obj;
 	}

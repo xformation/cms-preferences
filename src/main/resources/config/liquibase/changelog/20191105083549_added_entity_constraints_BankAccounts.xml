@@ -14,11 +14,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="branch"/>
 
-        <addForeignKeyConstraint baseColumnNames="college_id"
-                                 baseTableName="bank_accounts"
-                                 constraintName="fk_bank_accounts_college_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="college"/>
-
     </changeSet>
 </databaseChangeLog>

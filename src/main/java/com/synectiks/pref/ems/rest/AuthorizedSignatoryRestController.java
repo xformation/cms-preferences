@@ -64,7 +64,7 @@ public class AuthorizedSignatoryRestController {
         
         AuthorizedSignatory as = CommonUtil.createCopyProperties(cmsAuthorizedSignatoryVo, AuthorizedSignatory.class);
         as.setBranch(b);
-        as.setCollege(clg);
+//        as.setCollege(clg);
         
         as = authorizedSignatoryRepository.save(as);
         
@@ -85,7 +85,7 @@ public class AuthorizedSignatoryRestController {
         
         AuthorizedSignatory as = CommonUtil.createCopyProperties(cmsAuthorizedSignatoryVo, AuthorizedSignatory.class);
         as.setBranch(b);
-        as.setCollege(clg);
+//        as.setCollege(clg);
         
         as = authorizedSignatoryRepository.save(as);
         return ResponseEntity.ok()
@@ -101,7 +101,7 @@ public class AuthorizedSignatoryRestController {
 		for(AuthorizedSignatory as : list) {
 			CmsAuthorizedSignatoryVo vo = CommonUtil.createCopyProperties(as, CmsAuthorizedSignatoryVo.class);
 			vo.setBranchId(as.getBranch().getId());
-			vo.setCollegeId(as.getCollege().getId());
+//			vo.setCollegeId(as.getCollege().getId());
 	        ls.add(vo);
 		}
         return ls;
@@ -115,14 +115,14 @@ public class AuthorizedSignatoryRestController {
 		}
 		College college = this.collegeRepository.findById(id).get();
 		AuthorizedSignatory as = new AuthorizedSignatory();
-		as.setCollege(college);
+//		as.setCollege(college);
 		Example<AuthorizedSignatory> example = Example.of(as);
 		List<AuthorizedSignatory> list = authorizedSignatoryRepository.findAll(example);
 		List<CmsAuthorizedSignatoryVo> ls = new ArrayList<>();
 		for(AuthorizedSignatory aus : list) {
 			CmsAuthorizedSignatoryVo vo = CommonUtil.createCopyProperties(aus, CmsAuthorizedSignatoryVo.class);
 			vo.setBranchId(aus.getBranch().getId());
-			vo.setCollegeId(aus.getCollege().getId());
+//			vo.setCollegeId(aus.getCollege().getId());
 	        ls.add(vo);
 		}
         return ls;

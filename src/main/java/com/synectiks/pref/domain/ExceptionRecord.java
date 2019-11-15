@@ -1,6 +1,7 @@
 package com.synectiks.pref.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
@@ -28,8 +29,9 @@ public class ExceptionRecord implements Serializable {
     @Column(name = "exception_type")
     private String exceptionType;
 
-    @Column(name = "exception_record")
-    private String exceptionRecord;
+    @Size(max = 5000)
+    @Column(name = "exception", length = 5000)
+    private String exception;
 
     @Column(name = "exception_date")
     private LocalDate exceptionDate;
@@ -72,17 +74,17 @@ public class ExceptionRecord implements Serializable {
         this.exceptionType = exceptionType;
     }
 
-    public String getExceptionRecord() {
-        return exceptionRecord;
+    public String getException() {
+        return exception;
     }
 
-    public ExceptionRecord exceptionRecord(String exceptionRecord) {
-        this.exceptionRecord = exceptionRecord;
+    public ExceptionRecord exception(String exception) {
+        this.exception = exception;
         return this;
     }
 
-    public void setExceptionRecord(String exceptionRecord) {
-        this.exceptionRecord = exceptionRecord;
+    public void setException(String exception) {
+        this.exception = exception;
     }
 
     public LocalDate getExceptionDate() {
@@ -134,7 +136,7 @@ public class ExceptionRecord implements Serializable {
             "id=" + getId() +
             ", exceptionSource='" + getExceptionSource() + "'" +
             ", exceptionType='" + getExceptionType() + "'" +
-            ", exceptionRecord='" + getExceptionRecord() + "'" +
+            ", exception='" + getException() + "'" +
             ", exceptionDate='" + getExceptionDate() + "'" +
             ", user='" + getUser() + "'" +
             "}";
