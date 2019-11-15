@@ -1,11 +1,14 @@
 package com.synectiks.pref.business.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.synectiks.pref.base64.file.Base64FileProcessor;
 import com.synectiks.pref.config.ApplicationProperties;
@@ -32,10 +35,15 @@ public class CmsCollegeService {
 	@Autowired
 	private ApplicationProperties applicationProperties;
 	
+	@Autowired
+	private CmsBranchService cmsBranchService;
+	
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
     public CmsCollegeVo addCollege(CmsCollegeVo cmsCollegeVo) {
     	CmsCollegeVo vo = null;
     	if(isCollegeExists()) {
     		vo = new CmsCollegeVo();
+    		vo.setErrorCode(1L);
     		vo.setErrorDescription(Constants.ERROR_COLLEGE_ALREADY_EXISTS);
     		logger.error(Constants.VALIDATION_FAILURE + Constants.ERROR_COLLEGE_ALREADY_EXISTS);
     		return vo;
@@ -44,7 +52,8 @@ public class CmsCollegeService {
     	logger.info("Saving college");
     	try {
     		saveCollegeLogo(vo);
-    		saveCollege(vo);
+    		College college = saveCollege(vo);
+    		saveCollegeAsMainBranch(vo, college);
         }catch(Exception e) {
         	vo.setErrorDescription("Due to some exception, college data could not be saved");
     		logger.error("College save failed. Exception : ",e);
@@ -54,6 +63,7 @@ public class CmsCollegeService {
     	return vo;
     }
     
+	@Transactional(propagation=Propagation.REQUIRED)
     public void saveCollegeLogo(CmsCollegeVo vo) throws FilePathNotFoundException, FileNameNotFoundException {
     	if(!CommonUtil.isNullOrEmpty(vo.getLogoFile())) {
     		logger.debug("Saving college logo. File path : "+applicationProperties.getImagePath());
@@ -67,8 +77,9 @@ public class CmsCollegeService {
 		}
     }
     
-    public void saveCollege(CmsCollegeVo vo) {
-    	logger.debug("Saving college in database");
+	@Transactional(propagation=Propagation.REQUIRED)
+    public College saveCollege(CmsCollegeVo vo) {
+    	logger.debug("Saving college");
     	College college = CommonUtil.createCopyProperties(vo, College.class);
     	college.setCreatedOn(LocalDate.now());
     	college.setStatus(Constants.STATUS_ACTIVE);
@@ -77,14 +88,22 @@ public class CmsCollegeService {
     	vo.setStrUpdatedOn(college.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(college.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
     	vo.setCreatedOn(null);
     	vo.setUpdatedOn(null);
-    	logger.debug("College saved successfully in database");
+    	logger.debug("College saved successfully");
+    	return college;
+    }
+    
+	@Transactional(propagation=Propagation.REQUIRED)
+    public void saveCollegeAsMainBranch(CmsCollegeVo vo, College college) {
+    	logger.debug("Saving college as main branch in branch table");
+    	this.cmsBranchService.saveCollegeAsMainBranch(vo, college);
+    	logger.debug("College made main branch successfully");
     }
     
     private boolean isCollegeExists() {
-    	Long totalColleges = this.collegeRepository.count();
-    	if(totalColleges > 1) {
-    		return true;
-    	}
-    	return false;
+    	List<College> existingCollegeList = collegeRepository.findAll();
+		if(existingCollegeList.size() >= 1) {
+			return true;
+		}
+		return false;
     }
 }
