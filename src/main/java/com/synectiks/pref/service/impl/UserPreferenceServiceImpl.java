@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.UserPreferenceService;
-import com.synectiks.pref.domain.UserPreference;
-import com.synectiks.pref.repository.UserPreferenceRepository;
-import com.synectiks.pref.repository.search.UserPreferenceSearchRepository;
-import com.synectiks.pref.service.dto.UserPreferenceDTO;
-import com.synectiks.pref.service.mapper.UserPreferenceMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.UserPreference;
+import com.synectiks.pref.repository.UserPreferenceRepository;
+import com.synectiks.pref.repository.search.UserPreferenceSearchRepository;
+import com.synectiks.pref.service.UserPreferenceService;
+import com.synectiks.pref.service.dto.UserPreferenceDTO;
+import com.synectiks.pref.service.mapper.UserPreferenceMapper;
 
 /**
  * Service Implementation for managing {@link UserPreference}.
@@ -33,12 +30,12 @@ public class UserPreferenceServiceImpl implements UserPreferenceService {
 
     private final UserPreferenceMapper userPreferenceMapper;
 
-    private final UserPreferenceSearchRepository userPreferenceSearchRepository;
+//    private final UserPreferenceSearchRepository userPreferenceSearchRepository;
 
     public UserPreferenceServiceImpl(UserPreferenceRepository userPreferenceRepository, UserPreferenceMapper userPreferenceMapper, UserPreferenceSearchRepository userPreferenceSearchRepository) {
         this.userPreferenceRepository = userPreferenceRepository;
         this.userPreferenceMapper = userPreferenceMapper;
-        this.userPreferenceSearchRepository = userPreferenceSearchRepository;
+//        this.userPreferenceSearchRepository = userPreferenceSearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class UserPreferenceServiceImpl implements UserPreferenceService {
         UserPreference userPreference = userPreferenceMapper.toEntity(userPreferenceDTO);
         userPreference = userPreferenceRepository.save(userPreference);
         UserPreferenceDTO result = userPreferenceMapper.toDto(userPreference);
-        userPreferenceSearchRepository.save(userPreference);
+//        userPreferenceSearchRepository.save(userPreference);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class UserPreferenceServiceImpl implements UserPreferenceService {
     public void delete(Long id) {
         log.debug("Request to delete UserPreference : {}", id);
         userPreferenceRepository.deleteById(id);
-        userPreferenceSearchRepository.deleteById(id);
+//        userPreferenceSearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class UserPreferenceServiceImpl implements UserPreferenceService {
     @Transactional(readOnly = true)
     public List<UserPreferenceDTO> search(String query) {
         log.debug("Request to search UserPreferences for query {}", query);
-        return StreamSupport
-            .stream(userPreferenceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(userPreferenceMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

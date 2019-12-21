@@ -1,46 +1,41 @@
 package com.synectiks.pref;
 
+import java.net.InetAddress;
+import java.util.Arrays;
+import java.util.Collection;
+
+import javax.annotation.PostConstruct;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
+
 import com.synectiks.pref.config.ApplicationProperties;
 import com.synectiks.pref.config.DefaultProfileUtil;
 
 import io.github.jhipster.config.JHipsterConstants;
 
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.core.env.Environment;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.Collection;
-
 @SpringBootApplication
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
-public class PreferencesApp implements InitializingBean {
+public class PreferencesApp  {
 
     private static final Logger log = LoggerFactory.getLogger(PreferencesApp.class);
 
+    private static ConfigurableApplicationContext ctx = null;
+    
     private final Environment env;
 
     public PreferencesApp(Environment env) {
         this.env = env;
     }
 
-    /**
-     * Initializes preferences.
-     * <p>
-     * Spring profiles can be configured with a program argument --spring.profiles.active=your-active-profile
-     * <p>
-     * You can find more information on how profiles work with JHipster on <a href="https://www.jhipster.tech/profiles/">https://www.jhipster.tech/profiles/</a>.
-     */
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    @PostConstruct
+    public void initApplication() {
         Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
         if (activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_PRODUCTION)) {
             log.error("You have misconfigured your application! It should not run " +
@@ -60,39 +55,36 @@ public class PreferencesApp implements InitializingBean {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(PreferencesApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
-        Environment env = app.run(args).getEnvironment();
-        logApplicationStartup(env);
-    }
+        ctx  = app.run(args);
+        Environment env = ctx.getEnvironment();
 
-    private static void logApplicationStartup(Environment env) {
         String protocol = "http";
         if (env.getProperty("server.ssl.key-store") != null) {
             protocol = "https";
         }
-        String serverPort = env.getProperty("server.port");
-        String contextPath = env.getProperty("server.servlet.context-path");
-        if (StringUtils.isBlank(contextPath)) {
-            contextPath = "/";
-        }
         String hostAddress = "localhost";
         try {
             hostAddress = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
+        } catch (Exception e) {
             log.warn("The host name could not be determined, using `localhost` as fallback");
         }
         log.info("\n----------------------------------------------------------\n\t" +
                 "Application '{}' is running! Access URLs:\n\t" +
-                "Local: \t\t{}://localhost:{}{}\n\t" +
-                "External: \t{}://{}:{}{}\n\t" +
+                "Local: \t\t{}://localhost:{}\n\t" +
+                "External: \t{}://{}:{}\n\t" +
                 "Profile(s): \t{}\n----------------------------------------------------------",
             env.getProperty("spring.application.name"),
             protocol,
-            serverPort,
-            contextPath,
+            env.getProperty("server.port"),
             protocol,
             hostAddress,
-            serverPort,
-            contextPath,
+            env.getProperty("server.port"),
             env.getActiveProfiles());
+        
+//        new CmsWebSocketServer(5000).start();
     }
+
+    public static <T> T getBean(Class<T> cls) {
+		return ctx.getBean(cls);
+	}
 }

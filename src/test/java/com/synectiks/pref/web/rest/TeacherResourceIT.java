@@ -1,13 +1,23 @@
 package com.synectiks.pref.web.rest;
 
-import com.synectiks.pref.PreferencesApp;
-import com.synectiks.pref.domain.Teacher;
-import com.synectiks.pref.repository.TeacherRepository;
-import com.synectiks.pref.repository.search.TeacherSearchRepository;
-import com.synectiks.pref.service.TeacherService;
-import com.synectiks.pref.service.dto.TeacherDTO;
-import com.synectiks.pref.service.mapper.TeacherMapper;
-import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
+import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,27 +32,21 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Collections;
-import java.util.List;
-
-import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import com.synectiks.pref.domain.enumeration.Religion;
+import com.synectiks.pref.PreferencesApp;
+import com.synectiks.pref.domain.Teacher;
+import com.synectiks.pref.domain.enumeration.Bloodgroup;
 import com.synectiks.pref.domain.enumeration.Caste;
 import com.synectiks.pref.domain.enumeration.Gender;
-import com.synectiks.pref.domain.enumeration.Bloodgroup;
 import com.synectiks.pref.domain.enumeration.RelationWithStudentEnum;
-import com.synectiks.pref.domain.enumeration.Status;
+import com.synectiks.pref.domain.enumeration.Religion;
 import com.synectiks.pref.domain.enumeration.StaffType;
+import com.synectiks.pref.domain.enumeration.Status;
+import com.synectiks.pref.repository.TeacherRepository;
+import com.synectiks.pref.repository.search.TeacherSearchRepository;
+import com.synectiks.pref.service.TeacherService;
+import com.synectiks.pref.service.dto.TeacherDTO;
+import com.synectiks.pref.service.mapper.TeacherMapper;
+import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link TeacherResource} REST controller.
  */
@@ -704,62 +708,62 @@ public class TeacherResourceIT {
         verify(mockTeacherSearchRepository, times(1)).deleteById(teacher.getId());
     }
 
-    @Test
-    @Transactional
-    public void searchTeacher() throws Exception {
-        // Initialize the database
-        teacherRepository.saveAndFlush(teacher);
-        when(mockTeacherSearchRepository.search(queryStringQuery("id:" + teacher.getId())))
-            .thenReturn(Collections.singletonList(teacher));
-        // Search the teacher
-        restTeacherMockMvc.perform(get("/api/_search/teachers?query=id:" + teacher.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(teacher.getId().intValue())))
-            .andExpect(jsonPath("$.[*].teacherName").value(hasItem(DEFAULT_TEACHER_NAME)))
-            .andExpect(jsonPath("$.[*].teacherMiddleName").value(hasItem(DEFAULT_TEACHER_MIDDLE_NAME)))
-            .andExpect(jsonPath("$.[*].teacherLastName").value(hasItem(DEFAULT_TEACHER_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].fatherName").value(hasItem(DEFAULT_FATHER_NAME)))
-            .andExpect(jsonPath("$.[*].fatherMiddleName").value(hasItem(DEFAULT_FATHER_MIDDLE_NAME)))
-            .andExpect(jsonPath("$.[*].fatherLastName").value(hasItem(DEFAULT_FATHER_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].spouseName").value(hasItem(DEFAULT_SPOUSE_NAME)))
-            .andExpect(jsonPath("$.[*].spouseMiddleName").value(hasItem(DEFAULT_SPOUSE_MIDDLE_NAME)))
-            .andExpect(jsonPath("$.[*].spouseLastName").value(hasItem(DEFAULT_SPOUSE_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].motherName").value(hasItem(DEFAULT_MOTHER_NAME)))
-            .andExpect(jsonPath("$.[*].motherMiddleName").value(hasItem(DEFAULT_MOTHER_MIDDLE_NAME)))
-            .andExpect(jsonPath("$.[*].motherLastName").value(hasItem(DEFAULT_MOTHER_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].aadharNo").value(hasItem(DEFAULT_AADHAR_NO.intValue())))
-            .andExpect(jsonPath("$.[*].dateOfBirth").value(hasItem(DEFAULT_DATE_OF_BIRTH.toString())))
-            .andExpect(jsonPath("$.[*].placeOfBirth").value(hasItem(DEFAULT_PLACE_OF_BIRTH)))
-            .andExpect(jsonPath("$.[*].religion").value(hasItem(DEFAULT_RELIGION.toString())))
-            .andExpect(jsonPath("$.[*].caste").value(hasItem(DEFAULT_CASTE.toString())))
-            .andExpect(jsonPath("$.[*].subCaste").value(hasItem(DEFAULT_SUB_CASTE)))
-            .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)))
-            .andExpect(jsonPath("$.[*].sex").value(hasItem(DEFAULT_SEX.toString())))
-            .andExpect(jsonPath("$.[*].bloodGroup").value(hasItem(DEFAULT_BLOOD_GROUP.toString())))
-            .andExpect(jsonPath("$.[*].addressLineOne").value(hasItem(DEFAULT_ADDRESS_LINE_ONE)))
-            .andExpect(jsonPath("$.[*].addressLineTwo").value(hasItem(DEFAULT_ADDRESS_LINE_TWO)))
-            .andExpect(jsonPath("$.[*].addressLineThree").value(hasItem(DEFAULT_ADDRESS_LINE_THREE)))
-            .andExpect(jsonPath("$.[*].town").value(hasItem(DEFAULT_TOWN)))
-            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE)))
-            .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY)))
-            .andExpect(jsonPath("$.[*].pincode").value(hasItem(DEFAULT_PINCODE.intValue())))
-            .andExpect(jsonPath("$.[*].teacherContactNumber").value(hasItem(DEFAULT_TEACHER_CONTACT_NUMBER)))
-            .andExpect(jsonPath("$.[*].alternateContactNumber").value(hasItem(DEFAULT_ALTERNATE_CONTACT_NUMBER)))
-            .andExpect(jsonPath("$.[*].teacherEmailAddress").value(hasItem(DEFAULT_TEACHER_EMAIL_ADDRESS)))
-            .andExpect(jsonPath("$.[*].alternateEmailAddress").value(hasItem(DEFAULT_ALTERNATE_EMAIL_ADDRESS)))
-            .andExpect(jsonPath("$.[*].relationWithStaff").value(hasItem(DEFAULT_RELATION_WITH_STAFF.toString())))
-            .andExpect(jsonPath("$.[*].emergencyContactName").value(hasItem(DEFAULT_EMERGENCY_CONTACT_NAME)))
-            .andExpect(jsonPath("$.[*].emergencyContactMiddleName").value(hasItem(DEFAULT_EMERGENCY_CONTACT_MIDDLE_NAME)))
-            .andExpect(jsonPath("$.[*].emergencyContactLastName").value(hasItem(DEFAULT_EMERGENCY_CONTACT_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].emergencyContactNo").value(hasItem(DEFAULT_EMERGENCY_CONTACT_NO)))
-            .andExpect(jsonPath("$.[*].emergencyContactEmailAddress").value(hasItem(DEFAULT_EMERGENCY_CONTACT_EMAIL_ADDRESS)))
-            .andExpect(jsonPath("$.[*].uploadPhoto").value(hasItem(DEFAULT_UPLOAD_PHOTO)))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].employeeId").value(hasItem(DEFAULT_EMPLOYEE_ID.intValue())))
-            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
-            .andExpect(jsonPath("$.[*].staffType").value(hasItem(DEFAULT_STAFF_TYPE.toString())));
-    }
+//    @Test
+//    @Transactional
+//    public void searchTeacher() throws Exception {
+//        // Initialize the database
+//        teacherRepository.saveAndFlush(teacher);
+//        when(mockTeacherSearchRepository.search(queryStringQuery("id:" + teacher.getId())))
+//            .thenReturn(Collections.singletonList(teacher));
+//        // Search the teacher
+//        restTeacherMockMvc.perform(get("/api/_search/teachers?query=id:" + teacher.getId()))
+//            .andExpect(status().isOk())
+//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//            .andExpect(jsonPath("$.[*].id").value(hasItem(teacher.getId().intValue())))
+//            .andExpect(jsonPath("$.[*].teacherName").value(hasItem(DEFAULT_TEACHER_NAME)))
+//            .andExpect(jsonPath("$.[*].teacherMiddleName").value(hasItem(DEFAULT_TEACHER_MIDDLE_NAME)))
+//            .andExpect(jsonPath("$.[*].teacherLastName").value(hasItem(DEFAULT_TEACHER_LAST_NAME)))
+//            .andExpect(jsonPath("$.[*].fatherName").value(hasItem(DEFAULT_FATHER_NAME)))
+//            .andExpect(jsonPath("$.[*].fatherMiddleName").value(hasItem(DEFAULT_FATHER_MIDDLE_NAME)))
+//            .andExpect(jsonPath("$.[*].fatherLastName").value(hasItem(DEFAULT_FATHER_LAST_NAME)))
+//            .andExpect(jsonPath("$.[*].spouseName").value(hasItem(DEFAULT_SPOUSE_NAME)))
+//            .andExpect(jsonPath("$.[*].spouseMiddleName").value(hasItem(DEFAULT_SPOUSE_MIDDLE_NAME)))
+//            .andExpect(jsonPath("$.[*].spouseLastName").value(hasItem(DEFAULT_SPOUSE_LAST_NAME)))
+//            .andExpect(jsonPath("$.[*].motherName").value(hasItem(DEFAULT_MOTHER_NAME)))
+//            .andExpect(jsonPath("$.[*].motherMiddleName").value(hasItem(DEFAULT_MOTHER_MIDDLE_NAME)))
+//            .andExpect(jsonPath("$.[*].motherLastName").value(hasItem(DEFAULT_MOTHER_LAST_NAME)))
+//            .andExpect(jsonPath("$.[*].aadharNo").value(hasItem(DEFAULT_AADHAR_NO.intValue())))
+//            .andExpect(jsonPath("$.[*].dateOfBirth").value(hasItem(DEFAULT_DATE_OF_BIRTH.toString())))
+//            .andExpect(jsonPath("$.[*].placeOfBirth").value(hasItem(DEFAULT_PLACE_OF_BIRTH)))
+//            .andExpect(jsonPath("$.[*].religion").value(hasItem(DEFAULT_RELIGION.toString())))
+//            .andExpect(jsonPath("$.[*].caste").value(hasItem(DEFAULT_CASTE.toString())))
+//            .andExpect(jsonPath("$.[*].subCaste").value(hasItem(DEFAULT_SUB_CASTE)))
+//            .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)))
+//            .andExpect(jsonPath("$.[*].sex").value(hasItem(DEFAULT_SEX.toString())))
+//            .andExpect(jsonPath("$.[*].bloodGroup").value(hasItem(DEFAULT_BLOOD_GROUP.toString())))
+//            .andExpect(jsonPath("$.[*].addressLineOne").value(hasItem(DEFAULT_ADDRESS_LINE_ONE)))
+//            .andExpect(jsonPath("$.[*].addressLineTwo").value(hasItem(DEFAULT_ADDRESS_LINE_TWO)))
+//            .andExpect(jsonPath("$.[*].addressLineThree").value(hasItem(DEFAULT_ADDRESS_LINE_THREE)))
+//            .andExpect(jsonPath("$.[*].town").value(hasItem(DEFAULT_TOWN)))
+//            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE)))
+//            .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY)))
+//            .andExpect(jsonPath("$.[*].pincode").value(hasItem(DEFAULT_PINCODE.intValue())))
+//            .andExpect(jsonPath("$.[*].teacherContactNumber").value(hasItem(DEFAULT_TEACHER_CONTACT_NUMBER)))
+//            .andExpect(jsonPath("$.[*].alternateContactNumber").value(hasItem(DEFAULT_ALTERNATE_CONTACT_NUMBER)))
+//            .andExpect(jsonPath("$.[*].teacherEmailAddress").value(hasItem(DEFAULT_TEACHER_EMAIL_ADDRESS)))
+//            .andExpect(jsonPath("$.[*].alternateEmailAddress").value(hasItem(DEFAULT_ALTERNATE_EMAIL_ADDRESS)))
+//            .andExpect(jsonPath("$.[*].relationWithStaff").value(hasItem(DEFAULT_RELATION_WITH_STAFF.toString())))
+//            .andExpect(jsonPath("$.[*].emergencyContactName").value(hasItem(DEFAULT_EMERGENCY_CONTACT_NAME)))
+//            .andExpect(jsonPath("$.[*].emergencyContactMiddleName").value(hasItem(DEFAULT_EMERGENCY_CONTACT_MIDDLE_NAME)))
+//            .andExpect(jsonPath("$.[*].emergencyContactLastName").value(hasItem(DEFAULT_EMERGENCY_CONTACT_LAST_NAME)))
+//            .andExpect(jsonPath("$.[*].emergencyContactNo").value(hasItem(DEFAULT_EMERGENCY_CONTACT_NO)))
+//            .andExpect(jsonPath("$.[*].emergencyContactEmailAddress").value(hasItem(DEFAULT_EMERGENCY_CONTACT_EMAIL_ADDRESS)))
+//            .andExpect(jsonPath("$.[*].uploadPhoto").value(hasItem(DEFAULT_UPLOAD_PHOTO)))
+//            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+//            .andExpect(jsonPath("$.[*].employeeId").value(hasItem(DEFAULT_EMPLOYEE_ID.intValue())))
+//            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
+//            .andExpect(jsonPath("$.[*].staffType").value(hasItem(DEFAULT_STAFF_TYPE.toString())));
+//    }
 
     @Test
     @Transactional

@@ -1,13 +1,23 @@
 package com.synectiks.pref.web.rest;
 
-import com.synectiks.pref.PreferencesApp;
-import com.synectiks.pref.domain.Notifications;
-import com.synectiks.pref.repository.NotificationsRepository;
-import com.synectiks.pref.repository.search.NotificationsSearchRepository;
-import com.synectiks.pref.service.NotificationsService;
-import com.synectiks.pref.service.dto.NotificationsDTO;
-import com.synectiks.pref.service.mapper.NotificationsMapper;
-import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
+import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,21 +32,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Collections;
-import java.util.List;
-
-import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.synectiks.pref.PreferencesApp;
+import com.synectiks.pref.domain.Notifications;
 import com.synectiks.pref.domain.enumeration.Status;
+import com.synectiks.pref.repository.NotificationsRepository;
+import com.synectiks.pref.repository.search.NotificationsSearchRepository;
+import com.synectiks.pref.service.NotificationsService;
+import com.synectiks.pref.service.dto.NotificationsDTO;
+import com.synectiks.pref.service.mapper.NotificationsMapper;
+import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link NotificationsResource} REST controller.
  */
@@ -338,26 +342,26 @@ public class NotificationsResourceIT {
         verify(mockNotificationsSearchRepository, times(1)).deleteById(notifications.getId());
     }
 
-    @Test
-    @Transactional
-    public void searchNotifications() throws Exception {
-        // Initialize the database
-        notificationsRepository.saveAndFlush(notifications);
-        when(mockNotificationsSearchRepository.search(queryStringQuery("id:" + notifications.getId())))
-            .thenReturn(Collections.singletonList(notifications));
-        // Search the notifications
-        restNotificationsMockMvc.perform(get("/api/_search/notifications?query=id:" + notifications.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(notifications.getId().intValue())))
-            .andExpect(jsonPath("$.[*].messageCode").value(hasItem(DEFAULT_MESSAGE_CODE)))
-            .andExpect(jsonPath("$.[*].message").value(hasItem(DEFAULT_MESSAGE)))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
-            .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
-            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)))
-            .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())));
-    }
+//    @Test
+//    @Transactional
+//    public void searchNotifications() throws Exception {
+//        // Initialize the database
+//        notificationsRepository.saveAndFlush(notifications);
+//        when(mockNotificationsSearchRepository.search(queryStringQuery("id:" + notifications.getId())))
+//            .thenReturn(Collections.singletonList(notifications));
+//        // Search the notifications
+//        restNotificationsMockMvc.perform(get("/api/_search/notifications?query=id:" + notifications.getId()))
+//            .andExpect(status().isOk())
+//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//            .andExpect(jsonPath("$.[*].id").value(hasItem(notifications.getId().intValue())))
+//            .andExpect(jsonPath("$.[*].messageCode").value(hasItem(DEFAULT_MESSAGE_CODE)))
+//            .andExpect(jsonPath("$.[*].message").value(hasItem(DEFAULT_MESSAGE)))
+//            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+//            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
+//            .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
+//            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)))
+//            .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())));
+//    }
 
     @Test
     @Transactional

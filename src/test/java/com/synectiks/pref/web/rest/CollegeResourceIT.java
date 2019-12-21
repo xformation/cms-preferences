@@ -1,13 +1,23 @@
 package com.synectiks.pref.web.rest;
 
-import com.synectiks.pref.PreferencesApp;
-import com.synectiks.pref.domain.College;
-import com.synectiks.pref.repository.CollegeRepository;
-import com.synectiks.pref.repository.search.CollegeSearchRepository;
-import com.synectiks.pref.service.CollegeService;
-import com.synectiks.pref.service.dto.CollegeDTO;
-import com.synectiks.pref.service.mapper.CollegeMapper;
-import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
+import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,19 +32,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Collections;
-import java.util.List;
-
-import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.synectiks.pref.PreferencesApp;
+import com.synectiks.pref.domain.College;
+import com.synectiks.pref.repository.CollegeRepository;
+import com.synectiks.pref.repository.search.CollegeSearchRepository;
+import com.synectiks.pref.service.CollegeService;
+import com.synectiks.pref.service.dto.CollegeDTO;
+import com.synectiks.pref.service.mapper.CollegeMapper;
+import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
 
 /**
  * Integration tests for the {@Link CollegeResource} REST controller.
@@ -357,28 +362,28 @@ public class CollegeResourceIT {
         verify(mockCollegeSearchRepository, times(1)).deleteById(college.getId());
     }
 
-    @Test
-    @Transactional
-    public void searchCollege() throws Exception {
-        // Initialize the database
-        collegeRepository.saveAndFlush(college);
-        when(mockCollegeSearchRepository.search(queryStringQuery("id:" + college.getId())))
-            .thenReturn(Collections.singletonList(college));
-        // Search the college
-        restCollegeMockMvc.perform(get("/api/_search/colleges?query=id:" + college.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(college.getId().intValue())))
-            .andExpect(jsonPath("$.[*].collegeName").value(hasItem(DEFAULT_COLLEGE_NAME)))
-            .andExpect(jsonPath("$.[*].logoFilePath").value(hasItem(DEFAULT_LOGO_FILE_PATH)))
-            .andExpect(jsonPath("$.[*].logoFileName").value(hasItem(DEFAULT_LOGO_FILE_NAME)))
-            .andExpect(jsonPath("$.[*].logoFileExtension").value(hasItem(DEFAULT_LOGO_FILE_EXTENSION)))
-            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
-            .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
-            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)))
-            .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
-    }
+//    @Test
+//    @Transactional
+//    public void searchCollege() throws Exception {
+//        // Initialize the database
+//        collegeRepository.saveAndFlush(college);
+//        when(mockCollegeSearchRepository.search(queryStringQuery("id:" + college.getId())))
+//            .thenReturn(Collections.singletonList(college));
+//        // Search the college
+//        restCollegeMockMvc.perform(get("/api/_search/colleges?query=id:" + college.getId()))
+//            .andExpect(status().isOk())
+//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//            .andExpect(jsonPath("$.[*].id").value(hasItem(college.getId().intValue())))
+//            .andExpect(jsonPath("$.[*].collegeName").value(hasItem(DEFAULT_COLLEGE_NAME)))
+//            .andExpect(jsonPath("$.[*].logoFilePath").value(hasItem(DEFAULT_LOGO_FILE_PATH)))
+//            .andExpect(jsonPath("$.[*].logoFileName").value(hasItem(DEFAULT_LOGO_FILE_NAME)))
+//            .andExpect(jsonPath("$.[*].logoFileExtension").value(hasItem(DEFAULT_LOGO_FILE_EXTENSION)))
+//            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
+//            .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
+//            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)))
+//            .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())))
+//            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
+//    }
 
     @Test
     @Transactional

@@ -1,18 +1,28 @@
 package com.synectiks.pref.domain;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.synectiks.pref.utils.IESEntity;
 
 /**
  * A ExceptionRecord.
  */
 @Entity
 @Table(name = "exception_record")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "exceptionrecord")
 public class ExceptionRecord implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -20,7 +30,6 @@ public class ExceptionRecord implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "exception_source")
@@ -34,6 +43,8 @@ public class ExceptionRecord implements Serializable {
     private String exception;
 
     @Column(name = "exception_date")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate exceptionDate;
 
     @Column(name = "jhi_user")

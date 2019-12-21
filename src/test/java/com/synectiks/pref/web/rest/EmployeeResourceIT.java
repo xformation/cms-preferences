@@ -1,13 +1,23 @@
 package com.synectiks.pref.web.rest;
 
-import com.synectiks.pref.PreferencesApp;
-import com.synectiks.pref.domain.Employee;
-import com.synectiks.pref.repository.EmployeeRepository;
-import com.synectiks.pref.repository.search.EmployeeSearchRepository;
-import com.synectiks.pref.service.EmployeeService;
-import com.synectiks.pref.service.dto.EmployeeDTO;
-import com.synectiks.pref.service.mapper.EmployeeMapper;
-import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
+import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,24 +32,18 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Collections;
-import java.util.List;
-
-import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.synectiks.pref.PreferencesApp;
+import com.synectiks.pref.domain.Employee;
 import com.synectiks.pref.domain.enumeration.Disability;
 import com.synectiks.pref.domain.enumeration.Gender;
-import com.synectiks.pref.domain.enumeration.Status;
 import com.synectiks.pref.domain.enumeration.MaritalStatus;
+import com.synectiks.pref.domain.enumeration.Status;
+import com.synectiks.pref.repository.EmployeeRepository;
+import com.synectiks.pref.repository.search.EmployeeSearchRepository;
+import com.synectiks.pref.service.EmployeeService;
+import com.synectiks.pref.service.dto.EmployeeDTO;
+import com.synectiks.pref.service.mapper.EmployeeMapper;
+import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link EmployeeResource} REST controller.
  */
@@ -561,48 +565,48 @@ public class EmployeeResourceIT {
         verify(mockEmployeeSearchRepository, times(1)).deleteById(employee.getId());
     }
 
-    @Test
-    @Transactional
-    public void searchEmployee() throws Exception {
-        // Initialize the database
-        employeeRepository.saveAndFlush(employee);
-        when(mockEmployeeSearchRepository.search(queryStringQuery("id:" + employee.getId())))
-            .thenReturn(Collections.singletonList(employee));
-        // Search the employee
-        restEmployeeMockMvc.perform(get("/api/_search/employees?query=id:" + employee.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(employee.getId().intValue())))
-            .andExpect(jsonPath("$.[*].employeeName").value(hasItem(DEFAULT_EMPLOYEE_NAME)))
-            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
-            .andExpect(jsonPath("$.[*].joiningDate").value(hasItem(DEFAULT_JOINING_DATE.toString())))
-            .andExpect(jsonPath("$.[*].jobEndDate").value(hasItem(DEFAULT_JOB_END_DATE.toString())))
-            .andExpect(jsonPath("$.[*].resignationDate").value(hasItem(DEFAULT_RESIGNATION_DATE.toString())))
-            .andExpect(jsonPath("$.[*].resignationAcceptanceDate").value(hasItem(DEFAULT_RESIGNATION_ACCEPTANCE_DATE.toString())))
-            .andExpect(jsonPath("$.[*].aadharNo").value(hasItem(DEFAULT_AADHAR_NO)))
-            .andExpect(jsonPath("$.[*].panNo").value(hasItem(DEFAULT_PAN_NO)))
-            .andExpect(jsonPath("$.[*].passportNo").value(hasItem(DEFAULT_PASSPORT_NO)))
-            .andExpect(jsonPath("$.[*].primaryContactNo").value(hasItem(DEFAULT_PRIMARY_CONTACT_NO)))
-            .andExpect(jsonPath("$.[*].secondaryContactNo").value(hasItem(DEFAULT_SECONDARY_CONTACT_NO)))
-            .andExpect(jsonPath("$.[*].employeeFatherName").value(hasItem(DEFAULT_EMPLOYEE_FATHER_NAME)))
-            .andExpect(jsonPath("$.[*].employeeMotherName").value(hasItem(DEFAULT_EMPLOYEE_MOTHER_NAME)))
-            .andExpect(jsonPath("$.[*].primaryAddress").value(hasItem(DEFAULT_PRIMARY_ADDRESS)))
-            .andExpect(jsonPath("$.[*].secondaryAddress").value(hasItem(DEFAULT_SECONDARY_ADDRESS)))
-            .andExpect(jsonPath("$.[*].employeeAddress").value(hasItem(DEFAULT_EMPLOYEE_ADDRESS)))
-            .andExpect(jsonPath("$.[*].personalMailId").value(hasItem(DEFAULT_PERSONAL_MAIL_ID)))
-            .andExpect(jsonPath("$.[*].officialMailId").value(hasItem(DEFAULT_OFFICIAL_MAIL_ID)))
-            .andExpect(jsonPath("$.[*].disability").value(hasItem(DEFAULT_DISABILITY.toString())))
-            .andExpect(jsonPath("$.[*].drivingLicenceNo").value(hasItem(DEFAULT_DRIVING_LICENCE_NO)))
-            .andExpect(jsonPath("$.[*].drivingLicenceValidity").value(hasItem(DEFAULT_DRIVING_LICENCE_VALIDITY.toString())))
-            .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER.toString())))
-            .andExpect(jsonPath("$.[*].typeOfEmployment").value(hasItem(DEFAULT_TYPE_OF_EMPLOYMENT)))
-            .andExpect(jsonPath("$.[*].managerId").value(hasItem(DEFAULT_MANAGER_ID.intValue())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].maritalStatus").value(hasItem(DEFAULT_MARITAL_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].vehicleId").value(hasItem(DEFAULT_VEHICLE_ID.intValue())))
-            .andExpect(jsonPath("$.[*].transportRouteId").value(hasItem(DEFAULT_TRANSPORT_ROUTE_ID.intValue())))
-            .andExpect(jsonPath("$.[*].branchId").value(hasItem(DEFAULT_BRANCH_ID.intValue())));
-    }
+//    @Test
+//    @Transactional
+//    public void searchEmployee() throws Exception {
+//        // Initialize the database
+//        employeeRepository.saveAndFlush(employee);
+//        when(mockEmployeeSearchRepository.search(queryStringQuery("id:" + employee.getId())))
+//            .thenReturn(Collections.singletonList(employee));
+//        // Search the employee
+//        restEmployeeMockMvc.perform(get("/api/_search/employees?query=id:" + employee.getId()))
+//            .andExpect(status().isOk())
+//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//            .andExpect(jsonPath("$.[*].id").value(hasItem(employee.getId().intValue())))
+//            .andExpect(jsonPath("$.[*].employeeName").value(hasItem(DEFAULT_EMPLOYEE_NAME)))
+//            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
+//            .andExpect(jsonPath("$.[*].joiningDate").value(hasItem(DEFAULT_JOINING_DATE.toString())))
+//            .andExpect(jsonPath("$.[*].jobEndDate").value(hasItem(DEFAULT_JOB_END_DATE.toString())))
+//            .andExpect(jsonPath("$.[*].resignationDate").value(hasItem(DEFAULT_RESIGNATION_DATE.toString())))
+//            .andExpect(jsonPath("$.[*].resignationAcceptanceDate").value(hasItem(DEFAULT_RESIGNATION_ACCEPTANCE_DATE.toString())))
+//            .andExpect(jsonPath("$.[*].aadharNo").value(hasItem(DEFAULT_AADHAR_NO)))
+//            .andExpect(jsonPath("$.[*].panNo").value(hasItem(DEFAULT_PAN_NO)))
+//            .andExpect(jsonPath("$.[*].passportNo").value(hasItem(DEFAULT_PASSPORT_NO)))
+//            .andExpect(jsonPath("$.[*].primaryContactNo").value(hasItem(DEFAULT_PRIMARY_CONTACT_NO)))
+//            .andExpect(jsonPath("$.[*].secondaryContactNo").value(hasItem(DEFAULT_SECONDARY_CONTACT_NO)))
+//            .andExpect(jsonPath("$.[*].employeeFatherName").value(hasItem(DEFAULT_EMPLOYEE_FATHER_NAME)))
+//            .andExpect(jsonPath("$.[*].employeeMotherName").value(hasItem(DEFAULT_EMPLOYEE_MOTHER_NAME)))
+//            .andExpect(jsonPath("$.[*].primaryAddress").value(hasItem(DEFAULT_PRIMARY_ADDRESS)))
+//            .andExpect(jsonPath("$.[*].secondaryAddress").value(hasItem(DEFAULT_SECONDARY_ADDRESS)))
+//            .andExpect(jsonPath("$.[*].employeeAddress").value(hasItem(DEFAULT_EMPLOYEE_ADDRESS)))
+//            .andExpect(jsonPath("$.[*].personalMailId").value(hasItem(DEFAULT_PERSONAL_MAIL_ID)))
+//            .andExpect(jsonPath("$.[*].officialMailId").value(hasItem(DEFAULT_OFFICIAL_MAIL_ID)))
+//            .andExpect(jsonPath("$.[*].disability").value(hasItem(DEFAULT_DISABILITY.toString())))
+//            .andExpect(jsonPath("$.[*].drivingLicenceNo").value(hasItem(DEFAULT_DRIVING_LICENCE_NO)))
+//            .andExpect(jsonPath("$.[*].drivingLicenceValidity").value(hasItem(DEFAULT_DRIVING_LICENCE_VALIDITY.toString())))
+//            .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER.toString())))
+//            .andExpect(jsonPath("$.[*].typeOfEmployment").value(hasItem(DEFAULT_TYPE_OF_EMPLOYMENT)))
+//            .andExpect(jsonPath("$.[*].managerId").value(hasItem(DEFAULT_MANAGER_ID.intValue())))
+//            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+//            .andExpect(jsonPath("$.[*].maritalStatus").value(hasItem(DEFAULT_MARITAL_STATUS.toString())))
+//            .andExpect(jsonPath("$.[*].vehicleId").value(hasItem(DEFAULT_VEHICLE_ID.intValue())))
+//            .andExpect(jsonPath("$.[*].transportRouteId").value(hasItem(DEFAULT_TRANSPORT_ROUTE_ID.intValue())))
+//            .andExpect(jsonPath("$.[*].branchId").value(hasItem(DEFAULT_BRANCH_ID.intValue())));
+//    }
 
     @Test
     @Transactional

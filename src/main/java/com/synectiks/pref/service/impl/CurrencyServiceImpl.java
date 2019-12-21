@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.CurrencyService;
-import com.synectiks.pref.domain.Currency;
-import com.synectiks.pref.repository.CurrencyRepository;
-import com.synectiks.pref.repository.search.CurrencySearchRepository;
-import com.synectiks.pref.service.dto.CurrencyDTO;
-import com.synectiks.pref.service.mapper.CurrencyMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.Currency;
+import com.synectiks.pref.repository.CurrencyRepository;
+import com.synectiks.pref.repository.search.CurrencySearchRepository;
+import com.synectiks.pref.service.CurrencyService;
+import com.synectiks.pref.service.dto.CurrencyDTO;
+import com.synectiks.pref.service.mapper.CurrencyMapper;
 
 /**
  * Service Implementation for managing {@link Currency}.
@@ -33,12 +30,12 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     private final CurrencyMapper currencyMapper;
 
-    private final CurrencySearchRepository currencySearchRepository;
+//    private final CurrencySearchRepository currencySearchRepository;
 
     public CurrencyServiceImpl(CurrencyRepository currencyRepository, CurrencyMapper currencyMapper, CurrencySearchRepository currencySearchRepository) {
         this.currencyRepository = currencyRepository;
         this.currencyMapper = currencyMapper;
-        this.currencySearchRepository = currencySearchRepository;
+//        this.currencySearchRepository = currencySearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         Currency currency = currencyMapper.toEntity(currencyDTO);
         currency = currencyRepository.save(currency);
         CurrencyDTO result = currencyMapper.toDto(currency);
-        currencySearchRepository.save(currency);
+//        currencySearchRepository.save(currency);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     public void delete(Long id) {
         log.debug("Request to delete Currency : {}", id);
         currencyRepository.deleteById(id);
-        currencySearchRepository.deleteById(id);
+//        currencySearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Transactional(readOnly = true)
     public List<CurrencyDTO> search(String query) {
         log.debug("Request to search Currencies for query {}", query);
-        return StreamSupport
-            .stream(currencySearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(currencyMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

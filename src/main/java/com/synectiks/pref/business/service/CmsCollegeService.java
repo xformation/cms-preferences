@@ -43,8 +43,8 @@ public class CmsCollegeService {
     	CmsCollegeVo vo = null;
     	if(isCollegeExists()) {
     		vo = new CmsCollegeVo();
-    		vo.setErrorCode(1L);
-    		vo.setErrorDescription(Constants.ERROR_COLLEGE_ALREADY_EXISTS);
+    		vo.setExitCode(1L);
+    		vo.setExitDescription(Constants.ERROR_COLLEGE_ALREADY_EXISTS);
     		logger.error(Constants.VALIDATION_FAILURE + Constants.ERROR_COLLEGE_ALREADY_EXISTS);
     		return vo;
     	}
@@ -55,7 +55,8 @@ public class CmsCollegeService {
     		College college = saveCollege(vo);
     		saveCollegeAsMainBranch(vo, college);
         }catch(Exception e) {
-        	vo.setErrorDescription("Due to some exception, college data could not be saved");
+        	vo.setExitCode(1L);
+        	vo.setExitDescription("Due to some exception, college data could not be saved");
     		logger.error("College save failed. Exception : ",e);
     		return vo;
     	}

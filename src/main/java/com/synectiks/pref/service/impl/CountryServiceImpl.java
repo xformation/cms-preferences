@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.CountryService;
-import com.synectiks.pref.domain.Country;
-import com.synectiks.pref.repository.CountryRepository;
-import com.synectiks.pref.repository.search.CountrySearchRepository;
-import com.synectiks.pref.service.dto.CountryDTO;
-import com.synectiks.pref.service.mapper.CountryMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.Country;
+import com.synectiks.pref.repository.CountryRepository;
+import com.synectiks.pref.repository.search.CountrySearchRepository;
+import com.synectiks.pref.service.CountryService;
+import com.synectiks.pref.service.dto.CountryDTO;
+import com.synectiks.pref.service.mapper.CountryMapper;
 
 /**
  * Service Implementation for managing {@link Country}.
@@ -33,12 +30,12 @@ public class CountryServiceImpl implements CountryService {
 
     private final CountryMapper countryMapper;
 
-    private final CountrySearchRepository countrySearchRepository;
+//    private final CountrySearchRepository countrySearchRepository;
 
     public CountryServiceImpl(CountryRepository countryRepository, CountryMapper countryMapper, CountrySearchRepository countrySearchRepository) {
         this.countryRepository = countryRepository;
         this.countryMapper = countryMapper;
-        this.countrySearchRepository = countrySearchRepository;
+//        this.countrySearchRepository = countrySearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class CountryServiceImpl implements CountryService {
         Country country = countryMapper.toEntity(countryDTO);
         country = countryRepository.save(country);
         CountryDTO result = countryMapper.toDto(country);
-        countrySearchRepository.save(country);
+//        countrySearchRepository.save(country);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class CountryServiceImpl implements CountryService {
     public void delete(Long id) {
         log.debug("Request to delete Country : {}", id);
         countryRepository.deleteById(id);
-        countrySearchRepository.deleteById(id);
+//        countrySearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class CountryServiceImpl implements CountryService {
     @Transactional(readOnly = true)
     public List<CountryDTO> search(String query) {
         log.debug("Request to search Countries for query {}", query);
-        return StreamSupport
-            .stream(countrySearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(countryMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

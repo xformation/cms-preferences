@@ -1,13 +1,21 @@
 package com.synectiks.pref.web.rest;
 
-import com.synectiks.pref.PreferencesApp;
-import com.synectiks.pref.domain.Currency;
-import com.synectiks.pref.repository.CurrencyRepository;
-import com.synectiks.pref.repository.search.CurrencySearchRepository;
-import com.synectiks.pref.service.CurrencyService;
-import com.synectiks.pref.service.dto.CurrencyDTO;
-import com.synectiks.pref.service.mapper.CurrencyMapper;
-import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
+import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,17 +30,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-
-import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.synectiks.pref.PreferencesApp;
+import com.synectiks.pref.domain.Currency;
+import com.synectiks.pref.repository.CurrencyRepository;
+import com.synectiks.pref.repository.search.CurrencySearchRepository;
+import com.synectiks.pref.service.CurrencyService;
+import com.synectiks.pref.service.dto.CurrencyDTO;
+import com.synectiks.pref.service.mapper.CurrencyMapper;
+import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
 
 /**
  * Integration tests for the {@Link CurrencyResource} REST controller.
@@ -295,22 +300,22 @@ public class CurrencyResourceIT {
         verify(mockCurrencySearchRepository, times(1)).deleteById(currency.getId());
     }
 
-    @Test
-    @Transactional
-    public void searchCurrency() throws Exception {
-        // Initialize the database
-        currencyRepository.saveAndFlush(currency);
-        when(mockCurrencySearchRepository.search(queryStringQuery("id:" + currency.getId())))
-            .thenReturn(Collections.singletonList(currency));
-        // Search the currency
-        restCurrencyMockMvc.perform(get("/api/_search/currencies?query=id:" + currency.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(currency.getId().intValue())))
-            .andExpect(jsonPath("$.[*].currencyName").value(hasItem(DEFAULT_CURRENCY_NAME)))
-            .andExpect(jsonPath("$.[*].currencyCode").value(hasItem(DEFAULT_CURRENCY_CODE)))
-            .andExpect(jsonPath("$.[*].currencySymbol").value(hasItem(DEFAULT_CURRENCY_SYMBOL)));
-    }
+//    @Test
+//    @Transactional
+//    public void searchCurrency() throws Exception {
+//        // Initialize the database
+//        currencyRepository.saveAndFlush(currency);
+//        when(mockCurrencySearchRepository.search(queryStringQuery("id:" + currency.getId())))
+//            .thenReturn(Collections.singletonList(currency));
+//        // Search the currency
+//        restCurrencyMockMvc.perform(get("/api/_search/currencies?query=id:" + currency.getId()))
+//            .andExpect(status().isOk())
+//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//            .andExpect(jsonPath("$.[*].id").value(hasItem(currency.getId().intValue())))
+//            .andExpect(jsonPath("$.[*].currencyName").value(hasItem(DEFAULT_CURRENCY_NAME)))
+//            .andExpect(jsonPath("$.[*].currencyCode").value(hasItem(DEFAULT_CURRENCY_CODE)))
+//            .andExpect(jsonPath("$.[*].currencySymbol").value(hasItem(DEFAULT_CURRENCY_SYMBOL)));
+//    }
 
     @Test
     @Transactional

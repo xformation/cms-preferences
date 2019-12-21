@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.TeachService;
-import com.synectiks.pref.domain.Teach;
-import com.synectiks.pref.repository.TeachRepository;
-import com.synectiks.pref.repository.search.TeachSearchRepository;
-import com.synectiks.pref.service.dto.TeachDTO;
-import com.synectiks.pref.service.mapper.TeachMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.Teach;
+import com.synectiks.pref.repository.TeachRepository;
+import com.synectiks.pref.repository.search.TeachSearchRepository;
+import com.synectiks.pref.service.TeachService;
+import com.synectiks.pref.service.dto.TeachDTO;
+import com.synectiks.pref.service.mapper.TeachMapper;
 
 /**
  * Service Implementation for managing {@link Teach}.
@@ -33,12 +30,12 @@ public class TeachServiceImpl implements TeachService {
 
     private final TeachMapper teachMapper;
 
-    private final TeachSearchRepository teachSearchRepository;
+//    private final TeachSearchRepository teachSearchRepository;
 
     public TeachServiceImpl(TeachRepository teachRepository, TeachMapper teachMapper, TeachSearchRepository teachSearchRepository) {
         this.teachRepository = teachRepository;
         this.teachMapper = teachMapper;
-        this.teachSearchRepository = teachSearchRepository;
+//        this.teachSearchRepository = teachSearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class TeachServiceImpl implements TeachService {
         Teach teach = teachMapper.toEntity(teachDTO);
         teach = teachRepository.save(teach);
         TeachDTO result = teachMapper.toDto(teach);
-        teachSearchRepository.save(teach);
+//        teachSearchRepository.save(teach);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class TeachServiceImpl implements TeachService {
     public void delete(Long id) {
         log.debug("Request to delete Teach : {}", id);
         teachRepository.deleteById(id);
-        teachSearchRepository.deleteById(id);
+//        teachSearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class TeachServiceImpl implements TeachService {
     @Transactional(readOnly = true)
     public List<TeachDTO> search(String query) {
         log.debug("Request to search Teaches for query {}", query);
-        return StreamSupport
-            .stream(teachSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(teachMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

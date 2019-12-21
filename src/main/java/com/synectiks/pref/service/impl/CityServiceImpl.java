@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.CityService;
-import com.synectiks.pref.domain.City;
-import com.synectiks.pref.repository.CityRepository;
-import com.synectiks.pref.repository.search.CitySearchRepository;
-import com.synectiks.pref.service.dto.CityDTO;
-import com.synectiks.pref.service.mapper.CityMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.City;
+import com.synectiks.pref.repository.CityRepository;
+import com.synectiks.pref.repository.search.CitySearchRepository;
+import com.synectiks.pref.service.CityService;
+import com.synectiks.pref.service.dto.CityDTO;
+import com.synectiks.pref.service.mapper.CityMapper;
 
 /**
  * Service Implementation for managing {@link City}.
@@ -33,12 +30,12 @@ public class CityServiceImpl implements CityService {
 
     private final CityMapper cityMapper;
 
-    private final CitySearchRepository citySearchRepository;
+//    private final CitySearchRepository citySearchRepository;
 
     public CityServiceImpl(CityRepository cityRepository, CityMapper cityMapper, CitySearchRepository citySearchRepository) {
         this.cityRepository = cityRepository;
         this.cityMapper = cityMapper;
-        this.citySearchRepository = citySearchRepository;
+//        this.citySearchRepository = citySearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class CityServiceImpl implements CityService {
         City city = cityMapper.toEntity(cityDTO);
         city = cityRepository.save(city);
         CityDTO result = cityMapper.toDto(city);
-        citySearchRepository.save(city);
+//        citySearchRepository.save(city);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class CityServiceImpl implements CityService {
     public void delete(Long id) {
         log.debug("Request to delete City : {}", id);
         cityRepository.deleteById(id);
-        citySearchRepository.deleteById(id);
+//        citySearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class CityServiceImpl implements CityService {
     @Transactional(readOnly = true)
     public List<CityDTO> search(String query) {
         log.debug("Request to search Cities for query {}", query);
-        return StreamSupport
-            .stream(citySearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(cityMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

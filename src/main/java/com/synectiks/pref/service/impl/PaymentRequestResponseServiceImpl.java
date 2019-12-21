@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.PaymentRequestResponseService;
-import com.synectiks.pref.domain.PaymentRequestResponse;
-import com.synectiks.pref.repository.PaymentRequestResponseRepository;
-import com.synectiks.pref.repository.search.PaymentRequestResponseSearchRepository;
-import com.synectiks.pref.service.dto.PaymentRequestResponseDTO;
-import com.synectiks.pref.service.mapper.PaymentRequestResponseMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.PaymentRequestResponse;
+import com.synectiks.pref.repository.PaymentRequestResponseRepository;
+import com.synectiks.pref.repository.search.PaymentRequestResponseSearchRepository;
+import com.synectiks.pref.service.PaymentRequestResponseService;
+import com.synectiks.pref.service.dto.PaymentRequestResponseDTO;
+import com.synectiks.pref.service.mapper.PaymentRequestResponseMapper;
 
 /**
  * Service Implementation for managing {@link PaymentRequestResponse}.
@@ -33,12 +30,12 @@ public class PaymentRequestResponseServiceImpl implements PaymentRequestResponse
 
     private final PaymentRequestResponseMapper paymentRequestResponseMapper;
 
-    private final PaymentRequestResponseSearchRepository paymentRequestResponseSearchRepository;
+//    private final PaymentRequestResponseSearchRepository paymentRequestResponseSearchRepository;
 
     public PaymentRequestResponseServiceImpl(PaymentRequestResponseRepository paymentRequestResponseRepository, PaymentRequestResponseMapper paymentRequestResponseMapper, PaymentRequestResponseSearchRepository paymentRequestResponseSearchRepository) {
         this.paymentRequestResponseRepository = paymentRequestResponseRepository;
         this.paymentRequestResponseMapper = paymentRequestResponseMapper;
-        this.paymentRequestResponseSearchRepository = paymentRequestResponseSearchRepository;
+//        this.paymentRequestResponseSearchRepository = paymentRequestResponseSearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class PaymentRequestResponseServiceImpl implements PaymentRequestResponse
         PaymentRequestResponse paymentRequestResponse = paymentRequestResponseMapper.toEntity(paymentRequestResponseDTO);
         paymentRequestResponse = paymentRequestResponseRepository.save(paymentRequestResponse);
         PaymentRequestResponseDTO result = paymentRequestResponseMapper.toDto(paymentRequestResponse);
-        paymentRequestResponseSearchRepository.save(paymentRequestResponse);
+//        paymentRequestResponseSearchRepository.save(paymentRequestResponse);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class PaymentRequestResponseServiceImpl implements PaymentRequestResponse
     public void delete(Long id) {
         log.debug("Request to delete PaymentRequestResponse : {}", id);
         paymentRequestResponseRepository.deleteById(id);
-        paymentRequestResponseSearchRepository.deleteById(id);
+//        paymentRequestResponseSearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class PaymentRequestResponseServiceImpl implements PaymentRequestResponse
     @Transactional(readOnly = true)
     public List<PaymentRequestResponseDTO> search(String query) {
         log.debug("Request to search PaymentRequestResponses for query {}", query);
-        return StreamSupport
-            .stream(paymentRequestResponseSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(paymentRequestResponseMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

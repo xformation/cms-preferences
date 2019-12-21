@@ -35,6 +35,6 @@ type CmsCollegeVo {
     status: String 
     strCreatedOn: String 
     strUpdatedOn: String 
-    errorCode: Long 
-    errorDescription: String 
+    exitCode: Long 
+    exitDescription: String 
 }

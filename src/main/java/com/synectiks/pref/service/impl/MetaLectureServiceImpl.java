@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.MetaLectureService;
-import com.synectiks.pref.domain.MetaLecture;
-import com.synectiks.pref.repository.MetaLectureRepository;
-import com.synectiks.pref.repository.search.MetaLectureSearchRepository;
-import com.synectiks.pref.service.dto.MetaLectureDTO;
-import com.synectiks.pref.service.mapper.MetaLectureMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.MetaLecture;
+import com.synectiks.pref.repository.MetaLectureRepository;
+import com.synectiks.pref.repository.search.MetaLectureSearchRepository;
+import com.synectiks.pref.service.MetaLectureService;
+import com.synectiks.pref.service.dto.MetaLectureDTO;
+import com.synectiks.pref.service.mapper.MetaLectureMapper;
 
 /**
  * Service Implementation for managing {@link MetaLecture}.
@@ -33,12 +30,12 @@ public class MetaLectureServiceImpl implements MetaLectureService {
 
     private final MetaLectureMapper metaLectureMapper;
 
-    private final MetaLectureSearchRepository metaLectureSearchRepository;
+//    private final MetaLectureSearchRepository metaLectureSearchRepository;
 
     public MetaLectureServiceImpl(MetaLectureRepository metaLectureRepository, MetaLectureMapper metaLectureMapper, MetaLectureSearchRepository metaLectureSearchRepository) {
         this.metaLectureRepository = metaLectureRepository;
         this.metaLectureMapper = metaLectureMapper;
-        this.metaLectureSearchRepository = metaLectureSearchRepository;
+//        this.metaLectureSearchRepository = metaLectureSearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class MetaLectureServiceImpl implements MetaLectureService {
         MetaLecture metaLecture = metaLectureMapper.toEntity(metaLectureDTO);
         metaLecture = metaLectureRepository.save(metaLecture);
         MetaLectureDTO result = metaLectureMapper.toDto(metaLecture);
-        metaLectureSearchRepository.save(metaLecture);
+//        metaLectureSearchRepository.save(metaLecture);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class MetaLectureServiceImpl implements MetaLectureService {
     public void delete(Long id) {
         log.debug("Request to delete MetaLecture : {}", id);
         metaLectureRepository.deleteById(id);
-        metaLectureSearchRepository.deleteById(id);
+//        metaLectureSearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class MetaLectureServiceImpl implements MetaLectureService {
     @Transactional(readOnly = true)
     public List<MetaLectureDTO> search(String query) {
         log.debug("Request to search MetaLectures for query {}", query);
-        return StreamSupport
-            .stream(metaLectureSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(metaLectureMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

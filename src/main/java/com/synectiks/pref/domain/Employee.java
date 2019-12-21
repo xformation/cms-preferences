@@ -1,33 +1,44 @@
 package com.synectiks.pref.domain;
 
-import javax.persistence.*;
-
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.synectiks.pref.domain.enumeration.Disability;
-
 import com.synectiks.pref.domain.enumeration.Gender;
-
-import com.synectiks.pref.domain.enumeration.Status;
-
 import com.synectiks.pref.domain.enumeration.MaritalStatus;
+import com.synectiks.pref.domain.enumeration.Status;
+import com.synectiks.pref.utils.IESEntity;
 
 /**
  * A Employee.
  */
 @Entity
 @Table(name = "employee")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "employee")
-public class Employee implements Serializable {
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public class Employee implements Serializable, IESEntity {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "employee_name")
@@ -37,15 +48,23 @@ public class Employee implements Serializable {
     private String designation;
 
     @Column(name = "joining_date")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate joiningDate;
 
     @Column(name = "job_end_date")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate jobEndDate;
 
     @Column(name = "resignation_date")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate resignationDate;
 
     @Column(name = "resignation_acceptance_date")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate resignationAcceptanceDate;
 
     @Column(name = "aadhar_no")
@@ -92,6 +111,8 @@ public class Employee implements Serializable {
     private String drivingLicenceNo;
 
     @Column(name = "driving_licence_validity")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate drivingLicenceValidity;
 
     @Enumerated(EnumType.STRING)

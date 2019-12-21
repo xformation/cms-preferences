@@ -1,10 +1,10 @@
 package com.synectiks.pref.repository.search;
 
 import com.synectiks.pref.domain.Country;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+import com.synectiks.pref.utils.JPASearchRepository;
 
 /**
  * Spring Data Elasticsearch repository for the {@link Country} entity.
  */
-public interface CountrySearchRepository extends ElasticsearchRepository<Country, Long> {
+public interface CountrySearchRepository extends JPASearchRepository<Country, Long> {
 }

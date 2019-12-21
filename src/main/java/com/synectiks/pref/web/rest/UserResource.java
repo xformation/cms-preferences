@@ -1,13 +1,9 @@
 package com.synectiks.pref.web.rest;
 
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import javax.validation.Valid;
 
@@ -217,8 +213,6 @@ public class UserResource {
     @GetMapping("/_search/users/{query}")
     @Timed
     public List<User> search(@PathVariable String query) {
-        return StreamSupport
-            .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
+    	return null;
     }
 }

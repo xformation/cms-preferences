@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.SectionService;
-import com.synectiks.pref.domain.Section;
-import com.synectiks.pref.repository.SectionRepository;
-import com.synectiks.pref.repository.search.SectionSearchRepository;
-import com.synectiks.pref.service.dto.SectionDTO;
-import com.synectiks.pref.service.mapper.SectionMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.Section;
+import com.synectiks.pref.repository.SectionRepository;
+import com.synectiks.pref.repository.search.SectionSearchRepository;
+import com.synectiks.pref.service.SectionService;
+import com.synectiks.pref.service.dto.SectionDTO;
+import com.synectiks.pref.service.mapper.SectionMapper;
 
 /**
  * Service Implementation for managing {@link Section}.
@@ -33,12 +30,12 @@ public class SectionServiceImpl implements SectionService {
 
     private final SectionMapper sectionMapper;
 
-    private final SectionSearchRepository sectionSearchRepository;
+//    private final SectionSearchRepository sectionSearchRepository;
 
     public SectionServiceImpl(SectionRepository sectionRepository, SectionMapper sectionMapper, SectionSearchRepository sectionSearchRepository) {
         this.sectionRepository = sectionRepository;
         this.sectionMapper = sectionMapper;
-        this.sectionSearchRepository = sectionSearchRepository;
+//        this.sectionSearchRepository = sectionSearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class SectionServiceImpl implements SectionService {
         Section section = sectionMapper.toEntity(sectionDTO);
         section = sectionRepository.save(section);
         SectionDTO result = sectionMapper.toDto(section);
-        sectionSearchRepository.save(section);
+//        sectionSearchRepository.save(section);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class SectionServiceImpl implements SectionService {
     public void delete(Long id) {
         log.debug("Request to delete Section : {}", id);
         sectionRepository.deleteById(id);
-        sectionSearchRepository.deleteById(id);
+//        sectionSearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class SectionServiceImpl implements SectionService {
     @Transactional(readOnly = true)
     public List<SectionDTO> search(String query) {
         log.debug("Request to search Sections for query {}", query);
-        return StreamSupport
-            .stream(sectionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(sectionMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

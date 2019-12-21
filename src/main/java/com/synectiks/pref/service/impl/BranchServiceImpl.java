@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.BranchService;
-import com.synectiks.pref.domain.Branch;
-import com.synectiks.pref.repository.BranchRepository;
-import com.synectiks.pref.repository.search.BranchSearchRepository;
-import com.synectiks.pref.service.dto.BranchDTO;
-import com.synectiks.pref.service.mapper.BranchMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.Branch;
+import com.synectiks.pref.repository.BranchRepository;
+import com.synectiks.pref.repository.search.BranchSearchRepository;
+import com.synectiks.pref.service.BranchService;
+import com.synectiks.pref.service.dto.BranchDTO;
+import com.synectiks.pref.service.mapper.BranchMapper;
 
 /**
  * Service Implementation for managing {@link Branch}.
@@ -33,12 +30,12 @@ public class BranchServiceImpl implements BranchService {
 
     private final BranchMapper branchMapper;
 
-    private final BranchSearchRepository branchSearchRepository;
+//    private final BranchSearchRepository branchSearchRepository;
 
     public BranchServiceImpl(BranchRepository branchRepository, BranchMapper branchMapper, BranchSearchRepository branchSearchRepository) {
         this.branchRepository = branchRepository;
         this.branchMapper = branchMapper;
-        this.branchSearchRepository = branchSearchRepository;
+//        this.branchSearchRepository = branchSearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class BranchServiceImpl implements BranchService {
         Branch branch = branchMapper.toEntity(branchDTO);
         branch = branchRepository.save(branch);
         BranchDTO result = branchMapper.toDto(branch);
-        branchSearchRepository.save(branch);
+//        branchSearchRepository.save(branch);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class BranchServiceImpl implements BranchService {
     public void delete(Long id) {
         log.debug("Request to delete Branch : {}", id);
         branchRepository.deleteById(id);
-        branchSearchRepository.deleteById(id);
+//        branchSearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class BranchServiceImpl implements BranchService {
     @Transactional(readOnly = true)
     public List<BranchDTO> search(String query) {
         log.debug("Request to search Branches for query {}", query);
-        return StreamSupport
-            .stream(branchSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(branchMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

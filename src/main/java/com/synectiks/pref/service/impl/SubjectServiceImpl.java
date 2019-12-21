@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.SubjectService;
-import com.synectiks.pref.domain.Subject;
-import com.synectiks.pref.repository.SubjectRepository;
-import com.synectiks.pref.repository.search.SubjectSearchRepository;
-import com.synectiks.pref.service.dto.SubjectDTO;
-import com.synectiks.pref.service.mapper.SubjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.Subject;
+import com.synectiks.pref.repository.SubjectRepository;
+import com.synectiks.pref.repository.search.SubjectSearchRepository;
+import com.synectiks.pref.service.SubjectService;
+import com.synectiks.pref.service.dto.SubjectDTO;
+import com.synectiks.pref.service.mapper.SubjectMapper;
 
 /**
  * Service Implementation for managing {@link Subject}.
@@ -33,12 +30,12 @@ public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectMapper subjectMapper;
 
-    private final SubjectSearchRepository subjectSearchRepository;
+//    private final SubjectSearchRepository subjectSearchRepository;
 
     public SubjectServiceImpl(SubjectRepository subjectRepository, SubjectMapper subjectMapper, SubjectSearchRepository subjectSearchRepository) {
         this.subjectRepository = subjectRepository;
         this.subjectMapper = subjectMapper;
-        this.subjectSearchRepository = subjectSearchRepository;
+//        this.subjectSearchRepository = subjectSearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class SubjectServiceImpl implements SubjectService {
         Subject subject = subjectMapper.toEntity(subjectDTO);
         subject = subjectRepository.save(subject);
         SubjectDTO result = subjectMapper.toDto(subject);
-        subjectSearchRepository.save(subject);
+//        subjectSearchRepository.save(subject);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class SubjectServiceImpl implements SubjectService {
     public void delete(Long id) {
         log.debug("Request to delete Subject : {}", id);
         subjectRepository.deleteById(id);
-        subjectSearchRepository.deleteById(id);
+//        subjectSearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class SubjectServiceImpl implements SubjectService {
     @Transactional(readOnly = true)
     public List<SubjectDTO> search(String query) {
         log.debug("Request to search Subjects for query {}", query);
-        return StreamSupport
-            .stream(subjectSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(subjectMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

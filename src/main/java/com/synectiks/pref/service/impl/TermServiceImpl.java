@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.TermService;
-import com.synectiks.pref.domain.Term;
-import com.synectiks.pref.repository.TermRepository;
-import com.synectiks.pref.repository.search.TermSearchRepository;
-import com.synectiks.pref.service.dto.TermDTO;
-import com.synectiks.pref.service.mapper.TermMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.Term;
+import com.synectiks.pref.repository.TermRepository;
+import com.synectiks.pref.repository.search.TermSearchRepository;
+import com.synectiks.pref.service.TermService;
+import com.synectiks.pref.service.dto.TermDTO;
+import com.synectiks.pref.service.mapper.TermMapper;
 
 /**
  * Service Implementation for managing {@link Term}.
@@ -33,12 +30,12 @@ public class TermServiceImpl implements TermService {
 
     private final TermMapper termMapper;
 
-    private final TermSearchRepository termSearchRepository;
+//    private final TermSearchRepository termSearchRepository;
 
     public TermServiceImpl(TermRepository termRepository, TermMapper termMapper, TermSearchRepository termSearchRepository) {
         this.termRepository = termRepository;
         this.termMapper = termMapper;
-        this.termSearchRepository = termSearchRepository;
+//        this.termSearchRepository = termSearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class TermServiceImpl implements TermService {
         Term term = termMapper.toEntity(termDTO);
         term = termRepository.save(term);
         TermDTO result = termMapper.toDto(term);
-        termSearchRepository.save(term);
+//        termSearchRepository.save(term);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class TermServiceImpl implements TermService {
     public void delete(Long id) {
         log.debug("Request to delete Term : {}", id);
         termRepository.deleteById(id);
-        termSearchRepository.deleteById(id);
+//        termSearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class TermServiceImpl implements TermService {
     @Transactional(readOnly = true)
     public List<TermDTO> search(String query) {
         log.debug("Request to search Terms for query {}", query);
-        return StreamSupport
-            .stream(termSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(termMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

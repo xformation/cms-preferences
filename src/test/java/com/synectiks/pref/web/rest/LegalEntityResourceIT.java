@@ -1,13 +1,23 @@
 package com.synectiks.pref.web.rest;
 
-import com.synectiks.pref.PreferencesApp;
-import com.synectiks.pref.domain.LegalEntity;
-import com.synectiks.pref.repository.LegalEntityRepository;
-import com.synectiks.pref.repository.search.LegalEntitySearchRepository;
-import com.synectiks.pref.service.LegalEntityService;
-import com.synectiks.pref.service.dto.LegalEntityDTO;
-import com.synectiks.pref.service.mapper.LegalEntityMapper;
-import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
+import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,19 +32,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Collections;
-import java.util.List;
-
-import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.synectiks.pref.PreferencesApp;
+import com.synectiks.pref.domain.LegalEntity;
+import com.synectiks.pref.repository.LegalEntityRepository;
+import com.synectiks.pref.repository.search.LegalEntitySearchRepository;
+import com.synectiks.pref.service.LegalEntityService;
+import com.synectiks.pref.service.dto.LegalEntityDTO;
+import com.synectiks.pref.service.mapper.LegalEntityMapper;
+import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
 
 /**
  * Integration tests for the {@Link LegalEntityResource} REST controller.
@@ -487,41 +492,41 @@ public class LegalEntityResourceIT {
         verify(mockLegalEntitySearchRepository, times(1)).deleteById(legalEntity.getId());
     }
 
-    @Test
-    @Transactional
-    public void searchLegalEntity() throws Exception {
-        // Initialize the database
-        legalEntityRepository.saveAndFlush(legalEntity);
-        when(mockLegalEntitySearchRepository.search(queryStringQuery("id:" + legalEntity.getId())))
-            .thenReturn(Collections.singletonList(legalEntity));
-        // Search the legalEntity
-        restLegalEntityMockMvc.perform(get("/api/_search/legal-entities?query=id:" + legalEntity.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(legalEntity.getId().intValue())))
-            .andExpect(jsonPath("$.[*].logoFilePath").value(hasItem(DEFAULT_LOGO_FILE_PATH)))
-            .andExpect(jsonPath("$.[*].logoFileName").value(hasItem(DEFAULT_LOGO_FILE_NAME)))
-            .andExpect(jsonPath("$.[*].logoFileExtension").value(hasItem(DEFAULT_LOGO_FILE_EXTENSION)))
-            .andExpect(jsonPath("$.[*].legalNameOfCollege").value(hasItem(DEFAULT_LEGAL_NAME_OF_COLLEGE)))
-            .andExpect(jsonPath("$.[*].typeOfCollege").value(hasItem(DEFAULT_TYPE_OF_COLLEGE)))
-            .andExpect(jsonPath("$.[*].dateOfIncorporation").value(hasItem(DEFAULT_DATE_OF_INCORPORATION.toString())))
-            .andExpect(jsonPath("$.[*].registeredOfficeAddress").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS)))
-            .andExpect(jsonPath("$.[*].collegeIdentificationNumber").value(hasItem(DEFAULT_COLLEGE_IDENTIFICATION_NUMBER)))
-            .andExpect(jsonPath("$.[*].pan").value(hasItem(DEFAULT_PAN)))
-            .andExpect(jsonPath("$.[*].tan").value(hasItem(DEFAULT_TAN)))
-            .andExpect(jsonPath("$.[*].tanCircleNumber").value(hasItem(DEFAULT_TAN_CIRCLE_NUMBER)))
-            .andExpect(jsonPath("$.[*].citTdsLocation").value(hasItem(DEFAULT_CIT_TDS_LOCATION)))
-            .andExpect(jsonPath("$.[*].formSignatory").value(hasItem(DEFAULT_FORM_SIGNATORY.intValue())))
-            .andExpect(jsonPath("$.[*].pfNumber").value(hasItem(DEFAULT_PF_NUMBER)))
-            .andExpect(jsonPath("$.[*].pfRegistrationDate").value(hasItem(DEFAULT_PF_REGISTRATION_DATE.toString())))
-            .andExpect(jsonPath("$.[*].pfSignatory").value(hasItem(DEFAULT_PF_SIGNATORY.intValue())))
-            .andExpect(jsonPath("$.[*].esiNumber").value(hasItem(DEFAULT_ESI_NUMBER)))
-            .andExpect(jsonPath("$.[*].esiRegistrationDate").value(hasItem(DEFAULT_ESI_REGISTRATION_DATE.toString())))
-            .andExpect(jsonPath("$.[*].esiSignatory").value(hasItem(DEFAULT_ESI_SIGNATORY.intValue())))
-            .andExpect(jsonPath("$.[*].ptNumber").value(hasItem(DEFAULT_PT_NUMBER)))
-            .andExpect(jsonPath("$.[*].ptRegistrationDate").value(hasItem(DEFAULT_PT_REGISTRATION_DATE.toString())))
-            .andExpect(jsonPath("$.[*].ptSignatory").value(hasItem(DEFAULT_PT_SIGNATORY.intValue())));
-    }
+//    @Test
+//    @Transactional
+//    public void searchLegalEntity() throws Exception {
+//        // Initialize the database
+//        legalEntityRepository.saveAndFlush(legalEntity);
+//        when(mockLegalEntitySearchRepository.search(queryStringQuery("id:" + legalEntity.getId())))
+//            .thenReturn(Collections.singletonList(legalEntity));
+//        // Search the legalEntity
+//        restLegalEntityMockMvc.perform(get("/api/_search/legal-entities?query=id:" + legalEntity.getId()))
+//            .andExpect(status().isOk())
+//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//            .andExpect(jsonPath("$.[*].id").value(hasItem(legalEntity.getId().intValue())))
+//            .andExpect(jsonPath("$.[*].logoFilePath").value(hasItem(DEFAULT_LOGO_FILE_PATH)))
+//            .andExpect(jsonPath("$.[*].logoFileName").value(hasItem(DEFAULT_LOGO_FILE_NAME)))
+//            .andExpect(jsonPath("$.[*].logoFileExtension").value(hasItem(DEFAULT_LOGO_FILE_EXTENSION)))
+//            .andExpect(jsonPath("$.[*].legalNameOfCollege").value(hasItem(DEFAULT_LEGAL_NAME_OF_COLLEGE)))
+//            .andExpect(jsonPath("$.[*].typeOfCollege").value(hasItem(DEFAULT_TYPE_OF_COLLEGE)))
+//            .andExpect(jsonPath("$.[*].dateOfIncorporation").value(hasItem(DEFAULT_DATE_OF_INCORPORATION.toString())))
+//            .andExpect(jsonPath("$.[*].registeredOfficeAddress").value(hasItem(DEFAULT_REGISTERED_OFFICE_ADDRESS)))
+//            .andExpect(jsonPath("$.[*].collegeIdentificationNumber").value(hasItem(DEFAULT_COLLEGE_IDENTIFICATION_NUMBER)))
+//            .andExpect(jsonPath("$.[*].pan").value(hasItem(DEFAULT_PAN)))
+//            .andExpect(jsonPath("$.[*].tan").value(hasItem(DEFAULT_TAN)))
+//            .andExpect(jsonPath("$.[*].tanCircleNumber").value(hasItem(DEFAULT_TAN_CIRCLE_NUMBER)))
+//            .andExpect(jsonPath("$.[*].citTdsLocation").value(hasItem(DEFAULT_CIT_TDS_LOCATION)))
+//            .andExpect(jsonPath("$.[*].formSignatory").value(hasItem(DEFAULT_FORM_SIGNATORY.intValue())))
+//            .andExpect(jsonPath("$.[*].pfNumber").value(hasItem(DEFAULT_PF_NUMBER)))
+//            .andExpect(jsonPath("$.[*].pfRegistrationDate").value(hasItem(DEFAULT_PF_REGISTRATION_DATE.toString())))
+//            .andExpect(jsonPath("$.[*].pfSignatory").value(hasItem(DEFAULT_PF_SIGNATORY.intValue())))
+//            .andExpect(jsonPath("$.[*].esiNumber").value(hasItem(DEFAULT_ESI_NUMBER)))
+//            .andExpect(jsonPath("$.[*].esiRegistrationDate").value(hasItem(DEFAULT_ESI_REGISTRATION_DATE.toString())))
+//            .andExpect(jsonPath("$.[*].esiSignatory").value(hasItem(DEFAULT_ESI_SIGNATORY.intValue())))
+//            .andExpect(jsonPath("$.[*].ptNumber").value(hasItem(DEFAULT_PT_NUMBER)))
+//            .andExpect(jsonPath("$.[*].ptRegistrationDate").value(hasItem(DEFAULT_PT_REGISTRATION_DATE.toString())))
+//            .andExpect(jsonPath("$.[*].ptSignatory").value(hasItem(DEFAULT_PT_SIGNATORY.intValue())));
+//    }
 
     @Test
     @Transactional

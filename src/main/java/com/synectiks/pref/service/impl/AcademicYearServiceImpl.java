@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.AcademicYearService;
-import com.synectiks.pref.domain.AcademicYear;
-import com.synectiks.pref.repository.AcademicYearRepository;
-import com.synectiks.pref.repository.search.AcademicYearSearchRepository;
-import com.synectiks.pref.service.dto.AcademicYearDTO;
-import com.synectiks.pref.service.mapper.AcademicYearMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.AcademicYear;
+import com.synectiks.pref.repository.AcademicYearRepository;
+import com.synectiks.pref.repository.search.AcademicYearSearchRepository;
+import com.synectiks.pref.service.AcademicYearService;
+import com.synectiks.pref.service.dto.AcademicYearDTO;
+import com.synectiks.pref.service.mapper.AcademicYearMapper;
 
 /**
  * Service Implementation for managing {@link AcademicYear}.
@@ -33,12 +30,12 @@ public class AcademicYearServiceImpl implements AcademicYearService {
 
     private final AcademicYearMapper academicYearMapper;
 
-    private final AcademicYearSearchRepository academicYearSearchRepository;
+//    private final AcademicYearSearchRepository academicYearSearchRepository;
 
     public AcademicYearServiceImpl(AcademicYearRepository academicYearRepository, AcademicYearMapper academicYearMapper, AcademicYearSearchRepository academicYearSearchRepository) {
         this.academicYearRepository = academicYearRepository;
         this.academicYearMapper = academicYearMapper;
-        this.academicYearSearchRepository = academicYearSearchRepository;
+//        this.academicYearSearchRepository = academicYearSearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class AcademicYearServiceImpl implements AcademicYearService {
         AcademicYear academicYear = academicYearMapper.toEntity(academicYearDTO);
         academicYear = academicYearRepository.save(academicYear);
         AcademicYearDTO result = academicYearMapper.toDto(academicYear);
-        academicYearSearchRepository.save(academicYear);
+//        academicYearSearchRepository.save(academicYear);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class AcademicYearServiceImpl implements AcademicYearService {
     public void delete(Long id) {
         log.debug("Request to delete AcademicYear : {}", id);
         academicYearRepository.deleteById(id);
-        academicYearSearchRepository.deleteById(id);
+//        academicYearSearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,10 @@ public class AcademicYearServiceImpl implements AcademicYearService {
     @Transactional(readOnly = true)
     public List<AcademicYearDTO> search(String query) {
         log.debug("Request to search AcademicYears for query {}", query);
-        return StreamSupport
-            .stream(academicYearSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(academicYearMapper::toDto)
-            .collect(Collectors.toList());
+//        return StreamSupport
+//            .stream(academicYearSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .map(academicYearMapper::toDto)
+//            .collect(Collectors.toList());
+        return null;
     }
 }

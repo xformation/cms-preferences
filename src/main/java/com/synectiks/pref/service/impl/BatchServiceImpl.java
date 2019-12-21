@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.BatchService;
-import com.synectiks.pref.domain.Batch;
-import com.synectiks.pref.repository.BatchRepository;
-import com.synectiks.pref.repository.search.BatchSearchRepository;
-import com.synectiks.pref.service.dto.BatchDTO;
-import com.synectiks.pref.service.mapper.BatchMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.Batch;
+import com.synectiks.pref.repository.BatchRepository;
+import com.synectiks.pref.repository.search.BatchSearchRepository;
+import com.synectiks.pref.service.BatchService;
+import com.synectiks.pref.service.dto.BatchDTO;
+import com.synectiks.pref.service.mapper.BatchMapper;
 
 /**
  * Service Implementation for managing {@link Batch}.
@@ -33,12 +30,12 @@ public class BatchServiceImpl implements BatchService {
 
     private final BatchMapper batchMapper;
 
-    private final BatchSearchRepository batchSearchRepository;
+//    private final BatchSearchRepository batchSearchRepository;
 
     public BatchServiceImpl(BatchRepository batchRepository, BatchMapper batchMapper, BatchSearchRepository batchSearchRepository) {
         this.batchRepository = batchRepository;
         this.batchMapper = batchMapper;
-        this.batchSearchRepository = batchSearchRepository;
+//        this.batchSearchRepository = batchSearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class BatchServiceImpl implements BatchService {
         Batch batch = batchMapper.toEntity(batchDTO);
         batch = batchRepository.save(batch);
         BatchDTO result = batchMapper.toDto(batch);
-        batchSearchRepository.save(batch);
+//        batchSearchRepository.save(batch);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class BatchServiceImpl implements BatchService {
     public void delete(Long id) {
         log.debug("Request to delete Batch : {}", id);
         batchRepository.deleteById(id);
-        batchSearchRepository.deleteById(id);
+//        batchSearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class BatchServiceImpl implements BatchService {
     @Transactional(readOnly = true)
     public List<BatchDTO> search(String query) {
         log.debug("Request to search Batches for query {}", query);
-        return StreamSupport
-            .stream(batchSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(batchMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

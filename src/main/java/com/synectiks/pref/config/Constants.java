@@ -1,8 +1,7 @@
 package com.synectiks.pref.config;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.synectiks.pref.domain.vo.Config;
@@ -136,4 +135,23 @@ public interface Constants {
 	String YES = "YES";
 	String NO = "NO";
 	
+	public static List<String> STATUS_LIST = initStatusList();
+    public static List<String> initStatusList(){
+    	STATUS_LIST.add(STATUS_ACTIVE);
+    	STATUS_LIST.add(STATUS_DEACTIVE);
+    	STATUS_LIST.add(STATUS_DRAFT);
+    	return STATUS_LIST;
+    }
+    
+    String MALE = "MALE";
+    String FEMALE = "FEMALE";
+    String BOTH = "BOTH";
+    
+    public static List<String> GENDER_LIST = initGenderList();
+    public static List<String> initGenderList(){
+    	GENDER_LIST.add(MALE);
+    	GENDER_LIST.add(FEMALE);
+    	GENDER_LIST.add(BOTH);
+    	return GENDER_LIST;
+    }
 }

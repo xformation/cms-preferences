@@ -12,11 +12,84 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class ApplicationProperties {
 	private String imagePath;
 
+	private String influxDbUrl;
+	private String influxDb;
+	private String influxDbUsername;
+	private String influxDbPassword;
+	private String influxDbLogLevel;
+	private String secSrvUrl;
+	private String prefSrvUrl;
+	private String cmsBackEndUrl;
+	
 	public String getImagePath() {
 		return imagePath;
 	}
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	public String getInfluxDbUrl() {
+		return influxDbUrl;
+	}
+
+	public void setInfluxDbUrl(String influxDbUrl) {
+		this.influxDbUrl = influxDbUrl;
+	}
+
+	public String getInfluxDb() {
+		return influxDb;
+	}
+
+	public void setInfluxDb(String influxDb) {
+		this.influxDb = influxDb;
+	}
+
+	public String getInfluxDbUsername() {
+		return influxDbUsername;
+	}
+
+	public void setInfluxDbUsername(String influxDbUsername) {
+		this.influxDbUsername = influxDbUsername;
+	}
+
+	public String getInfluxDbPassword() {
+		return influxDbPassword;
+	}
+
+	public void setInfluxDbPassword(String influxDbPassword) {
+		this.influxDbPassword = influxDbPassword;
+	}
+
+	public String getInfluxDbLogLevel() {
+		return influxDbLogLevel;
+	}
+
+	public void setInfluxDbLogLevel(String influxDbLogLevel) {
+		this.influxDbLogLevel = influxDbLogLevel;
+	}
+
+	public String getSecSrvUrl() {
+		return secSrvUrl;
+	}
+
+	public void setSecSrvUrl(String secSrvUrl) {
+		this.secSrvUrl = secSrvUrl;
+	}
+
+	public String getPrefSrvUrl() {
+		return prefSrvUrl;
+	}
+
+	public void setPrefSrvUrl(String prefSrvUrl) {
+		this.prefSrvUrl = prefSrvUrl;
+	}
+
+	public String getCmsBackEndUrl() {
+		return cmsBackEndUrl;
+	}
+
+	public void setCmsBackEndUrl(String cmsBackEndUrl) {
+		this.cmsBackEndUrl = cmsBackEndUrl;
 	}
 }

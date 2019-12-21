@@ -1,13 +1,23 @@
 package com.synectiks.pref.web.rest;
 
-import com.synectiks.pref.PreferencesApp;
-import com.synectiks.pref.domain.Holiday;
-import com.synectiks.pref.repository.HolidayRepository;
-import com.synectiks.pref.repository.search.HolidaySearchRepository;
-import com.synectiks.pref.service.HolidayService;
-import com.synectiks.pref.service.dto.HolidayDTO;
-import com.synectiks.pref.service.mapper.HolidayMapper;
-import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
+import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,21 +32,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Collections;
-import java.util.List;
-
-import static com.synectiks.pref.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.synectiks.pref.PreferencesApp;
+import com.synectiks.pref.domain.Holiday;
 import com.synectiks.pref.domain.enumeration.Status;
+import com.synectiks.pref.repository.HolidayRepository;
+import com.synectiks.pref.repository.search.HolidaySearchRepository;
+import com.synectiks.pref.service.HolidayService;
+import com.synectiks.pref.service.dto.HolidayDTO;
+import com.synectiks.pref.service.mapper.HolidayMapper;
+import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
 /**
  * Integration tests for the {@Link HolidayResource} REST controller.
  */
@@ -298,22 +302,22 @@ public class HolidayResourceIT {
         verify(mockHolidaySearchRepository, times(1)).deleteById(holiday.getId());
     }
 
-    @Test
-    @Transactional
-    public void searchHoliday() throws Exception {
-        // Initialize the database
-        holidayRepository.saveAndFlush(holiday);
-        when(mockHolidaySearchRepository.search(queryStringQuery("id:" + holiday.getId())))
-            .thenReturn(Collections.singletonList(holiday));
-        // Search the holiday
-        restHolidayMockMvc.perform(get("/api/_search/holidays?query=id:" + holiday.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(holiday.getId().intValue())))
-            .andExpect(jsonPath("$.[*].holidayDesc").value(hasItem(DEFAULT_HOLIDAY_DESC)))
-            .andExpect(jsonPath("$.[*].holidayDate").value(hasItem(DEFAULT_HOLIDAY_DATE.toString())))
-            .andExpect(jsonPath("$.[*].holidayStatus").value(hasItem(DEFAULT_HOLIDAY_STATUS.toString())));
-    }
+//    @Test
+//    @Transactional
+//    public void searchHoliday() throws Exception {
+//        // Initialize the database
+//        holidayRepository.saveAndFlush(holiday);
+//        when(mockHolidaySearchRepository.search(queryStringQuery("id:" + holiday.getId())))
+//            .thenReturn(Collections.singletonList(holiday));
+//        // Search the holiday
+//        restHolidayMockMvc.perform(get("/api/_search/holidays?query=id:" + holiday.getId()))
+//            .andExpect(status().isOk())
+//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//            .andExpect(jsonPath("$.[*].id").value(hasItem(holiday.getId().intValue())))
+//            .andExpect(jsonPath("$.[*].holidayDesc").value(hasItem(DEFAULT_HOLIDAY_DESC)))
+//            .andExpect(jsonPath("$.[*].holidayDate").value(hasItem(DEFAULT_HOLIDAY_DATE.toString())))
+//            .andExpect(jsonPath("$.[*].holidayStatus").value(hasItem(DEFAULT_HOLIDAY_STATUS.toString())));
+//    }
 
     @Test
     @Transactional

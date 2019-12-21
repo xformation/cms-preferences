@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.CollegeService;
-import com.synectiks.pref.domain.College;
-import com.synectiks.pref.repository.CollegeRepository;
-import com.synectiks.pref.repository.search.CollegeSearchRepository;
-import com.synectiks.pref.service.dto.CollegeDTO;
-import com.synectiks.pref.service.mapper.CollegeMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.College;
+import com.synectiks.pref.repository.CollegeRepository;
+import com.synectiks.pref.repository.search.CollegeSearchRepository;
+import com.synectiks.pref.service.CollegeService;
+import com.synectiks.pref.service.dto.CollegeDTO;
+import com.synectiks.pref.service.mapper.CollegeMapper;
 
 /**
  * Service Implementation for managing {@link College}.
@@ -33,12 +30,12 @@ public class CollegeServiceImpl implements CollegeService {
 
     private final CollegeMapper collegeMapper;
 
-    private final CollegeSearchRepository collegeSearchRepository;
+//    private final CollegeSearchRepository collegeSearchRepository;
 
     public CollegeServiceImpl(CollegeRepository collegeRepository, CollegeMapper collegeMapper, CollegeSearchRepository collegeSearchRepository) {
         this.collegeRepository = collegeRepository;
         this.collegeMapper = collegeMapper;
-        this.collegeSearchRepository = collegeSearchRepository;
+//        this.collegeSearchRepository = collegeSearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class CollegeServiceImpl implements CollegeService {
         College college = collegeMapper.toEntity(collegeDTO);
         college = collegeRepository.save(college);
         CollegeDTO result = collegeMapper.toDto(college);
-        collegeSearchRepository.save(college);
+//        collegeSearchRepository.save(college);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class CollegeServiceImpl implements CollegeService {
     public void delete(Long id) {
         log.debug("Request to delete College : {}", id);
         collegeRepository.deleteById(id);
-        collegeSearchRepository.deleteById(id);
+//        collegeSearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class CollegeServiceImpl implements CollegeService {
     @Transactional(readOnly = true)
     public List<CollegeDTO> search(String query) {
         log.debug("Request to search Colleges for query {}", query);
-        return StreamSupport
-            .stream(collegeSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(collegeMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }

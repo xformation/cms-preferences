@@ -1,24 +1,21 @@
 package com.synectiks.pref.service.impl;
 
-import com.synectiks.pref.service.LectureService;
-import com.synectiks.pref.domain.Lecture;
-import com.synectiks.pref.repository.LectureRepository;
-import com.synectiks.pref.repository.search.LectureSearchRepository;
-import com.synectiks.pref.service.dto.LectureDTO;
-import com.synectiks.pref.service.mapper.LectureMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.synectiks.pref.domain.Lecture;
+import com.synectiks.pref.repository.LectureRepository;
+import com.synectiks.pref.repository.search.LectureSearchRepository;
+import com.synectiks.pref.service.LectureService;
+import com.synectiks.pref.service.dto.LectureDTO;
+import com.synectiks.pref.service.mapper.LectureMapper;
 
 /**
  * Service Implementation for managing {@link Lecture}.
@@ -33,12 +30,12 @@ public class LectureServiceImpl implements LectureService {
 
     private final LectureMapper lectureMapper;
 
-    private final LectureSearchRepository lectureSearchRepository;
+//    private final LectureSearchRepository lectureSearchRepository;
 
     public LectureServiceImpl(LectureRepository lectureRepository, LectureMapper lectureMapper, LectureSearchRepository lectureSearchRepository) {
         this.lectureRepository = lectureRepository;
         this.lectureMapper = lectureMapper;
-        this.lectureSearchRepository = lectureSearchRepository;
+//        this.lectureSearchRepository = lectureSearchRepository;
     }
 
     /**
@@ -53,7 +50,7 @@ public class LectureServiceImpl implements LectureService {
         Lecture lecture = lectureMapper.toEntity(lectureDTO);
         lecture = lectureRepository.save(lecture);
         LectureDTO result = lectureMapper.toDto(lecture);
-        lectureSearchRepository.save(lecture);
+//        lectureSearchRepository.save(lecture);
         return result;
     }
 
@@ -95,7 +92,7 @@ public class LectureServiceImpl implements LectureService {
     public void delete(Long id) {
         log.debug("Request to delete Lecture : {}", id);
         lectureRepository.deleteById(id);
-        lectureSearchRepository.deleteById(id);
+//        lectureSearchRepository.deleteById(id);
     }
 
     /**
@@ -108,9 +105,6 @@ public class LectureServiceImpl implements LectureService {
     @Transactional(readOnly = true)
     public List<LectureDTO> search(String query) {
         log.debug("Request to search Lectures for query {}", query);
-        return StreamSupport
-            .stream(lectureSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(lectureMapper::toDto)
-            .collect(Collectors.toList());
+        return null;
     }
 }
