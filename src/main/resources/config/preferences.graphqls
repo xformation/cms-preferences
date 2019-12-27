@@ -2,10 +2,17 @@ scalar Date
 
 type Query {
 	getAbc: Long
+	getPermissionList: [CmsPermissionVo]
+	getRolesList: [CmsRolesVo]
+	getUsersList: [CmsUserVo]
 }
 
 type Mutation {
 	addCollege(input: CollegeInput): CollegePayload
+	savePermission(input: PermissionInput): PermissionPayload
+	saveRoles(input: RolesInput): RolesPayload
+	saveUser(input: UserInput): UserPayload
+	deletePermission(permissionId: Long): PermissionPayload
 }
 
 type CollegePayload {
@@ -13,28 +20,114 @@ type CollegePayload {
 }
 
 input CollegeInput {
-	collegeName: String 
-    logoFilePath: String 
-    logoFileName: String 
-    logoFileExtension: String 
+	collegeName: String
+    logoFilePath: String
+    logoFileName: String
+    logoFileExtension: String
     logoFile: String
-    status: String   
+    status: String
 }
 
 type CmsCollegeVo {
-	id: Long 
-    collegeName: String 
-    logoFilePath: String 
-    logoFileName: String 
-    logoFileExtension: String 
+	id: Long
+    collegeName: String
+    logoFilePath: String
+    logoFileName: String
+    logoFileExtension: String
     logoFile: String
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    status: String 
-    strCreatedOn: String 
-    strUpdatedOn: String 
-    exitCode: Long 
-    exitDescription: String 
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    status: String
+    strCreatedOn: String
+    strUpdatedOn: String
+    exitCode: Long
+    exitDescription: String
+}
+
+type PermissionPayload {
+	cmsPermissionVo: CmsPermissionVo
+}
+
+input PermissionInput {
+      id: Long
+      createdAt:Date
+      updatedAt:Date
+      createdBy: String
+      updatedBy: String
+	  version: Long
+      name: String
+      permission: String
+      description: String
+}
+
+type CmsPermissionVo {
+     id: Long
+     createdAt:Date
+     updatedAt:Date
+     createdBy: String
+     updatedBy: String
+     version: Long
+     name: String
+     permission: String
+     description: String
+}
+
+type RolesPayload {
+	cmsRolesVo: CmsRolesVo
+}
+
+input RolesInput {
+      id: Long
+      createdAt:Date
+      updatedAt:Date
+      createdBy: String
+      updatedBy: String
+      name: String
+      version: Long
+      grp:Boolean
+      description: String
+}
+
+type CmsRolesVo {
+      id: Long
+      createdAt:Date
+      updatedAt:Date
+      createdBy: String
+      updatedBy: String
+      name: String
+      version: Long
+      grp:Boolean
+      description: String
+}
+
+type UserPayload {
+	cmsUserVo: CmsUserVo
+}
+
+input UserInput {
+      id: Long
+      createdAt:Date
+      updatedAt:Date
+      createdBy: String
+      updatedBy: String
+      username: String
+      password: String
+      active:Boolean
+      email: String
+      typeList: [String]
+}
+
+type CmsUserVo {
+     id: Long
+     createdAt:Date
+     updatedAt:Date
+     createdBy: String
+     updatedBy: String
+     username: String
+     password: String
+     active:Boolean
+     email: String
+     typeList: [String]
 }
