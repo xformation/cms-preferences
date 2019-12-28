@@ -108,11 +108,21 @@ public class CmsBranchService {
     	logger.info("Saving branch");
     	CmsBranchVo vo = null;
     	try {
-    		Branch branch = CommonUtil.createCopyProperties(cmsBranchVo, Branch.class);
-    		if(branch.getId() == null) {
+    		Branch branch = null;
+    		if(cmsBranchVo.getId() == null) {
+    			logger.debug("Adding new branch");
+    			branch = CommonUtil.createCopyProperties(cmsBranchVo, Branch.class);
     			branch.setCreatedOn(LocalDate.now());
+    			branch.setIsMainBranch(CmsConstants.NO);
     		}else {
+    			logger.debug("Updating existing branch");
+    			branch = this.branchRepository.findById(cmsBranchVo.getId()).get();
     			branch.setUpdatedOn(LocalDate.now());
+    			branch.setBranchName(cmsBranchVo.getBranchName());
+    			branch.setAddress(cmsBranchVo.getAddress());
+    			branch.setPinCode(cmsBranchVo.getPinCode());
+    			branch.setBranchHead(cmsBranchVo.getBranchHead());
+    			branch.setStatus(cmsBranchVo.getStatus());
     		}
         	State state = cmsStateService.getState(cmsBranchVo.getStateId());
         	City city = cmsCityService.getCity(cmsBranchVo.getCityId());
@@ -120,7 +130,7 @@ public class CmsBranchService {
         	branch.setState(state);
         	branch.setCity(city);
         	branch.setCollege(college);
-        	branch.setIsMainBranch(CmsConstants.NO);
+        	
         	branch = branchRepository.save(branch);
         	vo = CommonUtil.createCopyProperties(branch, CmsBranchVo.class);
         	vo.setStrCreatedOn(branch.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(branch.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
@@ -128,8 +138,14 @@ public class CmsBranchService {
         	vo.setCreatedOn(null);
         	vo.setUpdatedOn(null);
         	vo.setExitCode(0L);
-        	vo.setExitDescription("Branch is added successfully");
-        	logger.debug("Branch is added successfully");
+        	if(cmsBranchVo.getId() == null) {
+        		vo.setExitDescription("Branch is added successfully");
+        		logger.debug("Branch is added successfully");
+        	}else {
+        		vo.setExitDescription("Branch is updated successfully");
+        		logger.debug("Branch is updated successfully");
+        	}
+        	
         }catch(Exception e) {
         	vo = new CmsBranchVo();
         	vo.setExitCode(1L);
