@@ -1,11 +1,37 @@
-id;state_name;division_type;state_code
-1;Ergonomic;moratorium moratorium;New York tangible Mississippi
-2;Frozen bus;hard drive Robust Networked;Poland
-3;Small partnerships;Outdoors;Harbor Montana
-4;Corporate Phased relationships;white Brand Money Market Account;Salad Web virtual
-5;Refined Squares;maroon;EXE projection Fresh
-6;support Gorgeous;withdrawal;copying
-7;ability Hat Iraq;magenta Concrete;User-centric Gloves
-8;Mauritania;facilitate Tasty Concrete Chips Exclusive;Buckinghamshire capability zero tolerance
-9;mission-critical;Berkshire Small Plastic Pants Investor;Canadian Dollar
-10;Berkshire Designer;Credit Card Account;navigate
+id;state_name;division_type;state_code;country_id
+1;Andaman and Nicobar Islands;Union Territory;AN;1
+2;Andhra Pradesh;State;AD;1
+3;Arunachal Pradesh;State;AR;1
+4;Assam;State;AS;1
+5;Bihar;State;BR;1
+6;Chandigarh;Union Territory;CH;1
+7;Chhattisgarh;State;CT;1
+8;Dadra and Nagar Haveli;Union Territory;DN;1
+9;Daman and Diu;Union Territory;DD;1
+10;Delhi;State;DL;1
+11;Goa;State;GA;1
+12;Gujarat;State;GJ;1
+13;Haryana;State;HR;1
+14;Himachal Pradesh;State;HP;1
+15;Jammu and Kashmir;State;JK;1
+16;Jharkhand;State;JH;1
+17;Karnataka;State;KA;1
+18;Kerala;State;KL;1
+19;Lakshadweep;Union Territory;LD;1
+20;Madhya Pradesh;State;MP;1
+21;Maharashtra;State;MH;1
+22;Manipur;State;MN;1
+23;Meghalaya;State;ML;1
+24;Mizoram;State;MZ;1
+25;Nagaland;State;NL;1
+26;Odisha;State;OR;1
+27;Puducherry;Union Territory;PY;1
+28;Punjab;State;PB;1
+29;Rajasthan;State;RJ;1
+30;Sikkim;State;SK;1
+31;Tamil Nadu;State;TN;1
+32;Telangana;State;TG;1
+33;Tripura;State;TR;1
+34;Uttar Pradesh;State;UP;1
+35;Uttarakhand;State;UT;1
+36;West Bengal;State;WB;1

@@ -33,7 +33,12 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-
+		<loadData
+                  file="config/liquibase/data/city.csv"
+                  separator=";"
+                  tableName="city">
+            <column name="id" type="numeric"/>
+        </loadData>
     </changeSet>
 
 </databaseChangeLog>

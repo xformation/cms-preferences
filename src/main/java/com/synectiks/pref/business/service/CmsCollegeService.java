@@ -43,7 +43,7 @@ public class CmsCollegeService {
     	CmsCollegeVo vo = null;
     	if(isCollegeExists()) {
     		vo = new CmsCollegeVo();
-    		vo.setExitCode(1L);
+    		vo.setExitCode(100L);
     		vo.setExitDescription(Constants.ERROR_COLLEGE_ALREADY_EXISTS);
     		logger.error(Constants.VALIDATION_FAILURE + Constants.ERROR_COLLEGE_ALREADY_EXISTS);
     		return vo;
@@ -54,6 +54,8 @@ public class CmsCollegeService {
     		saveCollegeLogo(vo);
     		College college = saveCollege(vo);
     		saveCollegeAsMainBranch(vo, college);
+    		vo.setExitCode(0L);
+        	vo.setExitDescription("College is added successfully. It is created as default main branch also");
         }catch(Exception e) {
         	vo.setExitCode(1L);
         	vo.setExitDescription("Due to some exception, college data could not be saved");
@@ -106,5 +108,13 @@ public class CmsCollegeService {
 			return true;
 		}
 		return false;
+    }
+    
+    public College getCollege() {
+    	List<College> list = collegeRepository.findAll();
+    	if(list.size() > 0) {
+    		return list.get(0);
+    	}
+    	return null;
     }
 }

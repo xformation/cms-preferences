@@ -1,11 +1,641 @@
-id;city_name;city_code;std_code
-1;Re-contextualized;web-enabled invoice withdrawal;bypassing optical
-2;installation;Argentine Peso;Kentucky Algerian Dinar Clothing
-3;open-source turn-key;Sausages;disintermediate Cambridgeshire hacking
-4;bricks-and-clicks Concrete Global;Fiji Dollar Profound Bacon;Macao Equatorial Guinea Vision-oriented
-5;Agent;Human deposit;even-keeled Saint Helena Pound
-6;Internal AI optical;bypassing Marketing;Dynamic Home Loan Account Tools
-7;Branding;Home Gloves Latvia;Ports Manager Fish
-8;Networked;Fish;payment calculating
-9;local area network Benin;turn-key dedicated;Wisconsin
-10;target Human withdrawal;dot-com payment Libyan Dinar;white sensor local
+id;city_name;city_code;state_id
+1;Nicobar Islands;NI;1
+2;North and Middle Andaman;NM;1
+3;South Andaman;SA;1
+4;Anantapur;AN;2
+5;Chittoor;CH;2
+6;Cuddapah;CU;2
+7;East Godavari;EG;2
+8;Guntur;GU;2
+9;Krishna;KR;2
+10;Kurnool;KU;2
+11;Nellore;NE;2
+12;Prakasam;PR;2
+13;Srikakulam;SR;2
+14;Vishakhapatnam;VS;2
+15;Vizianagaram;VZ;2
+16;West Godavari;WG;2
+17;Anjaw;AJ;3
+18;Changlang;CH;3
+19;East Kameng;EK;3
+20;East Siang;ES;3
+21;Kurung Kumey;KK;3
+22;Lohit;LH;3
+23;Lower Dibang Valley;DL;3
+24;Lower Subansiri;LS;3
+25;Papum Pare;PA;3
+26;Tawang;TA;3
+27;Tirap;TI;3
+28;Upper Dibang Valley;DU;3
+29;Upper Siang;US;3
+30;Upper Subansiri;UB;3
+31;West Kameng;WK;3
+32;West Siang;WS;3
+33;Baksa;BK;4
+34;Barpeta;BP;4
+35;Bongaigaon;BG;4
+36;Cachar;CA;4
+37;Chirang;CH;4
+38;Darrang;DR;4
+39;Dhemaji;DM;4
+40;Dhubri;DB;4
+41;Dibrugarh;DI;4
+42;Goalpara;GP;4
+43;Golaghat;GG;4
+44;Hailakandi;HA;4
+45;Jorhat;JO;4
+46;Kamrup;KU;4
+47;Kamrup Metropolitan;KM;4
+48;Karbi Anglong;KA;4
+49;Karimganj;KR;4
+50;Kokrajhar;KJ;4
+51;Lakhimpur;LA;4
+52;Marigaon;MA;4
+53;Nagaon;NG;4
+54;Nalbari;NB;4
+55;North Cachar Hills;NC;4
+56;Sibsagar;SI;4
+57;Sonitpur;SN;4
+58;Tinsukia;TI;4
+59;Udalguri;UD;4
+60;Araria;AR;5
+61;Arwal;AW;5
+62;Aurangabad;AU;5
+63;Banka;BA;5
+64;Begusarai;BE;5
+65;Bhagalpur;BG;5
+66;Bhojpur;BJ;5
+67;Buxar;BU;5
+68;Darbhanga;DA;5
+69;Gaya;GA;5
+70;Gopalganj;GO;5
+71;Jamui;JA;5
+72;Jehanabad;JH;5
+73;Kaimur;KM;5
+74;Katihar;KT;5
+75;Khagaria;KH;5
+76;Kishanganj;KI;5
+77;Lakhisarai;LA;5
+78;Madhepura;MP;5
+79;Madhubani;MB;5
+80;Munger;MG;5
+81;Muzaffarpur;MZ;5
+82;Nalanda;NL;5
+83;Nawada;NW;5
+84;Pashchim Champaran;WC;5
+85;Patna;PA;5
+86;Purba Champaran;EC;5
+87;Purnia;PU;5
+88;Rohtas;RO;5
+89;Saharsa;SH;5
+90;Samastipur;SM;5
+91;Saran;SR;5
+92;Sheikhpura;SP;5
+93;Sheohar;SO;5
+94;Sitamarhi;ST;5
+95;Siwan;SW;5
+96;Supaul;SU;5
+97;Vaishali;VA;5
+98;Chandigarh;CH;6
+99;Bastar;BT;7
+100;Bijapur;BJ;7
+101;Bilaspur;BI;7
+102;Dantewada;DW;7
+103;Dhamtari;DH;7
+104;Durg;DU;7
+105;Janjgir-Champa;JC;7
+106;Jashpur;JA;7
+107;Kanker;KK;7
+108;Kawardha;KW;7
+109;Korba;KB;7
+110;Koriya;KJ;7
+111;Mahasamund;MA;7
+112;Narayanpur;NA;7
+113;Raigarh;RG;7
+114;Raipur;RP;7
+115;Rajnandgaon;RN;7
+116;Surguja;SU;7
+117;Dadra and Nagar Haveli;DN;8
+118;Daman;DA;9
+119;Diu;DI;9
+120;Central;CE;10
+121;East;EA;10
+122;New Delhi;ND;10
+123;North;NO;10
+124;North East;NE;10
+125;North West;NW;10
+126;South;SO;10
+127;South West;SW;10
+128;West;WE;10
+129;North Goa;NG;11
+130;South Goa;SG;11
+131;Ahmedabad;AH;12
+132;Amreli;AM;12
+133;Anand;AN;12
+134;Banas Kantha;BK;12
+135;Bharuch;BR;12
+136;Bhavnagar;BV;12
+137;Dahod;DA;12
+138;Gandhinagar;GA;12
+139;Jamnagar;JA;12
+140;Junagadh;JU;12
+141;Kachchh;KA;12
+142;Kheda;KH;12
+143;Mahesana;MA;12
+144;Narmada;NR;12
+145;Navsari;NV;12
+146;Panch Mahals;PM;12
+147;Patan;PA;12
+148;Porbandar;PO;12
+149;Rajkot;RA;12
+150;Sabar Kantha;SK;12
+151;Surat;SR;12
+152;Surendranagar;SN;12
+153;Tapi;TP;12
+154;The Dangs;DG;12
+155;Vadodara;VD;12
+156;Valsad;VL;12
+157;Ambala;AM;13
+158;Bhiwani;BH;13
+159;Faridabad;FD;13
+160;Fatehabad;FT;13
+161;Gurgaon;GG;13
+162;Hissar;HI;13
+163;Jhajjar;JH;13
+164;Jind;JI;13
+165;Kaithal;KT;13
+166;Karnal;KR;13
+167;Kurukshetra;KU;13
+168;Mahendragarh;MA;13
+169;Mewat;MW;13
+170;Palwal;PW;13
+171;Panchkula;PK;13
+172;Panipat;PP;13
+173;Rewari;RE;13
+174;Rohtak;RO;13
+175;Sirsa;SI;13
+176;Sonepat;SO;13
+177;Yamuna Nagar;YN;13
+178;Bilaspur;BI;14
+179;Chamba;CH;14
+180;Hamirpur;HA;14
+181;Kangra;KA;14
+182;Kinnaur;KI;14
+183;Kulu;KU;14
+184;Lahaul and Spiti;LS;14
+185;Mandi;MA;14
+186;Shimla;SH;14
+187;Sirmaur;SI;14
+188;Solan;SO;14
+189;Una;UN;14
+190;Anantnag;AG;15
+191;Badgam;BD;15
+192;Bandipore;BP;15
+193;Baramula;BL;15
+194;Doda;DD;15
+195;Ganderbal;GA;15
+196;Jammu;JM;15
+197;Kargil;KR;15
+198;Kathua;KA;15
+199;Kishtwar;KW;15
+200;Kulgam;KG;15
+201;Kupwara;KU;15
+202;Leh;LE;15
+203;Poonch;PO;15
+204;Pulwama;PW;15
+205;Rajauri;RA;15
+206;Ramban;RB;15
+207;Reasi;RE;15
+208;Samba;SM;15
+209;Shupiyan;SH;15
+210;Srinagar;SN;15
+211;Udhampur;UM;15
+212;Bokaro;BO;16
+213;Chatra;CH;16
+214;Deoghar;DE;16
+215;Dhanbad;DH;16
+216;Dumka;DM;16
+217;Garhwa;GA;16
+218;Giridih;GI;16
+219;Godda;GO;16
+220;Gumla;GM;16
+221;Hazaribagh;HZ;16
+222;Jamtara;JA;16
+223;Khunti;KH;16
+224;Koderma;KO;16
+225;Latehar;LA;16
+226;Lohardaga;LO;16
+227;Pakur;PK;16
+228;Palamu;PM;16
+229;Pashchim Singhbhum;WS;16
+230;Purba Singhbhum;ES;16
+231;Ramgarh;RM;16
+232;Ranchi;RN;16
+233;Sahibganj;SA;16
+234;Seraikela;SK;16
+235;Simdega;SD;16
+236;Bagalkot;BK;17
+237;Bangalore;BN;17
+238;Bangalore Rural;BU;17
+239;Belgaum;BG;17
+240;Bellary;BL;17
+241;Bidar;BD;17
+242;Bijapur;BJ;17
+243;Chamrajnagar;CJ;17
+244;Chikballapura;CB;17
+245;Chikmagalur;CK;17
+246;Chitradurga;CT;17
+247;Dakshina Kannada;DK;17
+248;Davanagere;DA;17
+249;Dharwad;DH;17
+250;Gadag;GA;17
+251;Gulbarga;GB;17
+252;Hassan;HS;17
+253;Haveri;HV;17
+254;Kodagu;KD;17
+255;Kolar;KO;17
+256;Koppal;KP;17
+257;Mandya;MA;17
+258;Mysore;MY;17
+259;Raichur;RA;17
+260;Ramanagara;RM;17
+261;Shimoga;SH;17
+262;Tumkur;TU;17
+263;Udupi;UD;17
+264;Uttara Kannada;UK;17
+265;Yadgir;YD;17
+266;Alappuzha;AL;18
+267;Ernakulam;ER;18
+268;Idukki;ID;18
+269;Kannur;KN;18
+270;Kasargod;KS;18
+271;Kollam;KL;18
+272;Kottayam;KT;18
+273;Kozhikode;KZ;18
+274;Malappuram;MA;18
+275;Palakkad;PL;18
+276;Pathanamthitta;PT;18
+277;Thiruvananthapuram;TV;18
+278;Thrissur;TS;18
+279;Wayanad;WA;18
+280;Lakshadweep;LD;19
+281;Alirajpur;AR;20
+282;Anuppur;AP;20
+283;Ashoknagar;AN;20
+284;Balaghat;BL;20
+285;Barwani;BR;20
+286;Betul;BE;20
+287;Bhind;BD;20
+288;Bhopal;BP;20
+289;Burhanpur;BU;20
+290;Chhatarpur;CT;20
+291;Chhindwara;CN;20
+292;Damoh;DM;20
+293;Datia;DT;20
+294;Dewas;DE;20
+295;Dhar;DH;20
+296;Dindori;DI;20
+297;East Nimar;KW;20
+298;Guna;GN;20
+299;Gwalior;GW;20
+300;Harda;HA;20
+301;Hoshangabad;HO;20
+302;Indore;IN;20
+303;Jabalpur;JA;20
+304;Jhabua;JB;20
+305;Katni;KA;20
+306;Mandla;ML;20
+307;Mandsaur;MS;20
+308;Morena;MO;20
+309;Narsinghpur;NA;20
+310;Neemuch;NE;20
+311;Panna;PA;20
+312;Raisen;RS;20
+313;Rajgarh;RG;20
+314;Ratlam;RL;20
+315;Rewa;RE;20
+316;Sagar;SG;20
+317;Satna;ST;20
+318;Sehore;SR;20
+319;Seoni;SO;20
+320;Shahdol;SL;20
+321;Shajapur;SJ;20
+322;Sheopur;SP;20
+323;Shivpuri;SV;20
+324;Sidhi;SD;20
+325;Singrauli;SU;20
+326;Tikamgarh;TI;20
+327;Ujjain;UJ;20
+328;Umaria;UM;20
+329;Vidisha;VI;20
+330;West Nimar;WN;20
+331;Ahmednagar;AH;21
+332;Akola;AK;21
+333;Amravati;AM;21
+334;Aurangabad;AU;21
+335;Bhandara;BH;21
+336;Bid;BI;21
+337;Buldhana;BU;21
+338;Chandrapur;CH;21
+339;Dhule;DH;21
+340;Gadchiroli;GA;21
+341;Gondiya;GO;21
+342;Hingoli;HI;21
+343;Jalgaon;JG;21
+344;Jalna;JN;21
+345;Kolhapur;KO;21
+346;Latur;LA;21
+347;Mumbai City;MC;21
+348;Mumbai Suburban;MU;21
+349;Nagpur;NG;21
+350;Nanded;ND;21
+351;Nandurbar;NB;21
+352;Nashik;NS;21
+353;Osmanabad;OS;21
+354;Parbhani;PA;21
+355;Pune;PU;21
+356;Raigarh;RG;21
+357;Ratnagiri;RT;21
+358;Sangli;SN;21
+359;Satara;ST;21
+360;Sindhudurg;SI;21
+361;Solapur;SO;21
+362;Thane;TH;21
+363;Wardha;WR;21
+364;Washim;WS;21
+365;Yavatmal;YA;21
+366;Bishnupur;BI;22
+367;Chandel;CD;22
+368;Churachandpur;CC;22
+369;East Imphal;EI;22
+370;Senapati;SE;22
+371;Tamenglong;TA;22
+372;Thoubal;TH;22
+373;Ukhrul;UK;22
+374;West Imphal;WI;22
+375;East Garo Hills;EG;23
+376;East Khasi Hills;EK;23
+377;Jaintia Hills;JH;23
+378;Ri-Bhoi;RB;23
+379;South Garo Hills;SG;23
+380;West Garo Hills;WG;23
+381;West Khasi Hills;WK;23
+382;Aizawl;AI;24
+383;Champhai;CH;24
+384;Kolasib;KO;24
+385;Lawngtlai;LA;24
+386;Lunglei;LU;24
+387;Mamit;MA;24
+388;Saiha;SA;24
+389;Serchhip;SE;24
+390;Dimapur;DI;25
+391;Kiphire;KP;25
+392;Kohima;KH;25
+393;Mokokchung;MK;25
+394;Mon;MN;25
+395;Peren;PE;25
+396;Phek;PH;25
+397;Tuensang;TS;25
+398;Tuensang;LL;25
+399;Wokha;WO;25
+400;Zunheboto;ZU;25
+401;Angul;AN;26
+402;Baleshwar;BW;26
+403;Baragarh;BR;26
+404;Bhadrak;BH;26
+405;Bolangir;BL;26
+406;Boudh;BD;26
+407;Cuttack;CU;26
+408;Deogarh;DE;26
+409;Dhenkanal;DH;26
+410;Gajapati;GP;26
+411;Ganjam;GN;26
+412;Jagatsinghpur;JS;26
+413;Jajpur;JP;26
+414;Jharsuguda;JH;26
+415;Kalahandi;KL;26
+416;Kandhamal;KN;26
+417;Kendrapara;KP;26
+418;Keonjhar;KJ;26
+419;Khordha;KH;26
+420;Koraput;KO;26
+421;Malkangiri;ML;26
+422;Mayurbhanj;MY;26
+423;Nabarangpur;NB;26
+424;Nayagarh;NY;26
+425;Nuapada;NU;26
+426;Puri;PU;26
+427;Rayagada;RA;26
+428;Sambalpur;SA;26
+429;Sonepur;SO;26
+430;Sundargarh;SU;26
+431;Karaikal;KA;27
+432;Mahe;MA;27
+433;Pondicherry;PO;27
+434;Yanam;YA;27
+435;Amritsar;AR;28
+436;Barnala;BL;28
+437;Bathinda;BA;28
+438;Faridkot;FR;28
+439;Fatehgarh Sahib;FT;28
+440;Firozpur;FI;28
+441;Gurdaspur;GU;28
+442;Hoshiarpur;HO;28
+443;Jalandhar;JA;28
+444;Kapurthala;KA;28
+445;Ludhiana;LU;28
+446;Mansa;MA;28
+447;Moga;MO;28
+448;Mohali;AJ;28
+449;Muktsar;MU;28
+450;Nawan Shehar;NS;28
+451;Patiala;PT;28
+452;Rupnagar;RP;28
+453;Sangrur;SR;28
+454;Tarn Taran;TT;28
+455;Ajmer;AJ;29
+456;Alwar;AL;29
+457;Banswara;BS;29
+458;Baran;BR;29
+459;Barmer;BM;29
+460;Bharatpur;BP;29
+461;Bhilwara;BW;29
+462;Bikaner;BI;29
+463;Bundi;BU;29
+464;Chittorgarh;CH;29
+465;Churu;CR;29
+466;Dausa;DA;29
+467;Dholpur;DH;29
+468;Dungarpur;DU;29
+469;Ganganagar;GA;29
+470;Hanumangarh;HA;29
+471;Jaipur;JP;29
+472;Jaisalmer;JS;29
+473;Jalore;JL;29
+474;Jhalawar;JW;29
+475;Jhunjhunun;JJ;29
+476;Jodhpur;JO;29
+477;Karauli;KA;29
+478;Kota;KO;29
+479;Nagaur;NA;29
+480;Pali;PA;29
+481;Pratapgarh;PR;29
+482;Rajsamand;RA;29
+483;Sawai Madhopur;SM;29
+484;Sikar;SK;29
+485;Sirohi;SR;29
+486;Tonk;TO;29
+487;Udaipur;UP;29
+488;East Sikkim;ES;30
+489;North Sikkim;NS;30
+490;South Sikkim;SS;30
+491;West Sikkim;WS;30
+492;Ariyalur;AR;31
+493;Chennai;CH;31
+494;Coimbatore;CM;31
+495;Cuddalore;CU;31
+496;Dharmapuri;DM;31
+497;Dindigul;DI;31
+498;Erode;ED;31
+499;Kancheepuram;KC;31
+500;Kanyakumari;KK;31
+501;Karur;KR;31
+502;Krishnagiri;KG;31
+503;Madurai;MA;31
+504;Nagapattinam;NG;31
+505;Namakkal;NM;31
+506;Nilgiris;NI;31
+507;Perambalur;PE;31
+508;Pudukkottai;PU;31
+509;Ramanathapuram;RA;31
+510;Salem;SA;31
+511;Sivaganga;SI;31
+512;Thanjavur;TJ;31
+513;Theni;TH;31
+514;Thiruvallur;TL;31
+515;Thiruvarur;TR;31
+516;Thoothukudi;TK;31
+517;Tiruchirappalli;TC;31
+518;Tirunelveli;TI;31
+519;Tiruppur;TP;31
+520;Tiruvannamalai;TV;31
+521;Vellore;VE;31
+522;Villupuram;VL;31
+523;Virudhunagar;VR;31
+524;Adilabad;AD;32
+525;Hyderabad;HY;32
+526;Karimnagar;KA;32
+527;Khammam;KH;32
+528;Mahbubnagar;MA;32
+529;Medak;ME;32
+530;Nalgonda;NA;32
+531;Nizamabad;NI;32
+532;Rangareddi;RA;32
+533;Warangal;WA;32
+534;Dhalai;DH;33
+535;North Tripura;NT;33
+536;South Tripura;ST;33
+537;West Tripura;WT;33
+538;Almora;AL;35
+539;Bageshwar;BA;35
+540;Chamoli;CL;35
+541;Champawat;CP;35
+542;Dehradun;DD;35
+543;Haridwar;HA;35
+544;Nainital;NA;35
+545;Pauri Garhwal;PG;35
+546;Pithoragarh;PI;35
+547;Rudra Prayag;RP;35
+548;Tehri Garhwal;TG;35
+549;Udham Singh Nagar;US;35
+550;Uttarkashi;UT;35
+551;Agra;AG;34
+552;Aligarh;AL;34
+553;Allahabad;AH;34
+554;Ambedkar Nagar;AN;34
+555;Auraiya;AU;34
+556;Azamgarh;AZ;34
+557;Badaun;BD;34
+558;Baghpat;BG;34
+559;Bahraich;BH;34
+560;Ballia;BL;34
+561;Balrampur;BP;34
+562;Banda;BN;34
+563;Barabanki;BB;34
+564;Bareilly;BR;34
+565;Basti;BS;34
+566;Bijnor;BI;34
+567;Bulandshahr;BU;34
+568;Chandauli;CD;34
+569;Chitrakoot;CT;34
+570;Deoria;DE;34
+571;Etah;EH;34
+572;Etawah;EW;34
+573;Faizabad;FZ;34
+574;Farrukhabad;FR;34
+575;Fatehpur;FT;34
+576;Firozabad;FI;34
+577;Gautam Buddha Nagar;GB;34
+578;Ghaziabad;GZ;34
+579;Ghazipur;GP;34
+580;Gonda;GN;34
+581;Gorakhpur;GR;34
+582;Hamirpur;HM;34
+583;Hardoi;HR;34
+584;Hathras;HT;34
+585;Jalaun;JL;34
+586;Jaunpur;JU;34
+587;Jhansi;JH;34
+588;Jyotiba Phule Nagar;JP;34
+589;Kannauj;KJ;34
+590;Kanpur;KN;34
+591;Kanpur Dehat;KD;34
+592;Kanshi Ram Nagar;KR;34
+593;Kaushambi;KS;34
+594;Kushinagar;KU;34
+595;Lakhimpur Kheri;LK;34
+596;Lalitpur;LA;34
+597;Lucknow;LU;34
+598;Maharajganj;MG;34
+599;Mahoba;MH;34
+600;Mainpuri;MP;34
+601;Mathura;MT;34
+602;Maunathbhanjan;MB;34
+603;Meerut;ME;34
+604;Mirzapur;MI;34
+605;Moradabad;MO;34
+606;Muzaffarnagar;MU;34
+607;Pilibhit;PI;34
+608;Pratapgarh;PR;34
+609;Rae Bareli;RB;34
+610;Rampur;RA;34
+611;Saharanpur;SA;34
+612;Sant Kabir Nagar;SK;34
+613;Sant Ravi Das Nagar;SR;34
+614;Shahjahanpur;SJ;34
+615;Shravasti;SV;34
+616;Siddharth Nagar;SN;34
+617;Sitapur;SI;34
+618;Sonbhadra;SO;34
+619;Sultanpur;SU;34
+620;Unnao;UN;34
+621;Varanasi;VA;34
+622;24 Parganas North;PN;36
+623;24 Parganas South;PS;36
+624;Bankura;BN;36
+625;Bardhaman;BR;36
+626;Birbhum;BI;36
+627;Dakshin Dinajpur;DD;36
+628;Darjeeling;DA;36
+629;Hooghly;HG;36
+630;Howrah;HR;36
+631;Jalpaiguri;JA;36
+632;Koch Bihar;KB;36
+633;Kolkata;KO;36
+634;Malda;MA;36
+635;Murshidabad;MU;36
+636;Nadia;NA;36
+637;Paschim Medinipur;WM;36
+638;Purba Medinipur;EM;36
+639;Purulia;PU;36
+640;Uttar Dinajpur;UD;36
