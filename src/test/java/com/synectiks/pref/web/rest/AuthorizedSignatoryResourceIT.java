@@ -123,7 +123,7 @@ public class AuthorizedSignatoryResourceIT {
             .fatherName(DEFAULT_FATHER_NAME)
             .designation(DEFAULT_DESIGNATION)
             .address(DEFAULT_ADDRESS)
-            .email(DEFAULT_EMAIL)
+            .emailId(DEFAULT_EMAIL)
             .panNo(DEFAULT_PAN_NO);
         return authorizedSignatory;
     }
@@ -139,7 +139,7 @@ public class AuthorizedSignatoryResourceIT {
             .fatherName(UPDATED_FATHER_NAME)
             .designation(UPDATED_DESIGNATION)
             .address(UPDATED_ADDRESS)
-            .email(UPDATED_EMAIL)
+            .emailId(UPDATED_EMAIL)
             .panNo(UPDATED_PAN_NO);
         return authorizedSignatory;
     }
@@ -169,7 +169,7 @@ public class AuthorizedSignatoryResourceIT {
         assertThat(testAuthorizedSignatory.getFatherName()).isEqualTo(DEFAULT_FATHER_NAME);
         assertThat(testAuthorizedSignatory.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
         assertThat(testAuthorizedSignatory.getAddress()).isEqualTo(DEFAULT_ADDRESS);
-        assertThat(testAuthorizedSignatory.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testAuthorizedSignatory.getEmailId()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testAuthorizedSignatory.getPanNo()).isEqualTo(DEFAULT_PAN_NO);
 
         // Validate the AuthorizedSignatory in Elasticsearch
@@ -263,7 +263,7 @@ public class AuthorizedSignatoryResourceIT {
             .fatherName(UPDATED_FATHER_NAME)
             .designation(UPDATED_DESIGNATION)
             .address(UPDATED_ADDRESS)
-            .email(UPDATED_EMAIL)
+            .emailId(UPDATED_EMAIL)
             .panNo(UPDATED_PAN_NO);
         AuthorizedSignatoryDTO authorizedSignatoryDTO = authorizedSignatoryMapper.toDto(updatedAuthorizedSignatory);
 
@@ -280,7 +280,7 @@ public class AuthorizedSignatoryResourceIT {
         assertThat(testAuthorizedSignatory.getFatherName()).isEqualTo(UPDATED_FATHER_NAME);
         assertThat(testAuthorizedSignatory.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
         assertThat(testAuthorizedSignatory.getAddress()).isEqualTo(UPDATED_ADDRESS);
-        assertThat(testAuthorizedSignatory.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testAuthorizedSignatory.getEmailId()).isEqualTo(UPDATED_EMAIL);
         assertThat(testAuthorizedSignatory.getPanNo()).isEqualTo(UPDATED_PAN_NO);
 
         // Validate the AuthorizedSignatory in Elasticsearch

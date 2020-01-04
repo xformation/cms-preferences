@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import com.synectiks.pref.business.service.CmsAuthorizedSignatoryService;
 import com.synectiks.pref.business.service.CmsBranchService;
 import com.synectiks.pref.business.service.CmsCityService;
 import com.synectiks.pref.business.service.CmsStateService;
 import com.synectiks.pref.domain.City;
 import com.synectiks.pref.domain.State;
+import com.synectiks.pref.domain.vo.CmsAuthorizedSignatoryVo;
 import com.synectiks.pref.domain.vo.CmsBranchVo;
 import com.synectiks.pref.repository.UserPreferenceRepository;
 
@@ -36,6 +38,9 @@ public class Query implements GraphQLQueryResolver {
 	@Autowired
 	CmsCityService cmsCityService;
 	
+	@Autowired
+    CmsAuthorizedSignatoryService cmsAuthorizedSignatoryService;
+	
 	public Query(UserPreferenceRepository userPreferenceRepository) {
 		this.userPreferenceRepository = userPreferenceRepository;
 	}
@@ -53,5 +58,10 @@ public class Query implements GraphQLQueryResolver {
 	public List<City> getCityList() throws Exception {
     	logger.debug("Query - getCityList :");
     	return this.cmsCityService.getCityList();
+    }
+	
+	public List<CmsAuthorizedSignatoryVo> getAuthorizedSignatoryList() throws Exception {
+    	logger.debug("Query - getAuthorizedSignatoryList :");
+    	return this.cmsAuthorizedSignatoryService.getAuthorizedSignatoryList();
     }
 }

@@ -11,7 +11,6 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,7 +59,6 @@ public class BankAccountRestController {
             throw new BadRequestAlertException("A new bankaccount cannot have an ID which already exits", ENTITY_NAME, "idexists");
         }
         Branch b = this.branchRepository.findById(cmsBankAccountsVo.getBranchId()).get();
-        College clg = this.collegeRepository.findById(cmsBankAccountsVo.getCollegeId()).get();
         
         BankAccounts ba = CommonUtil.createCopyProperties(cmsBankAccountsVo, BankAccounts.class);
         ba.setBranch(b);
@@ -81,7 +79,6 @@ public class BankAccountRestController {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 		Branch b = this.branchRepository.findById(cmsBankAccountsVo.getBranchId()).get();
-        College clg = this.collegeRepository.findById(cmsBankAccountsVo.getCollegeId()).get();
         
         BankAccounts ba = CommonUtil.createCopyProperties(cmsBankAccountsVo, BankAccounts.class);
         ba.setBranch(b);

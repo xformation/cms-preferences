@@ -135,7 +135,12 @@ entity LegalEntity{
 	esiSignatory Long 
 	ptNumber String 
 	ptRegistrationDate LocalDate 
-	ptSignatory Long 
+	ptSignatory Long
+	createdBy String
+	createdOn LocalDate
+	updatedBy String
+	updatedOn LocalDate
+	Status String 
 }
 
 entity AuthorizedSignatory{
@@ -143,17 +148,28 @@ entity AuthorizedSignatory{
 	fatherName String 
 	designation String 
 	address String 
-	email String 
+	emailId String
+	cellPhoneNumber String
 	panNo String 
+	createdBy String
+	createdOn LocalDate
+	updatedBy String
+	updatedOn LocalDate
+	Status String
 }
 
-entity BankAccounts{
+entity BankAccount{
 	bankName String 
 	accountNumber String 
 	typeOfAccount String 
 	ifscCode String 
-	branchAddress String 
+	address String 
 	corporateId String 
+	createdBy String
+	createdOn LocalDate
+	updatedBy String
+	updatedOn LocalDate
+	Status String
 }
 
 entity ExceptionRecord {

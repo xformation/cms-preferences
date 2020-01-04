@@ -60,11 +60,9 @@ public class AuthorizedSignatoryRestController {
             throw new BadRequestAlertException("A new AuthorizedSignatory cannot have an ID which already exits", ENTITY_NAME, "idexists");
         }
         Branch b = this.branchRepository.findById(cmsAuthorizedSignatoryVo.getBranchId()).get();
-        College clg = this.collegeRepository.findById(cmsAuthorizedSignatoryVo.getCollegeId()).get();
         
         AuthorizedSignatory as = CommonUtil.createCopyProperties(cmsAuthorizedSignatoryVo, AuthorizedSignatory.class);
         as.setBranch(b);
-//        as.setCollege(clg);
         
         as = authorizedSignatoryRepository.save(as);
         
@@ -81,11 +79,9 @@ public class AuthorizedSignatoryRestController {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 		Branch b = this.branchRepository.findById(cmsAuthorizedSignatoryVo.getBranchId()).get();
-        College clg = this.collegeRepository.findById(cmsAuthorizedSignatoryVo.getCollegeId()).get();
         
         AuthorizedSignatory as = CommonUtil.createCopyProperties(cmsAuthorizedSignatoryVo, AuthorizedSignatory.class);
         as.setBranch(b);
-//        as.setCollege(clg);
         
         as = authorizedSignatoryRepository.save(as);
         return ResponseEntity.ok()

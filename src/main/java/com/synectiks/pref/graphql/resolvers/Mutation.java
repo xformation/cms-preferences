@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import com.synectiks.pref.business.service.CmsAuthorizedSignatoryService;
 import com.synectiks.pref.business.service.CmsBranchService;
 import com.synectiks.pref.business.service.CmsCollegeService;
+import com.synectiks.pref.domain.vo.CmsAuthorizedSignatoryVo;
 import com.synectiks.pref.domain.vo.CmsBranchVo;
 import com.synectiks.pref.domain.vo.CmsCollegeVo;
+import com.synectiks.pref.graphql.types.authorizedsignatory.AuthorizedSignatoryInput;
+import com.synectiks.pref.graphql.types.authorizedsignatory.AuthorizedSignatoryPayload;
 import com.synectiks.pref.graphql.types.branch.BranchInput;
 import com.synectiks.pref.graphql.types.branch.BranchPayload;
 import com.synectiks.pref.graphql.types.college.CollegeInput;
@@ -31,6 +35,9 @@ public class Mutation implements GraphQLMutationResolver {
     @Autowired
     CmsBranchService cmsBranchService;
     
+    @Autowired
+    CmsAuthorizedSignatoryService cmsAuthorizedSignatoryService;
+    
     
     public Mutation(UserPreferenceRepository userPreferenceRepository) {
     	this.userPreferenceRepository = userPreferenceRepository;
@@ -44,5 +51,10 @@ public class Mutation implements GraphQLMutationResolver {
     public BranchPayload saveBranch(BranchInput cmsBranchVo) {
     	CmsBranchVo vo = this.cmsBranchService.saveBranch(cmsBranchVo);
     	return new BranchPayload(vo);
+    }
+    
+    public AuthorizedSignatoryPayload saveAuthorizedSignatory(AuthorizedSignatoryInput cmsAuthorizedSignatoryVo) {
+    	CmsAuthorizedSignatoryVo vo = this.cmsAuthorizedSignatoryService.saveAuthorizedSignatory(cmsAuthorizedSignatoryVo);
+    	return new AuthorizedSignatoryPayload(vo);
     }
 }

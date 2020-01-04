@@ -2,6 +2,10 @@ package com.synectiks.pref.domain.vo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.poi.ss.formula.functions.T;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -32,6 +36,7 @@ public class CmsCommonVo implements Serializable{
     private String strUpdatedOn;
     private Long exitCode;
     private String exitDescription;
+    
     
     
 	public String getCreatedBy() {
@@ -88,5 +93,5 @@ public class CmsCommonVo implements Serializable{
 	public void setExitDescription(String exitDescription) {
 		this.exitDescription = exitDescription;
 	}
-    
+	
 }

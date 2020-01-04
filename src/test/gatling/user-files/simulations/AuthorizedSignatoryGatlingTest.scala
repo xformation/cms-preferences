@@ -80,7 +80,8 @@ class AuthorizedSignatoryGatlingTest extends Simulation {
                 , "fatherName":"SAMPLE_TEXT"
                 , "designation":"SAMPLE_TEXT"
                 , "address":"SAMPLE_TEXT"
-                , "email":"SAMPLE_TEXT"
+                , "emailId":"SAMPLE_TEXT"
+                , "cellPhoneNumber":"SAMPLE_TEXT"
                 , "panNo":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))

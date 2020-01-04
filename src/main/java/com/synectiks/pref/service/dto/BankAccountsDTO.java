@@ -1,5 +1,6 @@
 package com.synectiks.pref.service.dto;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -17,13 +18,23 @@ public class BankAccountsDTO implements Serializable {
 
     private String ifscCode;
 
-    private String branchAddress;
+    private String address;
 
     private String corporateId;
 
 
     private Long branchId;
 
+    private String createdBy;
+
+    private LocalDate createdOn;
+
+    private String updatedBy;
+
+    private LocalDate updatedOn;
+
+    private String status;
+    
     public Long getId() {
         return id;
     }
@@ -64,12 +75,12 @@ public class BankAccountsDTO implements Serializable {
         this.ifscCode = ifscCode;
     }
 
-    public String getBranchAddress() {
-        return branchAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setBranchAddress(String branchAddress) {
-        this.branchAddress = branchAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCorporateId() {
@@ -117,9 +128,49 @@ public class BankAccountsDTO implements Serializable {
             ", accountNumber='" + getAccountNumber() + "'" +
             ", typeOfAccount='" + getTypeOfAccount() + "'" +
             ", ifscCode='" + getIfscCode() + "'" +
-            ", branchAddress='" + getBranchAddress() + "'" +
+            ", address='" + getAddress() + "'" +
             ", corporateId='" + getCorporateId() + "'" +
             ", branch=" + getBranchId() +
             "}";
     }
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public LocalDate getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(LocalDate createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public LocalDate getUpdatedOn() {
+		return updatedOn;
+	}
+
+	public void setUpdatedOn(LocalDate updatedOn) {
+		this.updatedOn = updatedOn;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

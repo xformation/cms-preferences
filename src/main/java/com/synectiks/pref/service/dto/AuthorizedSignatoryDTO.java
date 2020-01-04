@@ -1,5 +1,6 @@
 package com.synectiks.pref.service.dto;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -17,13 +18,25 @@ public class AuthorizedSignatoryDTO implements Serializable {
 
     private String address;
 
-    private String email;
+    private String emailId;
+
+    private String cellPhoneNumber;
 
     private String panNo;
 
 
     private Long branchId;
 
+    private String createdBy;
+
+    private LocalDate createdOn;
+
+    private String updatedBy;
+
+    private LocalDate updatedOn;
+
+    private String status;
+    
     public Long getId() {
         return id;
     }
@@ -64,12 +77,20 @@ public class AuthorizedSignatoryDTO implements Serializable {
         this.address = address;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailId() {
+        return emailId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public String getCellPhoneNumber() {
+        return cellPhoneNumber;
+    }
+
+    public void setCellPhoneNumber(String cellPhoneNumber) {
+        this.cellPhoneNumber = cellPhoneNumber;
     }
 
     public String getPanNo() {
@@ -117,9 +138,50 @@ public class AuthorizedSignatoryDTO implements Serializable {
             ", fatherName='" + getFatherName() + "'" +
             ", designation='" + getDesignation() + "'" +
             ", address='" + getAddress() + "'" +
-            ", email='" + getEmail() + "'" +
+            ", emailId='" + getEmailId() + "'" +
+            ", cellPhoneNumber='" + getCellPhoneNumber() + "'" +
             ", panNo='" + getPanNo() + "'" +
             ", branch=" + getBranchId() +
             "}";
     }
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public LocalDate getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(LocalDate createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public LocalDate getUpdatedOn() {
+		return updatedOn;
+	}
+
+	public void setUpdatedOn(LocalDate updatedOn) {
+		this.updatedOn = updatedOn;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

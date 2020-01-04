@@ -1,5 +1,6 @@
 package com.synectiks.pref.domain;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,19 +11,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.synectiks.pref.utils.IESEntity;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 /**
  * A AuthorizedSignatory.
  */
 @Entity
 @Table(name = "authorized_signatory")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class AuthorizedSignatory implements Serializable, IESEntity {
+public class AuthorizedSignatory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,12 +43,34 @@ public class AuthorizedSignatory implements Serializable, IESEntity {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "email_id")
+    private String emailId;
+
+    @Column(name = "cell_phone_number")
+    private String cellPhoneNumber;
 
     @Column(name = "pan_no")
     private String panNo;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "created_on")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate createdOn;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @Column(name = "updated_on")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate updatedOn;
+
+    @Column(name = "status")
+    private String status;
+    
     @ManyToOne
     @JsonIgnoreProperties("authorizedSignatories")
     private Branch branch;
@@ -114,17 +136,30 @@ public class AuthorizedSignatory implements Serializable, IESEntity {
         this.address = address;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailId() {
+        return emailId;
     }
 
-    public AuthorizedSignatory email(String email) {
-        this.email = email;
+    public AuthorizedSignatory emailId(String emailId) {
+        this.emailId = emailId;
         return this;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public String getCellPhoneNumber() {
+        return cellPhoneNumber;
+    }
+
+    public AuthorizedSignatory cellPhoneNumber(String cellPhoneNumber) {
+        this.cellPhoneNumber = cellPhoneNumber;
+        return this;
+    }
+
+    public void setCellPhoneNumber(String cellPhoneNumber) {
+        this.cellPhoneNumber = cellPhoneNumber;
     }
 
     public String getPanNo() {
@@ -178,8 +213,49 @@ public class AuthorizedSignatory implements Serializable, IESEntity {
             ", fatherName='" + getFatherName() + "'" +
             ", designation='" + getDesignation() + "'" +
             ", address='" + getAddress() + "'" +
-            ", email='" + getEmail() + "'" +
+            ", emailId='" + getEmailId() + "'" +
+            ", cellPhoneNumber='" + getCellPhoneNumber() + "'" +
             ", panNo='" + getPanNo() + "'" +
             "}";
     }
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public LocalDate getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(LocalDate createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public LocalDate getUpdatedOn() {
+		return updatedOn;
+	}
+
+	public void setUpdatedOn(LocalDate updatedOn) {
+		this.updatedOn = updatedOn;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

@@ -4,11 +4,53 @@ type Query {
 	getBranchList: [CmsBranchVo]
 	getStateList: [State]
 	getCityList: [City]
+	getAuthorizedSignatoryList: [CmsAuthorizedSignatoryVo]
 }
 
 type Mutation {
 	addCollege(input: CollegeInput): CollegePayload
 	saveBranch(input: BranchInput): BranchPayload
+	saveAuthorizedSignatory(input: AuthorizedSignatoryInput): AuthorizedSignatoryPayload
+}
+
+input AuthorizedSignatoryInput {
+	id: Long
+    name: String 
+    fatherName: String 
+    designation: String 
+    address: String 
+    emailId: String 
+    cellPhoneNumber: String 
+    panNo: String 
+    branchId: Long
+    status: String
+}
+
+type AuthorizedSignatoryPayload {
+	cmsAuthorizedSignatoryVo: CmsAuthorizedSignatoryVo
+}
+
+type CmsAuthorizedSignatoryVo {
+	id: Long
+    name: String 
+    fatherName: String 
+    designation: String 
+    address: String 
+    emailId: String 
+    cellPhoneNumber: String 
+    panNo: String 
+    branchId: Long
+    cmsBranchVo: CmsBranchVo 
+    createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    status: String 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    exitCode: Long 
+    exitDescription: String 
+    dataList: [CmsAuthorizedSignatoryVo]
 }
 
 input BranchInput{

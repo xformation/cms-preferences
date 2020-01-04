@@ -1,5 +1,6 @@
 package com.synectiks.pref.domain;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,19 +11,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.synectiks.pref.utils.IESEntity;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 /**
  * A BankAccounts.
  */
 @Entity
 @Table(name = "bank_accounts")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class BankAccounts implements Serializable, IESEntity {
+public class BankAccounts implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,12 +43,31 @@ public class BankAccounts implements Serializable, IESEntity {
     @Column(name = "ifsc_code")
     private String ifscCode;
 
-    @Column(name = "branch_address")
-    private String branchAddress;
+    @Column(name = "address")
+    private String address;
 
     @Column(name = "corporate_id")
     private String corporateId;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "created_on")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate createdOn;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @Column(name = "updated_on")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate updatedOn;
+
+    @Column(name = "status")
+    private String status;
+    
     @ManyToOne
     @JsonIgnoreProperties("bankAccounts")
     private Branch branch;
@@ -114,17 +133,17 @@ public class BankAccounts implements Serializable, IESEntity {
         this.ifscCode = ifscCode;
     }
 
-    public String getBranchAddress() {
-        return branchAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public BankAccounts branchAddress(String branchAddress) {
-        this.branchAddress = branchAddress;
+    public BankAccounts address(String address) {
+        this.address = address;
         return this;
     }
 
-    public void setBranchAddress(String branchAddress) {
-        this.branchAddress = branchAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCorporateId() {
@@ -178,8 +197,48 @@ public class BankAccounts implements Serializable, IESEntity {
             ", accountNumber='" + getAccountNumber() + "'" +
             ", typeOfAccount='" + getTypeOfAccount() + "'" +
             ", ifscCode='" + getIfscCode() + "'" +
-            ", branchAddress='" + getBranchAddress() + "'" +
+            ", address='" + getAddress() + "'" +
             ", corporateId='" + getCorporateId() + "'" +
             "}";
     }
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public LocalDate getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(LocalDate createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public LocalDate getUpdatedOn() {
+		return updatedOn;
+	}
+
+	public void setUpdatedOn(LocalDate updatedOn) {
+		this.updatedOn = updatedOn;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

@@ -123,7 +123,7 @@ public class BankAccountsResourceIT {
             .accountNumber(DEFAULT_ACCOUNT_NUMBER)
             .typeOfAccount(DEFAULT_TYPE_OF_ACCOUNT)
             .ifscCode(DEFAULT_IFSC_CODE)
-            .branchAddress(DEFAULT_BRANCH_ADDRESS)
+            .address(DEFAULT_BRANCH_ADDRESS)
             .corporateId(DEFAULT_CORPORATE_ID);
         return bankAccounts;
     }
@@ -139,7 +139,7 @@ public class BankAccountsResourceIT {
             .accountNumber(UPDATED_ACCOUNT_NUMBER)
             .typeOfAccount(UPDATED_TYPE_OF_ACCOUNT)
             .ifscCode(UPDATED_IFSC_CODE)
-            .branchAddress(UPDATED_BRANCH_ADDRESS)
+            .address(UPDATED_BRANCH_ADDRESS)
             .corporateId(UPDATED_CORPORATE_ID);
         return bankAccounts;
     }
@@ -169,7 +169,7 @@ public class BankAccountsResourceIT {
         assertThat(testBankAccounts.getAccountNumber()).isEqualTo(DEFAULT_ACCOUNT_NUMBER);
         assertThat(testBankAccounts.getTypeOfAccount()).isEqualTo(DEFAULT_TYPE_OF_ACCOUNT);
         assertThat(testBankAccounts.getIfscCode()).isEqualTo(DEFAULT_IFSC_CODE);
-        assertThat(testBankAccounts.getBranchAddress()).isEqualTo(DEFAULT_BRANCH_ADDRESS);
+        assertThat(testBankAccounts.getAddress()).isEqualTo(DEFAULT_BRANCH_ADDRESS);
         assertThat(testBankAccounts.getCorporateId()).isEqualTo(DEFAULT_CORPORATE_ID);
 
         // Validate the BankAccounts in Elasticsearch
@@ -215,7 +215,7 @@ public class BankAccountsResourceIT {
             .andExpect(jsonPath("$.[*].accountNumber").value(hasItem(DEFAULT_ACCOUNT_NUMBER.toString())))
             .andExpect(jsonPath("$.[*].typeOfAccount").value(hasItem(DEFAULT_TYPE_OF_ACCOUNT.toString())))
             .andExpect(jsonPath("$.[*].ifscCode").value(hasItem(DEFAULT_IFSC_CODE.toString())))
-            .andExpect(jsonPath("$.[*].branchAddress").value(hasItem(DEFAULT_BRANCH_ADDRESS.toString())))
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_BRANCH_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].corporateId").value(hasItem(DEFAULT_CORPORATE_ID.toString())));
     }
     
@@ -234,7 +234,7 @@ public class BankAccountsResourceIT {
             .andExpect(jsonPath("$.accountNumber").value(DEFAULT_ACCOUNT_NUMBER.toString()))
             .andExpect(jsonPath("$.typeOfAccount").value(DEFAULT_TYPE_OF_ACCOUNT.toString()))
             .andExpect(jsonPath("$.ifscCode").value(DEFAULT_IFSC_CODE.toString()))
-            .andExpect(jsonPath("$.branchAddress").value(DEFAULT_BRANCH_ADDRESS.toString()))
+            .andExpect(jsonPath("$.address").value(DEFAULT_BRANCH_ADDRESS.toString()))
             .andExpect(jsonPath("$.corporateId").value(DEFAULT_CORPORATE_ID.toString()));
     }
 
@@ -263,7 +263,7 @@ public class BankAccountsResourceIT {
             .accountNumber(UPDATED_ACCOUNT_NUMBER)
             .typeOfAccount(UPDATED_TYPE_OF_ACCOUNT)
             .ifscCode(UPDATED_IFSC_CODE)
-            .branchAddress(UPDATED_BRANCH_ADDRESS)
+            .address(UPDATED_BRANCH_ADDRESS)
             .corporateId(UPDATED_CORPORATE_ID);
         BankAccountsDTO bankAccountsDTO = bankAccountsMapper.toDto(updatedBankAccounts);
 
@@ -280,7 +280,7 @@ public class BankAccountsResourceIT {
         assertThat(testBankAccounts.getAccountNumber()).isEqualTo(UPDATED_ACCOUNT_NUMBER);
         assertThat(testBankAccounts.getTypeOfAccount()).isEqualTo(UPDATED_TYPE_OF_ACCOUNT);
         assertThat(testBankAccounts.getIfscCode()).isEqualTo(UPDATED_IFSC_CODE);
-        assertThat(testBankAccounts.getBranchAddress()).isEqualTo(UPDATED_BRANCH_ADDRESS);
+        assertThat(testBankAccounts.getAddress()).isEqualTo(UPDATED_BRANCH_ADDRESS);
         assertThat(testBankAccounts.getCorporateId()).isEqualTo(UPDATED_CORPORATE_ID);
 
         // Validate the BankAccounts in Elasticsearch
@@ -346,7 +346,7 @@ public class BankAccountsResourceIT {
 //            .andExpect(jsonPath("$.[*].accountNumber").value(hasItem(DEFAULT_ACCOUNT_NUMBER)))
 //            .andExpect(jsonPath("$.[*].typeOfAccount").value(hasItem(DEFAULT_TYPE_OF_ACCOUNT)))
 //            .andExpect(jsonPath("$.[*].ifscCode").value(hasItem(DEFAULT_IFSC_CODE)))
-//            .andExpect(jsonPath("$.[*].branchAddress").value(hasItem(DEFAULT_BRANCH_ADDRESS)))
+//            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_BRANCH_ADDRESS)))
 //            .andExpect(jsonPath("$.[*].corporateId").value(hasItem(DEFAULT_CORPORATE_ID)));
 //    }
 

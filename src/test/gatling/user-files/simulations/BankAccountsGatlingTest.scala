@@ -80,7 +80,7 @@ class BankAccountsGatlingTest extends Simulation {
                 , "accountNumber":"SAMPLE_TEXT"
                 , "typeOfAccount":"SAMPLE_TEXT"
                 , "ifscCode":"SAMPLE_TEXT"
-                , "branchAddress":"SAMPLE_TEXT"
+                , "address":"SAMPLE_TEXT"
                 , "corporateId":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
