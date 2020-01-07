@@ -6,7 +6,7 @@ type Query {
 	getCityList: [City]
 	getAuthorizedSignatoryList: [CmsAuthorizedSignatoryVo]
 	getBankAccountsList: [CmsBankAccountsVo]
-	getLegalEntity(branchId: Long): CmsLegalEntityVo
+	getLegalEntityList: [CmsLegalEntityVo]
 }
 
 type Mutation {
@@ -94,6 +94,7 @@ type CmsLegalEntityVo {
     strUpdatedOn: String 
     exitCode: Long 
     exitDescription: String 
+    dataList: [CmsLegalEntityVo]
 }
 
 
@@ -265,6 +266,7 @@ type CmsBranchVo {
     exitCode: Long
     exitDescription: String
     status: String
+    dataList: [CmsBranchVo]
 }
 
 type Country{

@@ -80,8 +80,8 @@ public class Query implements GraphQLQueryResolver {
     	return this.cmsBankAccountsService.getBankAccountsList();
     }
 	
-	public CmsLegalEntityVo getLegalEntity(Long branchId) throws Exception {
+	public List<CmsLegalEntityVo> getLegalEntityList() throws Exception {
     	logger.debug("Query - getLegalEntity :");
-    	return this.cmsLegalEntityService.getLegalEntity(branchId);
+    	return this.cmsLegalEntityService.getLegalEntityList();
     }
 }

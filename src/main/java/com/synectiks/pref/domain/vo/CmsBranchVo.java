@@ -2,6 +2,8 @@ package com.synectiks.pref.domain.vo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.synectiks.pref.domain.City;
 import com.synectiks.pref.domain.College;
@@ -34,7 +36,7 @@ public class CmsBranchVo extends CmsCommonVo implements Serializable {
     private Long collegeId;
     private Long cityId;
     private Long stateId;
-    
+    private List<CmsBranchVo> dataList = new ArrayList<CmsBranchVo>();
     
 	public Long getId() {
 		return id;
@@ -218,6 +220,12 @@ public class CmsBranchVo extends CmsCommonVo implements Serializable {
 				+ ", emailId=" + emailId + ", faxNo=" + faxNo + ", isMainBranch=" + isMainBranch + ", startDate="
 				+ startDate + ", college=" + college + ", city=" + city + ", state=" + state + ", strStartDate="
 				+ strStartDate + ", collegeId=" + collegeId + ", cityId=" + cityId + ", stateId=" + stateId + "]";
+	}
+	public List<CmsBranchVo> getDataList() {
+		return dataList;
+	}
+	public void setDataList(List<CmsBranchVo> dataList) {
+		this.dataList = dataList;
 	}
 	
 	

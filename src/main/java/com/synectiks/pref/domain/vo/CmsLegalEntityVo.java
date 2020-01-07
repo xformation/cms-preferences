@@ -2,6 +2,8 @@ package com.synectiks.pref.domain.vo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -13,6 +15,10 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
  */
 public class CmsLegalEntityVo extends CmsCommonVo implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1683016123269529446L;
 	private Long id;
 	private String logoFile;
     private String logoFilePath;
@@ -60,7 +66,8 @@ public class CmsLegalEntityVo extends CmsCommonVo implements Serializable {
     private String strPfRegistrationDate;
     private String strEsiRegistrationDate;
     private String strPtRegistrationDate;
-
+    private List<CmsLegalEntityVo> dataList = new ArrayList<CmsLegalEntityVo>();
+    
     
 	public Long getId() {
 		return id;
@@ -263,6 +270,12 @@ public class CmsLegalEntityVo extends CmsCommonVo implements Serializable {
 	}
 	public void setCmsBranchVo(CmsBranchVo cmsBranchVo) {
 		this.cmsBranchVo = cmsBranchVo;
+	}
+	public List<CmsLegalEntityVo> getDataList() {
+		return dataList;
+	}
+	public void setDataList(List<CmsLegalEntityVo> dataList) {
+		this.dataList = dataList;
 	}
 	
 	

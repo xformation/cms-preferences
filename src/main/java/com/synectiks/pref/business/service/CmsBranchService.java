@@ -153,6 +153,8 @@ public class CmsBranchService {
     		logger.error("Branch save failed. Exception : ",e);
     	}
     	logger.info("Branch saved successfully");
+    	List ls =  getBranchList();
+        vo.setDataList(ls);
     	return vo;
         
     }

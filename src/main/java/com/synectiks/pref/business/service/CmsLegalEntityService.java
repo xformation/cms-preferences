@@ -154,6 +154,8 @@ public class CmsLegalEntityService {
     		logger.error("LegalEntity save failed. Exception : ",e);
     	}
     	logger.info("LegalEntity saved successfully");
+    	List ls =  getLegalEntityList();
+        vo.setDataList(ls);
         return vo;
     }
 }
