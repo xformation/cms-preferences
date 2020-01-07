@@ -1,18 +1,19 @@
 package com.synectiks.pref.domain.vo;
 
 import java.io.Serializable;
-
-import com.synectiks.pref.domain.Branch;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Vo for the BankAccounts entity.
  */
 public class CmsBankAccountsVo extends CmsCommonVo implements Serializable {
 
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4885536573081187243L;
+	private static final long serialVersionUID = -3917727524853509670L;
 	private Long id;
     private String bankName;
     private String accountNumber;
@@ -20,8 +21,9 @@ public class CmsBankAccountsVo extends CmsCommonVo implements Serializable {
     private String ifscCode;
     private String address;
     private String corporateId;
-    private Branch branch;
+    private CmsBranchVo cmsBranchVo;
     private Long branchId;
+    private List<CmsBankAccountsVo> dataList = new ArrayList<CmsBankAccountsVo>();
     
 	public Long getId() {
 		return id;
@@ -65,11 +67,11 @@ public class CmsBankAccountsVo extends CmsCommonVo implements Serializable {
 	public void setCorporateId(String corporateId) {
 		this.corporateId = corporateId;
 	}
-	public Branch getBranch() {
-		return branch;
+	public CmsBranchVo getCmsBranchVo() {
+		return cmsBranchVo;
 	}
-	public void setBranch(Branch branch) {
-		this.branch = branch;
+	public void setCmsBranchVo(CmsBranchVo cmsBranchVo) {
+		this.cmsBranchVo = cmsBranchVo;
 	}
 	public Long getBranchId() {
 		return branchId;
@@ -77,17 +79,25 @@ public class CmsBankAccountsVo extends CmsCommonVo implements Serializable {
 	public void setBranchId(Long branchId) {
 		this.branchId = branchId;
 	}
+	public List<CmsBankAccountsVo> getDataList() {
+		return dataList;
+	}
+	public void setDataList(List<CmsBankAccountsVo> dataList) {
+		this.dataList = dataList;
+	}
 	@Override
 	public String toString() {
 		return "CmsBankAccountsVo [id=" + id + ", bankName=" + bankName + ", accountNumber=" + accountNumber
 				+ ", typeOfAccount=" + typeOfAccount + ", ifscCode=" + ifscCode + ", address=" + address
-				+ ", corporateId=" + corporateId + ", branch=" + branch + ", branchId=" + branchId + ", getCreatedBy()="
-				+ getCreatedBy() + ", getCreatedOn()=" + getCreatedOn() + ", getUpdatedBy()=" + getUpdatedBy()
-				+ ", getUpdatedOn()=" + getUpdatedOn() + ", getStatus()=" + getStatus() + ", getStrCreatedOn()="
-				+ getStrCreatedOn() + ", getStrUpdatedOn()=" + getStrUpdatedOn() + ", getExitCode()=" + getExitCode()
-				+ ", getExitDescription()=" + getExitDescription() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", corporateId=" + corporateId + ", cmsBranchVo=" + cmsBranchVo + ", branchId=" + branchId
+				+ ", dataList=" + dataList + ", getCreatedBy()=" + getCreatedBy() + ", getCreatedOn()=" + getCreatedOn()
+				+ ", getUpdatedBy()=" + getUpdatedBy() + ", getUpdatedOn()=" + getUpdatedOn() + ", getStatus()="
+				+ getStatus() + ", getStrCreatedOn()=" + getStrCreatedOn() + ", getStrUpdatedOn()=" + getStrUpdatedOn()
+				+ ", getExitCode()=" + getExitCode() + ", getExitDescription()=" + getExitDescription()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
+    
 	
     
 }

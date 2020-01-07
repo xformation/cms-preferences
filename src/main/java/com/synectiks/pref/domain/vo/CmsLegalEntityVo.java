@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.synectiks.pref.domain.Branch;
 
 /**
  * A VO for the LegalEntity entity.
@@ -55,7 +54,7 @@ public class CmsLegalEntityVo extends CmsCommonVo implements Serializable {
 
     private Long ptSignatory;
 
-    private Branch branch;
+    private CmsBranchVo cmsBranchVo;
     private Long branchId;
     private String strDateOfIncorporation;
     private String strPfRegistrationDate;
@@ -201,12 +200,7 @@ public class CmsLegalEntityVo extends CmsCommonVo implements Serializable {
 	public void setPtSignatory(Long ptSignatory) {
 		this.ptSignatory = ptSignatory;
 	}
-	public Branch getBranch() {
-		return branch;
-	}
-	public void setBranch(Branch branch) {
-		this.branch = branch;
-	}
+	
 	public Long getBranchId() {
 		return branchId;
 	}
@@ -224,7 +218,7 @@ public class CmsLegalEntityVo extends CmsCommonVo implements Serializable {
 				+ ", pfRegistrationDate=" + pfRegistrationDate + ", pfSignatory=" + pfSignatory + ", esiNumber="
 				+ esiNumber + ", esiRegistrationDate=" + esiRegistrationDate + ", esiSignatory=" + esiSignatory
 				+ ", ptNumber=" + ptNumber + ", ptRegistrationDate=" + ptRegistrationDate + ", ptSignatory="
-				+ ptSignatory + ", branch=" + branch + ", branchId=" + branchId + ", strDateOfIncorporation="
+				+ ptSignatory + ", branchId=" + branchId + ", strDateOfIncorporation="
 				+ strDateOfIncorporation + ", strPfRegistrationDate=" + strPfRegistrationDate
 				+ ", strEsiRegistrationDate=" + strEsiRegistrationDate + ", strPtRegistrationDate="
 				+ strPtRegistrationDate + ", getCreatedBy()=" + getCreatedBy() + ", getCreatedOn()=" + getCreatedOn()
@@ -263,6 +257,12 @@ public class CmsLegalEntityVo extends CmsCommonVo implements Serializable {
 	}
 	public void setStrPtRegistrationDate(String strPtRegistrationDate) {
 		this.strPtRegistrationDate = strPtRegistrationDate;
+	}
+	public CmsBranchVo getCmsBranchVo() {
+		return cmsBranchVo;
+	}
+	public void setCmsBranchVo(CmsBranchVo cmsBranchVo) {
+		this.cmsBranchVo = cmsBranchVo;
 	}
 	
 	

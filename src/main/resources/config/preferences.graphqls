@@ -5,13 +5,137 @@ type Query {
 	getStateList: [State]
 	getCityList: [City]
 	getAuthorizedSignatoryList: [CmsAuthorizedSignatoryVo]
+	getBankAccountsList: [CmsBankAccountsVo]
+	getLegalEntity(branchId: Long): CmsLegalEntityVo
 }
 
 type Mutation {
 	addCollege(input: CollegeInput): CollegePayload
 	saveBranch(input: BranchInput): BranchPayload
 	saveAuthorizedSignatory(input: AuthorizedSignatoryInput): AuthorizedSignatoryPayload
+	saveBankAccounts(input: BankAccountsInput): BankAccountsPayload
+	saveLegalEntity(input: LegalEntityInput): LegalEntityPayload
 }
+
+input LegalEntityInput {
+	id: Long 		
+	logoFile: String 		
+	logoFilePath: String 		
+	logoFileName: String 		
+	logoFileExtension: String 		
+	legalNameOfCollege: String 		
+	typeOfCollege: String 		
+	dateOfIncorporation: Date 		
+	registeredOfficeAddress: String 		
+	collegeIdentificationNumber: String 		
+	pan: String 		
+	tan: String 		
+	tanCircleNumber: String 		
+	citTdsLocation: String 		
+	formSignatory: Long 		
+	pfNumber: String 		
+	pfRegistrationDate: Date 		
+	pfSignatory: Long 		
+	esiNumber: String 		
+	esiRegistrationDate: Date 		
+	esiSignatory: Long 		
+	ptNumber: String 		
+	ptRegistrationDate: Date 		
+	ptSignatory: Long 		
+	strDateOfIncorporation: String 		
+	strPfRegistrationDate: String 		
+	strEsiRegistrationDate: String 		
+	strPtRegistrationDate: String 		
+    branchId: Long
+    status: String
+}
+
+type LegalEntityPayload {
+	cmsLegalEntityVo: CmsLegalEntityVo
+}
+
+type CmsLegalEntityVo {
+	id: Long 		
+	logoFile: String 		
+	logoFilePath: String 		
+	logoFileName: String 		
+	logoFileExtension: String 		
+	legalNameOfCollege: String 		
+	typeOfCollege: String 		
+	dateOfIncorporation: Date 		
+	registeredOfficeAddress: String 		
+	collegeIdentificationNumber: String 		
+	pan: String 		
+	tan: String 		
+	tanCircleNumber: String 		
+	citTdsLocation: String 		
+	formSignatory: Long 		
+	pfNumber: String 		
+	pfRegistrationDate: Date 		
+	pfSignatory: Long 		
+	esiNumber: String 		
+	esiRegistrationDate: Date 		
+	esiSignatory: Long 		
+	ptNumber: String 		
+	ptRegistrationDate: Date 		
+	ptSignatory: Long 		
+	strDateOfIncorporation: String 		
+	strPfRegistrationDate: String 		
+	strEsiRegistrationDate: String 		
+	strPtRegistrationDate: String 		
+    branchId: Long
+    cmsBranchVo: CmsBranchVo 
+    createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    status: String 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    exitCode: Long 
+    exitDescription: String 
+}
+
+
+
+input BankAccountsInput {
+	id: Long
+    bankName: String 
+    accountNumber: String 
+    typeOfAccount: String 
+    ifscCode: String 
+    address: String 
+    corporateId: String 
+    branchId: Long
+    status: String
+}
+
+type BankAccountsPayload {
+	cmsBankAccountsVo: CmsBankAccountsVo
+}
+
+type CmsBankAccountsVo {
+	id: Long
+    bankName: String 
+    accountNumber: String 
+    typeOfAccount: String 
+    ifscCode: String 
+    address: String 
+    corporateId: String 
+    branchId: Long
+    cmsBranchVo: CmsBranchVo 
+    createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    status: String 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    exitCode: Long 
+    exitDescription: String 
+    dataList: [CmsBankAccountsVo]
+}
+
 
 input AuthorizedSignatoryInput {
 	id: Long
