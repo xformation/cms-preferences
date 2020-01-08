@@ -68,6 +68,20 @@ public class CmsLegalEntityService {
         	vo.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(le.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
         	vo.setUpdatedOn(null);
         }
+        
+        if(le.getDateOfIncorporation() != null) {
+        	vo.setStrDateOfIncorporation(DateFormatUtil.changeLocalDateFormat(le.getDateOfIncorporation(), CmsConstants.DATE_FORMAT_MM_dd_yyyy));
+        }
+        if(le.getPfRegistrationDate() != null) {
+        	vo.setStrPfRegistrationDate(DateFormatUtil.changeLocalDateFormat(le.getPfRegistrationDate(), CmsConstants.DATE_FORMAT_MM_dd_yyyy));
+        }
+        if(le.getEsiRegistrationDate() != null) {
+        	vo.setStrEsiRegistrationDate(DateFormatUtil.changeLocalDateFormat(le.getEsiRegistrationDate(), CmsConstants.DATE_FORMAT_MM_dd_yyyy));
+        }
+        if(le.getPtRegistrationDate() != null) {
+        	vo.setStrPtRegistrationDate(DateFormatUtil.changeLocalDateFormat(le.getPtRegistrationDate(), CmsConstants.DATE_FORMAT_MM_dd_yyyy));
+        }
+        
         if(le.getBranch() != null) {
         	vo.setBranchId(le.getBranch().getId());
         	CmsBranchVo cmsBvo =CommonUtil.createCopyProperties(le.getBranch(), CmsBranchVo.class); 
