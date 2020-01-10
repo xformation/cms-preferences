@@ -198,9 +198,9 @@ public class AcademicSubjectService {
     		vo.setDepartment(dp);
     		vo.setBatch(bt);
     		vo.setSubject(th.getSubject());
-    		vo.setTeacher(th.getTeacher());
+//    		vo.setTeacher(th.getTeacher());
     		vo.setTeach(th);
-    		vo.setTeacherId(th.getTeacher().getId());
+//    		vo.setTeacherId(th.getTeacher().getId());
     		
     		vo.setId(th.getSubject().getId());
     		vo.setStatus(th.getSubject().getStatus());
@@ -289,7 +289,7 @@ public class AcademicSubjectService {
 			Teach teach = new Teach();
 			teach.setSubject(newSub);
 			Teacher teacher = commonService.getTeacherById(dto.getTeacherId());
-			teach.setTeacher(teacher);
+//			teach.setTeacher(teacher);
 			teach.setDesc(dto.getSubjectCode());
 			this.teachRepository.save(teach);
 			logger.info("Teach data saved.");
@@ -337,7 +337,7 @@ public class AcademicSubjectService {
 		
 		Teach teach = new Teach();
 		teach.setSubject(sub);
-		teach.setTeacher(teacher);
+//		teach.setTeacher(teacher);
 		teach.setDesc(cmsSubjectVo.getSubjectCode());
 		teach = this.teachRepository.save(teach);
 		logger.info("Teach data saved.");
@@ -448,7 +448,7 @@ public class AcademicSubjectService {
 		// find the existing record in teach table for given teacher and subject. If not exists, create a new teach record.
 		Teach teach = new Teach();
 		teach.setSubject(sub);
-		teach.setTeacher(teacher);
+//		teach.setTeacher(teacher);
 		Example<Teach> example = Example.of(teach);
 		
 		if(!this.teachRepository.exists(example)) {
@@ -554,7 +554,7 @@ public class AcademicSubjectService {
     	teacher.setDepartment(department);
     	Teach teach = new Teach();
     	teach.setSubject(subject);
-    	teach.setTeacher(teacher);
+//    	teach.setTeacher(teacher);
     	List<Teach> teachList = this.teachRepository.findAll(Example.of(teach));
     	return teachList;
     }

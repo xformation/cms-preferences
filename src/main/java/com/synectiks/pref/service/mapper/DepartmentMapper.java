@@ -12,11 +12,11 @@ import org.mapstruct.*;
 public interface DepartmentMapper extends EntityMapper<DepartmentDTO, Department> {
 
     @Mapping(source = "branch.id", target = "branchId")
-    @Mapping(source = "academicyear.id", target = "academicyearId")
+    @Mapping(source = "academicYear.id", target = "academicYearId")
     DepartmentDTO toDto(Department department);
 
     @Mapping(source = "branchId", target = "branch")
-    @Mapping(source = "academicyearId", target = "academicyear")
+    @Mapping(source = "academicYearId", target = "academicYear")
     Department toEntity(DepartmentDTO departmentDTO);
 
     default Department fromId(Long id) {

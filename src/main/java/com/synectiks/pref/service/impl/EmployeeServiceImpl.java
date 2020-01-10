@@ -30,12 +30,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeMapper employeeMapper;
 
-//    private final EmployeeSearchRepository employeeSearchRepository;
+    private final EmployeeSearchRepository employeeSearchRepository;
 
     public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper, EmployeeSearchRepository employeeSearchRepository) {
         this.employeeRepository = employeeRepository;
         this.employeeMapper = employeeMapper;
-//        this.employeeSearchRepository = employeeSearchRepository;
+        this.employeeSearchRepository = employeeSearchRepository;
     }
 
     /**
@@ -50,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeMapper.toEntity(employeeDTO);
         employee = employeeRepository.save(employee);
         EmployeeDTO result = employeeMapper.toDto(employee);
-//        employeeSearchRepository.save(employee);
+        employeeSearchRepository.save(employee);
         return result;
     }
 
@@ -92,7 +92,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void delete(Long id) {
         log.debug("Request to delete Employee : {}", id);
         employeeRepository.deleteById(id);
-//        employeeSearchRepository.deleteById(id);
+        employeeSearchRepository.deleteById(id);
     }
 
     /**

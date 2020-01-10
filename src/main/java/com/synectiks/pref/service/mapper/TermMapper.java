@@ -11,10 +11,10 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {AcademicYearMapper.class})
 public interface TermMapper extends EntityMapper<TermDTO, Term> {
 
-    @Mapping(source = "academicyear.id", target = "academicyearId")
+    @Mapping(source = "academicYear.id", target = "academicYearId")
     TermDTO toDto(Term term);
 
-    @Mapping(source = "academicyearId", target = "academicyear")
+    @Mapping(source = "academicYearId", target = "academicYear")
     Term toEntity(TermDTO termDTO);
 
     default Term fromId(Long id) {

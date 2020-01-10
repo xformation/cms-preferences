@@ -143,7 +143,7 @@ public class TermRestController {
 //    		AcademicYear ay = this.academicYearRepository.findById(id).get();
             logger.debug("Terms based on academic year. AcademicYear :"+oay.get());
             Term term = new Term();
-            term.setAcademicyear(oay.get());
+            term.setAcademicYear(oay.get());
             Example<Term> exm = Example.of(term);
             List<Term> list = this.termRepository.findAll(exm);
             for(Term tm: list) {

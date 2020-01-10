@@ -34,21 +34,21 @@ import org.springframework.validation.Validator;
 
 import com.synectiks.pref.PreferencesApp;
 import com.synectiks.pref.domain.Term;
-import com.synectiks.pref.domain.enumeration.Status;
 import com.synectiks.pref.repository.TermRepository;
 import com.synectiks.pref.repository.search.TermSearchRepository;
 import com.synectiks.pref.service.TermService;
 import com.synectiks.pref.service.dto.TermDTO;
 import com.synectiks.pref.service.mapper.TermMapper;
 import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
+
 /**
  * Integration tests for the {@Link TermResource} REST controller.
  */
 @SpringBootTest(classes = PreferencesApp.class)
 public class TermResourceIT {
 
-    private static final String DEFAULT_TERMS_DESC = "AAAAAAAAAA";
-    private static final String UPDATED_TERMS_DESC = "BBBBBBBBBB";
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
     private static final LocalDate DEFAULT_START_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_START_DATE = LocalDate.now(ZoneId.systemDefault());
@@ -56,8 +56,23 @@ public class TermResourceIT {
     private static final LocalDate DEFAULT_END_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_END_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final Status DEFAULT_TERM_STATUS = Status.ACTIVE;
-    private static final Status UPDATED_TERM_STATUS = Status.DEACTIVE;
+    private static final String DEFAULT_COMMENTS = "AAAAAAAAAA";
+    private static final String UPDATED_COMMENTS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_CREATED_ON = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_ON = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_UPDATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_UPDATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_UPDATED_ON = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_UPDATED_ON = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBB";
 
     @Autowired
     private TermRepository termRepository;
@@ -115,10 +130,15 @@ public class TermResourceIT {
      */
     public static Term createEntity(EntityManager em) {
         Term term = new Term()
-            .termsDesc(DEFAULT_TERMS_DESC)
+            .description(DEFAULT_DESCRIPTION)
             .startDate(DEFAULT_START_DATE)
             .endDate(DEFAULT_END_DATE)
-            .termStatus(DEFAULT_TERM_STATUS);
+            .comments(DEFAULT_COMMENTS)
+            .createdBy(DEFAULT_CREATED_BY)
+            .createdOn(DEFAULT_CREATED_ON)
+            .updatedBy(DEFAULT_UPDATED_BY)
+            .updatedOn(DEFAULT_UPDATED_ON)
+            .status(DEFAULT_STATUS);
         return term;
     }
     /**
@@ -129,10 +149,15 @@ public class TermResourceIT {
      */
     public static Term createUpdatedEntity(EntityManager em) {
         Term term = new Term()
-            .termsDesc(UPDATED_TERMS_DESC)
+            .description(UPDATED_DESCRIPTION)
             .startDate(UPDATED_START_DATE)
             .endDate(UPDATED_END_DATE)
-            .termStatus(UPDATED_TERM_STATUS);
+            .comments(UPDATED_COMMENTS)
+            .createdBy(UPDATED_CREATED_BY)
+            .createdOn(UPDATED_CREATED_ON)
+            .updatedBy(UPDATED_UPDATED_BY)
+            .updatedOn(UPDATED_UPDATED_ON)
+            .status(UPDATED_STATUS);
         return term;
     }
 
@@ -157,10 +182,15 @@ public class TermResourceIT {
         List<Term> termList = termRepository.findAll();
         assertThat(termList).hasSize(databaseSizeBeforeCreate + 1);
         Term testTerm = termList.get(termList.size() - 1);
-        assertThat(testTerm.getTermsDesc()).isEqualTo(DEFAULT_TERMS_DESC);
+        assertThat(testTerm.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testTerm.getStartDate()).isEqualTo(DEFAULT_START_DATE);
         assertThat(testTerm.getEndDate()).isEqualTo(DEFAULT_END_DATE);
-        assertThat(testTerm.getTermStatus()).isEqualTo(DEFAULT_TERM_STATUS);
+        assertThat(testTerm.getComments()).isEqualTo(DEFAULT_COMMENTS);
+        assertThat(testTerm.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
+        assertThat(testTerm.getCreatedOn()).isEqualTo(DEFAULT_CREATED_ON);
+        assertThat(testTerm.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
+        assertThat(testTerm.getUpdatedOn()).isEqualTo(DEFAULT_UPDATED_ON);
+        assertThat(testTerm.getStatus()).isEqualTo(DEFAULT_STATUS);
 
         // Validate the Term in Elasticsearch
         verify(mockTermSearchRepository, times(1)).save(testTerm);
@@ -201,10 +231,15 @@ public class TermResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(term.getId().intValue())))
-            .andExpect(jsonPath("$.[*].termsDesc").value(hasItem(DEFAULT_TERMS_DESC.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
-            .andExpect(jsonPath("$.[*].termStatus").value(hasItem(DEFAULT_TERM_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].comments").value(hasItem(DEFAULT_COMMENTS.toString())))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())))
+            .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY.toString())))
+            .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
     
     @Test
@@ -218,10 +253,15 @@ public class TermResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(term.getId().intValue()))
-            .andExpect(jsonPath("$.termsDesc").value(DEFAULT_TERMS_DESC.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()))
             .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE.toString()))
-            .andExpect(jsonPath("$.termStatus").value(DEFAULT_TERM_STATUS.toString()));
+            .andExpect(jsonPath("$.comments").value(DEFAULT_COMMENTS.toString()))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()))
+            .andExpect(jsonPath("$.createdOn").value(DEFAULT_CREATED_ON.toString()))
+            .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY.toString()))
+            .andExpect(jsonPath("$.updatedOn").value(DEFAULT_UPDATED_ON.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
     @Test
@@ -245,10 +285,15 @@ public class TermResourceIT {
         // Disconnect from session so that the updates on updatedTerm are not directly saved in db
         em.detach(updatedTerm);
         updatedTerm
-            .termsDesc(UPDATED_TERMS_DESC)
+            .description(UPDATED_DESCRIPTION)
             .startDate(UPDATED_START_DATE)
             .endDate(UPDATED_END_DATE)
-            .termStatus(UPDATED_TERM_STATUS);
+            .comments(UPDATED_COMMENTS)
+            .createdBy(UPDATED_CREATED_BY)
+            .createdOn(UPDATED_CREATED_ON)
+            .updatedBy(UPDATED_UPDATED_BY)
+            .updatedOn(UPDATED_UPDATED_ON)
+            .status(UPDATED_STATUS);
         TermDTO termDTO = termMapper.toDto(updatedTerm);
 
         restTermMockMvc.perform(put("/api/terms")
@@ -260,10 +305,15 @@ public class TermResourceIT {
         List<Term> termList = termRepository.findAll();
         assertThat(termList).hasSize(databaseSizeBeforeUpdate);
         Term testTerm = termList.get(termList.size() - 1);
-        assertThat(testTerm.getTermsDesc()).isEqualTo(UPDATED_TERMS_DESC);
+        assertThat(testTerm.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testTerm.getStartDate()).isEqualTo(UPDATED_START_DATE);
         assertThat(testTerm.getEndDate()).isEqualTo(UPDATED_END_DATE);
-        assertThat(testTerm.getTermStatus()).isEqualTo(UPDATED_TERM_STATUS);
+        assertThat(testTerm.getComments()).isEqualTo(UPDATED_COMMENTS);
+        assertThat(testTerm.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
+        assertThat(testTerm.getCreatedOn()).isEqualTo(UPDATED_CREATED_ON);
+        assertThat(testTerm.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
+        assertThat(testTerm.getUpdatedOn()).isEqualTo(UPDATED_UPDATED_ON);
+        assertThat(testTerm.getStatus()).isEqualTo(UPDATED_STATUS);
 
         // Validate the Term in Elasticsearch
         verify(mockTermSearchRepository, times(1)).save(testTerm);
@@ -312,23 +362,28 @@ public class TermResourceIT {
         verify(mockTermSearchRepository, times(1)).deleteById(term.getId());
     }
 
-//    @Test
-//    @Transactional
-//    public void searchTerm() throws Exception {
-//        // Initialize the database
-//        termRepository.saveAndFlush(term);
+    @Test
+    @Transactional
+    public void searchTerm() throws Exception {
+        // Initialize the database
+        termRepository.saveAndFlush(term);
 //        when(mockTermSearchRepository.search(queryStringQuery("id:" + term.getId())))
 //            .thenReturn(Collections.singletonList(term));
-//        // Search the term
-//        restTermMockMvc.perform(get("/api/_search/terms?query=id:" + term.getId()))
-//            .andExpect(status().isOk())
-//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//            .andExpect(jsonPath("$.[*].id").value(hasItem(term.getId().intValue())))
-//            .andExpect(jsonPath("$.[*].termsDesc").value(hasItem(DEFAULT_TERMS_DESC)))
-//            .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
-//            .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
-//            .andExpect(jsonPath("$.[*].termStatus").value(hasItem(DEFAULT_TERM_STATUS.toString())));
-//    }
+        // Search the term
+        restTermMockMvc.perform(get("/api/_search/terms?query=id:" + term.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(term.getId().intValue())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
+            .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
+            .andExpect(jsonPath("$.[*].comments").value(hasItem(DEFAULT_COMMENTS)))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
+            .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)))
+            .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
+    }
 
     @Test
     @Transactional

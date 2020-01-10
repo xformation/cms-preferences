@@ -14,11 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="subject"/>
 
-        <addForeignKeyConstraint baseColumnNames="teacher_id"
+        <addForeignKeyConstraint baseColumnNames="employee_id"
                                  baseTableName="teach"
-                                 constraintName="fk_teach_teacher_id"
+                                 constraintName="fk_teach_employee_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="teacher"/>
+                                 referencedTableName="employee"/>
 
     </changeSet>
 </databaseChangeLog>

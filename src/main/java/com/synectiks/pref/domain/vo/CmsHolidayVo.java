@@ -1,96 +1,92 @@
 package com.synectiks.pref.domain.vo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.synectiks.pref.domain.AcademicYear;
-import com.synectiks.pref.domain.enumeration.Status;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
-public class CmsHolidayVo {
+public class CmsHolidayVo extends CmsCommonVo implements Serializable {
 
-    private Long id;
-    private String holidayDesc;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Long id;
+    private String description;
+    
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate holidayDate;
-    private Status holidayStatus;
-    private AcademicYear academicyear;
-
+    
+    private String comments;
+    private CmsAcademicYearVo cmsAcademicYearVo;
+    private Long academicYearId;
+    private List<CmsHolidayVo> dataList = new ArrayList<CmsHolidayVo>();
     private String strHolidayDate;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getHolidayDesc() {
-        return holidayDesc;
-    }
-
-    public void setHolidayDesc(String holidayDesc) {
-        this.holidayDesc = holidayDesc;
-    }
-
-    public LocalDate getHolidayDate() {
-        return holidayDate;
-    }
-
-    public void setHolidayDate(LocalDate holidayDate) {
-        this.holidayDate = holidayDate;
-    }
-
-    public Status getHolidayStatus() {
-        return holidayStatus;
-    }
-
-    public void setHolidayStatus(Status holidayStatus) {
-        this.holidayStatus = holidayStatus;
-    }
-
-    public AcademicYear getAcademicyear() {
-        return academicyear;
-    }
-
-    public void setAcademicyear(AcademicYear academicyear) {
-        this.academicyear = academicyear;
-    }
-
-    public String getStrHolidayDate() {
-        return strHolidayDate;
-    }
-
-    public void setStrHolidayDate(String strHolidayDate) {
-        this.strHolidayDate = strHolidayDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CmsHolidayVo that = (CmsHolidayVo) o;
-        return Objects.equals(id, that.id) &&
-            Objects.equals(holidayDesc, that.holidayDesc) &&
-            Objects.equals(holidayDate, that.holidayDate) &&
-            holidayStatus == that.holidayStatus &&
-            Objects.equals(academicyear, that.academicyear) &&
-            Objects.equals(strHolidayDate, that.strHolidayDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, holidayDesc, holidayDate, holidayStatus, academicyear, strHolidayDate);
-    }
-
-    @Override
-    public String toString() {
-        return "CmsHolidayVo{" +
-            "id=" + id +
-            ", holidayDesc='" + holidayDesc + '\'' +
-            ", holidayDate=" + holidayDate +
-            ", holidayStatus=" + holidayStatus +
-            ", academicyear=" + academicyear +
-            ", strHolidayDate='" + strHolidayDate + '\'' +
-            '}';
-    }
+    
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public LocalDate getHolidayDate() {
+		return holidayDate;
+	}
+	public void setHolidayDate(LocalDate holidayDate) {
+		this.holidayDate = holidayDate;
+	}
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+	public CmsAcademicYearVo getCmsAcademicYearVo() {
+		return cmsAcademicYearVo;
+	}
+	public void setCmsAcademicYearVo(CmsAcademicYearVo cmsAcademicYearVo) {
+		this.cmsAcademicYearVo = cmsAcademicYearVo;
+	}
+	public Long getAcademicYearId() {
+		return academicYearId;
+	}
+	public void setAcademicYearId(Long academicYearId) {
+		this.academicYearId = academicYearId;
+	}
+	public List<CmsHolidayVo> getDataList() {
+		return dataList;
+	}
+	public void setDataList(List<CmsHolidayVo> dataList) {
+		this.dataList = dataList;
+	}
+	@Override
+	public String toString() {
+		return "CmsHolidayVo [id=" + id + ", description=" + description + ", holidayDate=" + holidayDate
+				+ ", comments=" + comments + ", cmsAcademicYearVo=" + cmsAcademicYearVo + ", academicYearId="
+				+ academicYearId + ", dataList=" + dataList + ", getCreatedBy()=" + getCreatedBy() + ", getCreatedOn()="
+				+ getCreatedOn() + ", getUpdatedBy()=" + getUpdatedBy() + ", getUpdatedOn()=" + getUpdatedOn()
+				+ ", getStatus()=" + getStatus() + ", getStrCreatedOn()=" + getStrCreatedOn() + ", getStrUpdatedOn()="
+				+ getStrUpdatedOn() + ", getExitCode()=" + getExitCode() + ", getExitDescription()="
+				+ getExitDescription() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
+	public String getStrHolidayDate() {
+		return strHolidayDate;
+	}
+	public void setStrHolidayDate(String strHolidayDate) {
+		this.strHolidayDate = strHolidayDate;
+	}
+    
 }

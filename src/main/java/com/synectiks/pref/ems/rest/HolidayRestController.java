@@ -13,7 +13,6 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.AcademicYear;
 import com.synectiks.pref.domain.Holiday;
-import com.synectiks.pref.domain.enumeration.Status;
 import com.synectiks.pref.domain.vo.CmsHolidayVo;
 import com.synectiks.pref.repository.AcademicYearRepository;
 import com.synectiks.pref.repository.HolidayRepository;
@@ -59,8 +58,8 @@ public class HolidayRestController {
         if (cmsHolidayVo.getId() != null) {
             throw new BadRequestAlertException("A new holiday cannot have an ID which already exists.", ENTITY_NAME, "idexists");
         }
-        if(cmsHolidayVo.getHolidayStatus() == null) {
-            cmsHolidayVo.setHolidayStatus(Status.DEACTIVE);
+        if(cmsHolidayVo.getStatus() == null) {
+            cmsHolidayVo.setStatus(CmsConstants.STATUS_DEACTIVE);
         }
         Holiday hd = CommonUtil.createCopyProperties(cmsHolidayVo, Holiday.class);
         hd.setHolidayDate(DateFormatUtil.getLocalDateFromString(cmsHolidayVo.getStrHolidayDate()));
@@ -82,8 +81,8 @@ public class HolidayRestController {
         if (cmsHolidayVo.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if(cmsHolidayVo.getHolidayStatus() == null) {
-            cmsHolidayVo.setHolidayStatus(Status.DEACTIVE);
+        if(cmsHolidayVo.getStatus() == null) {
+            cmsHolidayVo.setStatus(CmsConstants.STATUS_DEACTIVE);
         }
         
         Holiday hd = CommonUtil.createCopyProperties(cmsHolidayVo, Holiday.class);
@@ -135,7 +134,7 @@ public class HolidayRestController {
         if(oay.isPresent()) {
             logger.debug("Holidays based on academic year. AcademicYear :"+oay.get());
             Holiday holiday = new Holiday();
-            holiday.setAcademicyear(oay.get());
+            holiday.setAcademicYear(oay.get());
             Example<Holiday> exm = Example.of(holiday);
             List<Holiday> list = this.holidayRepository.findAll(exm);
             for(Holiday hd: list) {

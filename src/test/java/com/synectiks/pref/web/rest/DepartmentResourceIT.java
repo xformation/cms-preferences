@@ -13,6 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -53,6 +55,24 @@ public class DepartmentResourceIT {
 
     private static final String DEFAULT_DEPT_HEAD = "AAAAAAAAAA";
     private static final String UPDATED_DEPT_HEAD = "BBBBBBBBBB";
+
+    private static final String DEFAULT_COMMENTS = "AAAAAAAAAA";
+    private static final String UPDATED_COMMENTS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_CREATED_ON = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_ON = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_UPDATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_UPDATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_UPDATED_ON = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_UPDATED_ON = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBB";
 
     @Autowired
     private DepartmentRepository departmentRepository;
@@ -112,7 +132,13 @@ public class DepartmentResourceIT {
         Department department = new Department()
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
-            .deptHead(DEFAULT_DEPT_HEAD);
+            .deptHead(DEFAULT_DEPT_HEAD)
+            .comments(DEFAULT_COMMENTS)
+            .createdBy(DEFAULT_CREATED_BY)
+            .createdOn(DEFAULT_CREATED_ON)
+            .updatedBy(DEFAULT_UPDATED_BY)
+            .updatedOn(DEFAULT_UPDATED_ON)
+            .status(DEFAULT_STATUS);
         return department;
     }
     /**
@@ -125,7 +151,13 @@ public class DepartmentResourceIT {
         Department department = new Department()
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
-            .deptHead(UPDATED_DEPT_HEAD);
+            .deptHead(UPDATED_DEPT_HEAD)
+            .comments(UPDATED_COMMENTS)
+            .createdBy(UPDATED_CREATED_BY)
+            .createdOn(UPDATED_CREATED_ON)
+            .updatedBy(UPDATED_UPDATED_BY)
+            .updatedOn(UPDATED_UPDATED_ON)
+            .status(UPDATED_STATUS);
         return department;
     }
 
@@ -153,6 +185,12 @@ public class DepartmentResourceIT {
         assertThat(testDepartment.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testDepartment.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testDepartment.getDeptHead()).isEqualTo(DEFAULT_DEPT_HEAD);
+        assertThat(testDepartment.getComments()).isEqualTo(DEFAULT_COMMENTS);
+        assertThat(testDepartment.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
+        assertThat(testDepartment.getCreatedOn()).isEqualTo(DEFAULT_CREATED_ON);
+        assertThat(testDepartment.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
+        assertThat(testDepartment.getUpdatedOn()).isEqualTo(DEFAULT_UPDATED_ON);
+        assertThat(testDepartment.getStatus()).isEqualTo(DEFAULT_STATUS);
 
         // Validate the Department in Elasticsearch
         verify(mockDepartmentSearchRepository, times(1)).save(testDepartment);
@@ -195,7 +233,13 @@ public class DepartmentResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(department.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].deptHead").value(hasItem(DEFAULT_DEPT_HEAD.toString())));
+            .andExpect(jsonPath("$.[*].deptHead").value(hasItem(DEFAULT_DEPT_HEAD.toString())))
+            .andExpect(jsonPath("$.[*].comments").value(hasItem(DEFAULT_COMMENTS.toString())))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())))
+            .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY.toString())))
+            .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
     
     @Test
@@ -211,7 +255,13 @@ public class DepartmentResourceIT {
             .andExpect(jsonPath("$.id").value(department.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.deptHead").value(DEFAULT_DEPT_HEAD.toString()));
+            .andExpect(jsonPath("$.deptHead").value(DEFAULT_DEPT_HEAD.toString()))
+            .andExpect(jsonPath("$.comments").value(DEFAULT_COMMENTS.toString()))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()))
+            .andExpect(jsonPath("$.createdOn").value(DEFAULT_CREATED_ON.toString()))
+            .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY.toString()))
+            .andExpect(jsonPath("$.updatedOn").value(DEFAULT_UPDATED_ON.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
     @Test
@@ -237,7 +287,13 @@ public class DepartmentResourceIT {
         updatedDepartment
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
-            .deptHead(UPDATED_DEPT_HEAD);
+            .deptHead(UPDATED_DEPT_HEAD)
+            .comments(UPDATED_COMMENTS)
+            .createdBy(UPDATED_CREATED_BY)
+            .createdOn(UPDATED_CREATED_ON)
+            .updatedBy(UPDATED_UPDATED_BY)
+            .updatedOn(UPDATED_UPDATED_ON)
+            .status(UPDATED_STATUS);
         DepartmentDTO departmentDTO = departmentMapper.toDto(updatedDepartment);
 
         restDepartmentMockMvc.perform(put("/api/departments")
@@ -252,6 +308,12 @@ public class DepartmentResourceIT {
         assertThat(testDepartment.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDepartment.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testDepartment.getDeptHead()).isEqualTo(UPDATED_DEPT_HEAD);
+        assertThat(testDepartment.getComments()).isEqualTo(UPDATED_COMMENTS);
+        assertThat(testDepartment.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
+        assertThat(testDepartment.getCreatedOn()).isEqualTo(UPDATED_CREATED_ON);
+        assertThat(testDepartment.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
+        assertThat(testDepartment.getUpdatedOn()).isEqualTo(UPDATED_UPDATED_ON);
+        assertThat(testDepartment.getStatus()).isEqualTo(UPDATED_STATUS);
 
         // Validate the Department in Elasticsearch
         verify(mockDepartmentSearchRepository, times(1)).save(testDepartment);
@@ -300,22 +362,28 @@ public class DepartmentResourceIT {
         verify(mockDepartmentSearchRepository, times(1)).deleteById(department.getId());
     }
 
-//    @Test
-//    @Transactional
-//    public void searchDepartment() throws Exception {
-//        // Initialize the database
-//        departmentRepository.saveAndFlush(department);
+    @Test
+    @Transactional
+    public void searchDepartment() throws Exception {
+        // Initialize the database
+        departmentRepository.saveAndFlush(department);
 //        when(mockDepartmentSearchRepository.search(queryStringQuery("id:" + department.getId())))
 //            .thenReturn(Collections.singletonList(department));
-//        // Search the department
-//        restDepartmentMockMvc.perform(get("/api/_search/departments?query=id:" + department.getId()))
-//            .andExpect(status().isOk())
-//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//            .andExpect(jsonPath("$.[*].id").value(hasItem(department.getId().intValue())))
-//            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-//            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
-//            .andExpect(jsonPath("$.[*].deptHead").value(hasItem(DEFAULT_DEPT_HEAD)));
-//    }
+        // Search the department
+        restDepartmentMockMvc.perform(get("/api/_search/departments?query=id:" + department.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(department.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].deptHead").value(hasItem(DEFAULT_DEPT_HEAD)))
+            .andExpect(jsonPath("$.[*].comments").value(hasItem(DEFAULT_COMMENTS)))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
+            .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)))
+            .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
+    }
 
     @Test
     @Transactional

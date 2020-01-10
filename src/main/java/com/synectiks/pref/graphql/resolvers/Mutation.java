@@ -11,12 +11,14 @@ import com.synectiks.pref.business.service.CmsAuthorizedSignatoryService;
 import com.synectiks.pref.business.service.CmsBankAccountsService;
 import com.synectiks.pref.business.service.CmsBranchService;
 import com.synectiks.pref.business.service.CmsCollegeService;
+import com.synectiks.pref.business.service.CmsHolidayService;
 import com.synectiks.pref.business.service.CmsLegalEntityService;
 import com.synectiks.pref.domain.vo.CmsAcademicYearVo;
 import com.synectiks.pref.domain.vo.CmsAuthorizedSignatoryVo;
 import com.synectiks.pref.domain.vo.CmsBankAccountsVo;
 import com.synectiks.pref.domain.vo.CmsBranchVo;
 import com.synectiks.pref.domain.vo.CmsCollegeVo;
+import com.synectiks.pref.domain.vo.CmsHolidayVo;
 import com.synectiks.pref.domain.vo.CmsLegalEntityVo;
 import com.synectiks.pref.graphql.types.academicyear.AcademicYearInput;
 import com.synectiks.pref.graphql.types.academicyear.AcademicYearPayload;
@@ -28,6 +30,8 @@ import com.synectiks.pref.graphql.types.branch.BranchInput;
 import com.synectiks.pref.graphql.types.branch.BranchPayload;
 import com.synectiks.pref.graphql.types.college.CollegeInput;
 import com.synectiks.pref.graphql.types.college.CollegePayload;
+import com.synectiks.pref.graphql.types.holiday.HolidayInput;
+import com.synectiks.pref.graphql.types.holiday.HolidayPayload;
 import com.synectiks.pref.graphql.types.legalentity.LegalEntityInput;
 import com.synectiks.pref.graphql.types.legalentity.LegalEntityPayload;
 import com.synectiks.pref.repository.UserPreferenceRepository;
@@ -56,6 +60,10 @@ public class Mutation implements GraphQLMutationResolver {
     
     @Autowired
     CmsAcademicYearService cmsAcademicYearService;
+    
+    @Autowired
+    CmsHolidayService cmsHolidayService;
+    
     
     public Mutation(UserPreferenceRepository userPreferenceRepository) {
     	this.userPreferenceRepository = userPreferenceRepository;
@@ -90,4 +98,10 @@ public class Mutation implements GraphQLMutationResolver {
     	CmsAcademicYearVo vo = this.cmsAcademicYearService.saveAcademicYear(cmsAcademicYearVo);
     	return new AcademicYearPayload(vo);
     }
+    
+    public HolidayPayload saveHoliday(HolidayInput cmsHolidayVo) {
+    	CmsHolidayVo vo = this.cmsHolidayService.saveHoliday(cmsHolidayVo);
+    	return new HolidayPayload(vo);
+    }
+    
 }

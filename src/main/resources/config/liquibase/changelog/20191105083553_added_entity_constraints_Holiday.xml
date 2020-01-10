@@ -8,9 +8,9 @@
     -->
     <changeSet id="20191105083553-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="academicyear_id"
+        <addForeignKeyConstraint baseColumnNames="academic_year_id"
                                  baseTableName="holiday"
-                                 constraintName="fk_holiday_academicyear_id"
+                                 constraintName="fk_holiday_academic_year_id"
                                  referencedColumnNames="id"
                                  referencedTableName="academic_year"/>
 

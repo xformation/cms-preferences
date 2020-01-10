@@ -244,22 +244,55 @@ entity AcademicYear{
 }
 
 entity Holiday{
-	holidayDesc String 
+	description String 
 	holidayDate LocalDate 
-	holidayStatus Status 
+	comments String
+	createdBy String
+	createdOn LocalDate
+	updatedBy String
+	updatedOn LocalDate
+	status String
 }
 
 entity Term{
-	termsDesc String 
+	description String 
 	startDate LocalDate 
 	endDate LocalDate 
-	termStatus Status 
+	comments String
+	createdBy String
+	createdOn LocalDate
+	updatedBy String
+	updatedOn LocalDate
+	status String 
 }
 
 entity Department{
 	name String 
 	description String 
-	deptHead String 		
+	deptHead String 
+	comments String
+	createdBy String
+	createdOn LocalDate
+	updatedBy String
+	updatedOn LocalDate
+	status String		
+}
+
+entity Course{
+	name String 
+	description String 
+	courseDuration String
+	courseType String
+	yearOrSemesterType String
+	totalFee Long
+	yearlyFee Long
+	perSemesterFee Long
+	comments String
+	createdBy String
+	createdOn LocalDate
+	updatedBy String
+	updatedOn LocalDate
+	status String	
 }
 
 entity Batch{
@@ -270,10 +303,10 @@ entity Section{
 	section SectionEnum
 }
 
-entity Teacher{
-	teacherName String 
-	teacherMiddleName String 
-	teacherLastName String 
+entity Employee{
+	employeeName String 
+	employeeMiddleName String 
+	employeeLastName String 
 	fatherName String 
 	fatherMiddleName String 
 	fatherLastName String 
@@ -283,37 +316,42 @@ entity Teacher{
 	motherName String 
 	motherMiddleName String 
 	motherLastName String 
-	aadharNo Long 
 	dateOfBirth LocalDate 
 	placeOfBirth String 
-	religion Religion 
-	caste Caste 
+	religion String 
+	caste String 
 	subCaste String 
-	age Integer 
-	sex Gender 
-	bloodGroup Bloodgroup 
-	addressLineOne String 
-	addressLineTwo String 
-	addressLineThree String 
-	town String 
-	state String 
-	country String 
-	pincode Long 
-	teacherContactNumber String 
-	alternateContactNumber String
-	teacherEmailAddress String 
-	alternateEmailAddress String
-	relationWithStaff RelationWithStudentEnum 
+	gender String
+	bloodGroup String 
+	pinCode String 
+	relationOfEmergencyContact String 
 	emergencyContactName String 
 	emergencyContactMiddleName String
 	emergencyContactLastName String 
 	emergencyContactNo String 
 	emergencyContactEmailAddress String 
-	uploadPhoto String 
-	status Status 
-	employeeId Long
+	status String 
+	staffType String
+	
 	designation String 
-	staffType StaffType 
+	joiningDate LocalDate 
+	jobEndDate LocalDate
+	resignationDate LocalDate
+	resignationAcceptanceDate LocalDate
+	aadharNo String
+	panNo String
+	passportNo String
+	primaryContactNo String
+	secondaryContactNo String
+	primaryAddress String
+	secondaryAddress String
+	personalMailId String
+	officialMailId String
+	drivingLicenceNo String
+	typeOfEmployment String
+	managerId Long
+	maritalStatus String
+	
 }
 
 entity Teach{
@@ -329,38 +367,6 @@ entity Subject{
 	subjectType SubTypeEnum 
 	subjectDesc  String 
 	status Status 
-}
-
-entity Employee {
-	employeeName String 
-	designation String 
-	joiningDate LocalDate 
-	jobEndDate LocalDate
-	resignationDate LocalDate
-	resignationAcceptanceDate LocalDate
-	aadharNo String
-	panNo String
-	passportNo String
-	primaryContactNo String
-	secondaryContactNo String
-	employeeFatherName String
-	employeeMotherName String
-	primaryAddress String
-	secondaryAddress String
-	employeeAddress String
-	personalMailId String
-	officialMailId String
-	disability Disability
-	drivingLicenceNo String
-	drivingLicenceValidity LocalDate
-	gender Gender
-	typeOfEmployment String
-	managerId Long
-	status Status
-	maritalStatus MaritalStatus
-	vehicleId Long
-	transportRouteId Long
-	branchId Long
 }
 
 entity Notifications {
@@ -399,17 +405,17 @@ relationship ManyToOne {
 	AuthorizedSignatory{branch} to Branch,
 	BankAccounts{branch} to Branch,
 	Department{branch} to Branch,
-	Department{academicyear} to AcademicYear,
+	Department{academicYear} to AcademicYear,
 	Subject{department} to Department,
 	Batch{department} to Department,
 	Section{batch} to Batch,
-	Holiday{academicyear} to AcademicYear,
-	Term{academicyear} to AcademicYear,
-	Teacher {department} to Department,
-	Teacher{branch} to Branch,
+	Holiday{academicYear} to AcademicYear,
+	Term{academicYear} to AcademicYear,
+	Employee {department} to Department,
+	Employee {branch} to Branch,
 	Subject{batch} to Batch,
 	Teach{subject} to Subject,
-	Teach{teacher} to Teacher,
+	Teach{employee} to Employee,
 	AttendanceMaster{batch} to Batch,
 	AttendanceMaster{section} to Section,
 	AttendanceMaster{teach} to Teach,
@@ -420,11 +426,13 @@ relationship ManyToOne {
 	MetaLecture{branch} to Branch,
 	MetaLecture{department} to Department,
 	MetaLecture{subject} to Subject,
-	MetaLecture{teacher} to Teacher,
+	MetaLecture{employee} to Employee,
 	MetaLecture{term} to Term,
 	MetaLecture{academicyear} to AcademicYear,
 	MetaLecture{section} to Section,
-	MetaLecture{batch} to Batch
+	MetaLecture{batch} to Batch,
+	Course {department} to Department,
+	Course {branch} to Branch
 }
 
 dto * with mapstruct

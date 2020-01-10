@@ -2,7 +2,6 @@ package com.synectiks.pref.service.dto;
 import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.Objects;
-import com.synectiks.pref.domain.enumeration.Status;
 
 /**
  * A DTO for the {@link com.synectiks.pref.domain.Holiday} entity.
@@ -11,14 +10,24 @@ public class HolidayDTO implements Serializable {
 
     private Long id;
 
-    private String holidayDesc;
+    private String description;
 
     private LocalDate holidayDate;
 
-    private Status holidayStatus;
+    private String comments;
+
+    private String createdBy;
+
+    private LocalDate createdOn;
+
+    private String updatedBy;
+
+    private LocalDate updatedOn;
+
+    private String status;
 
 
-    private Long academicyearId;
+    private Long academicYearId;
 
     public Long getId() {
         return id;
@@ -28,12 +37,12 @@ public class HolidayDTO implements Serializable {
         this.id = id;
     }
 
-    public String getHolidayDesc() {
-        return holidayDesc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setHolidayDesc(String holidayDesc) {
-        this.holidayDesc = holidayDesc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDate getHolidayDate() {
@@ -44,20 +53,60 @@ public class HolidayDTO implements Serializable {
         this.holidayDate = holidayDate;
     }
 
-    public Status getHolidayStatus() {
-        return holidayStatus;
+    public String getComments() {
+        return comments;
     }
 
-    public void setHolidayStatus(Status holidayStatus) {
-        this.holidayStatus = holidayStatus;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
-    public Long getAcademicyearId() {
-        return academicyearId;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setAcademicyearId(Long academicYearId) {
-        this.academicyearId = academicYearId;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDate getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public LocalDate getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDate updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Long getAcademicYearId() {
+        return academicYearId;
+    }
+
+    public void setAcademicYearId(Long academicYearId) {
+        this.academicYearId = academicYearId;
     }
 
     @Override
@@ -85,10 +134,15 @@ public class HolidayDTO implements Serializable {
     public String toString() {
         return "HolidayDTO{" +
             "id=" + getId() +
-            ", holidayDesc='" + getHolidayDesc() + "'" +
+            ", description='" + getDescription() + "'" +
             ", holidayDate='" + getHolidayDate() + "'" +
-            ", holidayStatus='" + getHolidayStatus() + "'" +
-            ", academicyear=" + getAcademicyearId() +
+            ", comments='" + getComments() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", createdOn='" + getCreatedOn() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
+            ", updatedOn='" + getUpdatedOn() + "'" +
+            ", status='" + getStatus() + "'" +
+            ", academicYear=" + getAcademicYearId() +
             "}";
     }
 }

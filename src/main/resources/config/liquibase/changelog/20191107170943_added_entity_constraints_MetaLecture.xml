@@ -26,11 +26,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="subject"/>
 
-        <addForeignKeyConstraint baseColumnNames="teacher_id"
+        <addForeignKeyConstraint baseColumnNames="employee_id"
                                  baseTableName="meta_lecture"
-                                 constraintName="fk_meta_lecture_teacher_id"
+                                 constraintName="fk_meta_lecture_employee_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="teacher"/>
+                                 referencedTableName="employee"/>
 
         <addForeignKeyConstraint baseColumnNames="term_id"
                                  baseTableName="meta_lecture"

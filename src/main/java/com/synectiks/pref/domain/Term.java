@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,24 +11,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.synectiks.pref.domain.enumeration.Status;
-import com.synectiks.pref.utils.IESEntity;
 
 /**
  * A Term.
  */
 @Entity
 @Table(name = "term")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Term implements Serializable, IESEntity {
+public class Term implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,8 +31,8 @@ public class Term implements Serializable, IESEntity {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "terms_desc")
-    private String termsDesc;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "start_date")
     @JsonSerialize(using = LocalDateSerializer.class)
@@ -52,13 +44,31 @@ public class Term implements Serializable, IESEntity {
 	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate endDate;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "term_status")
-    private Status termStatus;
+    @Column(name = "comments")
+    private String comments;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "created_on")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate createdOn;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @Column(name = "updated_on")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate updatedOn;
+
+    @Column(name = "status")
+    private String status;
 
     @ManyToOne
     @JsonIgnoreProperties("terms")
-    private AcademicYear academicyear;
+    private AcademicYear academicYear;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -69,17 +79,17 @@ public class Term implements Serializable, IESEntity {
         this.id = id;
     }
 
-    public String getTermsDesc() {
-        return termsDesc;
+    public String getDescription() {
+        return description;
     }
 
-    public Term termsDesc(String termsDesc) {
-        this.termsDesc = termsDesc;
+    public Term description(String description) {
+        this.description = description;
         return this;
     }
 
-    public void setTermsDesc(String termsDesc) {
-        this.termsDesc = termsDesc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDate getStartDate() {
@@ -108,30 +118,95 @@ public class Term implements Serializable, IESEntity {
         this.endDate = endDate;
     }
 
-    public Status getTermStatus() {
-        return termStatus;
+    public String getComments() {
+        return comments;
     }
 
-    public Term termStatus(Status termStatus) {
-        this.termStatus = termStatus;
+    public Term comments(String comments) {
+        this.comments = comments;
         return this;
     }
 
-    public void setTermStatus(Status termStatus) {
-        this.termStatus = termStatus;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
-    public AcademicYear getAcademicyear() {
-        return academicyear;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public Term academicyear(AcademicYear academicYear) {
-        this.academicyear = academicYear;
+    public Term createdBy(String createdBy) {
+        this.createdBy = createdBy;
         return this;
     }
 
-    public void setAcademicyear(AcademicYear academicYear) {
-        this.academicyear = academicYear;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDate getCreatedOn() {
+        return createdOn;
+    }
+
+    public Term createdOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+        return this;
+    }
+
+    public void setCreatedOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public Term updatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+        return this;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public LocalDate getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public Term updatedOn(LocalDate updatedOn) {
+        this.updatedOn = updatedOn;
+        return this;
+    }
+
+    public void setUpdatedOn(LocalDate updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Term status(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public AcademicYear getAcademicYear() {
+        return academicYear;
+    }
+
+    public Term academicYear(AcademicYear academicYear) {
+        this.academicYear = academicYear;
+        return this;
+    }
+
+    public void setAcademicYear(AcademicYear academicYear) {
+        this.academicYear = academicYear;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -155,10 +230,15 @@ public class Term implements Serializable, IESEntity {
     public String toString() {
         return "Term{" +
             "id=" + getId() +
-            ", termsDesc='" + getTermsDesc() + "'" +
+            ", description='" + getDescription() + "'" +
             ", startDate='" + getStartDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
-            ", termStatus='" + getTermStatus() + "'" +
+            ", comments='" + getComments() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", createdOn='" + getCreatedOn() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
+            ", updatedOn='" + getUpdatedOn() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 }

@@ -34,27 +34,42 @@ import org.springframework.validation.Validator;
 
 import com.synectiks.pref.PreferencesApp;
 import com.synectiks.pref.domain.Holiday;
-import com.synectiks.pref.domain.enumeration.Status;
 import com.synectiks.pref.repository.HolidayRepository;
 import com.synectiks.pref.repository.search.HolidaySearchRepository;
 import com.synectiks.pref.service.HolidayService;
 import com.synectiks.pref.service.dto.HolidayDTO;
 import com.synectiks.pref.service.mapper.HolidayMapper;
 import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
+
 /**
  * Integration tests for the {@Link HolidayResource} REST controller.
  */
 @SpringBootTest(classes = PreferencesApp.class)
 public class HolidayResourceIT {
 
-    private static final String DEFAULT_HOLIDAY_DESC = "AAAAAAAAAA";
-    private static final String UPDATED_HOLIDAY_DESC = "BBBBBBBBBB";
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
     private static final LocalDate DEFAULT_HOLIDAY_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_HOLIDAY_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final Status DEFAULT_HOLIDAY_STATUS = Status.ACTIVE;
-    private static final Status UPDATED_HOLIDAY_STATUS = Status.DEACTIVE;
+    private static final String DEFAULT_COMMENTS = "AAAAAAAAAA";
+    private static final String UPDATED_COMMENTS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_CREATED_ON = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_ON = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_UPDATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_UPDATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_UPDATED_ON = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_UPDATED_ON = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBB";
 
     @Autowired
     private HolidayRepository holidayRepository;
@@ -112,9 +127,14 @@ public class HolidayResourceIT {
      */
     public static Holiday createEntity(EntityManager em) {
         Holiday holiday = new Holiday()
-            .holidayDesc(DEFAULT_HOLIDAY_DESC)
+            .description(DEFAULT_DESCRIPTION)
             .holidayDate(DEFAULT_HOLIDAY_DATE)
-            .holidayStatus(DEFAULT_HOLIDAY_STATUS);
+            .comments(DEFAULT_COMMENTS)
+            .createdBy(DEFAULT_CREATED_BY)
+            .createdOn(DEFAULT_CREATED_ON)
+            .updatedBy(DEFAULT_UPDATED_BY)
+            .updatedOn(DEFAULT_UPDATED_ON)
+            .status(DEFAULT_STATUS);
         return holiday;
     }
     /**
@@ -125,9 +145,14 @@ public class HolidayResourceIT {
      */
     public static Holiday createUpdatedEntity(EntityManager em) {
         Holiday holiday = new Holiday()
-            .holidayDesc(UPDATED_HOLIDAY_DESC)
+            .description(UPDATED_DESCRIPTION)
             .holidayDate(UPDATED_HOLIDAY_DATE)
-            .holidayStatus(UPDATED_HOLIDAY_STATUS);
+            .comments(UPDATED_COMMENTS)
+            .createdBy(UPDATED_CREATED_BY)
+            .createdOn(UPDATED_CREATED_ON)
+            .updatedBy(UPDATED_UPDATED_BY)
+            .updatedOn(UPDATED_UPDATED_ON)
+            .status(UPDATED_STATUS);
         return holiday;
     }
 
@@ -152,9 +177,14 @@ public class HolidayResourceIT {
         List<Holiday> holidayList = holidayRepository.findAll();
         assertThat(holidayList).hasSize(databaseSizeBeforeCreate + 1);
         Holiday testHoliday = holidayList.get(holidayList.size() - 1);
-        assertThat(testHoliday.getHolidayDesc()).isEqualTo(DEFAULT_HOLIDAY_DESC);
+        assertThat(testHoliday.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testHoliday.getHolidayDate()).isEqualTo(DEFAULT_HOLIDAY_DATE);
-        assertThat(testHoliday.getHolidayStatus()).isEqualTo(DEFAULT_HOLIDAY_STATUS);
+        assertThat(testHoliday.getComments()).isEqualTo(DEFAULT_COMMENTS);
+        assertThat(testHoliday.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
+        assertThat(testHoliday.getCreatedOn()).isEqualTo(DEFAULT_CREATED_ON);
+        assertThat(testHoliday.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
+        assertThat(testHoliday.getUpdatedOn()).isEqualTo(DEFAULT_UPDATED_ON);
+        assertThat(testHoliday.getStatus()).isEqualTo(DEFAULT_STATUS);
 
         // Validate the Holiday in Elasticsearch
         verify(mockHolidaySearchRepository, times(1)).save(testHoliday);
@@ -195,9 +225,14 @@ public class HolidayResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(holiday.getId().intValue())))
-            .andExpect(jsonPath("$.[*].holidayDesc").value(hasItem(DEFAULT_HOLIDAY_DESC.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].holidayDate").value(hasItem(DEFAULT_HOLIDAY_DATE.toString())))
-            .andExpect(jsonPath("$.[*].holidayStatus").value(hasItem(DEFAULT_HOLIDAY_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].comments").value(hasItem(DEFAULT_COMMENTS.toString())))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())))
+            .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY.toString())))
+            .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
     
     @Test
@@ -211,9 +246,14 @@ public class HolidayResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(holiday.getId().intValue()))
-            .andExpect(jsonPath("$.holidayDesc").value(DEFAULT_HOLIDAY_DESC.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.holidayDate").value(DEFAULT_HOLIDAY_DATE.toString()))
-            .andExpect(jsonPath("$.holidayStatus").value(DEFAULT_HOLIDAY_STATUS.toString()));
+            .andExpect(jsonPath("$.comments").value(DEFAULT_COMMENTS.toString()))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()))
+            .andExpect(jsonPath("$.createdOn").value(DEFAULT_CREATED_ON.toString()))
+            .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY.toString()))
+            .andExpect(jsonPath("$.updatedOn").value(DEFAULT_UPDATED_ON.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
     @Test
@@ -237,9 +277,14 @@ public class HolidayResourceIT {
         // Disconnect from session so that the updates on updatedHoliday are not directly saved in db
         em.detach(updatedHoliday);
         updatedHoliday
-            .holidayDesc(UPDATED_HOLIDAY_DESC)
+            .description(UPDATED_DESCRIPTION)
             .holidayDate(UPDATED_HOLIDAY_DATE)
-            .holidayStatus(UPDATED_HOLIDAY_STATUS);
+            .comments(UPDATED_COMMENTS)
+            .createdBy(UPDATED_CREATED_BY)
+            .createdOn(UPDATED_CREATED_ON)
+            .updatedBy(UPDATED_UPDATED_BY)
+            .updatedOn(UPDATED_UPDATED_ON)
+            .status(UPDATED_STATUS);
         HolidayDTO holidayDTO = holidayMapper.toDto(updatedHoliday);
 
         restHolidayMockMvc.perform(put("/api/holidays")
@@ -251,9 +296,14 @@ public class HolidayResourceIT {
         List<Holiday> holidayList = holidayRepository.findAll();
         assertThat(holidayList).hasSize(databaseSizeBeforeUpdate);
         Holiday testHoliday = holidayList.get(holidayList.size() - 1);
-        assertThat(testHoliday.getHolidayDesc()).isEqualTo(UPDATED_HOLIDAY_DESC);
+        assertThat(testHoliday.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testHoliday.getHolidayDate()).isEqualTo(UPDATED_HOLIDAY_DATE);
-        assertThat(testHoliday.getHolidayStatus()).isEqualTo(UPDATED_HOLIDAY_STATUS);
+        assertThat(testHoliday.getComments()).isEqualTo(UPDATED_COMMENTS);
+        assertThat(testHoliday.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
+        assertThat(testHoliday.getCreatedOn()).isEqualTo(UPDATED_CREATED_ON);
+        assertThat(testHoliday.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
+        assertThat(testHoliday.getUpdatedOn()).isEqualTo(UPDATED_UPDATED_ON);
+        assertThat(testHoliday.getStatus()).isEqualTo(UPDATED_STATUS);
 
         // Validate the Holiday in Elasticsearch
         verify(mockHolidaySearchRepository, times(1)).save(testHoliday);
@@ -302,22 +352,27 @@ public class HolidayResourceIT {
         verify(mockHolidaySearchRepository, times(1)).deleteById(holiday.getId());
     }
 
-//    @Test
-//    @Transactional
-//    public void searchHoliday() throws Exception {
-//        // Initialize the database
-//        holidayRepository.saveAndFlush(holiday);
+    @Test
+    @Transactional
+    public void searchHoliday() throws Exception {
+        // Initialize the database
+        holidayRepository.saveAndFlush(holiday);
 //        when(mockHolidaySearchRepository.search(queryStringQuery("id:" + holiday.getId())))
 //            .thenReturn(Collections.singletonList(holiday));
-//        // Search the holiday
-//        restHolidayMockMvc.perform(get("/api/_search/holidays?query=id:" + holiday.getId()))
-//            .andExpect(status().isOk())
-//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//            .andExpect(jsonPath("$.[*].id").value(hasItem(holiday.getId().intValue())))
-//            .andExpect(jsonPath("$.[*].holidayDesc").value(hasItem(DEFAULT_HOLIDAY_DESC)))
-//            .andExpect(jsonPath("$.[*].holidayDate").value(hasItem(DEFAULT_HOLIDAY_DATE.toString())))
-//            .andExpect(jsonPath("$.[*].holidayStatus").value(hasItem(DEFAULT_HOLIDAY_STATUS.toString())));
-//    }
+        // Search the holiday
+        restHolidayMockMvc.perform(get("/api/_search/holidays?query=id:" + holiday.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(holiday.getId().intValue())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].holidayDate").value(hasItem(DEFAULT_HOLIDAY_DATE.toString())))
+            .andExpect(jsonPath("$.[*].comments").value(hasItem(DEFAULT_COMMENTS)))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
+            .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)))
+            .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
+    }
 
     @Test
     @Transactional

@@ -30,12 +30,12 @@ public class TermServiceImpl implements TermService {
 
     private final TermMapper termMapper;
 
-//    private final TermSearchRepository termSearchRepository;
+    private final TermSearchRepository termSearchRepository;
 
     public TermServiceImpl(TermRepository termRepository, TermMapper termMapper, TermSearchRepository termSearchRepository) {
         this.termRepository = termRepository;
         this.termMapper = termMapper;
-//        this.termSearchRepository = termSearchRepository;
+        this.termSearchRepository = termSearchRepository;
     }
 
     /**
@@ -50,7 +50,7 @@ public class TermServiceImpl implements TermService {
         Term term = termMapper.toEntity(termDTO);
         term = termRepository.save(term);
         TermDTO result = termMapper.toDto(term);
-//        termSearchRepository.save(term);
+        termSearchRepository.save(term);
         return result;
     }
 
@@ -92,7 +92,7 @@ public class TermServiceImpl implements TermService {
     public void delete(Long id) {
         log.debug("Request to delete Term : {}", id);
         termRepository.deleteById(id);
-//        termSearchRepository.deleteById(id);
+        termSearchRepository.deleteById(id);
     }
 
     /**

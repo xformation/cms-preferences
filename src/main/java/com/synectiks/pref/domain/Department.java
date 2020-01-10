@@ -1,5 +1,6 @@
 package com.synectiks.pref.domain;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,19 +11,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.synectiks.pref.utils.IESEntity;
 
 /**
  * A Department.
  */
 @Entity
 @Table(name = "department")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Department implements Serializable, IESEntity {
+public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,13 +36,31 @@ public class Department implements Serializable, IESEntity {
     @Column(name = "dept_head")
     private String deptHead;
 
+    @Column(name = "comments")
+    private String comments;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "created_on")
+    private LocalDate createdOn;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @Column(name = "updated_on")
+    private LocalDate updatedOn;
+
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne
     @JsonIgnoreProperties("departments")
     private Branch branch;
 
     @ManyToOne
     @JsonIgnoreProperties("departments")
-    private AcademicYear academicyear;
+    private AcademicYear academicYear;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -96,6 +110,84 @@ public class Department implements Serializable, IESEntity {
         this.deptHead = deptHead;
     }
 
+    public String getComments() {
+        return comments;
+    }
+
+    public Department comments(String comments) {
+        this.comments = comments;
+        return this;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public Department createdBy(String createdBy) {
+        this.createdBy = createdBy;
+        return this;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDate getCreatedOn() {
+        return createdOn;
+    }
+
+    public Department createdOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+        return this;
+    }
+
+    public void setCreatedOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public Department updatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+        return this;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public LocalDate getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public Department updatedOn(LocalDate updatedOn) {
+        this.updatedOn = updatedOn;
+        return this;
+    }
+
+    public void setUpdatedOn(LocalDate updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Department status(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Branch getBranch() {
         return branch;
     }
@@ -109,17 +201,17 @@ public class Department implements Serializable, IESEntity {
         this.branch = branch;
     }
 
-    public AcademicYear getAcademicyear() {
-        return academicyear;
+    public AcademicYear getAcademicYear() {
+        return academicYear;
     }
 
-    public Department academicyear(AcademicYear academicYear) {
-        this.academicyear = academicYear;
+    public Department academicYear(AcademicYear academicYear) {
+        this.academicYear = academicYear;
         return this;
     }
 
-    public void setAcademicyear(AcademicYear academicYear) {
-        this.academicyear = academicYear;
+    public void setAcademicYear(AcademicYear academicYear) {
+        this.academicYear = academicYear;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -146,6 +238,12 @@ public class Department implements Serializable, IESEntity {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", deptHead='" + getDeptHead() + "'" +
+            ", comments='" + getComments() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", createdOn='" + getCreatedOn() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
+            ", updatedOn='" + getUpdatedOn() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 }

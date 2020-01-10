@@ -278,7 +278,7 @@ public class CommonService {
         Subject s = getSubjectById(subId);
         Teacher t = getTeacherById(thrId);
         th.setSubject(s);
-        th.setTeacher(t);
+//        th.setTeacher(t);
         Example<Teach> example = Example.of(th);
         List<Teach> newTh = this.teachRepository.findAll(example);
         if(newTh.size() > 0) {
@@ -327,8 +327,8 @@ public class CommonService {
             return Collections.emptyList();
         }
         Holiday hl = new Holiday();
-        hl.setHolidayStatus(Status.ACTIVE);
-        hl.setAcademicyear(oay.get());
+//        hl.setHolidayStatus(Status.ACTIVE);
+//        hl.setAcademicyear(oay.get());
         Example<Holiday> example = Example.of(hl);
         List<Holiday> list = this.holidayRepository.findAll(example);
         return list;
@@ -339,7 +339,7 @@ public class CommonService {
             return null;
         }
         Term tm = new Term();
-        tm.setTermStatus(Status.ACTIVE);
+//        tm.setTermStatus(Status.ACTIVE);
         tm.setId(termId);
         Example<Term> example = Example.of(tm);
         Optional<Term> term = this.termRepository.findOne(example);
@@ -921,8 +921,8 @@ public class CommonService {
         }
         Term term = new Term();
         AcademicYear ay = this.getAcademicYearById(academicYearId);
-        term.setAcademicyear(ay);
-        term.setTermStatus(Status.ACTIVE);
+//        term.setAcademicyear(ay);
+//        term.setTermStatus(Status.ACTIVE);
         Example<Term> example = Example.of(term);
         List<Term> list = this.termRepository.findAll(example);
         List<CmsTermVo> ls = new ArrayList<>();
@@ -1261,7 +1261,7 @@ public class CommonService {
 
     public List<Teach> getAllSubjectsOfTeacher(Teacher th){
         Teach teach = new Teach();
-        teach.setTeacher(th);
+//        teach.setTeacher(th);
         List<Teach> list = this.teachRepository.findAll(Example.of(teach));
         logger.debug("Total subjects teach by teacher "+th.getTeacherName() + " are : "+list.size());
         return list;

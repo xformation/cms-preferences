@@ -14,9 +14,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="branch"/>
 
-        <addForeignKeyConstraint baseColumnNames="academicyear_id"
+        <addForeignKeyConstraint baseColumnNames="academic_year_id"
                                  baseTableName="department"
-                                 constraintName="fk_department_academicyear_id"
+                                 constraintName="fk_department_academic_year_id"
                                  referencedColumnNames="id"
                                  referencedTableName="academic_year"/>
 
