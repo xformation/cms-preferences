@@ -98,6 +98,11 @@ class LegalEntityGatlingTest extends Simulation {
                 , "ptNumber":"SAMPLE_TEXT"
                 , "ptRegistrationDate":"2020-01-01T00:00:00.000Z"
                 , "ptSignatory":null
+                , "createdBy":"SAMPLE_TEXT"
+                , "createdOn":"2020-01-01T00:00:00.000Z"
+                , "updatedBy":"SAMPLE_TEXT"
+                , "updatedOn":"2020-01-01T00:00:00.000Z"
+                , "status":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_legalEntity_url"))).exitHereIfFailed

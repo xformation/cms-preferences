@@ -4,10 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.ss.formula.functions.T;
-
-import com.synectiks.pref.domain.Branch;
-
 /**
  * A VO for the AuthorizedSignatory entity.
  */

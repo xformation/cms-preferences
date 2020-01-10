@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import com.synectiks.pref.business.service.CmsAcademicYearService;
 import com.synectiks.pref.business.service.CmsAuthorizedSignatoryService;
 import com.synectiks.pref.business.service.CmsBankAccountsService;
 import com.synectiks.pref.business.service.CmsBranchService;
@@ -16,6 +17,7 @@ import com.synectiks.pref.business.service.CmsLegalEntityService;
 import com.synectiks.pref.business.service.CmsStateService;
 import com.synectiks.pref.domain.City;
 import com.synectiks.pref.domain.State;
+import com.synectiks.pref.domain.vo.CmsAcademicYearVo;
 import com.synectiks.pref.domain.vo.CmsAuthorizedSignatoryVo;
 import com.synectiks.pref.domain.vo.CmsBankAccountsVo;
 import com.synectiks.pref.domain.vo.CmsBranchVo;
@@ -51,6 +53,9 @@ public class Query implements GraphQLQueryResolver {
 	@Autowired
     CmsLegalEntityService cmsLegalEntityService;
 	
+	@Autowired
+    CmsAcademicYearService cmsAcademicYearService;
+	
 	public Query(UserPreferenceRepository userPreferenceRepository) {
 		this.userPreferenceRepository = userPreferenceRepository;
 	}
@@ -83,5 +88,10 @@ public class Query implements GraphQLQueryResolver {
 	public List<CmsLegalEntityVo> getLegalEntityList() throws Exception {
     	logger.debug("Query - getLegalEntity :");
     	return this.cmsLegalEntityService.getLegalEntityList();
+    }
+	
+	public List<CmsAcademicYearVo> getAcademicYearList() throws Exception {
+    	logger.debug("Query - getAcademicYear :");
+    	return this.cmsAcademicYearService.getAcademicYearList();
     }
 }

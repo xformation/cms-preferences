@@ -5,7 +5,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +25,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 
 import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.AcademicYear;
 import com.synectiks.pref.domain.AttendanceMaster;
 import com.synectiks.pref.domain.Batch;
@@ -152,7 +152,7 @@ public class CommonService {
             return null;
         }
         AcademicYear ay = new AcademicYear();
-        ay.setYear(academicYear);
+        ay.setDescription(academicYear);
         Example<AcademicYear> example = Example.of(ay);
         Optional<AcademicYear> acd = this.academicYearRepository.findOne(example);
         if(acd.isPresent()) {
@@ -174,7 +174,7 @@ public class CommonService {
 
     public AcademicYear getActiveAcademicYear() {
         AcademicYear ay = new AcademicYear();
-        ay.setStatus(Status.ACTIVE);
+        ay.setStatus(CmsConstants.STATUS_ACTIVE);
         Optional<AcademicYear> newAy = this.academicYearRepository.findOne(Example.of(ay));
         if(newAy.isPresent()) {
             return newAy.get();

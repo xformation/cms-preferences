@@ -1,8 +1,9 @@
 package com.synectiks.pref.service.dto;
-import java.time.LocalDate;
-import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
+
+import javax.validation.constraints.Size;
 
 /**
  * A DTO for the {@link com.synectiks.pref.domain.Branch} entity.

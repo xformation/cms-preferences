@@ -5,31 +5,23 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.synectiks.pref.domain.enumeration.Status;
-import com.synectiks.pref.utils.IESEntity;
 
 /**
  * A AcademicYear.
  */
 @Entity
 @Table(name = "academic_year")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class AcademicYear implements Serializable, IESEntity {
+public class AcademicYear implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,8 +30,8 @@ public class AcademicYear implements Serializable, IESEntity {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "year")
-    private String year;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "start_date")
     @JsonSerialize(using = LocalDateSerializer.class)
@@ -51,9 +43,27 @@ public class AcademicYear implements Serializable, IESEntity {
 	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate endDate;
 
-    @Enumerated(EnumType.STRING)
+    @Column(name = "comments")
+    private String comments;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "created_on")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate createdOn;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @Column(name = "updated_on")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate updatedOn;
+    
     @Column(name = "status")
-    private Status status;
+    private String status;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -64,17 +74,17 @@ public class AcademicYear implements Serializable, IESEntity {
         this.id = id;
     }
 
-    public String getYear() {
-        return year;
+    public String getDescription() {
+        return description;
     }
 
-    public AcademicYear year(String year) {
-        this.year = year;
+    public AcademicYear description(String description) {
+        this.description = description;
         return this;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDate getStartDate() {
@@ -103,18 +113,26 @@ public class AcademicYear implements Serializable, IESEntity {
         this.endDate = endDate;
     }
 
-    public Status getStatus() {
-        return status;
+    public String getComments() {
+        return comments;
     }
 
-    public AcademicYear status(Status status) {
-        this.status = status;
+    public AcademicYear comments(String comments) {
+        this.comments = comments;
         return this;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
+
+    public String getStatus() {
+		return status;
+	}
+
+    public void setStatus(String status) {
+		this.status = status;
+	}
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -137,10 +155,43 @@ public class AcademicYear implements Serializable, IESEntity {
     public String toString() {
         return "AcademicYear{" +
             "id=" + getId() +
-            ", year='" + getYear() + "'" +
+            ", description='" + getDescription() + "'" +
             ", startDate='" + getStartDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
+            ", comments='" + getComments() + "'" +
             ", status='" + getStatus() + "'" +
             "}";
     }
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public LocalDate getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(LocalDate createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public LocalDate getUpdatedOn() {
+		return updatedOn;
+	}
+
+	public void setUpdatedOn(LocalDate updatedOn) {
+		this.updatedOn = updatedOn;
+	}
 }

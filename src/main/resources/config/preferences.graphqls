@@ -7,6 +7,7 @@ type Query {
 	getAuthorizedSignatoryList: [CmsAuthorizedSignatoryVo]
 	getBankAccountsList: [CmsBankAccountsVo]
 	getLegalEntityList: [CmsLegalEntityVo]
+	getAcademicYearList: [CmsAcademicYearVo]
 }
 
 type Mutation {
@@ -15,6 +16,42 @@ type Mutation {
 	saveAuthorizedSignatory(input: AuthorizedSignatoryInput): AuthorizedSignatoryPayload
 	saveBankAccounts(input: BankAccountsInput): BankAccountsPayload
 	saveLegalEntity(input: LegalEntityInput): LegalEntityPayload
+	saveAcademicYear(input: AcademicYearInput): AcademicYearPayload
+}
+
+input AcademicYearInput {
+	id: Long
+	description: String
+    startDate: Date 
+    endDate: Date
+    comments: String
+    strStartDate: String 
+    strEndDate: String
+    status: String
+}
+
+type AcademicYearPayload {
+	cmsAcademicYearVo: CmsAcademicYearVo
+}
+
+type CmsAcademicYearVo {
+	id: Long
+	description: String
+    startDate: Date 
+    endDate: Date
+    comments: String
+    strStartDate: String 
+    strEndDate: String
+    createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    status: String 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    exitCode: Long 
+    exitDescription: String 
+    dataList: [CmsAcademicYearVo]
 }
 
 input LegalEntityInput {

@@ -11,7 +11,6 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -120,7 +119,7 @@ public class AcademicYearRestController {
 //        if(ndDt[1].length() == 1) {
 //        	ndDt[1] = "0"+ndDt[1];
 //        }
-        ay.setYear(cmsAcademicYearVo.getYear());
+        ay.setDescription(cmsAcademicYearVo.getDescription());
         ay.setStatus(cmsAcademicYearVo.getStatus());
         ay.setStartDate(DateFormatUtil.getLocalDateFromString(cmsAcademicYearVo.getStrStartDate()));
         ay.setEndDate(DateFormatUtil.getLocalDateFromString(cmsAcademicYearVo.getStrEndDate()));

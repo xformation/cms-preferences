@@ -158,7 +158,7 @@ entity AuthorizedSignatory{
 	Status String
 }
 
-entity BankAccount{
+entity BankAccounts{
 	bankName String 
 	accountNumber String 
 	typeOfAccount String 
@@ -232,10 +232,15 @@ entity PaymentRequestResponse {
 }
 
 entity AcademicYear{
-	year String 
+	description String 
 	startDate LocalDate 
 	endDate LocalDate 
-	status Status 
+	comments String
+	createdBy String
+	createdOn LocalDate
+	updatedBy String
+	updatedOn LocalDate
+	status String 
 }
 
 entity Holiday{

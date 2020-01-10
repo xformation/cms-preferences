@@ -1,7 +1,8 @@
 package com.synectiks.pref.service.dto;
-import java.time.LocalDate;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
+
 import com.synectiks.pref.domain.enumeration.Status;
 
 /**
@@ -11,11 +12,13 @@ public class AcademicYearDTO implements Serializable {
 
     private Long id;
 
-    private String year;
+    private String description;
 
     private LocalDate startDate;
 
     private LocalDate endDate;
+
+    private String comments;
 
     private Status status;
 
@@ -28,12 +31,12 @@ public class AcademicYearDTO implements Serializable {
         this.id = id;
     }
 
-    public String getYear() {
-        return year;
+    public String getDescription() {
+        return description;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDate getStartDate() {
@@ -50,6 +53,14 @@ public class AcademicYearDTO implements Serializable {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     public Status getStatus() {
@@ -85,9 +96,10 @@ public class AcademicYearDTO implements Serializable {
     public String toString() {
         return "AcademicYearDTO{" +
             "id=" + getId() +
-            ", year='" + getYear() + "'" +
+            ", description='" + getDescription() + "'" +
             ", startDate='" + getStartDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
+            ", comments='" + getComments() + "'" +
             ", status='" + getStatus() + "'" +
             "}";
     }

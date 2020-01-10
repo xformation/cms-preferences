@@ -2,10 +2,6 @@ package com.synectiks.pref.domain.vo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.poi.ss.formula.functions.T;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

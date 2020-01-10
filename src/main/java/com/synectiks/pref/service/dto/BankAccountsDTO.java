@@ -22,9 +22,6 @@ public class BankAccountsDTO implements Serializable {
 
     private String corporateId;
 
-
-    private Long branchId;
-
     private String createdBy;
 
     private LocalDate createdOn;
@@ -34,7 +31,10 @@ public class BankAccountsDTO implements Serializable {
     private LocalDate updatedOn;
 
     private String status;
-    
+
+
+    private Long branchId;
+
     public Long getId() {
         return id;
     }
@@ -91,6 +91,46 @@ public class BankAccountsDTO implements Serializable {
         this.corporateId = corporateId;
     }
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDate getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public LocalDate getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDate updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Long getBranchId() {
         return branchId;
     }
@@ -130,47 +170,12 @@ public class BankAccountsDTO implements Serializable {
             ", ifscCode='" + getIfscCode() + "'" +
             ", address='" + getAddress() + "'" +
             ", corporateId='" + getCorporateId() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", createdOn='" + getCreatedOn() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
+            ", updatedOn='" + getUpdatedOn() + "'" +
+            ", status='" + getStatus() + "'" +
             ", branch=" + getBranchId() +
             "}";
     }
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public LocalDate getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(LocalDate createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
-	public LocalDate getUpdatedOn() {
-		return updatedOn;
-	}
-
-	public void setUpdatedOn(LocalDate updatedOn) {
-		this.updatedOn = updatedOn;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 }

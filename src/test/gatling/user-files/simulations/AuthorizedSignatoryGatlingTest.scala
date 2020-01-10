@@ -83,6 +83,11 @@ class AuthorizedSignatoryGatlingTest extends Simulation {
                 , "emailId":"SAMPLE_TEXT"
                 , "cellPhoneNumber":"SAMPLE_TEXT"
                 , "panNo":"SAMPLE_TEXT"
+                , "createdBy":"SAMPLE_TEXT"
+                , "createdOn":"2020-01-01T00:00:00.000Z"
+                , "updatedBy":"SAMPLE_TEXT"
+                , "updatedOn":"2020-01-01T00:00:00.000Z"
+                , "status":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_authorizedSignatory_url"))).exitHereIfFailed

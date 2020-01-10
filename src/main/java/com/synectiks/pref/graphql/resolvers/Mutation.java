@@ -6,16 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import com.synectiks.pref.business.service.CmsAcademicYearService;
 import com.synectiks.pref.business.service.CmsAuthorizedSignatoryService;
 import com.synectiks.pref.business.service.CmsBankAccountsService;
 import com.synectiks.pref.business.service.CmsBranchService;
 import com.synectiks.pref.business.service.CmsCollegeService;
 import com.synectiks.pref.business.service.CmsLegalEntityService;
+import com.synectiks.pref.domain.vo.CmsAcademicYearVo;
 import com.synectiks.pref.domain.vo.CmsAuthorizedSignatoryVo;
 import com.synectiks.pref.domain.vo.CmsBankAccountsVo;
 import com.synectiks.pref.domain.vo.CmsBranchVo;
 import com.synectiks.pref.domain.vo.CmsCollegeVo;
 import com.synectiks.pref.domain.vo.CmsLegalEntityVo;
+import com.synectiks.pref.graphql.types.academicyear.AcademicYearInput;
+import com.synectiks.pref.graphql.types.academicyear.AcademicYearPayload;
 import com.synectiks.pref.graphql.types.authorizedsignatory.AuthorizedSignatoryInput;
 import com.synectiks.pref.graphql.types.authorizedsignatory.AuthorizedSignatoryPayload;
 import com.synectiks.pref.graphql.types.bankaccount.BankAccountsInput;
@@ -27,8 +31,6 @@ import com.synectiks.pref.graphql.types.college.CollegePayload;
 import com.synectiks.pref.graphql.types.legalentity.LegalEntityInput;
 import com.synectiks.pref.graphql.types.legalentity.LegalEntityPayload;
 import com.synectiks.pref.repository.UserPreferenceRepository;
-
-
 
 @Component
 public class Mutation implements GraphQLMutationResolver {
@@ -52,6 +54,8 @@ public class Mutation implements GraphQLMutationResolver {
     @Autowired
     CmsLegalEntityService cmsLegalEntityService;
     
+    @Autowired
+    CmsAcademicYearService cmsAcademicYearService;
     
     public Mutation(UserPreferenceRepository userPreferenceRepository) {
     	this.userPreferenceRepository = userPreferenceRepository;
@@ -80,5 +84,10 @@ public class Mutation implements GraphQLMutationResolver {
     public LegalEntityPayload saveLegalEntity(LegalEntityInput cmsLegalEntityVo) {
     	CmsLegalEntityVo vo = this.cmsLegalEntityService.saveLegalEntity(cmsLegalEntityVo);
     	return new LegalEntityPayload(vo);
+    }
+    
+    public AcademicYearPayload saveAcademicYear(AcademicYearInput cmsAcademicYearVo) {
+    	CmsAcademicYearVo vo = this.cmsAcademicYearService.saveAcademicYear(cmsAcademicYearVo);
+    	return new AcademicYearPayload(vo);
     }
 }
