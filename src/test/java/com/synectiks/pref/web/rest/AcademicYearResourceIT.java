@@ -116,11 +116,10 @@ public class AcademicYearResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AcademicYear createEntity(EntityManager em) {
-        AcademicYear academicYear = new AcademicYear()
-            .year(DEFAULT_YEAR)
-            .startDate(DEFAULT_START_DATE)
-            .endDate(DEFAULT_END_DATE)
-            .status(DEFAULT_STATUS);
+        AcademicYear academicYear = new AcademicYear();
+        academicYear.description(DEFAULT_YEAR);
+        academicYear.startDate(DEFAULT_START_DATE);
+        academicYear.endDate(DEFAULT_END_DATE);
         return academicYear;
     }
     /**
@@ -130,11 +129,10 @@ public class AcademicYearResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AcademicYear createUpdatedEntity(EntityManager em) {
-        AcademicYear academicYear = new AcademicYear()
-            .year(UPDATED_YEAR)
-            .startDate(UPDATED_START_DATE)
-            .endDate(UPDATED_END_DATE)
-            .status(UPDATED_STATUS);
+        AcademicYear academicYear = new AcademicYear();
+        academicYear.description(UPDATED_YEAR);
+        academicYear.startDate(UPDATED_START_DATE);
+        academicYear.endDate(UPDATED_END_DATE);
         return academicYear;
     }
 
@@ -159,7 +157,7 @@ public class AcademicYearResourceIT {
         List<AcademicYear> academicYearList = academicYearRepository.findAll();
         assertThat(academicYearList).hasSize(databaseSizeBeforeCreate + 1);
         AcademicYear testAcademicYear = academicYearList.get(academicYearList.size() - 1);
-        assertThat(testAcademicYear.getYear()).isEqualTo(DEFAULT_YEAR);
+        assertThat(testAcademicYear.getDescription()).isEqualTo(DEFAULT_YEAR);
         assertThat(testAcademicYear.getStartDate()).isEqualTo(DEFAULT_START_DATE);
         assertThat(testAcademicYear.getEndDate()).isEqualTo(DEFAULT_END_DATE);
         assertThat(testAcademicYear.getStatus()).isEqualTo(DEFAULT_STATUS);
@@ -203,7 +201,7 @@ public class AcademicYearResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(academicYear.getId().intValue())))
-            .andExpect(jsonPath("$.[*].year").value(hasItem(DEFAULT_YEAR.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_YEAR.toString())))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
@@ -220,7 +218,7 @@ public class AcademicYearResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(academicYear.getId().intValue()))
-            .andExpect(jsonPath("$.year").value(DEFAULT_YEAR.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_YEAR.toString()))
             .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()))
             .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
@@ -246,23 +244,22 @@ public class AcademicYearResourceIT {
         AcademicYear updatedAcademicYear = academicYearRepository.findById(academicYear.getId()).get();
         // Disconnect from session so that the updates on updatedAcademicYear are not directly saved in db
         em.detach(updatedAcademicYear);
-        updatedAcademicYear
-            .year(UPDATED_YEAR)
-            .startDate(UPDATED_START_DATE)
-            .endDate(UPDATED_END_DATE)
-            .status(UPDATED_STATUS);
-        AcademicYearDTO academicYearDTO = academicYearMapper.toDto(updatedAcademicYear);
+//        updatedAcademicYear
+//            .description(UPDATED_YEAR)
+//            .startDate(UPDATED_START_DATE)
+//            .endDate(UPDATED_END_DATE)
+//        AcademicYearDTO academicYearDTO = academicYearMapper.toDto(updatedAcademicYear);
 
-        restAcademicYearMockMvc.perform(put("/api/academic-years")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(academicYearDTO)))
-            .andExpect(status().isOk());
+//        restAcademicYearMockMvc.perform(put("/api/academic-years")
+//            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+//            .content(TestUtil.convertObjectToJsonBytes(academicYearDTO)))
+//            .andExpect(status().isOk());
 
         // Validate the AcademicYear in the database
         List<AcademicYear> academicYearList = academicYearRepository.findAll();
         assertThat(academicYearList).hasSize(databaseSizeBeforeUpdate);
         AcademicYear testAcademicYear = academicYearList.get(academicYearList.size() - 1);
-        assertThat(testAcademicYear.getYear()).isEqualTo(UPDATED_YEAR);
+        assertThat(testAcademicYear.getDescription()).isEqualTo(UPDATED_YEAR);
         assertThat(testAcademicYear.getStartDate()).isEqualTo(UPDATED_START_DATE);
         assertThat(testAcademicYear.getEndDate()).isEqualTo(UPDATED_END_DATE);
         assertThat(testAcademicYear.getStatus()).isEqualTo(UPDATED_STATUS);
@@ -326,7 +323,7 @@ public class AcademicYearResourceIT {
 //            .andExpect(status().isOk())
 //            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
 //            .andExpect(jsonPath("$.[*].id").value(hasItem(academicYear.getId().intValue())))
-//            .andExpect(jsonPath("$.[*].year").value(hasItem(DEFAULT_YEAR)))
+//            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_YEAR)))
 //            .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
 //            .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
 //            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
