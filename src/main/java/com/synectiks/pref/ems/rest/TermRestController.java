@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.AcademicYear;
 import com.synectiks.pref.domain.Term;
 import com.synectiks.pref.domain.enumeration.Status;
@@ -60,8 +61,8 @@ public class TermRestController {
         if (cmsTermVo.getId() != null) {
             throw new BadRequestAlertException("A new term cannot have an ID which already exists.", ENTITY_NAME, "idexists");
         }
-        if(cmsTermVo.getTermStatus() == null) {
-            cmsTermVo.setTermStatus(Status.DEACTIVE);
+        if(cmsTermVo.getStatus() == null) {
+            cmsTermVo.setStatus(CmsConstants.STATUS_DEACTIVE);
         }
         Term tm = CommonUtil.createCopyProperties(cmsTermVo, Term.class);
         tm.setStartDate(DateFormatUtil.getLocalDateFromString(cmsTermVo.getStrStartDate()));
@@ -83,8 +84,8 @@ public class TermRestController {
         if (cmsTermVo.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if(cmsTermVo.getTermStatus() == null) {
-            cmsTermVo.setTermStatus(Status.DEACTIVE);
+        if(cmsTermVo.getStatus() == null) {
+            cmsTermVo.setStatus(CmsConstants.STATUS_DEACTIVE);
         }
         Term tm = CommonUtil.createCopyProperties(cmsTermVo, Term.class);
         tm.setStartDate(DateFormatUtil.getLocalDateFromString(cmsTermVo.getStrStartDate()));

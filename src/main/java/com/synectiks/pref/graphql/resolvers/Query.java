@@ -16,6 +16,7 @@ import com.synectiks.pref.business.service.CmsCityService;
 import com.synectiks.pref.business.service.CmsHolidayService;
 import com.synectiks.pref.business.service.CmsLegalEntityService;
 import com.synectiks.pref.business.service.CmsStateService;
+import com.synectiks.pref.business.service.CmsTermService;
 import com.synectiks.pref.domain.City;
 import com.synectiks.pref.domain.State;
 import com.synectiks.pref.domain.vo.CmsAcademicYearVo;
@@ -24,6 +25,7 @@ import com.synectiks.pref.domain.vo.CmsBankAccountsVo;
 import com.synectiks.pref.domain.vo.CmsBranchVo;
 import com.synectiks.pref.domain.vo.CmsHolidayVo;
 import com.synectiks.pref.domain.vo.CmsLegalEntityVo;
+import com.synectiks.pref.domain.vo.CmsTermVo;
 import com.synectiks.pref.repository.UserPreferenceRepository;
 
 /**
@@ -61,6 +63,8 @@ public class Query implements GraphQLQueryResolver {
 	@Autowired
     CmsHolidayService cmsHolidayService;
 	
+	@Autowired
+    CmsTermService cmsTermService;
 	
 	public Query(UserPreferenceRepository userPreferenceRepository) {
 		this.userPreferenceRepository = userPreferenceRepository;
@@ -104,5 +108,10 @@ public class Query implements GraphQLQueryResolver {
 	public List<CmsHolidayVo> getHolidayList() throws Exception {
     	logger.debug("Query - getHoliday :");
     	return this.cmsHolidayService.getHolidayList();
+    }
+	
+	public List<CmsTermVo> getTermList() throws Exception {
+    	logger.debug("Query - getTerm :");
+    	return this.cmsTermService.getTermList();
     }
 }

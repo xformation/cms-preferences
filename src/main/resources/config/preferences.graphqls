@@ -9,6 +9,7 @@ type Query {
 	getLegalEntityList: [CmsLegalEntityVo]
 	getAcademicYearList: [CmsAcademicYearVo]
 	getHolidayList: [CmsHolidayVo]
+	getTermList: [CmsTermVo]
 }
 
 type Mutation {
@@ -18,10 +19,47 @@ type Mutation {
 	saveBankAccounts(input: BankAccountsInput): BankAccountsPayload
 	saveLegalEntity(input: LegalEntityInput): LegalEntityPayload
 	saveAcademicYear(input: AcademicYearInput): AcademicYearPayload
-	
 	saveHoliday(input: HolidayInput): HolidayPayload
+	saveTerm(input: TermInput): TermPayload
 }
 
+input TermInput {
+	id: Long
+	description: String
+    startDate: Date 
+    endDate: Date
+	comments: String
+    strStartDate: String 
+    strEndDate: String
+    status: String
+    academicYearId: Long
+}
+
+type TermPayload {
+	cmsTermVo: CmsTermVo
+}
+
+type CmsTermVo {
+	id: Long
+	description: String
+    startDate: Date 
+    endDate: Date
+	comments: String
+    strStartDate: String 
+    strEndDate: String
+    createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    status: String
+    exitCode: Long 
+    exitDescription: String 
+    academicYearId: Long
+    cmsAcademicYearVo: CmsAcademicYearVo
+    dataList: [CmsTermVo]
+}
 
 input HolidayInput {
 	id: Long

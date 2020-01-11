@@ -13,6 +13,7 @@ import com.synectiks.pref.business.service.CmsBranchService;
 import com.synectiks.pref.business.service.CmsCollegeService;
 import com.synectiks.pref.business.service.CmsHolidayService;
 import com.synectiks.pref.business.service.CmsLegalEntityService;
+import com.synectiks.pref.business.service.CmsTermService;
 import com.synectiks.pref.domain.vo.CmsAcademicYearVo;
 import com.synectiks.pref.domain.vo.CmsAuthorizedSignatoryVo;
 import com.synectiks.pref.domain.vo.CmsBankAccountsVo;
@@ -20,6 +21,7 @@ import com.synectiks.pref.domain.vo.CmsBranchVo;
 import com.synectiks.pref.domain.vo.CmsCollegeVo;
 import com.synectiks.pref.domain.vo.CmsHolidayVo;
 import com.synectiks.pref.domain.vo.CmsLegalEntityVo;
+import com.synectiks.pref.domain.vo.CmsTermVo;
 import com.synectiks.pref.graphql.types.academicyear.AcademicYearInput;
 import com.synectiks.pref.graphql.types.academicyear.AcademicYearPayload;
 import com.synectiks.pref.graphql.types.authorizedsignatory.AuthorizedSignatoryInput;
@@ -34,6 +36,8 @@ import com.synectiks.pref.graphql.types.holiday.HolidayInput;
 import com.synectiks.pref.graphql.types.holiday.HolidayPayload;
 import com.synectiks.pref.graphql.types.legalentity.LegalEntityInput;
 import com.synectiks.pref.graphql.types.legalentity.LegalEntityPayload;
+import com.synectiks.pref.graphql.types.term.TermInput;
+import com.synectiks.pref.graphql.types.term.TermPayload;
 import com.synectiks.pref.repository.UserPreferenceRepository;
 
 @Component
@@ -64,6 +68,8 @@ public class Mutation implements GraphQLMutationResolver {
     @Autowired
     CmsHolidayService cmsHolidayService;
     
+    @Autowired
+    CmsTermService cmsTermService;
     
     public Mutation(UserPreferenceRepository userPreferenceRepository) {
     	this.userPreferenceRepository = userPreferenceRepository;
@@ -104,4 +110,8 @@ public class Mutation implements GraphQLMutationResolver {
     	return new HolidayPayload(vo);
     }
     
+    public TermPayload saveTerm(TermInput cmsTermVo) {
+    	CmsTermVo vo = this.cmsTermService.saveTerm(cmsTermVo);
+    	return new TermPayload(vo);
+    }
 }
