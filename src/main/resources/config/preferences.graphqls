@@ -10,6 +10,7 @@ type Query {
 	getAcademicYearList: [CmsAcademicYearVo]
 	getHolidayList: [CmsHolidayVo]
 	getTermList: [CmsTermVo]
+	getDepartmentList: [CmsDepartmentVo]
 }
 
 type Mutation {
@@ -21,6 +22,43 @@ type Mutation {
 	saveAcademicYear(input: AcademicYearInput): AcademicYearPayload
 	saveHoliday(input: HolidayInput): HolidayPayload
 	saveTerm(input: TermInput): TermPayload
+	saveDepartment(input: DepartmentInput): DepartmentPayload
+}
+
+input DepartmentInput {
+	id: Long
+	name: String
+    deptHead: String 
+    comments: String
+    status: String
+    academicYearId: Long
+    branchId: Long
+}
+
+type DepartmentPayload {
+	cmsDepartmentVo: CmsDepartmentVo
+}
+
+type CmsDepartmentVo {
+	id: Long
+	name: String
+    deptHead: String 
+    comments: String
+	description: String
+    createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    status: String
+    exitCode: Long 
+    exitDescription: String 
+    academicYearId: Long
+    cmsAcademicYearVo: CmsAcademicYearVo
+    branchId: Long
+    cmsBranchVo: CmsBranchVo
+    dataList: [CmsDepartmentVo]
 }
 
 input TermInput {

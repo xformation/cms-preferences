@@ -68,7 +68,7 @@ public class DepartmentRestController {
         }
         Department d = new Department();
         Branch b = this.branchRepository.findById(cmsDepartmentVo.getBranchId()).get();
-        AcademicYear a = this.academicYearRepository.findById(cmsDepartmentVo.getAcademicyearId()).get();
+        AcademicYear a = this.academicYearRepository.findById(cmsDepartmentVo.getAcademicYearId()).get();
         d.setName(cmsDepartmentVo.getName());
         d.setDescription(cmsDepartmentVo.getDescription());
         d.setDeptHead(cmsDepartmentVo.getDeptHead());
@@ -90,7 +90,7 @@ public class DepartmentRestController {
 
         Department d = new Department();
         Branch b = this.branchRepository.findById(cmsDepartmentVo.getBranchId()).get();
-        AcademicYear a = this.academicYearRepository.findById(cmsDepartmentVo.getAcademicyearId()).get();
+        AcademicYear a = this.academicYearRepository.findById(cmsDepartmentVo.getAcademicYearId()).get();
         d.setName(cmsDepartmentVo.getName());
         d.setDescription(cmsDepartmentVo.getDescription());
         d.setDeptHead(cmsDepartmentVo.getDeptHead());
@@ -113,8 +113,8 @@ public class DepartmentRestController {
             vo.setName(de.getName());
             vo.setDescription(de.getDescription());
             vo.setDeptHead(de.getDeptHead());
-            vo.setBranch(de.getBranch());
-            vo.setAcademicyear(de.getAcademicYear());
+//            vo.setBranch(de.getBranch());
+//            vo.setAcademicyear(de.getAcademicYear());
             vo.setId(de.getId());
             ls.add(vo);
         }
@@ -143,7 +143,7 @@ public class DepartmentRestController {
         List<CmsDepartmentVo> ls = new ArrayList<>();
         for(Department de : list) {
             CmsDepartmentVo vo = CommonUtil.createCopyProperties(de, CmsDepartmentVo.class);
-            vo.setAcademicyearId(de.getAcademicYear().getId());
+            vo.setAcademicYearId(de.getAcademicYear().getId());
             ls.add(vo);
         }
         return ls;
@@ -154,7 +154,7 @@ public class DepartmentRestController {
     	logger.debug("REST request to get a Department : {}", id);
         Optional<Department> de = departmentRepository.findById(id);
         CmsDepartmentVo vo = CommonUtil.createCopyProperties(de.get(), CmsDepartmentVo.class);
-        vo.setAcademicyearId(de.get().getAcademicYear().getId());
+        vo.setAcademicYearId(de.get().getAcademicYear().getId());
         return ResponseUtil.wrapOrNotFound(Optional.of(vo));
     }
     
