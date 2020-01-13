@@ -54,6 +54,7 @@ public class CmsCollegeService {
     		saveCollegeLogo(vo);
     		College college = saveCollege(vo);
     		saveCollegeAsMainBranch(vo, college);
+    		vo.setBranchList(this.cmsBranchService.getBranchList());
     		vo.setExitCode(0L);
         	vo.setExitDescription("College is added successfully. It is created as default main branch also");
         }catch(Exception e) {

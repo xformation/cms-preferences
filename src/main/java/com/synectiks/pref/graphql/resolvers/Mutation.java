@@ -11,6 +11,7 @@ import com.synectiks.pref.business.service.CmsAuthorizedSignatoryService;
 import com.synectiks.pref.business.service.CmsBankAccountsService;
 import com.synectiks.pref.business.service.CmsBranchService;
 import com.synectiks.pref.business.service.CmsCollegeService;
+import com.synectiks.pref.business.service.CmsCourseService;
 import com.synectiks.pref.business.service.CmsDepartmentService;
 import com.synectiks.pref.business.service.CmsHolidayService;
 import com.synectiks.pref.business.service.CmsLegalEntityService;
@@ -20,6 +21,7 @@ import com.synectiks.pref.domain.vo.CmsAuthorizedSignatoryVo;
 import com.synectiks.pref.domain.vo.CmsBankAccountsVo;
 import com.synectiks.pref.domain.vo.CmsBranchVo;
 import com.synectiks.pref.domain.vo.CmsCollegeVo;
+import com.synectiks.pref.domain.vo.CmsCourseVo;
 import com.synectiks.pref.domain.vo.CmsDepartmentVo;
 import com.synectiks.pref.domain.vo.CmsHolidayVo;
 import com.synectiks.pref.domain.vo.CmsLegalEntityVo;
@@ -34,6 +36,8 @@ import com.synectiks.pref.graphql.types.branch.BranchInput;
 import com.synectiks.pref.graphql.types.branch.BranchPayload;
 import com.synectiks.pref.graphql.types.college.CollegeInput;
 import com.synectiks.pref.graphql.types.college.CollegePayload;
+import com.synectiks.pref.graphql.types.course.CourseInput;
+import com.synectiks.pref.graphql.types.course.CoursePayload;
 import com.synectiks.pref.graphql.types.department.DepartmentInput;
 import com.synectiks.pref.graphql.types.department.DepartmentPayload;
 import com.synectiks.pref.graphql.types.holiday.HolidayInput;
@@ -77,6 +81,9 @@ public class Mutation implements GraphQLMutationResolver {
     
     @Autowired
     CmsDepartmentService cmsDepartmentService;
+    
+    @Autowired
+    CmsCourseService cmsCourseService;
     
     public Mutation(UserPreferenceRepository userPreferenceRepository) {
     	this.userPreferenceRepository = userPreferenceRepository;
@@ -125,5 +132,10 @@ public class Mutation implements GraphQLMutationResolver {
     public DepartmentPayload saveDepartment(DepartmentInput cmsDepartmentVo) {
     	CmsDepartmentVo vo = this.cmsDepartmentService.saveDepartment(cmsDepartmentVo);
     	return new DepartmentPayload(vo);
+    }
+    
+    public CoursePayload saveCourse(CourseInput cmsCourseVo) {
+    	CmsCourseVo vo = this.cmsCourseService.saveCourse(cmsCourseVo);
+    	return new CoursePayload(vo);
     }
 }

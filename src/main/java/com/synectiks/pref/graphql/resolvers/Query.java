@@ -13,6 +13,7 @@ import com.synectiks.pref.business.service.CmsAuthorizedSignatoryService;
 import com.synectiks.pref.business.service.CmsBankAccountsService;
 import com.synectiks.pref.business.service.CmsBranchService;
 import com.synectiks.pref.business.service.CmsCityService;
+import com.synectiks.pref.business.service.CmsCourseService;
 import com.synectiks.pref.business.service.CmsDepartmentService;
 import com.synectiks.pref.business.service.CmsHolidayService;
 import com.synectiks.pref.business.service.CmsLegalEntityService;
@@ -24,6 +25,7 @@ import com.synectiks.pref.domain.vo.CmsAcademicYearVo;
 import com.synectiks.pref.domain.vo.CmsAuthorizedSignatoryVo;
 import com.synectiks.pref.domain.vo.CmsBankAccountsVo;
 import com.synectiks.pref.domain.vo.CmsBranchVo;
+import com.synectiks.pref.domain.vo.CmsCourseVo;
 import com.synectiks.pref.domain.vo.CmsDepartmentVo;
 import com.synectiks.pref.domain.vo.CmsHolidayVo;
 import com.synectiks.pref.domain.vo.CmsLegalEntityVo;
@@ -71,6 +73,9 @@ public class Query implements GraphQLQueryResolver {
 	@Autowired
     CmsDepartmentService cmsDepartmentService;
 	
+	@Autowired
+    CmsCourseService cmsCourseService;
+	
 	public Query(UserPreferenceRepository userPreferenceRepository) {
 		this.userPreferenceRepository = userPreferenceRepository;
 	}
@@ -101,27 +106,32 @@ public class Query implements GraphQLQueryResolver {
     }
 	
 	public List<CmsLegalEntityVo> getLegalEntityList() throws Exception {
-    	logger.debug("Query - getLegalEntity :");
+    	logger.debug("Query - getLegalEntityList :");
     	return this.cmsLegalEntityService.getLegalEntityList();
     }
 	
 	public List<CmsAcademicYearVo> getAcademicYearList() throws Exception {
-    	logger.debug("Query - getAcademicYear :");
+    	logger.debug("Query - getAcademicYearList :");
     	return this.cmsAcademicYearService.getAcademicYearList();
     }
 	
 	public List<CmsHolidayVo> getHolidayList() throws Exception {
-    	logger.debug("Query - getHoliday :");
+    	logger.debug("Query - getHolidayList :");
     	return this.cmsHolidayService.getHolidayList();
     }
 	
 	public List<CmsTermVo> getTermList() throws Exception {
-    	logger.debug("Query - getTerm :");
+    	logger.debug("Query - getTermList :");
     	return this.cmsTermService.getTermList();
     }
 	
 	public List<CmsDepartmentVo> getDepartmentList() throws Exception {
-    	logger.debug("Query - getDepartment :");
+    	logger.debug("Query - getDepartmentList :");
     	return this.cmsDepartmentService.getDepartmentList();
+    }
+	
+	public List<CmsCourseVo> getCourseList() throws Exception {
+    	logger.debug("Query - getCourseList :");
+    	return this.cmsCourseService.getCourseList();
     }
 }

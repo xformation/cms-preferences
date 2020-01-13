@@ -1,6 +1,7 @@
 package com.synectiks.pref.domain.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * A College.
@@ -15,6 +16,7 @@ public class CmsCollegeVo extends CmsCommonVo implements Serializable {
     private String logoFileName;
     private String logoFileExtension;
     private String logoFile; // base64 encoded string
+    private List<CmsBranchVo> branchList;
     
 	public Long getId() {
 		return id;
@@ -74,6 +76,13 @@ public class CmsCollegeVo extends CmsCommonVo implements Serializable {
 		} else if (!collegeName.equals(other.collegeName))
 			return false;
 		return true;
+	}
+	
+	public List<CmsBranchVo> getBranchList() {
+		return branchList;
+	}
+	public void setBranchList(List<CmsBranchVo> branchList) {
+		this.branchList = branchList;
 	}
     
 }
