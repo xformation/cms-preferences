@@ -17,6 +17,7 @@ import org.springframework.core.env.Environment;
 
 import com.synectiks.pref.config.ApplicationProperties;
 import com.synectiks.pref.config.DefaultProfileUtil;
+import com.synectiks.pref.websocket.CmsPreferenceWebSocketServer;
 
 import io.github.jhipster.config.JHipsterConstants;
 
@@ -81,7 +82,7 @@ public class PreferencesApp  {
             env.getProperty("server.port"),
             env.getActiveProfiles());
         
-//        new CmsWebSocketServer(5000).start();
+        new CmsPreferenceWebSocketServer(5000).start();
     }
 
     public static <T> T getBean(Class<T> cls) {

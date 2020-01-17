@@ -24,7 +24,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 
-import com.synectiks.pref.config.Constants;
 import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.AcademicYear;
 import com.synectiks.pref.domain.AttendanceMaster;
@@ -929,12 +928,12 @@ public class CommonService {
         for(Term tm: list) {
 
             CmsTermVo ctm = CommonUtil.createCopyProperties(tm, CmsTermVo.class);
-            ctm.setStrStartDate(DateFormatUtil.changeLocalDateFormat(tm.getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
-            ctm.setStrEndDate(DateFormatUtil.changeLocalDateFormat(tm.getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+            ctm.setStrStartDate(DateFormatUtil.changeLocalDateFormat(tm.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+            ctm.setStrEndDate(DateFormatUtil.changeLocalDateFormat(tm.getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
             tm.setStartDate(null);
             tm.setEndDate(null);
-            //            ctm.setStrStartDate(DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_dd_MM_yyyy, Constants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(tm.getStartDate()))));
-//            ctm.setStrEndDate(DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_dd_MM_yyyy, Constants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(tm.getEndDate()))));
+            //            ctm.setStrStartDate(DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy, CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(tm.getStartDate()))));
+//            ctm.setStrEndDate(DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy, CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(tm.getEndDate()))));
             ls.add(ctm);
         }
         return ls;
@@ -960,23 +959,23 @@ public class CommonService {
 //        for(FeeCategory ff: feeCategoryList) {
 //            CmsFeeCategory cfc = CommonUtil.createCopyProperties(ff, CmsFeeCategory.class);
 //            if(ff.getStartDate() != null) {
-//                cfc.setStrStartDate(DateFormatUtil.changeLocalDateFormat(ff.getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+//                cfc.setStrStartDate(DateFormatUtil.changeLocalDateFormat(ff.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 //                cfc.setStartDate(null);
-////                cfc.setStrStartDate(DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_dd_MM_yyyy, DateFormatUtil.converUtilDateFromLocaDate(ff.getStartDate())));
-////        		cfc.setStrStartDate(DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_dd_MM_yyyy, Constants.SRC_DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(Constants.SRC_DATE_FORMAT_yyyy_MM_dd, ff.getStartDate())));
+////                cfc.setStrStartDate(DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy, DateFormatUtil.converUtilDateFromLocaDate(ff.getStartDate())));
+////        		cfc.setStrStartDate(DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy, CmsConstants.SRC_DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(CmsConstants.SRC_DATE_FORMAT_yyyy_MM_dd, ff.getStartDate())));
 //            }
 //            if(ff.getEndDate() != null) {
-//                cfc.setStrEndDate(DateFormatUtil.changeLocalDateFormat(ff.getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+//                cfc.setStrEndDate(DateFormatUtil.changeLocalDateFormat(ff.getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 //                cfc.setEndDate(null);
-////                cfc.setStrEndDate(DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_dd_MM_yyyy, DateFormatUtil.converUtilDateFromLocaDate(ff.getEndDate())));
-////        		ff.setStrEndDate(DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_dd_MM_yyyy, Constants.SRC_DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(Constants.SRC_DATE_FORMAT_yyyy_MM_dd, ff.getEndDate())));
+////                cfc.setStrEndDate(DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy, DateFormatUtil.converUtilDateFromLocaDate(ff.getEndDate())));
+////        		ff.setStrEndDate(DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy, CmsConstants.SRC_DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(CmsConstants.SRC_DATE_FORMAT_yyyy_MM_dd, ff.getEndDate())));
 //            }
 //            if(ff.getCreatedOn() != null) {
-//                cfc.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(ff.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy));
+//                cfc.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(ff.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 //                cfc.setCreatedOn(null);
 //            }
 //            if(ff.getUpdatedOn() != null) {
-//                cfc.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(ff.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy));
+//                cfc.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(ff.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 //                cfc.setUpdatedOn(null);
 //            }
 //            ls.add(cfc);
@@ -1007,21 +1006,21 @@ public class CommonService {
 //        for(FeeDetails ff: feeDetailsList) {
 //            CmsFeeDetails cfd = CommonUtil.createCopyProperties(ff, CmsFeeDetails.class);
 //            if(ff.getStartDate() != null) {
-//                cfd.setStrStartDate(DateFormatUtil.changeLocalDateFormat(ff.getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+//                cfd.setStrStartDate(DateFormatUtil.changeLocalDateFormat(ff.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 ////                cfd.setStrStartDate(ff.getStartDate().format(dateFormatter));
 //                cfd.setStartDate(null);
 //            }
 //            if(ff.getEndDate() != null) {
 ////                cfd.setStrEndDate(ff.getEndDate().format(dateFormatter));
-//                cfd.setStrEndDate(DateFormatUtil.changeLocalDateFormat(ff.getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+//                cfd.setStrEndDate(DateFormatUtil.changeLocalDateFormat(ff.getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 //                cfd.setEndDate(null);
 //            }
 //            if(ff.getCreatedOn() != null) {
-//                cfd.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(ff.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy));
+//                cfd.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(ff.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 //                cfd.setCreatedOn(null);
 //            }
 //            if(ff.getUpdatedOn() != null) {
-//                cfd.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(ff.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy));
+//                cfd.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(ff.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 //                cfd.setUpdatedOn(null);
 //            }
 //            ls.add(cfd);
@@ -1051,24 +1050,24 @@ public class CommonService {
 //        for(Facility ff: facilityList) {
 //            CmsFacility cf = CommonUtil.createCopyProperties(ff, CmsFacility.class);
 //            if(ff.getStartDate() != null) {
-//                cf.setStrStartDate(DateFormatUtil.changeLocalDateFormat(ff.getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
-////                cf.setStrStartDate(DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_dd_MM_yyyy, Constants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(ff.getStartDate()))));
+//                cf.setStrStartDate(DateFormatUtil.changeLocalDateFormat(ff.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+////                cf.setStrStartDate(DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy, CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(ff.getStartDate()))));
 //                cf.setStartDate(null);
 //            }
 //            if(ff.getEndDate() != null) {
-//                cf.setStrEndDate(DateFormatUtil.changeLocalDateFormat(ff.getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+//                cf.setStrEndDate(DateFormatUtil.changeLocalDateFormat(ff.getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 //                cf.setEndDate(null);
-////                cf.setStrEndDate(DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_dd_MM_yyyy, Constants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(ff.getEndDate()))));
+////                cf.setStrEndDate(DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy, CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(ff.getEndDate()))));
 //            }
 //            if(ff.getSuspandStartDate() != null) {
-//                cf.setStrSuspandStartDate(DateFormatUtil.changeLocalDateFormat(ff.getSuspandStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+//                cf.setStrSuspandStartDate(DateFormatUtil.changeLocalDateFormat(ff.getSuspandStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 //                cf.setSuspandStartDate(null);
-////                cf.setStrSuspandStartDate(DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_dd_MM_yyyy, Constants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(ff.getSuspandStartDate()))));
+////                cf.setStrSuspandStartDate(DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy, CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(ff.getSuspandStartDate()))));
 //            }
 //            if(ff.getSuspandEndDate() != null) {
-//                cf.setStrSuspandEndDate(DateFormatUtil.changeLocalDateFormat(ff.getSuspandEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+//                cf.setStrSuspandEndDate(DateFormatUtil.changeLocalDateFormat(ff.getSuspandEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 //                cf.setSuspandEndDate(null);
-////                cf.setStrSuspandEndDate(DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_dd_MM_yyyy, Constants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(Constants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(ff.getSuspandEndDate()))));
+////                cf.setStrSuspandEndDate(DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy, CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(ff.getSuspandEndDate()))));
 //            }
 //            ls.add(cf);
 //        }
@@ -1086,8 +1085,8 @@ public class CommonService {
 //        AcademicYear ay = this.getActiveAcademicYear();
 //        if(ay != null) {
 //            CmsAcademicYearVo vo = CommonUtil.createCopyProperties(ay, CmsAcademicYearVo.class);
-//            vo.setStrStartDate(DateFormatUtil.changeLocalDateFormat(ay.getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
-//            vo.setStrEndDate(DateFormatUtil.changeLocalDateFormat(ay.getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+//            vo.setStrStartDate(DateFormatUtil.changeLocalDateFormat(ay.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+//            vo.setStrEndDate(DateFormatUtil.changeLocalDateFormat(ay.getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 //            config.setCmsAcademicYearVo(vo);
 //        }else {
 //            config.setCmsAcademicYearVo(new CmsAcademicYearVo());
@@ -1151,8 +1150,8 @@ public class CommonService {
         List<CmsAcademicYearVo> ayList = new ArrayList<>();
         for(AcademicYear ay: acYearList ) {
             CmsAcademicYearVo vo = CommonUtil.createCopyProperties(ay, CmsAcademicYearVo.class);
-            vo.setStrStartDate(DateFormatUtil.changeLocalDateFormat(ay.getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
-            vo.setStrEndDate(DateFormatUtil.changeLocalDateFormat(ay.getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+            vo.setStrStartDate(DateFormatUtil.changeLocalDateFormat(ay.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+            vo.setStrEndDate(DateFormatUtil.changeLocalDateFormat(ay.getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
             ayList.add(vo);
         }
         List<CmsDepartmentVo> deptList = new ArrayList<>();
@@ -1163,8 +1162,8 @@ public class CommonService {
         AcademicYear ay = this.getActiveAcademicYear();
         if(ay != null) {
             CmsAcademicYearVo vo = CommonUtil.createCopyProperties(ay, CmsAcademicYearVo.class);
-            vo.setStrStartDate(DateFormatUtil.changeLocalDateFormat(ay.getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
-            vo.setStrEndDate(DateFormatUtil.changeLocalDateFormat(ay.getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+            vo.setStrStartDate(DateFormatUtil.changeLocalDateFormat(ay.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+            vo.setStrEndDate(DateFormatUtil.changeLocalDateFormat(ay.getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
             config.setCmsAcademicYearVo(vo);
         }else {
             config.setCmsAcademicYearVo(new CmsAcademicYearVo());
@@ -1183,10 +1182,10 @@ public class CommonService {
         for(Notifications n: list) {
             CmsNotificationsVo vo = CommonUtil.createCopyProperties(n, CmsNotificationsVo.class);
             if(n.getCreatedOn() != null) {
-                vo.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(n.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy));
+                vo.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(n.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
             }
             if(n.getUpdatedOn() != null) {
-                vo.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(n.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy));
+                vo.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(n.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
             }
             logger.debug("Notifications : "+vo);
             ls.add(vo);

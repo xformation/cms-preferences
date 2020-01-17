@@ -104,10 +104,10 @@ public class CmsTermService {
     		term = termRepository.save(term);
         	
         	vo = CommonUtil.createCopyProperties(term, CmsTermVo.class);
-        	vo.setStrCreatedOn(term.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(term.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
-        	vo.setStrUpdatedOn(term.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(term.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
-        	vo.setStrStartDate(term.getStartDate() != null ? DateFormatUtil.changeLocalDateFormat(term.getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
-        	vo.setStrEndDate(term.getEndDate() != null ? DateFormatUtil.changeLocalDateFormat(term.getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrCreatedOn(term.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(term.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrUpdatedOn(term.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(term.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrStartDate(term.getStartDate() != null ? DateFormatUtil.changeLocalDateFormat(term.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrEndDate(term.getEndDate() != null ? DateFormatUtil.changeLocalDateFormat(term.getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
         	
         	vo.setCreatedOn(null);
         	vo.setUpdatedOn(null);

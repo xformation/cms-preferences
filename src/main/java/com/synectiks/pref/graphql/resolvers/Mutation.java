@@ -13,6 +13,7 @@ import com.synectiks.pref.business.service.CmsBranchService;
 import com.synectiks.pref.business.service.CmsCollegeService;
 import com.synectiks.pref.business.service.CmsCourseService;
 import com.synectiks.pref.business.service.CmsDepartmentService;
+import com.synectiks.pref.business.service.CmsEmployeeService;
 import com.synectiks.pref.business.service.CmsHolidayService;
 import com.synectiks.pref.business.service.CmsLegalEntityService;
 import com.synectiks.pref.business.service.CmsTermService;
@@ -23,6 +24,7 @@ import com.synectiks.pref.domain.vo.CmsBranchVo;
 import com.synectiks.pref.domain.vo.CmsCollegeVo;
 import com.synectiks.pref.domain.vo.CmsCourseVo;
 import com.synectiks.pref.domain.vo.CmsDepartmentVo;
+import com.synectiks.pref.domain.vo.CmsEmployeeVo;
 import com.synectiks.pref.domain.vo.CmsHolidayVo;
 import com.synectiks.pref.domain.vo.CmsLegalEntityVo;
 import com.synectiks.pref.domain.vo.CmsTermVo;
@@ -40,6 +42,8 @@ import com.synectiks.pref.graphql.types.course.CourseInput;
 import com.synectiks.pref.graphql.types.course.CoursePayload;
 import com.synectiks.pref.graphql.types.department.DepartmentInput;
 import com.synectiks.pref.graphql.types.department.DepartmentPayload;
+import com.synectiks.pref.graphql.types.employee.EmployeeInput;
+import com.synectiks.pref.graphql.types.employee.EmployeePayload;
 import com.synectiks.pref.graphql.types.holiday.HolidayInput;
 import com.synectiks.pref.graphql.types.holiday.HolidayPayload;
 import com.synectiks.pref.graphql.types.legalentity.LegalEntityInput;
@@ -84,6 +88,9 @@ public class Mutation implements GraphQLMutationResolver {
     
     @Autowired
     CmsCourseService cmsCourseService;
+ 
+    @Autowired
+    CmsEmployeeService cmsEmployeeService;
     
     public Mutation(UserPreferenceRepository userPreferenceRepository) {
     	this.userPreferenceRepository = userPreferenceRepository;
@@ -137,5 +144,10 @@ public class Mutation implements GraphQLMutationResolver {
     public CoursePayload saveCourse(CourseInput cmsCourseVo) {
     	CmsCourseVo vo = this.cmsCourseService.saveCourse(cmsCourseVo);
     	return new CoursePayload(vo);
+    }
+    
+    public EmployeePayload saveEmployee(EmployeeInput cmsEmployeeVo) {
+    	CmsEmployeeVo vo = this.cmsEmployeeService.saveEmployee(cmsEmployeeVo);
+    	return new EmployeePayload(vo);
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 
 /**
  * REST controller to get Gender.
@@ -22,7 +22,7 @@ public class GenderRestController {
 	@RequestMapping(method = RequestMethod.GET, value = "/cmsgender")
     public List<String> getGenderList() {
 		logger.debug("REST request to get gender list.");
-		return Constants.GENDER_LIST;
+		return CmsConstants.GENDER_LIST;
     }
 	
 }

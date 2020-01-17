@@ -93,8 +93,8 @@ public class CmsBankAccountsService {
         	
         	bankAccounts = bankAccountsRepository.save(bankAccounts);
         	vo = CommonUtil.createCopyProperties(bankAccounts, CmsBankAccountsVo.class);
-        	vo.setStrCreatedOn(bankAccounts.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(bankAccounts.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
-        	vo.setStrUpdatedOn(bankAccounts.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(bankAccounts.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrCreatedOn(bankAccounts.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(bankAccounts.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrUpdatedOn(bankAccounts.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(bankAccounts.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
         	vo.setCreatedOn(null);
         	vo.setUpdatedOn(null);
         	if(oBranch.isPresent()) {

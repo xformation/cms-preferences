@@ -4,16 +4,19 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.synectiks.pref.config.Constants;
 import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.Branch;
 import com.synectiks.pref.domain.City;
@@ -51,14 +54,133 @@ public class CmsBranchService {
     	branch.setBranchName(vo.getCollegeName());
     	branch.setIsMainBranch(CmsConstants.YES);
     	branch.setCreatedOn(LocalDate.now());
-    	branch.setStatus(Constants.STATUS_ACTIVE);
+    	branch.setStatus(CmsConstants.STATUS_ACTIVE);
     	branch.setCollege(college);
     	branch = this.branchRepository.save(branch);
     	logger.debug("Main branch college created successfully");
     	return branch;
     }
     
-    public List<CmsBranchVo> getBranchList(String status) {
+    public List<CmsBranchVo> getCmsBranchListOnFilterCriteria(Map<String, String> criteriaMap){
+    	Branch ay = new Branch();
+    	boolean isFilter = false;
+    	if(criteriaMap.get("id") != null) {
+    		ay.setId(Long.parseLong(criteriaMap.get("id")));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("status") != null) {
+    		ay.setStatus(criteriaMap.get("status"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("branchName") != null) {
+    		ay.setBranchName(criteriaMap.get("branchName"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("address") != null) {
+    		ay.setAddress(criteriaMap.get("address"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("pinCode") != null) {
+    		ay.setPinCode(criteriaMap.get("pinCode"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("branchHead") != null) {
+    		ay.setBranchHead(criteriaMap.get("branchHead"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("cellPhoneNo") != null) {
+    		ay.setCellPhoneNo(criteriaMap.get("cellPhoneNo"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("landLinePhoneNo") != null) {
+    		ay.setLandLinePhoneNo(criteriaMap.get("landLinePhoneNo"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("emailId") != null) {
+    		ay.setEmailId(criteriaMap.get("emailId"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("faxNo") != null) {
+    		ay.setFaxNo(criteriaMap.get("faxNo"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("isMainBranch") != null) {
+    		ay.setIsMainBranch(criteriaMap.get("isMainBranch"));
+    		isFilter = true;
+    	}
+    	
+    	List<Branch> list = null;
+    	if(isFilter) {
+    		list = this.branchRepository.findAll(Example.of(ay), Sort.by(Direction.DESC, "id"));
+    	}else {
+    		list = this.branchRepository.findAll(Sort.by(Direction.DESC, "id"));
+    	}
+        
+    	List<CmsBranchVo> ls = changeBranchToCmsBranchList(list);
+    	Collections.sort(ls, (o1, o2) -> o2.getId().compareTo(o1.getId()));
+    	return ls;
+    }
+    
+    public List<Branch> getBranchListOnFilterCriteria(Map<String, String> criteriaMap){
+    	Branch ay = new Branch();
+    	boolean isFilter = false;
+    	if(criteriaMap.get("id") != null) {
+    		ay.setId(Long.parseLong(criteriaMap.get("id")));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("status") != null) {
+    		ay.setStatus(criteriaMap.get("status"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("branchName") != null) {
+    		ay.setBranchName(criteriaMap.get("branchName"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("address") != null) {
+    		ay.setAddress(criteriaMap.get("address"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("pinCode") != null) {
+    		ay.setPinCode(criteriaMap.get("pinCode"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("branchHead") != null) {
+    		ay.setBranchHead(criteriaMap.get("branchHead"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("cellPhoneNo") != null) {
+    		ay.setCellPhoneNo(criteriaMap.get("cellPhoneNo"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("landLinePhoneNo") != null) {
+    		ay.setLandLinePhoneNo(criteriaMap.get("landLinePhoneNo"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("emailId") != null) {
+    		ay.setEmailId(criteriaMap.get("emailId"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("faxNo") != null) {
+    		ay.setFaxNo(criteriaMap.get("faxNo"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("isMainBranch") != null) {
+    		ay.setIsMainBranch(criteriaMap.get("isMainBranch"));
+    		isFilter = true;
+    	}
+    	
+    	List<Branch> list = null;
+    	if(isFilter) {
+    		list = this.branchRepository.findAll(Example.of(ay), Sort.by(Direction.DESC, "id"));
+    	}else {
+    		list = this.branchRepository.findAll(Sort.by(Direction.DESC, "id"));
+    	}
+        
+    	Collections.sort(list, (o1, o2) -> o2.getId().compareTo(o1.getId()));
+    	return list;
+    }
+    
+    public List<CmsBranchVo> getCmsBranchList(String status) {
         Branch branch = new Branch();
         branch.setStatus(status);
         List<Branch> list = this.branchRepository.findAll(Example.of(branch));
@@ -67,42 +189,79 @@ public class CmsBranchService {
         return ls;
     }
     
-    public List<CmsBranchVo> getBranchList(){
+    public List<Branch> getBranchList(String status) {
+        Branch branch = new Branch();
+        branch.setStatus(status);
+        List<Branch> list = this.branchRepository.findAll(Example.of(branch));
+        Collections.sort(list, (o1, o2) -> o2.getId().compareTo(o1.getId()));
+        return list;
+    }
+    
+    public List<CmsBranchVo> getCmsBranchList(){
     	List<Branch> list = this.branchRepository.findAll();
     	List<CmsBranchVo> ls = changeBranchToCmsBranchList(list);
     	Collections.sort(ls, (o1, o2) -> o2.getId().compareTo(o1.getId()));
     	return ls;
     }
     
+    public List<Branch> getBranchList(){
+    	List<Branch> list = this.branchRepository.findAll();
+    	Collections.sort(list, (o1, o2) -> o2.getId().compareTo(o1.getId()));
+    	return list;
+    }
+    
+    public CmsBranchVo getCmsBranch(Long id){
+    	Optional<Branch> br = this.branchRepository.findById(id);
+    	if(br.isPresent()) {
+    		CmsBranchVo vo = CommonUtil.createCopyProperties(br.get(), CmsBranchVo.class);
+    		convertDatesAndProvideDependencies(br.get(), vo);
+    		logger.debug("CmsBranch for given id : "+id+". CmsBranch object : "+vo);
+        	return vo;
+    	}
+    	logger.debug("Branch object not found for the given id. "+id+". Returning null object");
+        return null;
+    }
+    public Branch getBranch(Long id){
+    	Optional<Branch> br = this.branchRepository.findById(id);
+    	if(br.isPresent()) {
+    		return br.get();
+    	}
+    	logger.debug("Branch object not found for the given id. "+id+". Returning null");
+        return null;
+    }
     private List<CmsBranchVo> changeBranchToCmsBranchList(List<Branch> list){
     	List<CmsBranchVo> ls = new ArrayList<>();
     	for(Branch br: list) {
     		CmsBranchVo vo = CommonUtil.createCopyProperties(br, CmsBranchVo.class);
-    		if(br.getStartDate() != null) {
-            	vo.setStrStartDate(DateFormatUtil.changeLocalDateFormat(br.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
-            	vo.setStartDate(null);
-            }
-            if(br.getCreatedOn() != null) {
-            	vo.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(br.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
-            	vo.setCreatedOn(null);
-            }
-            if(br.getUpdatedOn() != null) {
-            	vo.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(br.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
-            	vo.setUpdatedOn(null);
-            }
-            if(br.getState() != null) {
-            	vo.setStateId(br.getState().getId());
-            }
-            if(br.getCity() != null) {
-            	vo.setCityId(br.getCity().getId());
-            }
-            if(br.getCollege() != null) {
-            	vo.setCollegeId(br.getCollege().getId());
-            }
+    		convertDatesAndProvideDependencies(br, vo);
     		ls.add(vo);
     	}
     	return ls;
     }
+
+	private void convertDatesAndProvideDependencies(Branch br, CmsBranchVo vo) {
+		if(br.getStartDate() != null) {
+			vo.setStrStartDate(DateFormatUtil.changeLocalDateFormat(br.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+			vo.setStartDate(null);
+		}
+		if(br.getCreatedOn() != null) {
+			vo.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(br.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+			vo.setCreatedOn(null);
+		}
+		if(br.getUpdatedOn() != null) {
+			vo.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(br.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+			vo.setUpdatedOn(null);
+		}
+		if(br.getState() != null) {
+			vo.setStateId(br.getState().getId());
+		}
+		if(br.getCity() != null) {
+			vo.setCityId(br.getCity().getId());
+		}
+		if(br.getCollege() != null) {
+			vo.setCollegeId(br.getCollege().getId());
+		}
+	}
     
     public CmsBranchVo saveBranch(BranchInput cmsBranchVo) {
     	logger.info("Saving branch");
@@ -133,8 +292,8 @@ public class CmsBranchService {
         	
         	branch = branchRepository.save(branch);
         	vo = CommonUtil.createCopyProperties(branch, CmsBranchVo.class);
-        	vo.setStrCreatedOn(branch.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(branch.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
-        	vo.setStrUpdatedOn(branch.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(branch.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrCreatedOn(branch.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(branch.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrUpdatedOn(branch.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(branch.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
         	vo.setCreatedOn(null);
         	vo.setUpdatedOn(null);
         	vo.setExitCode(0L);
@@ -153,7 +312,7 @@ public class CmsBranchService {
     		logger.error("Branch save failed. Exception : ",e);
     	}
     	logger.info("Branch saved successfully");
-    	List ls =  getBranchList();
+    	List ls =  getCmsBranchList();
         vo.setDataList(ls);
     	return vo;
         

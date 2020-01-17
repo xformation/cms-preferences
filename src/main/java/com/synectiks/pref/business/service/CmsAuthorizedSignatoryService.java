@@ -102,8 +102,8 @@ public class CmsAuthorizedSignatoryService {
         	
         	authorizedSignatory = authorizedSignatoryRepository.save(authorizedSignatory);
         	vo = CommonUtil.createCopyProperties(authorizedSignatory, CmsAuthorizedSignatoryVo.class);
-        	vo.setStrCreatedOn(authorizedSignatory.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(authorizedSignatory.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
-        	vo.setStrUpdatedOn(authorizedSignatory.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(authorizedSignatory.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrCreatedOn(authorizedSignatory.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(authorizedSignatory.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrUpdatedOn(authorizedSignatory.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(authorizedSignatory.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
         	vo.setCreatedOn(null);
         	vo.setUpdatedOn(null);
         	if(oBranch.isPresent()) {

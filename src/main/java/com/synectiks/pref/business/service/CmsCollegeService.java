@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.synectiks.pref.base64.file.Base64FileProcessor;
 import com.synectiks.pref.config.ApplicationProperties;
-import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.College;
 import com.synectiks.pref.domain.vo.CmsCollegeVo;
 import com.synectiks.pref.exceptions.FileNameNotFoundException;
@@ -44,8 +44,8 @@ public class CmsCollegeService {
     	if(isCollegeExists()) {
     		vo = new CmsCollegeVo();
     		vo.setExitCode(100L);
-    		vo.setExitDescription(Constants.ERROR_COLLEGE_ALREADY_EXISTS);
-    		logger.error(Constants.VALIDATION_FAILURE + Constants.ERROR_COLLEGE_ALREADY_EXISTS);
+    		vo.setExitDescription(CmsConstants.ERROR_COLLEGE_ALREADY_EXISTS);
+    		logger.error(CmsConstants.VALIDATION_FAILURE + CmsConstants.ERROR_COLLEGE_ALREADY_EXISTS);
     		return vo;
     	}
     	vo = cmsCollegeVo;
@@ -54,7 +54,7 @@ public class CmsCollegeService {
     		saveCollegeLogo(vo);
     		College college = saveCollege(vo);
     		saveCollegeAsMainBranch(vo, college);
-    		vo.setBranchList(this.cmsBranchService.getBranchList());
+    		vo.setBranchList(this.cmsBranchService.getCmsBranchList());
     		vo.setExitCode(0L);
         	vo.setExitDescription("College is added successfully. It is created as default main branch also");
         }catch(Exception e) {
@@ -73,8 +73,8 @@ public class CmsCollegeService {
     		logger.debug("Saving college logo. File path : "+applicationProperties.getImagePath());
 			String ext = base64FileProcessor.getFileExtensionFromBase64Srting(vo.getLogoFile().split(",")[0]);
 			base64FileProcessor.createFileFromBase64String(vo.getLogoFile(), applicationProperties.getImagePath(), 
-					Constants.CMS_COLLEGE_LOGO_FILE_NAME, ext);
-			vo.setLogoFileName(Constants.CMS_COLLEGE_LOGO_FILE_NAME);
+					CmsConstants.CMS_COLLEGE_LOGO_FILE_NAME, ext);
+			vo.setLogoFileName(CmsConstants.CMS_COLLEGE_LOGO_FILE_NAME);
 			vo.setLogoFileExtension(ext);
 			vo.setLogoFilePath(applicationProperties.getImagePath());
 			logger.debug("College logo saved.");
@@ -86,10 +86,10 @@ public class CmsCollegeService {
     	logger.debug("Saving college");
     	College college = CommonUtil.createCopyProperties(vo, College.class);
     	college.setCreatedOn(LocalDate.now());
-    	college.setStatus(Constants.STATUS_ACTIVE);
+    	college.setStatus(CmsConstants.STATUS_ACTIVE);
     	college = collegeRepository.save(college);
-    	vo.setStrCreatedOn(college.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(college.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
-    	vo.setStrUpdatedOn(college.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(college.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
+    	vo.setStrCreatedOn(college.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(college.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
+    	vo.setStrUpdatedOn(college.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(college.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
     	vo.setCreatedOn(null);
     	vo.setUpdatedOn(null);
     	logger.debug("College saved successfully");

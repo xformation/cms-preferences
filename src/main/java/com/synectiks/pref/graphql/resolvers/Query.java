@@ -15,6 +15,7 @@ import com.synectiks.pref.business.service.CmsBranchService;
 import com.synectiks.pref.business.service.CmsCityService;
 import com.synectiks.pref.business.service.CmsCourseService;
 import com.synectiks.pref.business.service.CmsDepartmentService;
+import com.synectiks.pref.business.service.CmsEmployeeService;
 import com.synectiks.pref.business.service.CmsHolidayService;
 import com.synectiks.pref.business.service.CmsLegalEntityService;
 import com.synectiks.pref.business.service.CmsStateService;
@@ -27,6 +28,7 @@ import com.synectiks.pref.domain.vo.CmsBankAccountsVo;
 import com.synectiks.pref.domain.vo.CmsBranchVo;
 import com.synectiks.pref.domain.vo.CmsCourseVo;
 import com.synectiks.pref.domain.vo.CmsDepartmentVo;
+import com.synectiks.pref.domain.vo.CmsEmployeeVo;
 import com.synectiks.pref.domain.vo.CmsHolidayVo;
 import com.synectiks.pref.domain.vo.CmsLegalEntityVo;
 import com.synectiks.pref.domain.vo.CmsTermVo;
@@ -76,13 +78,16 @@ public class Query implements GraphQLQueryResolver {
 	@Autowired
     CmsCourseService cmsCourseService;
 	
+	@Autowired
+    CmsEmployeeService cmsEmployeeService;
+	
 	public Query(UserPreferenceRepository userPreferenceRepository) {
 		this.userPreferenceRepository = userPreferenceRepository;
 	}
     
 	public List<CmsBranchVo> getBranchList() throws Exception {
     	logger.debug("Query - getBranchList :");
-    	return this.cmsBranchService.getBranchList();
+    	return this.cmsBranchService.getCmsBranchList();
     }
 	
 	public List<State> getStateList() throws Exception {
@@ -112,7 +117,7 @@ public class Query implements GraphQLQueryResolver {
 	
 	public List<CmsAcademicYearVo> getAcademicYearList() throws Exception {
     	logger.debug("Query - getAcademicYearList :");
-    	return this.cmsAcademicYearService.getAcademicYearList();
+    	return this.cmsAcademicYearService.getCmsAcademicYearList();
     }
 	
 	public List<CmsHolidayVo> getHolidayList() throws Exception {
@@ -127,11 +132,16 @@ public class Query implements GraphQLQueryResolver {
 	
 	public List<CmsDepartmentVo> getDepartmentList() throws Exception {
     	logger.debug("Query - getDepartmentList :");
-    	return this.cmsDepartmentService.getDepartmentList();
+    	return this.cmsDepartmentService.getCmsDepartmentList();
     }
 	
 	public List<CmsCourseVo> getCourseList() throws Exception {
     	logger.debug("Query - getCourseList :");
     	return this.cmsCourseService.getCourseList();
+    }
+	
+	public List<CmsEmployeeVo> getEmployeeList() throws Exception {
+    	logger.debug("Query - getEmployeeList :");
+    	return this.cmsEmployeeService.getEmployeeList();
     }
 }

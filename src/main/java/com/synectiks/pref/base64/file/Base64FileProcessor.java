@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.vo.QueryResult;
 import com.synectiks.pref.exceptions.BranchIdNotFoundException;
 import com.synectiks.pref.exceptions.FileNameNotFoundException;
@@ -60,7 +60,7 @@ public class Base64FileProcessor  {
 		
 		String completeFilePath = filePath;
 		if(branchId != null) {
-			completeFilePath = filePath+File.separator+Constants.BRANCH_ID_PLACEHOLDER_REPLACER+branchId;
+			completeFilePath = filePath+File.separator+CmsConstants.BRANCH_ID_PLACEHOLDER_REPLACER+branchId;
 		}
 		
 		File f = new File(completeFilePath);

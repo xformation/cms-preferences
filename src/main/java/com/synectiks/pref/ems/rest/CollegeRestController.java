@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.synectiks.pref.base64.file.Base64FileProcessor;
 import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.College;
 import com.synectiks.pref.domain.vo.CmsCollegeVo;
 import com.synectiks.pref.repository.CollegeRepository;
@@ -53,10 +54,10 @@ public class CollegeRestController {
 				vo.setLogoFile(this.base64FileProcessor.createBase64StringFromFile(filePath));
 			}
 			if(college.getCreatedOn() != null) {
-				vo.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(college.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy));
+				vo.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(college.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 			}
 			if(college.getUpdatedOn() != null) {
-				vo.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(college.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy));
+				vo.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(college.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 			}
 			ls.add(vo);
 		}
@@ -83,10 +84,10 @@ public class CollegeRestController {
 				vo.setLogoFile(this.base64FileProcessor.createBase64StringFromFile(filePath));
 			}
 			if(college.getCreatedOn() != null) {
-				vo.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(college.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy));
+				vo.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(college.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 			}
 			if(college.getUpdatedOn() != null) {
-				vo.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(college.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy));
+				vo.setStrUpdatedOn(DateFormatUtil.changeLocalDateFormat(college.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 			}
         }
         return ResponseUtil.wrapOrNotFound(Optional.of(vo));

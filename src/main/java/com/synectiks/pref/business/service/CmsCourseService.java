@@ -155,8 +155,8 @@ public class CmsCourseService {
     		course = this.courseRepository.save(course);
         	
         	vo = CommonUtil.createCopyProperties(course, CmsCourseVo.class);
-        	vo.setStrCreatedOn(course.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(course.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
-        	vo.setStrUpdatedOn(course.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(course.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrCreatedOn(course.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(course.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrUpdatedOn(course.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(course.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
         	
         	vo.setCreatedOn(null);
         	vo.setUpdatedOn(null);

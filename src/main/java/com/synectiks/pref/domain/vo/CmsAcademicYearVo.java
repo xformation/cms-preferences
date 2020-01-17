@@ -34,6 +34,7 @@ public class CmsAcademicYearVo extends CmsCommonVo implements Serializable {
     private String strStartDate;
     private String strEndDate;
     private List<CmsAcademicYearVo> dataList = new ArrayList<CmsAcademicYearVo>();
+    private String year;
     
 	public Long getId() {
 		return id;
@@ -94,6 +95,12 @@ public class CmsAcademicYearVo extends CmsCommonVo implements Serializable {
 				+ ", getStrUpdatedOn()=" + getStrUpdatedOn() + ", getExitCode()=" + getExitCode()
 				+ ", getExitDescription()=" + getExitDescription() + ", getClass()=" + getClass() + ", hashCode()="
 				+ hashCode() + ", toString()=" + super.toString() + "]";
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
 	}
 	
     

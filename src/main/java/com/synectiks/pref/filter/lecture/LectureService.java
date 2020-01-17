@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.synectiks.pref.business.service.CommonService;
-import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.AcademicYear;
 import com.synectiks.pref.domain.AttendanceMaster;
 import com.synectiks.pref.domain.Batch;
@@ -222,8 +222,8 @@ public class LectureService {
         
 		for(Lecture lec: ls) {
 			CmsLectureVo vo = CommonUtil.createCopyProperties(lec, CmsLectureVo.class);
-			vo.setStrLecDate(DateFormatUtil.changeLocalDateFormat(lec.getLecDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
-			vo.setStrLastUpdatedOn(lec.getLastUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(lec.getLastUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : null);
+			vo.setStrLecDate(DateFormatUtil.changeLocalDateFormat(lec.getLecDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+			vo.setStrLastUpdatedOn(lec.getLastUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(lec.getLastUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
 			vo.setAttendancemaster(lec.getAttendancemaster());
 			vo.setAttendanceMasterId(lec.getAttendancemaster() != null ? lec.getAttendancemaster().getId() : null);
 			list.add(vo);
@@ -326,7 +326,7 @@ public class LectureService {
                         lecture = this.lectureRepository.save(lecture);
                         
                         CmsLectureVo vo = CommonUtil.createCopyProperties(lecture, CmsLectureVo.class);
-            			vo.setStrLecDate(DateFormatUtil.changeLocalDateFormat(lecture.getLecDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+            			vo.setStrLecDate(DateFormatUtil.changeLocalDateFormat(lecture.getLecDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
             			lsList.add(vo);
                     }else {
                     	logger.warn("Lecture already exists. Discarding it. Lecture : "+lecture);
@@ -445,7 +445,7 @@ public class LectureService {
         Lecture lecture = new Lecture();
 //		String dateFormat1 =
 //		String dateFormat2 = "yyyy-MM-dd";
-        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_dd_MM_yyyy);
+        SimpleDateFormat sdf = new SimpleDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy);
 //		SimpleDateFormat sdf2 = new SimpleDateFormat(dateFormat2);
         if(dataMap.containsKey("lecDate")) {
             String lecDate = dataMap.get("subCode");
@@ -738,7 +738,7 @@ public class LectureService {
 		
 		for(Lecture l: list) {
 			CmsLectureVo vo = CommonUtil.createCopyProperties(l, CmsLectureVo.class);
-			vo.setStrLecDate(DateFormatUtil.changeLocalDateFormat(l.getLecDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+			vo.setStrLecDate(DateFormatUtil.changeLocalDateFormat(l.getLecDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 			ls.add(vo);
 		}
     	

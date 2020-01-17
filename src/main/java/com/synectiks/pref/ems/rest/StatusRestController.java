@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 
 /**
  * REST controller to get Status.
@@ -22,7 +23,7 @@ public class StatusRestController {
 	@RequestMapping(method = RequestMethod.GET, value = "/cmsstatus")
     public List<String> getStatusList() {
 		logger.debug("REST request to get status list.");
-		return Constants.STATUS_LIST;
+		return CmsConstants.STATUS_LIST;
     }
 	
 }

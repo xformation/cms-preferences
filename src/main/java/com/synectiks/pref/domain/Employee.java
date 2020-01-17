@@ -12,6 +12,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 /**
  * A Employee.
@@ -64,6 +68,8 @@ public class Employee implements Serializable {
     private String motherLastName;
 
     @Column(name = "date_of_birth")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate dateOfBirth;
 
     @Column(name = "place_of_birth")
@@ -115,15 +121,23 @@ public class Employee implements Serializable {
     private String designation;
 
     @Column(name = "joining_date")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate joiningDate;
 
     @Column(name = "job_end_date")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate jobEndDate;
 
     @Column(name = "resignation_date")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate resignationDate;
 
     @Column(name = "resignation_acceptance_date")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate resignationAcceptanceDate;
 
     @Column(name = "aadhar_no")

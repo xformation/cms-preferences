@@ -12,6 +12,7 @@ type Query {
 	getTermList: [CmsTermVo]
 	getDepartmentList: [CmsDepartmentVo]
 	getCourseList: [CmsCourseVo]
+	getEmployeeList: [CmsEmployeeVo]
 }
 
 type Mutation {
@@ -25,7 +26,40 @@ type Mutation {
 	saveTerm(input: TermInput): TermPayload
 	saveDepartment(input: DepartmentInput): DepartmentPayload
 	saveCourse(input: CourseInput): CoursePayload
+	saveEmployee(input: EmployeeInput): EmployeePayload
 }
+
+input EmployeeInput {
+	id: Long
+	
+    status: String
+    departmentId: Long
+    branchId: Long
+}
+
+type EmployeePayload {
+	cmsEmployeeVo: CmsEmployeeVo
+}
+
+type CmsEmployeeVo {
+	id: Long
+	
+    createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    status: String
+    exitCode: Long 
+    exitDescription: String 
+    departmentId: Long
+    cmsDepartmentVo: CmsDepartmentVo
+    branchId: Long
+    cmsBranchVo: CmsBranchVo
+    dataList: [CmsEmployeeVo]
+}
+
 
 input CourseInput {
 	id: Long

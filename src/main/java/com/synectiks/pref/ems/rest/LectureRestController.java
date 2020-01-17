@@ -28,6 +28,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.synectiks.pref.business.service.CommonService;
 import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.AcademicYear;
 import com.synectiks.pref.domain.AttendanceMaster;
 import com.synectiks.pref.domain.Batch;
@@ -296,10 +297,10 @@ public class LectureRestController {
         	thId = Long.parseLong(strThId);
 		}
         if(!CommonUtil.isNullOrEmpty(strFromLecDate) && !"undefined".equalsIgnoreCase(strFromLecDate) && !"null".equalsIgnoreCase(strFromLecDate)) {
-        	fromLecDate = DateFormatUtil.convertStringToLocalDate(strFromLecDate, Constants.DATE_FORMAT_dd_MM_yyyy);
+        	fromLecDate = DateFormatUtil.convertStringToLocalDate(strFromLecDate, CmsConstants.DATE_FORMAT_dd_MM_yyyy);
 		}
         if(!CommonUtil.isNullOrEmpty(strToLecDate) && !"undefined".equalsIgnoreCase(strToLecDate) && !"null".equalsIgnoreCase(strToLecDate)) {
-        	toLecDate = DateFormatUtil.convertStringToLocalDate(strToLecDate, Constants.DATE_FORMAT_dd_MM_yyyy);
+        	toLecDate = DateFormatUtil.convertStringToLocalDate(strToLecDate, CmsConstants.DATE_FORMAT_dd_MM_yyyy);
 		}
         return this.lectureService.getAllLecturess(ayId, brId, dpId, trId, btId, scId, sbId, thId, fromLecDate, toLecDate);
     }

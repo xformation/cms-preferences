@@ -71,8 +71,8 @@ public class TermRestController {
         tm = termRepository.save(tm);
 
         cmsTermVo.setId(tm.getId());
-        cmsTermVo.setStrStartDate(DateFormatUtil.changeLocalDateFormat(tm.getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
-        cmsTermVo.setStrEndDate(DateFormatUtil.changeLocalDateFormat(tm.getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+        cmsTermVo.setStrStartDate(DateFormatUtil.changeLocalDateFormat(tm.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+        cmsTermVo.setStrEndDate(DateFormatUtil.changeLocalDateFormat(tm.getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
         return ResponseEntity.created(new URI("/api/terms/" + cmsTermVo.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, cmsTermVo.getId().toString()))
             .body(cmsTermVo);
@@ -93,8 +93,8 @@ public class TermRestController {
         
         tm = termRepository.save(tm);
 
-        cmsTermVo.setStrStartDate(DateFormatUtil.changeLocalDateFormat(tm.getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
-        cmsTermVo.setStrEndDate(DateFormatUtil.changeLocalDateFormat(tm.getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+        cmsTermVo.setStrStartDate(DateFormatUtil.changeLocalDateFormat(tm.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+        cmsTermVo.setStrEndDate(DateFormatUtil.changeLocalDateFormat(tm.getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, cmsTermVo.getId().toString()))
             .body(cmsTermVo);
@@ -108,8 +108,8 @@ public class TermRestController {
         List<CmsTermVo> ls = new ArrayList<>();
         for(Term tm: list) {
             CmsTermVo ctm = CommonUtil.createCopyProperties(tm, CmsTermVo.class);
-            ctm.setStrStartDate(DateFormatUtil.changeLocalDateFormat(tm.getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
-            ctm.setStrEndDate(DateFormatUtil.changeLocalDateFormat(tm.getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+            ctm.setStrStartDate(DateFormatUtil.changeLocalDateFormat(tm.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+            ctm.setStrEndDate(DateFormatUtil.changeLocalDateFormat(tm.getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
             ls.add(ctm);
         }
         return ls;
@@ -123,8 +123,8 @@ public class TermRestController {
         CmsTermVo ctm = new CmsTermVo();
         if(tm.isPresent()) {
             ctm = CommonUtil.createCopyProperties(tm.get(), CmsTermVo.class);
-            ctm.setStrStartDate(DateFormatUtil.changeLocalDateFormat(tm.get().getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
-            ctm.setStrEndDate(DateFormatUtil.changeLocalDateFormat(tm.get().getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+            ctm.setStrStartDate(DateFormatUtil.changeLocalDateFormat(tm.get().getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+            ctm.setStrEndDate(DateFormatUtil.changeLocalDateFormat(tm.get().getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
             
         }
         return ResponseUtil.wrapOrNotFound(Optional.of(ctm));
@@ -149,8 +149,8 @@ public class TermRestController {
             List<Term> list = this.termRepository.findAll(exm);
             for(Term tm: list) {
                 CmsTermVo ctm = CommonUtil.createCopyProperties(tm, CmsTermVo.class);
-                ctm.setStrStartDate(DateFormatUtil.changeLocalDateFormat(tm.getStartDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
-                ctm.setStrEndDate(DateFormatUtil.changeLocalDateFormat(tm.getEndDate(), Constants.DATE_FORMAT_dd_MM_yyyy));
+                ctm.setStrStartDate(DateFormatUtil.changeLocalDateFormat(tm.getStartDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+                ctm.setStrEndDate(DateFormatUtil.changeLocalDateFormat(tm.getEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
                 ls.add(ctm);
             }
         }

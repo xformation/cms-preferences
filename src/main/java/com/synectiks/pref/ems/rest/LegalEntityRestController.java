@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.synectiks.pref.base64.file.Base64FileProcessor;
 import com.synectiks.pref.business.service.CommonService;
 import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.LegalEntity;
 import com.synectiks.pref.domain.vo.CmsLegalEntityVo;
 import com.synectiks.pref.exceptions.BranchIdNotFoundException;
@@ -95,7 +96,7 @@ public class LegalEntityRestController {
         
         if(cmsLegalEntityVo.getLogoFile() != null) {
         	try {
-	        		base64FileProcessor.createFileFromBase64String(cmsLegalEntityVo.getLogoFile(), Constants.CMS_IMAGE_FILE_PATH, fileName, null, null);
+	        		base64FileProcessor.createFileFromBase64String(cmsLegalEntityVo.getLogoFile(), CmsConstants.CMS_IMAGE_FILE_PATH, fileName, null, null);
         	}catch(Exception e) {
         		logger.error("Some error in saving legal entity logo file on disk. Rolling back the transaction.",e);
         		legalEntityRepository.deleteById(legalEntity.getId());

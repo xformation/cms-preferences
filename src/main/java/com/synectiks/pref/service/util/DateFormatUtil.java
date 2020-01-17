@@ -15,7 +15,7 @@ import java.util.GregorianCalendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 
 public final class DateFormatUtil {
 
@@ -128,7 +128,7 @@ public final class DateFormatUtil {
         if(stDt[1].length() == 1) {
         	stDt[1] = "0"+stDt[1];
         }
-        return DateFormatUtil.convertStringToLocalDate(stDt[2]+"-"+stDt[0]+"-"+stDt[1], Constants.DATE_FORMAT_yyyy_MM_dd);
+        return DateFormatUtil.convertStringToLocalDate(stDt[2]+"-"+stDt[0]+"-"+stDt[1], CmsConstants.DATE_FORMAT_yyyy_MM_dd);
     }
 	
 	public static int calculateAge(LocalDate dateOfBirth) {

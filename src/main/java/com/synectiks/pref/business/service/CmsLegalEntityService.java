@@ -143,8 +143,8 @@ public class CmsLegalEntityService {
         	
         	le = legalEntityRepository.save(le);
         	vo = CommonUtil.createCopyProperties(le, CmsLegalEntityVo.class);
-        	vo.setStrCreatedOn(le.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(le.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
-        	vo.setStrUpdatedOn(le.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(le.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrCreatedOn(le.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(le.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrUpdatedOn(le.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(le.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
         	vo.setCreatedOn(null);
         	vo.setUpdatedOn(null);
         	if(oBranch.isPresent()) {

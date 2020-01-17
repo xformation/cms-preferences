@@ -100,9 +100,9 @@ public class CmsHolidayService {
     		holiday = holidayRepository.save(holiday);
         	
         	vo = CommonUtil.createCopyProperties(holiday, CmsHolidayVo.class);
-        	vo.setStrCreatedOn(holiday.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(holiday.getCreatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
-        	vo.setStrUpdatedOn(holiday.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(holiday.getUpdatedOn(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
-        	vo.setStrHolidayDate(holiday.getHolidayDate() != null ? DateFormatUtil.changeLocalDateFormat(holiday.getHolidayDate(), Constants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrCreatedOn(holiday.getCreatedOn() != null ? DateFormatUtil.changeLocalDateFormat(holiday.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrUpdatedOn(holiday.getUpdatedOn() != null ? DateFormatUtil.changeLocalDateFormat(holiday.getUpdatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
+        	vo.setStrHolidayDate(holiday.getHolidayDate() != null ? DateFormatUtil.changeLocalDateFormat(holiday.getHolidayDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : "");
         	
         	vo.setCreatedOn(null);
         	vo.setUpdatedOn(null);

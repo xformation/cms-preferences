@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 
-import com.synectiks.pref.config.Constants;
+import com.synectiks.pref.constant.CmsConstants;
 
 public class CommonUtil {
 	private static final Logger logger = LoggerFactory.getLogger(CommonUtil.class);
@@ -45,13 +45,13 @@ public class CommonUtil {
 	public static final String getOsType() {
 		logger.debug("Operating System : "+OS);
 		if(isWindows()) {
-			return Constants.OS_WINDOWS;
+			return CmsConstants.OS_WINDOWS;
 		}else if(isMac()) {
-			return Constants.OS_MAC;
+			return CmsConstants.OS_MAC;
 		}else if(isUnix()) {
-			return Constants.OS_UNIX;
+			return CmsConstants.OS_UNIX;
 		}else if(isSolaris()) {
-			return Constants.OS_SOLARIS;
+			return CmsConstants.OS_SOLARIS;
 		}
 		return OS;
 	}
