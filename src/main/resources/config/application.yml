@@ -155,11 +155,11 @@ jhipster:
 
 application:
     imagePath: webapp/static/images
-    influxDbUrl: http://localhost:8086
+    influxDbUrl: http://100.81.3.26:8086
     influxDb: cmsdb
     influxDbUsername: cms
     influxDbPassword: cms
     influxDbLogLevel: BASIC
-    secSrvUrl: http://localhost:8094
-    prefSrvUrl: http://localhost:8080
-    cmsBackEndUrl: http://localhost:8080
+    secSrvUrl: http://100.81.3.26:8094
+    prefSrvUrl: http://100.81.3.26:8080
+    cmsBackEndUrl: http://100.81.3.26:8080
