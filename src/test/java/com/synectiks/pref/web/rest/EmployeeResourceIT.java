@@ -50,87 +50,6 @@ public class EmployeeResourceIT {
     private static final String DEFAULT_EMPLOYEE_NAME = "AAAAAAAAAA";
     private static final String UPDATED_EMPLOYEE_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_EMPLOYEE_MIDDLE_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_EMPLOYEE_MIDDLE_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_EMPLOYEE_LAST_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_EMPLOYEE_LAST_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_FATHER_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_FATHER_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_FATHER_MIDDLE_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_FATHER_MIDDLE_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_FATHER_LAST_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_FATHER_LAST_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_SPOUSE_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_SPOUSE_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_SPOUSE_MIDDLE_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_SPOUSE_MIDDLE_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_SPOUSE_LAST_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_SPOUSE_LAST_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_MOTHER_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_MOTHER_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_MOTHER_MIDDLE_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_MOTHER_MIDDLE_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_MOTHER_LAST_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_MOTHER_LAST_NAME = "BBBBBBBBBB";
-
-    private static final LocalDate DEFAULT_DATE_OF_BIRTH = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE_OF_BIRTH = LocalDate.now(ZoneId.systemDefault());
-
-    private static final String DEFAULT_PLACE_OF_BIRTH = "AAAAAAAAAA";
-    private static final String UPDATED_PLACE_OF_BIRTH = "BBBBBBBBBB";
-
-    private static final String DEFAULT_RELIGION = "AAAAAAAAAA";
-    private static final String UPDATED_RELIGION = "BBBBBBBBBB";
-
-    private static final String DEFAULT_CASTE = "AAAAAAAAAA";
-    private static final String UPDATED_CASTE = "BBBBBBBBBB";
-
-    private static final String DEFAULT_SUB_CASTE = "AAAAAAAAAA";
-    private static final String UPDATED_SUB_CASTE = "BBBBBBBBBB";
-
-    private static final String DEFAULT_GENDER = "AAAAAAAAAA";
-    private static final String UPDATED_GENDER = "BBBBBBBBBB";
-
-    private static final String DEFAULT_BLOOD_GROUP = "AAAAAAAAAA";
-    private static final String UPDATED_BLOOD_GROUP = "BBBBBBBBBB";
-
-    private static final String DEFAULT_PIN_CODE = "AAAAAAAAAA";
-    private static final String UPDATED_PIN_CODE = "BBBBBBBBBB";
-
-    private static final String DEFAULT_RELATION_OFEMERGENCY_CONTACT = "AAAAAAAAAA";
-    private static final String UPDATED_RELATION_OFEMERGENCY_CONTACT = "BBBBBBBBBB";
-
-    private static final String DEFAULT_EMERGENCY_CONTACT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_EMERGENCY_CONTACT_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_EMERGENCY_CONTACT_MIDDLE_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_EMERGENCY_CONTACT_MIDDLE_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_EMERGENCY_CONTACT_LAST_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_EMERGENCY_CONTACT_LAST_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_EMERGENCY_CONTACT_NO = "AAAAAAAAAA";
-    private static final String UPDATED_EMERGENCY_CONTACT_NO = "BBBBBBBBBB";
-
-    private static final String DEFAULT_EMERGENCY_CONTACT_EMAIL_ADDRESS = "AAAAAAAAAA";
-    private static final String UPDATED_EMERGENCY_CONTACT_EMAIL_ADDRESS = "BBBBBBBBBB";
-
-    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
-    private static final String UPDATED_STATUS = "BBBBBBBBBB";
-
-    private static final String DEFAULT_STAFF_TYPE = "AAAAAAAAAA";
-    private static final String UPDATED_STAFF_TYPE = "BBBBBBBBBB";
-
     private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
 
@@ -161,11 +80,20 @@ public class EmployeeResourceIT {
     private static final String DEFAULT_SECONDARY_CONTACT_NO = "AAAAAAAAAA";
     private static final String UPDATED_SECONDARY_CONTACT_NO = "BBBBBBBBBB";
 
+    private static final String DEFAULT_EMPLOYEE_FATHER_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_EMPLOYEE_FATHER_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_EMPLOYEE_MOTHER_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_EMPLOYEE_MOTHER_NAME = "BBBBBBBBBB";
+
     private static final String DEFAULT_PRIMARY_ADDRESS = "AAAAAAAAAA";
     private static final String UPDATED_PRIMARY_ADDRESS = "BBBBBBBBBB";
 
     private static final String DEFAULT_SECONDARY_ADDRESS = "AAAAAAAAAA";
     private static final String UPDATED_SECONDARY_ADDRESS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_EMPLOYEE_ADDRESS = "AAAAAAAAAA";
+    private static final String UPDATED_EMPLOYEE_ADDRESS = "BBBBBBBBBB";
 
     private static final String DEFAULT_PERSONAL_MAIL_ID = "AAAAAAAAAA";
     private static final String UPDATED_PERSONAL_MAIL_ID = "BBBBBBBBBB";
@@ -173,14 +101,26 @@ public class EmployeeResourceIT {
     private static final String DEFAULT_OFFICIAL_MAIL_ID = "AAAAAAAAAA";
     private static final String UPDATED_OFFICIAL_MAIL_ID = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DISABILITY = "AAAAAAAAAA";
+    private static final String UPDATED_DISABILITY = "BBBBBBBBBB";
+
     private static final String DEFAULT_DRIVING_LICENCE_NO = "AAAAAAAAAA";
     private static final String UPDATED_DRIVING_LICENCE_NO = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_DRIVING_LICENCE_VALIDITY = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DRIVING_LICENCE_VALIDITY = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_GENDER = "AAAAAAAAAA";
+    private static final String UPDATED_GENDER = "BBBBBBBBBB";
 
     private static final String DEFAULT_TYPE_OF_EMPLOYMENT = "AAAAAAAAAA";
     private static final String UPDATED_TYPE_OF_EMPLOYMENT = "BBBBBBBBBB";
 
     private static final Long DEFAULT_MANAGER_ID = 1L;
     private static final Long UPDATED_MANAGER_ID = 2L;
+
+    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBB";
 
     private static final String DEFAULT_MARITAL_STATUS = "AAAAAAAAAA";
     private static final String UPDATED_MARITAL_STATUS = "BBBBBBBBBB";
@@ -242,33 +182,6 @@ public class EmployeeResourceIT {
     public static Employee createEntity(EntityManager em) {
         Employee employee = new Employee()
             .employeeName(DEFAULT_EMPLOYEE_NAME)
-            .employeeMiddleName(DEFAULT_EMPLOYEE_MIDDLE_NAME)
-            .employeeLastName(DEFAULT_EMPLOYEE_LAST_NAME)
-            .fatherName(DEFAULT_FATHER_NAME)
-            .fatherMiddleName(DEFAULT_FATHER_MIDDLE_NAME)
-            .fatherLastName(DEFAULT_FATHER_LAST_NAME)
-            .spouseName(DEFAULT_SPOUSE_NAME)
-            .spouseMiddleName(DEFAULT_SPOUSE_MIDDLE_NAME)
-            .spouseLastName(DEFAULT_SPOUSE_LAST_NAME)
-            .motherName(DEFAULT_MOTHER_NAME)
-            .motherMiddleName(DEFAULT_MOTHER_MIDDLE_NAME)
-            .motherLastName(DEFAULT_MOTHER_LAST_NAME)
-            .dateOfBirth(DEFAULT_DATE_OF_BIRTH)
-            .placeOfBirth(DEFAULT_PLACE_OF_BIRTH)
-            .religion(DEFAULT_RELIGION)
-            .caste(DEFAULT_CASTE)
-            .subCaste(DEFAULT_SUB_CASTE)
-            .gender(DEFAULT_GENDER)
-            .bloodGroup(DEFAULT_BLOOD_GROUP)
-            .pinCode(DEFAULT_PIN_CODE)
-            .relationOfEmergencyContact(DEFAULT_RELATION_OFEMERGENCY_CONTACT)
-            .emergencyContactName(DEFAULT_EMERGENCY_CONTACT_NAME)
-            .emergencyContactMiddleName(DEFAULT_EMERGENCY_CONTACT_MIDDLE_NAME)
-            .emergencyContactLastName(DEFAULT_EMERGENCY_CONTACT_LAST_NAME)
-            .emergencyContactNo(DEFAULT_EMERGENCY_CONTACT_NO)
-            .emergencyContactEmailAddress(DEFAULT_EMERGENCY_CONTACT_EMAIL_ADDRESS)
-            .status(DEFAULT_STATUS)
-            .staffType(DEFAULT_STAFF_TYPE)
             .designation(DEFAULT_DESIGNATION)
             .joiningDate(DEFAULT_JOINING_DATE)
             .jobEndDate(DEFAULT_JOB_END_DATE)
@@ -279,13 +192,20 @@ public class EmployeeResourceIT {
             .passportNo(DEFAULT_PASSPORT_NO)
             .primaryContactNo(DEFAULT_PRIMARY_CONTACT_NO)
             .secondaryContactNo(DEFAULT_SECONDARY_CONTACT_NO)
+            .employeeFatherName(DEFAULT_EMPLOYEE_FATHER_NAME)
+            .employeeMotherName(DEFAULT_EMPLOYEE_MOTHER_NAME)
             .primaryAddress(DEFAULT_PRIMARY_ADDRESS)
             .secondaryAddress(DEFAULT_SECONDARY_ADDRESS)
+            .employeeAddress(DEFAULT_EMPLOYEE_ADDRESS)
             .personalMailId(DEFAULT_PERSONAL_MAIL_ID)
             .officialMailId(DEFAULT_OFFICIAL_MAIL_ID)
+            .disability(DEFAULT_DISABILITY)
             .drivingLicenceNo(DEFAULT_DRIVING_LICENCE_NO)
+            .drivingLicenceValidity(DEFAULT_DRIVING_LICENCE_VALIDITY)
+            .gender(DEFAULT_GENDER)
             .typeOfEmployment(DEFAULT_TYPE_OF_EMPLOYMENT)
             .managerId(DEFAULT_MANAGER_ID)
+            .status(DEFAULT_STATUS)
             .maritalStatus(DEFAULT_MARITAL_STATUS);
         return employee;
     }
@@ -298,33 +218,6 @@ public class EmployeeResourceIT {
     public static Employee createUpdatedEntity(EntityManager em) {
         Employee employee = new Employee()
             .employeeName(UPDATED_EMPLOYEE_NAME)
-            .employeeMiddleName(UPDATED_EMPLOYEE_MIDDLE_NAME)
-            .employeeLastName(UPDATED_EMPLOYEE_LAST_NAME)
-            .fatherName(UPDATED_FATHER_NAME)
-            .fatherMiddleName(UPDATED_FATHER_MIDDLE_NAME)
-            .fatherLastName(UPDATED_FATHER_LAST_NAME)
-            .spouseName(UPDATED_SPOUSE_NAME)
-            .spouseMiddleName(UPDATED_SPOUSE_MIDDLE_NAME)
-            .spouseLastName(UPDATED_SPOUSE_LAST_NAME)
-            .motherName(UPDATED_MOTHER_NAME)
-            .motherMiddleName(UPDATED_MOTHER_MIDDLE_NAME)
-            .motherLastName(UPDATED_MOTHER_LAST_NAME)
-            .dateOfBirth(UPDATED_DATE_OF_BIRTH)
-            .placeOfBirth(UPDATED_PLACE_OF_BIRTH)
-            .religion(UPDATED_RELIGION)
-            .caste(UPDATED_CASTE)
-            .subCaste(UPDATED_SUB_CASTE)
-            .gender(UPDATED_GENDER)
-            .bloodGroup(UPDATED_BLOOD_GROUP)
-            .pinCode(UPDATED_PIN_CODE)
-            .relationOfEmergencyContact(UPDATED_RELATION_OFEMERGENCY_CONTACT)
-            .emergencyContactName(UPDATED_EMERGENCY_CONTACT_NAME)
-            .emergencyContactMiddleName(UPDATED_EMERGENCY_CONTACT_MIDDLE_NAME)
-            .emergencyContactLastName(UPDATED_EMERGENCY_CONTACT_LAST_NAME)
-            .emergencyContactNo(UPDATED_EMERGENCY_CONTACT_NO)
-            .emergencyContactEmailAddress(UPDATED_EMERGENCY_CONTACT_EMAIL_ADDRESS)
-            .status(UPDATED_STATUS)
-            .staffType(UPDATED_STAFF_TYPE)
             .designation(UPDATED_DESIGNATION)
             .joiningDate(UPDATED_JOINING_DATE)
             .jobEndDate(UPDATED_JOB_END_DATE)
@@ -335,13 +228,20 @@ public class EmployeeResourceIT {
             .passportNo(UPDATED_PASSPORT_NO)
             .primaryContactNo(UPDATED_PRIMARY_CONTACT_NO)
             .secondaryContactNo(UPDATED_SECONDARY_CONTACT_NO)
+            .employeeFatherName(UPDATED_EMPLOYEE_FATHER_NAME)
+            .employeeMotherName(UPDATED_EMPLOYEE_MOTHER_NAME)
             .primaryAddress(UPDATED_PRIMARY_ADDRESS)
             .secondaryAddress(UPDATED_SECONDARY_ADDRESS)
+            .employeeAddress(UPDATED_EMPLOYEE_ADDRESS)
             .personalMailId(UPDATED_PERSONAL_MAIL_ID)
             .officialMailId(UPDATED_OFFICIAL_MAIL_ID)
+            .disability(UPDATED_DISABILITY)
             .drivingLicenceNo(UPDATED_DRIVING_LICENCE_NO)
+            .drivingLicenceValidity(UPDATED_DRIVING_LICENCE_VALIDITY)
+            .gender(UPDATED_GENDER)
             .typeOfEmployment(UPDATED_TYPE_OF_EMPLOYMENT)
             .managerId(UPDATED_MANAGER_ID)
+            .status(UPDATED_STATUS)
             .maritalStatus(UPDATED_MARITAL_STATUS);
         return employee;
     }
@@ -368,33 +268,6 @@ public class EmployeeResourceIT {
         assertThat(employeeList).hasSize(databaseSizeBeforeCreate + 1);
         Employee testEmployee = employeeList.get(employeeList.size() - 1);
         assertThat(testEmployee.getEmployeeName()).isEqualTo(DEFAULT_EMPLOYEE_NAME);
-        assertThat(testEmployee.getEmployeeMiddleName()).isEqualTo(DEFAULT_EMPLOYEE_MIDDLE_NAME);
-        assertThat(testEmployee.getEmployeeLastName()).isEqualTo(DEFAULT_EMPLOYEE_LAST_NAME);
-        assertThat(testEmployee.getFatherName()).isEqualTo(DEFAULT_FATHER_NAME);
-        assertThat(testEmployee.getFatherMiddleName()).isEqualTo(DEFAULT_FATHER_MIDDLE_NAME);
-        assertThat(testEmployee.getFatherLastName()).isEqualTo(DEFAULT_FATHER_LAST_NAME);
-        assertThat(testEmployee.getSpouseName()).isEqualTo(DEFAULT_SPOUSE_NAME);
-        assertThat(testEmployee.getSpouseMiddleName()).isEqualTo(DEFAULT_SPOUSE_MIDDLE_NAME);
-        assertThat(testEmployee.getSpouseLastName()).isEqualTo(DEFAULT_SPOUSE_LAST_NAME);
-        assertThat(testEmployee.getMotherName()).isEqualTo(DEFAULT_MOTHER_NAME);
-        assertThat(testEmployee.getMotherMiddleName()).isEqualTo(DEFAULT_MOTHER_MIDDLE_NAME);
-        assertThat(testEmployee.getMotherLastName()).isEqualTo(DEFAULT_MOTHER_LAST_NAME);
-        assertThat(testEmployee.getDateOfBirth()).isEqualTo(DEFAULT_DATE_OF_BIRTH);
-        assertThat(testEmployee.getPlaceOfBirth()).isEqualTo(DEFAULT_PLACE_OF_BIRTH);
-        assertThat(testEmployee.getReligion()).isEqualTo(DEFAULT_RELIGION);
-        assertThat(testEmployee.getCaste()).isEqualTo(DEFAULT_CASTE);
-        assertThat(testEmployee.getSubCaste()).isEqualTo(DEFAULT_SUB_CASTE);
-        assertThat(testEmployee.getGender()).isEqualTo(DEFAULT_GENDER);
-        assertThat(testEmployee.getBloodGroup()).isEqualTo(DEFAULT_BLOOD_GROUP);
-        assertThat(testEmployee.getPinCode()).isEqualTo(DEFAULT_PIN_CODE);
-        assertThat(testEmployee.getRelationOfEmergencyContact()).isEqualTo(DEFAULT_RELATION_OFEMERGENCY_CONTACT);
-        assertThat(testEmployee.getEmergencyContactName()).isEqualTo(DEFAULT_EMERGENCY_CONTACT_NAME);
-        assertThat(testEmployee.getEmergencyContactMiddleName()).isEqualTo(DEFAULT_EMERGENCY_CONTACT_MIDDLE_NAME);
-        assertThat(testEmployee.getEmergencyContactLastName()).isEqualTo(DEFAULT_EMERGENCY_CONTACT_LAST_NAME);
-        assertThat(testEmployee.getEmergencyContactNo()).isEqualTo(DEFAULT_EMERGENCY_CONTACT_NO);
-        assertThat(testEmployee.getEmergencyContactEmailAddress()).isEqualTo(DEFAULT_EMERGENCY_CONTACT_EMAIL_ADDRESS);
-        assertThat(testEmployee.getStatus()).isEqualTo(DEFAULT_STATUS);
-        assertThat(testEmployee.getStaffType()).isEqualTo(DEFAULT_STAFF_TYPE);
         assertThat(testEmployee.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
         assertThat(testEmployee.getJoiningDate()).isEqualTo(DEFAULT_JOINING_DATE);
         assertThat(testEmployee.getJobEndDate()).isEqualTo(DEFAULT_JOB_END_DATE);
@@ -405,13 +278,20 @@ public class EmployeeResourceIT {
         assertThat(testEmployee.getPassportNo()).isEqualTo(DEFAULT_PASSPORT_NO);
         assertThat(testEmployee.getPrimaryContactNo()).isEqualTo(DEFAULT_PRIMARY_CONTACT_NO);
         assertThat(testEmployee.getSecondaryContactNo()).isEqualTo(DEFAULT_SECONDARY_CONTACT_NO);
+        assertThat(testEmployee.getEmployeeFatherName()).isEqualTo(DEFAULT_EMPLOYEE_FATHER_NAME);
+        assertThat(testEmployee.getEmployeeMotherName()).isEqualTo(DEFAULT_EMPLOYEE_MOTHER_NAME);
         assertThat(testEmployee.getPrimaryAddress()).isEqualTo(DEFAULT_PRIMARY_ADDRESS);
         assertThat(testEmployee.getSecondaryAddress()).isEqualTo(DEFAULT_SECONDARY_ADDRESS);
+        assertThat(testEmployee.getEmployeeAddress()).isEqualTo(DEFAULT_EMPLOYEE_ADDRESS);
         assertThat(testEmployee.getPersonalMailId()).isEqualTo(DEFAULT_PERSONAL_MAIL_ID);
         assertThat(testEmployee.getOfficialMailId()).isEqualTo(DEFAULT_OFFICIAL_MAIL_ID);
+        assertThat(testEmployee.getDisability()).isEqualTo(DEFAULT_DISABILITY);
         assertThat(testEmployee.getDrivingLicenceNo()).isEqualTo(DEFAULT_DRIVING_LICENCE_NO);
+        assertThat(testEmployee.getDrivingLicenceValidity()).isEqualTo(DEFAULT_DRIVING_LICENCE_VALIDITY);
+        assertThat(testEmployee.getGender()).isEqualTo(DEFAULT_GENDER);
         assertThat(testEmployee.getTypeOfEmployment()).isEqualTo(DEFAULT_TYPE_OF_EMPLOYMENT);
         assertThat(testEmployee.getManagerId()).isEqualTo(DEFAULT_MANAGER_ID);
+        assertThat(testEmployee.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testEmployee.getMaritalStatus()).isEqualTo(DEFAULT_MARITAL_STATUS);
 
         // Validate the Employee in Elasticsearch
@@ -454,33 +334,6 @@ public class EmployeeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(employee.getId().intValue())))
             .andExpect(jsonPath("$.[*].employeeName").value(hasItem(DEFAULT_EMPLOYEE_NAME.toString())))
-            .andExpect(jsonPath("$.[*].employeeMiddleName").value(hasItem(DEFAULT_EMPLOYEE_MIDDLE_NAME.toString())))
-            .andExpect(jsonPath("$.[*].employeeLastName").value(hasItem(DEFAULT_EMPLOYEE_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].fatherName").value(hasItem(DEFAULT_FATHER_NAME.toString())))
-            .andExpect(jsonPath("$.[*].fatherMiddleName").value(hasItem(DEFAULT_FATHER_MIDDLE_NAME.toString())))
-            .andExpect(jsonPath("$.[*].fatherLastName").value(hasItem(DEFAULT_FATHER_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].spouseName").value(hasItem(DEFAULT_SPOUSE_NAME.toString())))
-            .andExpect(jsonPath("$.[*].spouseMiddleName").value(hasItem(DEFAULT_SPOUSE_MIDDLE_NAME.toString())))
-            .andExpect(jsonPath("$.[*].spouseLastName").value(hasItem(DEFAULT_SPOUSE_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].motherName").value(hasItem(DEFAULT_MOTHER_NAME.toString())))
-            .andExpect(jsonPath("$.[*].motherMiddleName").value(hasItem(DEFAULT_MOTHER_MIDDLE_NAME.toString())))
-            .andExpect(jsonPath("$.[*].motherLastName").value(hasItem(DEFAULT_MOTHER_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].dateOfBirth").value(hasItem(DEFAULT_DATE_OF_BIRTH.toString())))
-            .andExpect(jsonPath("$.[*].placeOfBirth").value(hasItem(DEFAULT_PLACE_OF_BIRTH.toString())))
-            .andExpect(jsonPath("$.[*].religion").value(hasItem(DEFAULT_RELIGION.toString())))
-            .andExpect(jsonPath("$.[*].caste").value(hasItem(DEFAULT_CASTE.toString())))
-            .andExpect(jsonPath("$.[*].subCaste").value(hasItem(DEFAULT_SUB_CASTE.toString())))
-            .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER.toString())))
-            .andExpect(jsonPath("$.[*].bloodGroup").value(hasItem(DEFAULT_BLOOD_GROUP.toString())))
-            .andExpect(jsonPath("$.[*].pinCode").value(hasItem(DEFAULT_PIN_CODE.toString())))
-            .andExpect(jsonPath("$.[*].relationOfEmergencyContact").value(hasItem(DEFAULT_RELATION_OFEMERGENCY_CONTACT.toString())))
-            .andExpect(jsonPath("$.[*].emergencyContactName").value(hasItem(DEFAULT_EMERGENCY_CONTACT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].emergencyContactMiddleName").value(hasItem(DEFAULT_EMERGENCY_CONTACT_MIDDLE_NAME.toString())))
-            .andExpect(jsonPath("$.[*].emergencyContactLastName").value(hasItem(DEFAULT_EMERGENCY_CONTACT_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].emergencyContactNo").value(hasItem(DEFAULT_EMERGENCY_CONTACT_NO.toString())))
-            .andExpect(jsonPath("$.[*].emergencyContactEmailAddress").value(hasItem(DEFAULT_EMERGENCY_CONTACT_EMAIL_ADDRESS.toString())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].staffType").value(hasItem(DEFAULT_STAFF_TYPE.toString())))
             .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION.toString())))
             .andExpect(jsonPath("$.[*].joiningDate").value(hasItem(DEFAULT_JOINING_DATE.toString())))
             .andExpect(jsonPath("$.[*].jobEndDate").value(hasItem(DEFAULT_JOB_END_DATE.toString())))
@@ -491,13 +344,20 @@ public class EmployeeResourceIT {
             .andExpect(jsonPath("$.[*].passportNo").value(hasItem(DEFAULT_PASSPORT_NO.toString())))
             .andExpect(jsonPath("$.[*].primaryContactNo").value(hasItem(DEFAULT_PRIMARY_CONTACT_NO.toString())))
             .andExpect(jsonPath("$.[*].secondaryContactNo").value(hasItem(DEFAULT_SECONDARY_CONTACT_NO.toString())))
+            .andExpect(jsonPath("$.[*].employeeFatherName").value(hasItem(DEFAULT_EMPLOYEE_FATHER_NAME.toString())))
+            .andExpect(jsonPath("$.[*].employeeMotherName").value(hasItem(DEFAULT_EMPLOYEE_MOTHER_NAME.toString())))
             .andExpect(jsonPath("$.[*].primaryAddress").value(hasItem(DEFAULT_PRIMARY_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].secondaryAddress").value(hasItem(DEFAULT_SECONDARY_ADDRESS.toString())))
+            .andExpect(jsonPath("$.[*].employeeAddress").value(hasItem(DEFAULT_EMPLOYEE_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].personalMailId").value(hasItem(DEFAULT_PERSONAL_MAIL_ID.toString())))
             .andExpect(jsonPath("$.[*].officialMailId").value(hasItem(DEFAULT_OFFICIAL_MAIL_ID.toString())))
+            .andExpect(jsonPath("$.[*].disability").value(hasItem(DEFAULT_DISABILITY.toString())))
             .andExpect(jsonPath("$.[*].drivingLicenceNo").value(hasItem(DEFAULT_DRIVING_LICENCE_NO.toString())))
+            .andExpect(jsonPath("$.[*].drivingLicenceValidity").value(hasItem(DEFAULT_DRIVING_LICENCE_VALIDITY.toString())))
+            .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER.toString())))
             .andExpect(jsonPath("$.[*].typeOfEmployment").value(hasItem(DEFAULT_TYPE_OF_EMPLOYMENT.toString())))
             .andExpect(jsonPath("$.[*].managerId").value(hasItem(DEFAULT_MANAGER_ID.intValue())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].maritalStatus").value(hasItem(DEFAULT_MARITAL_STATUS.toString())));
     }
     
@@ -513,33 +373,6 @@ public class EmployeeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(employee.getId().intValue()))
             .andExpect(jsonPath("$.employeeName").value(DEFAULT_EMPLOYEE_NAME.toString()))
-            .andExpect(jsonPath("$.employeeMiddleName").value(DEFAULT_EMPLOYEE_MIDDLE_NAME.toString()))
-            .andExpect(jsonPath("$.employeeLastName").value(DEFAULT_EMPLOYEE_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.fatherName").value(DEFAULT_FATHER_NAME.toString()))
-            .andExpect(jsonPath("$.fatherMiddleName").value(DEFAULT_FATHER_MIDDLE_NAME.toString()))
-            .andExpect(jsonPath("$.fatherLastName").value(DEFAULT_FATHER_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.spouseName").value(DEFAULT_SPOUSE_NAME.toString()))
-            .andExpect(jsonPath("$.spouseMiddleName").value(DEFAULT_SPOUSE_MIDDLE_NAME.toString()))
-            .andExpect(jsonPath("$.spouseLastName").value(DEFAULT_SPOUSE_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.motherName").value(DEFAULT_MOTHER_NAME.toString()))
-            .andExpect(jsonPath("$.motherMiddleName").value(DEFAULT_MOTHER_MIDDLE_NAME.toString()))
-            .andExpect(jsonPath("$.motherLastName").value(DEFAULT_MOTHER_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.dateOfBirth").value(DEFAULT_DATE_OF_BIRTH.toString()))
-            .andExpect(jsonPath("$.placeOfBirth").value(DEFAULT_PLACE_OF_BIRTH.toString()))
-            .andExpect(jsonPath("$.religion").value(DEFAULT_RELIGION.toString()))
-            .andExpect(jsonPath("$.caste").value(DEFAULT_CASTE.toString()))
-            .andExpect(jsonPath("$.subCaste").value(DEFAULT_SUB_CASTE.toString()))
-            .andExpect(jsonPath("$.gender").value(DEFAULT_GENDER.toString()))
-            .andExpect(jsonPath("$.bloodGroup").value(DEFAULT_BLOOD_GROUP.toString()))
-            .andExpect(jsonPath("$.pinCode").value(DEFAULT_PIN_CODE.toString()))
-            .andExpect(jsonPath("$.relationOfEmergencyContact").value(DEFAULT_RELATION_OFEMERGENCY_CONTACT.toString()))
-            .andExpect(jsonPath("$.emergencyContactName").value(DEFAULT_EMERGENCY_CONTACT_NAME.toString()))
-            .andExpect(jsonPath("$.emergencyContactMiddleName").value(DEFAULT_EMERGENCY_CONTACT_MIDDLE_NAME.toString()))
-            .andExpect(jsonPath("$.emergencyContactLastName").value(DEFAULT_EMERGENCY_CONTACT_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.emergencyContactNo").value(DEFAULT_EMERGENCY_CONTACT_NO.toString()))
-            .andExpect(jsonPath("$.emergencyContactEmailAddress").value(DEFAULT_EMERGENCY_CONTACT_EMAIL_ADDRESS.toString()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.staffType").value(DEFAULT_STAFF_TYPE.toString()))
             .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION.toString()))
             .andExpect(jsonPath("$.joiningDate").value(DEFAULT_JOINING_DATE.toString()))
             .andExpect(jsonPath("$.jobEndDate").value(DEFAULT_JOB_END_DATE.toString()))
@@ -550,13 +383,20 @@ public class EmployeeResourceIT {
             .andExpect(jsonPath("$.passportNo").value(DEFAULT_PASSPORT_NO.toString()))
             .andExpect(jsonPath("$.primaryContactNo").value(DEFAULT_PRIMARY_CONTACT_NO.toString()))
             .andExpect(jsonPath("$.secondaryContactNo").value(DEFAULT_SECONDARY_CONTACT_NO.toString()))
+            .andExpect(jsonPath("$.employeeFatherName").value(DEFAULT_EMPLOYEE_FATHER_NAME.toString()))
+            .andExpect(jsonPath("$.employeeMotherName").value(DEFAULT_EMPLOYEE_MOTHER_NAME.toString()))
             .andExpect(jsonPath("$.primaryAddress").value(DEFAULT_PRIMARY_ADDRESS.toString()))
             .andExpect(jsonPath("$.secondaryAddress").value(DEFAULT_SECONDARY_ADDRESS.toString()))
+            .andExpect(jsonPath("$.employeeAddress").value(DEFAULT_EMPLOYEE_ADDRESS.toString()))
             .andExpect(jsonPath("$.personalMailId").value(DEFAULT_PERSONAL_MAIL_ID.toString()))
             .andExpect(jsonPath("$.officialMailId").value(DEFAULT_OFFICIAL_MAIL_ID.toString()))
+            .andExpect(jsonPath("$.disability").value(DEFAULT_DISABILITY.toString()))
             .andExpect(jsonPath("$.drivingLicenceNo").value(DEFAULT_DRIVING_LICENCE_NO.toString()))
+            .andExpect(jsonPath("$.drivingLicenceValidity").value(DEFAULT_DRIVING_LICENCE_VALIDITY.toString()))
+            .andExpect(jsonPath("$.gender").value(DEFAULT_GENDER.toString()))
             .andExpect(jsonPath("$.typeOfEmployment").value(DEFAULT_TYPE_OF_EMPLOYMENT.toString()))
             .andExpect(jsonPath("$.managerId").value(DEFAULT_MANAGER_ID.intValue()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.maritalStatus").value(DEFAULT_MARITAL_STATUS.toString()));
     }
 
@@ -582,33 +422,6 @@ public class EmployeeResourceIT {
         em.detach(updatedEmployee);
         updatedEmployee
             .employeeName(UPDATED_EMPLOYEE_NAME)
-            .employeeMiddleName(UPDATED_EMPLOYEE_MIDDLE_NAME)
-            .employeeLastName(UPDATED_EMPLOYEE_LAST_NAME)
-            .fatherName(UPDATED_FATHER_NAME)
-            .fatherMiddleName(UPDATED_FATHER_MIDDLE_NAME)
-            .fatherLastName(UPDATED_FATHER_LAST_NAME)
-            .spouseName(UPDATED_SPOUSE_NAME)
-            .spouseMiddleName(UPDATED_SPOUSE_MIDDLE_NAME)
-            .spouseLastName(UPDATED_SPOUSE_LAST_NAME)
-            .motherName(UPDATED_MOTHER_NAME)
-            .motherMiddleName(UPDATED_MOTHER_MIDDLE_NAME)
-            .motherLastName(UPDATED_MOTHER_LAST_NAME)
-            .dateOfBirth(UPDATED_DATE_OF_BIRTH)
-            .placeOfBirth(UPDATED_PLACE_OF_BIRTH)
-            .religion(UPDATED_RELIGION)
-            .caste(UPDATED_CASTE)
-            .subCaste(UPDATED_SUB_CASTE)
-            .gender(UPDATED_GENDER)
-            .bloodGroup(UPDATED_BLOOD_GROUP)
-            .pinCode(UPDATED_PIN_CODE)
-            .relationOfEmergencyContact(UPDATED_RELATION_OFEMERGENCY_CONTACT)
-            .emergencyContactName(UPDATED_EMERGENCY_CONTACT_NAME)
-            .emergencyContactMiddleName(UPDATED_EMERGENCY_CONTACT_MIDDLE_NAME)
-            .emergencyContactLastName(UPDATED_EMERGENCY_CONTACT_LAST_NAME)
-            .emergencyContactNo(UPDATED_EMERGENCY_CONTACT_NO)
-            .emergencyContactEmailAddress(UPDATED_EMERGENCY_CONTACT_EMAIL_ADDRESS)
-            .status(UPDATED_STATUS)
-            .staffType(UPDATED_STAFF_TYPE)
             .designation(UPDATED_DESIGNATION)
             .joiningDate(UPDATED_JOINING_DATE)
             .jobEndDate(UPDATED_JOB_END_DATE)
@@ -619,13 +432,20 @@ public class EmployeeResourceIT {
             .passportNo(UPDATED_PASSPORT_NO)
             .primaryContactNo(UPDATED_PRIMARY_CONTACT_NO)
             .secondaryContactNo(UPDATED_SECONDARY_CONTACT_NO)
+            .employeeFatherName(UPDATED_EMPLOYEE_FATHER_NAME)
+            .employeeMotherName(UPDATED_EMPLOYEE_MOTHER_NAME)
             .primaryAddress(UPDATED_PRIMARY_ADDRESS)
             .secondaryAddress(UPDATED_SECONDARY_ADDRESS)
+            .employeeAddress(UPDATED_EMPLOYEE_ADDRESS)
             .personalMailId(UPDATED_PERSONAL_MAIL_ID)
             .officialMailId(UPDATED_OFFICIAL_MAIL_ID)
+            .disability(UPDATED_DISABILITY)
             .drivingLicenceNo(UPDATED_DRIVING_LICENCE_NO)
+            .drivingLicenceValidity(UPDATED_DRIVING_LICENCE_VALIDITY)
+            .gender(UPDATED_GENDER)
             .typeOfEmployment(UPDATED_TYPE_OF_EMPLOYMENT)
             .managerId(UPDATED_MANAGER_ID)
+            .status(UPDATED_STATUS)
             .maritalStatus(UPDATED_MARITAL_STATUS);
         EmployeeDTO employeeDTO = employeeMapper.toDto(updatedEmployee);
 
@@ -639,33 +459,6 @@ public class EmployeeResourceIT {
         assertThat(employeeList).hasSize(databaseSizeBeforeUpdate);
         Employee testEmployee = employeeList.get(employeeList.size() - 1);
         assertThat(testEmployee.getEmployeeName()).isEqualTo(UPDATED_EMPLOYEE_NAME);
-        assertThat(testEmployee.getEmployeeMiddleName()).isEqualTo(UPDATED_EMPLOYEE_MIDDLE_NAME);
-        assertThat(testEmployee.getEmployeeLastName()).isEqualTo(UPDATED_EMPLOYEE_LAST_NAME);
-        assertThat(testEmployee.getFatherName()).isEqualTo(UPDATED_FATHER_NAME);
-        assertThat(testEmployee.getFatherMiddleName()).isEqualTo(UPDATED_FATHER_MIDDLE_NAME);
-        assertThat(testEmployee.getFatherLastName()).isEqualTo(UPDATED_FATHER_LAST_NAME);
-        assertThat(testEmployee.getSpouseName()).isEqualTo(UPDATED_SPOUSE_NAME);
-        assertThat(testEmployee.getSpouseMiddleName()).isEqualTo(UPDATED_SPOUSE_MIDDLE_NAME);
-        assertThat(testEmployee.getSpouseLastName()).isEqualTo(UPDATED_SPOUSE_LAST_NAME);
-        assertThat(testEmployee.getMotherName()).isEqualTo(UPDATED_MOTHER_NAME);
-        assertThat(testEmployee.getMotherMiddleName()).isEqualTo(UPDATED_MOTHER_MIDDLE_NAME);
-        assertThat(testEmployee.getMotherLastName()).isEqualTo(UPDATED_MOTHER_LAST_NAME);
-        assertThat(testEmployee.getDateOfBirth()).isEqualTo(UPDATED_DATE_OF_BIRTH);
-        assertThat(testEmployee.getPlaceOfBirth()).isEqualTo(UPDATED_PLACE_OF_BIRTH);
-        assertThat(testEmployee.getReligion()).isEqualTo(UPDATED_RELIGION);
-        assertThat(testEmployee.getCaste()).isEqualTo(UPDATED_CASTE);
-        assertThat(testEmployee.getSubCaste()).isEqualTo(UPDATED_SUB_CASTE);
-        assertThat(testEmployee.getGender()).isEqualTo(UPDATED_GENDER);
-        assertThat(testEmployee.getBloodGroup()).isEqualTo(UPDATED_BLOOD_GROUP);
-        assertThat(testEmployee.getPinCode()).isEqualTo(UPDATED_PIN_CODE);
-        assertThat(testEmployee.getRelationOfEmergencyContact()).isEqualTo(UPDATED_RELATION_OFEMERGENCY_CONTACT);
-        assertThat(testEmployee.getEmergencyContactName()).isEqualTo(UPDATED_EMERGENCY_CONTACT_NAME);
-        assertThat(testEmployee.getEmergencyContactMiddleName()).isEqualTo(UPDATED_EMERGENCY_CONTACT_MIDDLE_NAME);
-        assertThat(testEmployee.getEmergencyContactLastName()).isEqualTo(UPDATED_EMERGENCY_CONTACT_LAST_NAME);
-        assertThat(testEmployee.getEmergencyContactNo()).isEqualTo(UPDATED_EMERGENCY_CONTACT_NO);
-        assertThat(testEmployee.getEmergencyContactEmailAddress()).isEqualTo(UPDATED_EMERGENCY_CONTACT_EMAIL_ADDRESS);
-        assertThat(testEmployee.getStatus()).isEqualTo(UPDATED_STATUS);
-        assertThat(testEmployee.getStaffType()).isEqualTo(UPDATED_STAFF_TYPE);
         assertThat(testEmployee.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
         assertThat(testEmployee.getJoiningDate()).isEqualTo(UPDATED_JOINING_DATE);
         assertThat(testEmployee.getJobEndDate()).isEqualTo(UPDATED_JOB_END_DATE);
@@ -676,13 +469,20 @@ public class EmployeeResourceIT {
         assertThat(testEmployee.getPassportNo()).isEqualTo(UPDATED_PASSPORT_NO);
         assertThat(testEmployee.getPrimaryContactNo()).isEqualTo(UPDATED_PRIMARY_CONTACT_NO);
         assertThat(testEmployee.getSecondaryContactNo()).isEqualTo(UPDATED_SECONDARY_CONTACT_NO);
+        assertThat(testEmployee.getEmployeeFatherName()).isEqualTo(UPDATED_EMPLOYEE_FATHER_NAME);
+        assertThat(testEmployee.getEmployeeMotherName()).isEqualTo(UPDATED_EMPLOYEE_MOTHER_NAME);
         assertThat(testEmployee.getPrimaryAddress()).isEqualTo(UPDATED_PRIMARY_ADDRESS);
         assertThat(testEmployee.getSecondaryAddress()).isEqualTo(UPDATED_SECONDARY_ADDRESS);
+        assertThat(testEmployee.getEmployeeAddress()).isEqualTo(UPDATED_EMPLOYEE_ADDRESS);
         assertThat(testEmployee.getPersonalMailId()).isEqualTo(UPDATED_PERSONAL_MAIL_ID);
         assertThat(testEmployee.getOfficialMailId()).isEqualTo(UPDATED_OFFICIAL_MAIL_ID);
+        assertThat(testEmployee.getDisability()).isEqualTo(UPDATED_DISABILITY);
         assertThat(testEmployee.getDrivingLicenceNo()).isEqualTo(UPDATED_DRIVING_LICENCE_NO);
+        assertThat(testEmployee.getDrivingLicenceValidity()).isEqualTo(UPDATED_DRIVING_LICENCE_VALIDITY);
+        assertThat(testEmployee.getGender()).isEqualTo(UPDATED_GENDER);
         assertThat(testEmployee.getTypeOfEmployment()).isEqualTo(UPDATED_TYPE_OF_EMPLOYMENT);
         assertThat(testEmployee.getManagerId()).isEqualTo(UPDATED_MANAGER_ID);
+        assertThat(testEmployee.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testEmployee.getMaritalStatus()).isEqualTo(UPDATED_MARITAL_STATUS);
 
         // Validate the Employee in Elasticsearch
@@ -745,33 +545,6 @@ public class EmployeeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(employee.getId().intValue())))
             .andExpect(jsonPath("$.[*].employeeName").value(hasItem(DEFAULT_EMPLOYEE_NAME)))
-            .andExpect(jsonPath("$.[*].employeeMiddleName").value(hasItem(DEFAULT_EMPLOYEE_MIDDLE_NAME)))
-            .andExpect(jsonPath("$.[*].employeeLastName").value(hasItem(DEFAULT_EMPLOYEE_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].fatherName").value(hasItem(DEFAULT_FATHER_NAME)))
-            .andExpect(jsonPath("$.[*].fatherMiddleName").value(hasItem(DEFAULT_FATHER_MIDDLE_NAME)))
-            .andExpect(jsonPath("$.[*].fatherLastName").value(hasItem(DEFAULT_FATHER_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].spouseName").value(hasItem(DEFAULT_SPOUSE_NAME)))
-            .andExpect(jsonPath("$.[*].spouseMiddleName").value(hasItem(DEFAULT_SPOUSE_MIDDLE_NAME)))
-            .andExpect(jsonPath("$.[*].spouseLastName").value(hasItem(DEFAULT_SPOUSE_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].motherName").value(hasItem(DEFAULT_MOTHER_NAME)))
-            .andExpect(jsonPath("$.[*].motherMiddleName").value(hasItem(DEFAULT_MOTHER_MIDDLE_NAME)))
-            .andExpect(jsonPath("$.[*].motherLastName").value(hasItem(DEFAULT_MOTHER_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].dateOfBirth").value(hasItem(DEFAULT_DATE_OF_BIRTH.toString())))
-            .andExpect(jsonPath("$.[*].placeOfBirth").value(hasItem(DEFAULT_PLACE_OF_BIRTH)))
-            .andExpect(jsonPath("$.[*].religion").value(hasItem(DEFAULT_RELIGION)))
-            .andExpect(jsonPath("$.[*].caste").value(hasItem(DEFAULT_CASTE)))
-            .andExpect(jsonPath("$.[*].subCaste").value(hasItem(DEFAULT_SUB_CASTE)))
-            .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER)))
-            .andExpect(jsonPath("$.[*].bloodGroup").value(hasItem(DEFAULT_BLOOD_GROUP)))
-            .andExpect(jsonPath("$.[*].pinCode").value(hasItem(DEFAULT_PIN_CODE)))
-            .andExpect(jsonPath("$.[*].relationOfEmergencyContact").value(hasItem(DEFAULT_RELATION_OFEMERGENCY_CONTACT)))
-            .andExpect(jsonPath("$.[*].emergencyContactName").value(hasItem(DEFAULT_EMERGENCY_CONTACT_NAME)))
-            .andExpect(jsonPath("$.[*].emergencyContactMiddleName").value(hasItem(DEFAULT_EMERGENCY_CONTACT_MIDDLE_NAME)))
-            .andExpect(jsonPath("$.[*].emergencyContactLastName").value(hasItem(DEFAULT_EMERGENCY_CONTACT_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].emergencyContactNo").value(hasItem(DEFAULT_EMERGENCY_CONTACT_NO)))
-            .andExpect(jsonPath("$.[*].emergencyContactEmailAddress").value(hasItem(DEFAULT_EMERGENCY_CONTACT_EMAIL_ADDRESS)))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
-            .andExpect(jsonPath("$.[*].staffType").value(hasItem(DEFAULT_STAFF_TYPE)))
             .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
             .andExpect(jsonPath("$.[*].joiningDate").value(hasItem(DEFAULT_JOINING_DATE.toString())))
             .andExpect(jsonPath("$.[*].jobEndDate").value(hasItem(DEFAULT_JOB_END_DATE.toString())))
@@ -782,13 +555,20 @@ public class EmployeeResourceIT {
             .andExpect(jsonPath("$.[*].passportNo").value(hasItem(DEFAULT_PASSPORT_NO)))
             .andExpect(jsonPath("$.[*].primaryContactNo").value(hasItem(DEFAULT_PRIMARY_CONTACT_NO)))
             .andExpect(jsonPath("$.[*].secondaryContactNo").value(hasItem(DEFAULT_SECONDARY_CONTACT_NO)))
+            .andExpect(jsonPath("$.[*].employeeFatherName").value(hasItem(DEFAULT_EMPLOYEE_FATHER_NAME)))
+            .andExpect(jsonPath("$.[*].employeeMotherName").value(hasItem(DEFAULT_EMPLOYEE_MOTHER_NAME)))
             .andExpect(jsonPath("$.[*].primaryAddress").value(hasItem(DEFAULT_PRIMARY_ADDRESS)))
             .andExpect(jsonPath("$.[*].secondaryAddress").value(hasItem(DEFAULT_SECONDARY_ADDRESS)))
+            .andExpect(jsonPath("$.[*].employeeAddress").value(hasItem(DEFAULT_EMPLOYEE_ADDRESS)))
             .andExpect(jsonPath("$.[*].personalMailId").value(hasItem(DEFAULT_PERSONAL_MAIL_ID)))
             .andExpect(jsonPath("$.[*].officialMailId").value(hasItem(DEFAULT_OFFICIAL_MAIL_ID)))
+            .andExpect(jsonPath("$.[*].disability").value(hasItem(DEFAULT_DISABILITY)))
             .andExpect(jsonPath("$.[*].drivingLicenceNo").value(hasItem(DEFAULT_DRIVING_LICENCE_NO)))
+            .andExpect(jsonPath("$.[*].drivingLicenceValidity").value(hasItem(DEFAULT_DRIVING_LICENCE_VALIDITY.toString())))
+            .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER)))
             .andExpect(jsonPath("$.[*].typeOfEmployment").value(hasItem(DEFAULT_TYPE_OF_EMPLOYMENT)))
             .andExpect(jsonPath("$.[*].managerId").value(hasItem(DEFAULT_MANAGER_ID.intValue())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
             .andExpect(jsonPath("$.[*].maritalStatus").value(hasItem(DEFAULT_MARITAL_STATUS)));
     }
 

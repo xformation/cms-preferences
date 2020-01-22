@@ -198,101 +198,6 @@ public class LectureResourceIT {
 
     @Test
     @Transactional
-    public void checkLecDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = lectureRepository.findAll().size();
-        // set the field null
-        lecture.setLecDate(null);
-
-        // Create the Lecture, which fails.
-        LectureDTO lectureDTO = lectureMapper.toDto(lecture);
-
-        restLectureMockMvc.perform(post("/api/lectures")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lectureDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Lecture> lectureList = lectureRepository.findAll();
-        assertThat(lectureList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkLastUpdatedOnIsRequired() throws Exception {
-        int databaseSizeBeforeTest = lectureRepository.findAll().size();
-        // set the field null
-        lecture.setLastUpdatedOn(null);
-
-        // Create the Lecture, which fails.
-        LectureDTO lectureDTO = lectureMapper.toDto(lecture);
-
-        restLectureMockMvc.perform(post("/api/lectures")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lectureDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Lecture> lectureList = lectureRepository.findAll();
-        assertThat(lectureList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkLastUpdatedByIsRequired() throws Exception {
-        int databaseSizeBeforeTest = lectureRepository.findAll().size();
-        // set the field null
-        lecture.setLastUpdatedBy(null);
-
-        // Create the Lecture, which fails.
-        LectureDTO lectureDTO = lectureMapper.toDto(lecture);
-
-        restLectureMockMvc.perform(post("/api/lectures")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lectureDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Lecture> lectureList = lectureRepository.findAll();
-        assertThat(lectureList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkStartTimeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = lectureRepository.findAll().size();
-        // set the field null
-        lecture.setStartTime(null);
-
-        // Create the Lecture, which fails.
-        LectureDTO lectureDTO = lectureMapper.toDto(lecture);
-
-        restLectureMockMvc.perform(post("/api/lectures")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lectureDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Lecture> lectureList = lectureRepository.findAll();
-        assertThat(lectureList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkEndTimeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = lectureRepository.findAll().size();
-        // set the field null
-        lecture.setEndTime(null);
-
-        // Create the Lecture, which fails.
-        LectureDTO lectureDTO = lectureMapper.toDto(lecture);
-
-        restLectureMockMvc.perform(post("/api/lectures")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(lectureDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Lecture> lectureList = lectureRepository.findAll();
-        assertThat(lectureList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllLectures() throws Exception {
         // Initialize the database
         lectureRepository.saveAndFlush(lecture);
@@ -417,24 +322,24 @@ public class LectureResourceIT {
         verify(mockLectureSearchRepository, times(1)).deleteById(lecture.getId());
     }
 
-//    @Test
-//    @Transactional
-//    public void searchLecture() throws Exception {
-//        // Initialize the database
-//        lectureRepository.saveAndFlush(lecture);
+    @Test
+    @Transactional
+    public void searchLecture() throws Exception {
+        // Initialize the database
+        lectureRepository.saveAndFlush(lecture);
 //        when(mockLectureSearchRepository.search(queryStringQuery("id:" + lecture.getId())))
 //            .thenReturn(Collections.singletonList(lecture));
-//        // Search the lecture
-//        restLectureMockMvc.perform(get("/api/_search/lectures?query=id:" + lecture.getId()))
-//            .andExpect(status().isOk())
-//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//            .andExpect(jsonPath("$.[*].id").value(hasItem(lecture.getId().intValue())))
-//            .andExpect(jsonPath("$.[*].lecDate").value(hasItem(DEFAULT_LEC_DATE.toString())))
-//            .andExpect(jsonPath("$.[*].lastUpdatedOn").value(hasItem(DEFAULT_LAST_UPDATED_ON.toString())))
-//            .andExpect(jsonPath("$.[*].lastUpdatedBy").value(hasItem(DEFAULT_LAST_UPDATED_BY)))
-//            .andExpect(jsonPath("$.[*].startTime").value(hasItem(DEFAULT_START_TIME)))
-//            .andExpect(jsonPath("$.[*].endTime").value(hasItem(DEFAULT_END_TIME)));
-//    }
+        // Search the lecture
+        restLectureMockMvc.perform(get("/api/_search/lectures?query=id:" + lecture.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(lecture.getId().intValue())))
+            .andExpect(jsonPath("$.[*].lecDate").value(hasItem(DEFAULT_LEC_DATE.toString())))
+            .andExpect(jsonPath("$.[*].lastUpdatedOn").value(hasItem(DEFAULT_LAST_UPDATED_ON.toString())))
+            .andExpect(jsonPath("$.[*].lastUpdatedBy").value(hasItem(DEFAULT_LAST_UPDATED_BY)))
+            .andExpect(jsonPath("$.[*].startTime").value(hasItem(DEFAULT_START_TIME)))
+            .andExpect(jsonPath("$.[*].endTime").value(hasItem(DEFAULT_END_TIME)));
+    }
 
     @Test
     @Transactional

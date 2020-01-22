@@ -300,22 +300,22 @@ public class MetaLectureResourceIT {
         verify(mockMetaLectureSearchRepository, times(1)).deleteById(metaLecture.getId());
     }
 
-//    @Test
-//    @Transactional
-//    public void searchMetaLecture() throws Exception {
-//        // Initialize the database
-//        metaLectureRepository.saveAndFlush(metaLecture);
+    @Test
+    @Transactional
+    public void searchMetaLecture() throws Exception {
+        // Initialize the database
+        metaLectureRepository.saveAndFlush(metaLecture);
 //        when(mockMetaLectureSearchRepository.search(queryStringQuery("id:" + metaLecture.getId())))
 //            .thenReturn(Collections.singletonList(metaLecture));
-//        // Search the metaLecture
-//        restMetaLectureMockMvc.perform(get("/api/_search/meta-lectures?query=id:" + metaLecture.getId()))
-//            .andExpect(status().isOk())
-//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//            .andExpect(jsonPath("$.[*].id").value(hasItem(metaLecture.getId().intValue())))
-//            .andExpect(jsonPath("$.[*].weekDay").value(hasItem(DEFAULT_WEEK_DAY)))
-//            .andExpect(jsonPath("$.[*].startTime").value(hasItem(DEFAULT_START_TIME)))
-//            .andExpect(jsonPath("$.[*].endTime").value(hasItem(DEFAULT_END_TIME)));
-//    }
+        // Search the metaLecture
+        restMetaLectureMockMvc.perform(get("/api/_search/meta-lectures?query=id:" + metaLecture.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(metaLecture.getId().intValue())))
+            .andExpect(jsonPath("$.[*].weekDay").value(hasItem(DEFAULT_WEEK_DAY)))
+            .andExpect(jsonPath("$.[*].startTime").value(hasItem(DEFAULT_START_TIME)))
+            .andExpect(jsonPath("$.[*].endTime").value(hasItem(DEFAULT_END_TIME)));
+    }
 
     @Test
     @Transactional

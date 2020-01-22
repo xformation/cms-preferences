@@ -13,6 +13,7 @@ type Query {
 	getDepartmentList: [CmsDepartmentVo]
 	getCourseList: [CmsCourseVo]
 	getEmployeeList: [CmsEmployeeVo]
+	getTeacherList: [CmsTeacherVo]
 }
 
 type Mutation {
@@ -27,13 +28,166 @@ type Mutation {
 	saveDepartment(input: DepartmentInput): DepartmentPayload
 	saveCourse(input: CourseInput): CoursePayload
 	saveEmployee(input: EmployeeInput): EmployeePayload
+	saveTeacher(input: TeacherInput): TeacherPayload
+}
+
+
+input TeacherInput {
+	id: Long 
+    uploadPhoto: String
+    logoFilePath: String
+    logoFileName: String
+    logoFileExtension: String
+    logoFile: String
+	teacherName: String
+    teacherMiddleName: String
+    teacherLastName: String
+    fatherName: String
+    fatherMiddleName: String
+    fatherLastName: String
+    spouseName: String
+    spouseMiddleName: String
+    spouseLastName: String
+    motherName: String
+    motherMiddleName: String
+    motherLastName: String
+    aadharNo: String
+    panNo: String
+    dateOfBirth: Date
+    placeOfBirth: String
+    religion: String
+    caste: String
+    subCaste: String
+    sex: String
+    bloodGroup: String
+    address: String
+    town: String
+    state: String
+    country: String
+    pinCode: String
+    teacherContactNumber: String
+    alternateContactNumber: String
+    teacherEmailAddress: String
+    alternateEmailAddress: String
+    relationWithStaff: String
+    emergencyContactName: String
+    emergencyContactMiddleName: String
+    emergencyContactLastName: String
+    emergencyContactNo: String
+    emergencyContactEmailAddress: String
+    status: String
+    employeeId: Long
+    designation: String
+    staffType: String
+    departmentId: Long 
+    branchId: Long 
+    strDateOfBirth: String 
+}
+
+type TeacherPayload {
+	cmsTeacherVo: CmsTeacherVo
+}
+
+type CmsTeacherVo {
+	id: Long 
+    uploadPhoto: String
+    logoFilePath: String
+    logoFileName: String
+    logoFileExtension: String
+    logoFile: String
+	teacherName: String
+    teacherMiddleName: String
+    teacherLastName: String
+    fatherName: String
+    fatherMiddleName: String
+    fatherLastName: String
+    spouseName: String
+    spouseMiddleName: String
+    spouseLastName: String
+    motherName: String
+    motherMiddleName: String
+    motherLastName: String
+    aadharNo: String
+    panNo: String
+    dateOfBirth: Date
+    placeOfBirth: String
+    religion: String
+    caste: String
+    subCaste: String
+    sex: String
+    bloodGroup: String
+    address: String
+    town: String
+    state: String
+    country: String
+    pinCode: String
+    teacherContactNumber: String
+    alternateContactNumber: String
+    teacherEmailAddress: String
+    alternateEmailAddress: String
+    relationWithStaff: String
+    emergencyContactName: String
+    emergencyContactMiddleName: String
+    emergencyContactLastName: String
+    emergencyContactNo: String
+    emergencyContactEmailAddress: String
+    status: String
+    employeeId: Long
+    designation: String
+    staffType: String
+    cmsDepartmentVo: CmsDepartmentVo
+    cmsBranchVo: CmsBranchVo
+    departmentId: Long 
+    branchId: Long 
+    strDateOfBirth: String 
+    createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    exitCode: Long 
+    exitDescription: String
+    dataList: [CmsTeacherVo]
 }
 
 input EmployeeInput {
 	id: Long
-	
-    status: String
-    departmentId: Long
+	employeeName: String 
+    designation: String
+    joiningDate: Date 
+    jobEndDate: Date
+    resignationDate: Date
+    resignationAcceptanceDate: Date 
+    dateOfBirth: Date 
+    aadharNo: String 
+    panNo: String 
+    passportNo: String 
+    primaryContactNo: String 
+    secondaryContactNo: String 
+    employeeFatherName: String 
+    employeeMotherName: String 
+    primaryAddress: String 
+    secondaryAddress: String 
+    employeeAddress: String 
+    personalMailId: String 
+    officialMailId: String 
+    disability: String 
+    drivingLicenceNo: String 
+    drivingLicenceValidity: Date
+    gender: String 
+    typeOfEmployment: String 
+    managerId: Long
+    status: String 
+    maritalStatus: String 
+    strJoiningDate: String 
+    strJobEndDate: String 
+    strResignationDate: String 
+    strResignationAcceptanceDate: String 
+    strDrivingLicenceValidity: String 
+    strDateOfBirth: String 
+    staffType: String 
+    departmentId: Long 
     branchId: Long
 }
 
@@ -42,21 +196,54 @@ type EmployeePayload {
 }
 
 type CmsEmployeeVo {
-	id: Long
-	
+	id: Long 
+    employeeName: String 
+    designation: String
+    joiningDate: Date 
+    jobEndDate: Date
+    resignationDate: Date
+    resignationAcceptanceDate: Date 
+    dateOfBirth: Date 
+    aadharNo: String 
+    panNo: String 
+    passportNo: String 
+    primaryContactNo: String 
+    secondaryContactNo: String 
+    employeeFatherName: String 
+    employeeMotherName: String 
+    primaryAddress: String 
+    secondaryAddress: String 
+    employeeAddress: String 
+    personalMailId: String 
+    officialMailId: String 
+    disability: String 
+    drivingLicenceNo: String 
+    drivingLicenceValidity: Date
+    gender: String 
+    typeOfEmployment: String 
+    managerId: Long
+    status: String 
+    maritalStatus: String 
+    strJoiningDate: String 
+    strJobEndDate: String 
+    strResignationDate: String 
+    strResignationAcceptanceDate: String 
+    strDrivingLicenceValidity: String 
+    strDateOfBirth: String 
+    staffType: String 
+    cmsDepartmentVo: CmsDepartmentVo
+    cmsBranchVo: CmsBranchVo
+    departmentId: Long 
+    branchId: Long
+    
     createdBy: String 
     createdOn: Date 
     updatedBy: String 
     updatedOn: Date 
     strCreatedOn: String 
     strUpdatedOn: String 
-    status: String
     exitCode: Long 
-    exitDescription: String 
-    departmentId: Long
-    cmsDepartmentVo: CmsDepartmentVo
-    branchId: Long
-    cmsBranchVo: CmsBranchVo
+    exitDescription: String
     dataList: [CmsEmployeeVo]
 }
 

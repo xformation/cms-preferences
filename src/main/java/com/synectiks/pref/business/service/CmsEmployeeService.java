@@ -1,5 +1,6 @@
 package com.synectiks.pref.business.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +20,7 @@ import com.synectiks.pref.domain.vo.CmsBranchVo;
 import com.synectiks.pref.domain.vo.CmsDepartmentVo;
 import com.synectiks.pref.domain.vo.CmsEmployeeVo;
 import com.synectiks.pref.graphql.types.employee.EmployeeInput;
+import com.synectiks.pref.graphql.types.teacher.TeacherInput;
 import com.synectiks.pref.repository.BranchRepository;
 import com.synectiks.pref.repository.DepartmentRepository;
 import com.synectiks.pref.repository.EmployeeRepository;
@@ -38,8 +40,15 @@ public class CmsEmployeeService {
     
     @Autowired
     BranchRepository branchRepository;
+    
+    @Autowired
+    CmsBranchService cmsBranchService; 
 
-    public List<CmsEmployeeVo> getEmployeeList(String status) {
+    @Autowired
+    CmsDepartmentService cmsDepartmentService; 
+
+    
+    public List<CmsEmployeeVo> getCmsEmployeeList(String status) {
     	Employee employee = new Employee();
         employee.setStatus(status);
         List<Employee> list = this.employeeRepository.findAll(Example.of(employee));
@@ -55,7 +64,7 @@ public class CmsEmployeeService {
     	return ls;
     }
     
-    public CmsEmployeeVo getEmployee(Long id){
+    public CmsEmployeeVo getCmsEmployee(Long id){
     	Optional<Employee> ole = this.employeeRepository.findById(id);
     	CmsEmployeeVo vo = null;
     	if(ole.isPresent()) {
@@ -76,9 +85,9 @@ public class CmsEmployeeService {
     }
 
 	private void convertDatesAndProvideDependencies(Employee o, CmsEmployeeVo vo) {
-		if(o.getDateOfBirth() != null) {
-			vo.setStrDateOfBirth(DateFormatUtil.changeLocalDateFormat(o.getDateOfBirth(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
-		}
+//		if(o.getDateOfBirth() != null) {
+//			vo.setStrDateOfBirth(DateFormatUtil.changeLocalDateFormat(o.getDateOfBirth(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+//		}
 		if(o.getJoiningDate() != null) {
 			vo.setStrJoiningDate(DateFormatUtil.changeLocalDateFormat(o.getJoiningDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 		}
@@ -111,11 +120,23 @@ public class CmsEmployeeService {
     		if(input.getId() == null) {
     			logger.debug("Adding new employee");
     			employee = CommonUtil.createCopyProperties(input, Employee.class);
-    			vo.setDateOfBirth(input.getStrDateOfBirth() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrDateOfBirth(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
-    			vo.setJoiningDate(input.getStrJoiningDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrJoiningDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
-    			vo.setJobEndDate(input.getStrJobEndDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrJobEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
-    			vo.setResignationDate(input.getStrResignationDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrResignationDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
-    			vo.setResignationAcceptanceDate(input.getStrResignationAcceptanceDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrResignationAcceptanceDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
+    			if(!CommonUtil.isNullOrEmpty(input.getStrDateOfBirth())) {
+    				employee.setDateOfBirth(DateFormatUtil.convertStringToLocalDate(input.getStrDateOfBirth(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+    			}
+    			if(!CommonUtil.isNullOrEmpty(input.getStrJoiningDate())) {
+    				employee.setJoiningDate(DateFormatUtil.convertStringToLocalDate(input.getStrJoiningDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+    			}else {
+    				employee.setJoiningDate(LocalDate.now());
+    			}
+//    			if(!CommonUtil.isNullOrEmpty(input.getStrJobEndDate())) {
+//    				vo.setJobEndDate(DateFormatUtil.convertStringToLocalDate(input.getStrJobEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+//        		}
+//    			if(!CommonUtil.isNullOrEmpty(input.getStrResignationDate())) {
+//    				vo.setResignationDate(DateFormatUtil.convertStringToLocalDate(input.getStrResignationDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+//    			}
+//    			if(!CommonUtil.isNullOrEmpty(input.getStrResignationAcceptanceDate())) {
+//    				vo.setResignationAcceptanceDate(DateFormatUtil.convertStringToLocalDate(input.getStrResignationAcceptanceDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+//        		}
     			
     			if(input.getDepartmentId() != null) {
     				Department dp = this.departmentRepository.findById(input.getDepartmentId()).get();
@@ -132,91 +153,91 @@ public class CmsEmployeeService {
     			if(input.getEmployeeName() != null) {
     				employee.setEmployeeName(input.getEmployeeName());
     			}
-    			if(input.getEmployeeMiddleName() != null) {
-    				employee.setEmployeeMiddleName(input.getEmployeeMiddleName());
-    			}
-    			if(input.getEmployeeLastName() != null) {
-    				employee.setEmployeeLastName(input.getEmployeeLastName());
-    			}
+//    			if(input.getEmployeeMiddleName() != null) {
+//    				employee.setEmployeeMiddleName(input.getEmployeeMiddleName());
+//    			}
+//    			if(input.getEmployeeLastName() != null) {
+//    				employee.setEmployeeLastName(input.getEmployeeLastName());
+//    			}
     			
-    			if(input.getFatherName() != null) {
-    				employee.setFatherName(input.getFatherName());
+    			if(input.getEmployeeFatherName() != null) {
+    				employee.setEmployeeFatherName(input.getEmployeeFatherName());
     			}
-    			if(input.getFatherMiddleName() != null) {
-    				employee.setFatherMiddleName(input.getFatherMiddleName());
-    			}
-    			if(input.getFatherLastName() != null) {
-    				employee.setFatherLastName(input.getFatherLastName());
-    			}
+//    			if(input.getFatherMiddleName() != null) {
+//    				employee.setFatherMiddleName(input.getFatherMiddleName());
+//    			}
+//    			if(input.getFatherLastName() != null) {
+//    				employee.setFatherLastName(input.getFatherLastName());
+//    			}
     			
-    			if(input.getMotherName() != null) {
-    				employee.setMotherName(input.getMotherName());
+    			if(input.getEmployeeMotherName() != null) {
+    				employee.setEmployeeMotherName(input.getEmployeeMotherName());
     			}
-    			if(input.getMotherMiddleName() != null) {
-    				employee.setMotherMiddleName(input.getMotherMiddleName());
-    			}
-    			if(input.getMotherLastName() != null) {
-    				employee.setMotherLastName(input.getMotherLastName());
-    			}
+//    			if(input.getMotherMiddleName() != null) {
+//    				employee.setMotherMiddleName(input.getMotherMiddleName());
+//    			}
+//    			if(input.getMotherLastName() != null) {
+//    				employee.setMotherLastName(input.getMotherLastName());
+//    			}
+//    			
+//    			if(input.getSpouseName() != null) {
+//    				employee.setSpouseName(input.getSpouseName());
+//    			}
+//    			if(input.getSpouseMiddleName() != null) {
+//    				employee.setSpouseMiddleName(input.getSpouseMiddleName());
+//    			}
+//    			if(input.getSpouseLastName() != null) {
+//    				employee.setSpouseLastName(input.getSpouseLastName());
+//    			}
     			
-    			if(input.getSpouseName() != null) {
-    				employee.setSpouseName(input.getSpouseName());
-    			}
-    			if(input.getSpouseMiddleName() != null) {
-    				employee.setSpouseMiddleName(input.getSpouseMiddleName());
-    			}
-    			if(input.getSpouseLastName() != null) {
-    				employee.setSpouseLastName(input.getSpouseLastName());
-    			}
+//    			if(input.getPlaceOfBirth() != null) {
+//    				employee.setPlaceOfBirth(input.getPlaceOfBirth());
+//    			}
+//    			if(input.getReligion() != null) {
+//    				employee.setReligion(input.getReligion());
+//    			}
+//    			if(input.getCaste() != null) {
+//    				employee.setCaste(input.getCaste());
+//    			}
+//    			
+//    			if(input.getSubCaste() != null) {
+//    				employee.setSubCaste(input.getSubCaste());
+//    			}
+//    			if(input.getGender() != null) {
+//    				employee.setGender(input.getGender());
+//    			}
+//    			if(input.getBloodGroup() != null) {
+//    				employee.setBloodGroup(input.getBloodGroup());
+//    			}
     			
-    			if(input.getPlaceOfBirth() != null) {
-    				employee.setPlaceOfBirth(input.getPlaceOfBirth());
-    			}
-    			if(input.getReligion() != null) {
-    				employee.setReligion(input.getReligion());
-    			}
-    			if(input.getCaste() != null) {
-    				employee.setCaste(input.getCaste());
-    			}
+//    			if(input.getPinCode() != null) {
+//    				employee.setPinCode(input.getPinCode());
+//    			}
+//    			if(input.getRelationOfEmergencyContact() != null) {
+//    				employee.setRelationOfEmergencyContact(input.getRelationOfEmergencyContact());
+//    			}
+//    			if(input.getEmergencyContactName() != null) {
+//    				employee.setEmergencyContactName(input.getEmergencyContactName());
+//    			}
+//    			if(input.getEmergencyContactMiddleName() != null) {
+//    				employee.setEmergencyContactMiddleName(input.getEmergencyContactMiddleName());
+//    			}
+//    			if(input.getEmergencyContactLastName() != null) {
+//    				employee.setEmergencyContactLastName(input.getEmergencyContactLastName());
+//    			}
+//    			if(input.getEmergencyContactNo() != null) {
+//    				employee.setEmergencyContactNo(input.getEmergencyContactNo());
+//    			}
+//    			if(input.getEmergencyContactEmailAddress() != null) {
+//    				employee.setEmergencyContactEmailAddress(input.getEmergencyContactEmailAddress());
+//    			}
     			
-    			if(input.getSubCaste() != null) {
-    				employee.setSubCaste(input.getSubCaste());
-    			}
-    			if(input.getGender() != null) {
-    				employee.setGender(input.getGender());
-    			}
-    			if(input.getBloodGroup() != null) {
-    				employee.setBloodGroup(input.getBloodGroup());
-    			}
-    			
-    			if(input.getPinCode() != null) {
-    				employee.setPinCode(input.getPinCode());
-    			}
-    			if(input.getRelationOfEmergencyContact() != null) {
-    				employee.setRelationOfEmergencyContact(input.getRelationOfEmergencyContact());
-    			}
-    			if(input.getEmergencyContactName() != null) {
-    				employee.setEmergencyContactName(input.getEmergencyContactName());
-    			}
-    			if(input.getEmergencyContactMiddleName() != null) {
-    				employee.setEmergencyContactMiddleName(input.getEmergencyContactMiddleName());
-    			}
-    			if(input.getEmergencyContactLastName() != null) {
-    				employee.setEmergencyContactLastName(input.getEmergencyContactLastName());
-    			}
-    			if(input.getEmergencyContactNo() != null) {
-    				employee.setEmergencyContactNo(input.getEmergencyContactNo());
-    			}
-    			if(input.getEmergencyContactEmailAddress() != null) {
-    				employee.setEmergencyContactEmailAddress(input.getEmergencyContactEmailAddress());
-    			}
-    			
-    			if(input.getStatus() != null) {
-    				employee.setStatus(input.getStatus());
-    			}
-    			if(input.getStaffType() != null) {
-    				employee.setStaffType(input.getStaffType());
-    			}
+//    			if(input.getStatus() != null) {
+//    				employee.setStatus(input.getStatus());
+//    			}
+//    			if(input.getStaffType() != null) {
+//    				employee.setStaffType(input.getStaffType());
+//    			}
     			if(input.getDesignation() != null) {
     				employee.setDesignation(input.getDesignation());
     			}
@@ -266,10 +287,10 @@ public class CmsEmployeeService {
     			}
     			vo.setDateOfBirth(input.getStrDateOfBirth() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrDateOfBirth(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
     			vo.setJoiningDate(input.getStrJoiningDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrJoiningDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
-    			vo.setJobEndDate(input.getStrJobEndDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrJobEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
-    			vo.setResignationDate(input.getStrResignationDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrResignationDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
-    			vo.setResignationAcceptanceDate(input.getStrResignationAcceptanceDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrResignationAcceptanceDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
-    			
+//    			vo.setJobEndDate(input.getStrJobEndDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrJobEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
+//    			vo.setResignationDate(input.getStrResignationDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrResignationDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
+//    			vo.setResignationAcceptanceDate(input.getStrResignationAcceptanceDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrResignationAcceptanceDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
+//    			
     			if(input.getDepartmentId() != null) {
     				Department dp = this.departmentRepository.findById(input.getDepartmentId()).get();
     				employee.setDepartment(dp);
@@ -284,7 +305,7 @@ public class CmsEmployeeService {
         	
         	vo = CommonUtil.createCopyProperties(employee, CmsEmployeeVo.class);
         	
-        	vo.setStrDateOfBirth(employee.getDateOfBirth() != null ? DateFormatUtil.changeLocalDateFormat(employee.getDateOfBirth(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
+//        	vo.setStrDateOfBirth(employee.getDateOfBirth() != null ? DateFormatUtil.changeLocalDateFormat(employee.getDateOfBirth(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
 			vo.setStrJoiningDate(input.getJoiningDate() != null ? DateFormatUtil.changeLocalDateFormat(employee.getJoiningDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
 			vo.setStrJobEndDate(input.getJobEndDate() != null ? DateFormatUtil.changeLocalDateFormat(employee.getJobEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
 			vo.setStrResignationDate(input.getResignationDate() != null ? DateFormatUtil.changeLocalDateFormat(employee.getResignationDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
@@ -318,5 +339,109 @@ public class CmsEmployeeService {
         vo.setDataList(ls);
     	return vo;
         
+    }
+    
+    EmployeeInput convertCmsTeacherToCmsEmployee(TeacherInput tInp) {
+    	EmployeeInput eInp = new EmployeeInput();
+    	eInp.setId(tInp.getId());
+    	String empName = tInp.getTeacherName();
+    	if(!CommonUtil.isNullOrEmpty(tInp.getTeacherMiddleName())){
+    		empName = empName + " "+ tInp.getTeacherMiddleName();
+    	}
+    	if(!CommonUtil.isNullOrEmpty(tInp.getTeacherLastName())){
+    		empName = empName + " "+ tInp.getTeacherLastName();
+    	}
+    	eInp.setEmployeeName(empName);
+    	
+    	if(!CommonUtil.isNullOrEmpty(tInp.getDesignation())) {
+    		eInp.setDesignation(tInp.getDesignation());
+    	}
+    	
+        eInp.setJoiningDate(LocalDate.now());
+        if(!CommonUtil.isNullOrEmpty(tInp.getStrDateOfBirth())) {
+        	eInp.setStrDateOfBirth(tInp.getStrDateOfBirth());
+    	}
+        if(!CommonUtil.isNullOrEmpty(tInp.getStrDateOfBirth())) {
+        	eInp.setDateOfBirth(DateFormatUtil.convertStringToLocalDate(tInp.getStrDateOfBirth(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+    	}
+        if(!CommonUtil.isNullOrEmpty(tInp.getAadharNo())) {
+        	eInp.setAadharNo(tInp.getAadharNo());
+    	}
+        if(!CommonUtil.isNullOrEmpty(tInp.getPanNo())) {
+        	eInp.setPanNo(tInp.getPanNo());
+    	}
+        
+//        vo.setPassportNo(null);
+        if(!CommonUtil.isNullOrEmpty(tInp.getTeacherContactNumber())) {
+        	eInp.setPrimaryContactNo(tInp.getTeacherContactNumber());
+    	}
+        if(!CommonUtil.isNullOrEmpty(tInp.getAlternateContactNumber())) {
+        	eInp.setSecondaryContactNo(tInp.getAlternateContactNumber());
+    	}
+        String eFname = tInp.getFatherName();
+        if(!CommonUtil.isNullOrEmpty(tInp.getFatherMiddleName())) {
+        	eFname = eFname + " "+tInp.getFatherMiddleName();
+    	}
+        if(!CommonUtil.isNullOrEmpty(tInp.getFatherLastName())) {
+        	eFname = eFname + " "+tInp.getFatherLastName();
+    	}
+        eInp.setEmployeeFatherName(eFname);
+        
+        String eMname = tInp.getMotherName();
+        if(!CommonUtil.isNullOrEmpty(tInp.getFatherMiddleName())) {
+        	eMname = eMname + " "+tInp.getMotherMiddleName();
+    	}
+        if(!CommonUtil.isNullOrEmpty(tInp.getMotherLastName())) {
+        	eMname = eMname + " "+tInp.getMotherLastName();
+    	}
+        eInp.setEmployeeMotherName(eMname);
+        
+        if(!CommonUtil.isNullOrEmpty(tInp.getAddress())) {
+        	eInp.setPrimaryAddress(tInp.getAddress());
+    	}
+        
+//        vo.setSecondaryAddress(null);
+//        private String employeeAddress;
+        if(!CommonUtil.isNullOrEmpty(tInp.getTeacherEmailAddress())) {
+        	eInp.setPersonalMailId(tInp.getTeacherEmailAddress());
+    	}
+        
+//        private String officialMailId;
+//        private String disability;
+//        private String drivingLicenceNo;
+//        private LocalDate drivingLicenceValidity;
+        if(!CommonUtil.isNullOrEmpty(tInp.getSex())) {
+        	eInp.setGender(tInp.getSex());
+    	}
+        
+//        private String typeOfEmployment;
+//        private Long managerId;
+        if(!CommonUtil.isNullOrEmpty(tInp.getStatus())) {
+        	eInp.setStatus(tInp.getStatus());
+    	}
+        
+//        private String maritalStatus;
+//        private String strJobEndDate;
+//        private String strResignationDate;
+//        private String strResignationAcceptanceDate;
+//        private String strDrivingLicenceValidity;
+        if(!CommonUtil.isNullOrEmpty(tInp.getStaffType())) {
+        	eInp.setStaffType(tInp.getStaffType());
+    	}
+        
+        if(tInp.getBranchId() != null) {
+			eInp.setBranchId(tInp.getBranchId());
+			Branch branch = cmsBranchService.getBranch(tInp.getBranchId());
+			CmsBranchVo cmsBvo =CommonUtil.createCopyProperties(branch, CmsBranchVo.class); 
+			eInp.setCmsBranchVo(cmsBvo);
+		}
+        if(tInp.getDepartmentId() != null) {
+			eInp.setDepartmentId(tInp.getDepartmentId());
+			Department department = cmsDepartmentService.getDepartment(tInp.getDepartmentId());
+			CmsDepartmentVo cmsDvo =CommonUtil.createCopyProperties(department, CmsDepartmentVo.class); 
+			eInp.setCmsDepartmentVo(cmsDvo);
+		}
+		
+    	return eInp;
     }
 }

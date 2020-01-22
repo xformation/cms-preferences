@@ -32,14 +32,13 @@ import org.springframework.validation.Validator;
 
 import com.synectiks.pref.PreferencesApp;
 import com.synectiks.pref.domain.Subject;
-import com.synectiks.pref.domain.enumeration.Status;
-import com.synectiks.pref.domain.enumeration.SubTypeEnum;
 import com.synectiks.pref.repository.SubjectRepository;
 import com.synectiks.pref.repository.search.SubjectSearchRepository;
 import com.synectiks.pref.service.SubjectService;
 import com.synectiks.pref.service.dto.SubjectDTO;
 import com.synectiks.pref.service.mapper.SubjectMapper;
 import com.synectiks.pref.web.rest.errors.ExceptionTranslator;
+
 /**
  * Integration tests for the {@Link SubjectResource} REST controller.
  */
@@ -49,14 +48,14 @@ public class SubjectResourceIT {
     private static final String DEFAULT_SUBJECT_CODE = "AAAAAAAAAA";
     private static final String UPDATED_SUBJECT_CODE = "BBBBBBBBBB";
 
-    private static final SubTypeEnum DEFAULT_SUBJECT_TYPE = SubTypeEnum.COMMON;
-    private static final SubTypeEnum UPDATED_SUBJECT_TYPE = SubTypeEnum.ELECTIVE;
+    private static final String DEFAULT_SUBJECT_TYPE = "AAAAAAAAAA";
+    private static final String UPDATED_SUBJECT_TYPE = "BBBBBBBBBB";
 
     private static final String DEFAULT_SUBJECT_DESC = "AAAAAAAAAA";
     private static final String UPDATED_SUBJECT_DESC = "BBBBBBBBBB";
 
-    private static final Status DEFAULT_STATUS = Status.ACTIVE;
-    private static final Status UPDATED_STATUS = Status.DEACTIVE;
+    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBB";
 
     @Autowired
     private SubjectRepository subjectRepository;
@@ -311,23 +310,23 @@ public class SubjectResourceIT {
         verify(mockSubjectSearchRepository, times(1)).deleteById(subject.getId());
     }
 
-//    @Test
-//    @Transactional
-//    public void searchSubject() throws Exception {
-//        // Initialize the database
-//        subjectRepository.saveAndFlush(subject);
+    @Test
+    @Transactional
+    public void searchSubject() throws Exception {
+        // Initialize the database
+        subjectRepository.saveAndFlush(subject);
 //        when(mockSubjectSearchRepository.search(queryStringQuery("id:" + subject.getId())))
 //            .thenReturn(Collections.singletonList(subject));
-//        // Search the subject
-//        restSubjectMockMvc.perform(get("/api/_search/subjects?query=id:" + subject.getId()))
-//            .andExpect(status().isOk())
-//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//            .andExpect(jsonPath("$.[*].id").value(hasItem(subject.getId().intValue())))
-//            .andExpect(jsonPath("$.[*].subjectCode").value(hasItem(DEFAULT_SUBJECT_CODE)))
-//            .andExpect(jsonPath("$.[*].subjectType").value(hasItem(DEFAULT_SUBJECT_TYPE.toString())))
-//            .andExpect(jsonPath("$.[*].subjectDesc").value(hasItem(DEFAULT_SUBJECT_DESC)))
-//            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
-//    }
+        // Search the subject
+        restSubjectMockMvc.perform(get("/api/_search/subjects?query=id:" + subject.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(subject.getId().intValue())))
+            .andExpect(jsonPath("$.[*].subjectCode").value(hasItem(DEFAULT_SUBJECT_CODE)))
+            .andExpect(jsonPath("$.[*].subjectType").value(hasItem(DEFAULT_SUBJECT_TYPE)))
+            .andExpect(jsonPath("$.[*].subjectDesc").value(hasItem(DEFAULT_SUBJECT_DESC)))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
+    }
 
     @Test
     @Transactional

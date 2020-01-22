@@ -3,8 +3,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,21 +10,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.synectiks.pref.domain.enumeration.Status;
-import com.synectiks.pref.domain.enumeration.SubTypeEnum;
-import com.synectiks.pref.utils.IESEntity;
 
 /**
  * A Subject.
  */
 @Entity
 @Table(name = "subject")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Subject implements Serializable, IESEntity {
+public class Subject implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,16 +29,14 @@ public class Subject implements Serializable, IESEntity {
     @Column(name = "subject_code")
     private String subjectCode;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "subject_type")
-    private SubTypeEnum subjectType;
+    private String subjectType;
 
     @Column(name = "subject_desc")
     private String subjectDesc;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private String status;
 
     @ManyToOne
     @JsonIgnoreProperties("subjects")
@@ -79,16 +68,16 @@ public class Subject implements Serializable, IESEntity {
         this.subjectCode = subjectCode;
     }
 
-    public SubTypeEnum getSubjectType() {
+    public String getSubjectType() {
         return subjectType;
     }
 
-    public Subject subjectType(SubTypeEnum subjectType) {
+    public Subject subjectType(String subjectType) {
         this.subjectType = subjectType;
         return this;
     }
 
-    public void setSubjectType(SubTypeEnum subjectType) {
+    public void setSubjectType(String subjectType) {
         this.subjectType = subjectType;
     }
 
@@ -105,16 +94,16 @@ public class Subject implements Serializable, IESEntity {
         this.subjectDesc = subjectDesc;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public Subject status(Status status) {
+    public Subject status(String status) {
         this.status = status;
         return this;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

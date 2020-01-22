@@ -1252,7 +1252,7 @@ public class CommonService {
 
     public List<Teacher> getAllActiveTeachers(){
         Teacher teacher = new Teacher();
-        teacher.setStatus(Status.ACTIVE);
+        teacher.setStatus(CmsConstants.STATUS_ACTIVE);
         List<Teacher> list = this.teacherRepository.findAll(Example.of(teacher));
         logger.debug("Total teachers irrespective of branches : "+list.size());
         return list;

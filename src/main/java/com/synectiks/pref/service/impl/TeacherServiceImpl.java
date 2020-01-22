@@ -30,12 +30,12 @@ public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherMapper teacherMapper;
 
-//    private final TeacherSearchRepository teacherSearchRepository;
+    private final TeacherSearchRepository teacherSearchRepository;
 
     public TeacherServiceImpl(TeacherRepository teacherRepository, TeacherMapper teacherMapper, TeacherSearchRepository teacherSearchRepository) {
         this.teacherRepository = teacherRepository;
         this.teacherMapper = teacherMapper;
-//        this.teacherSearchRepository = teacherSearchRepository;
+        this.teacherSearchRepository = teacherSearchRepository;
     }
 
     /**
@@ -50,7 +50,7 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher = teacherMapper.toEntity(teacherDTO);
         teacher = teacherRepository.save(teacher);
         TeacherDTO result = teacherMapper.toDto(teacher);
-//        teacherSearchRepository.save(teacher);
+        teacherSearchRepository.save(teacher);
         return result;
     }
 
@@ -92,7 +92,7 @@ public class TeacherServiceImpl implements TeacherService {
     public void delete(Long id) {
         log.debug("Request to delete Teacher : {}", id);
         teacherRepository.deleteById(id);
-//        teacherSearchRepository.deleteById(id);
+        teacherSearchRepository.deleteById(id);
     }
 
     /**

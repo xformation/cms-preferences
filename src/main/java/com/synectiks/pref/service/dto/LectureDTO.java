@@ -1,6 +1,5 @@
 package com.synectiks.pref.service.dto;
 import java.time.LocalDate;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,19 +10,14 @@ public class LectureDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
     private LocalDate lecDate;
 
-    @NotNull
     private LocalDate lastUpdatedOn;
 
-    @NotNull
     private String lastUpdatedBy;
 
-    @NotNull
     private String startTime;
 
-    @NotNull
     private String endTime;
 
 

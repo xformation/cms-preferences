@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,30 +11,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.synectiks.pref.domain.enumeration.Bloodgroup;
-import com.synectiks.pref.domain.enumeration.Caste;
-import com.synectiks.pref.domain.enumeration.Gender;
-import com.synectiks.pref.domain.enumeration.RelationWithStudentEnum;
-import com.synectiks.pref.domain.enumeration.Religion;
-import com.synectiks.pref.domain.enumeration.StaffType;
-import com.synectiks.pref.domain.enumeration.Status;
-import com.synectiks.pref.utils.IESEntity;
 
 /**
  * A Teacher.
  */
 @Entity
 @Table(name = "teacher")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Teacher implements Serializable, IESEntity {
+public class Teacher implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -82,7 +68,7 @@ public class Teacher implements Serializable, IESEntity {
     private String motherLastName;
 
     @Column(name = "aadhar_no")
-    private Long aadharNo;
+    private String aadharNo;
 
     @Column(name = "date_of_birth")
     @JsonSerialize(using = LocalDateSerializer.class)
@@ -92,13 +78,11 @@ public class Teacher implements Serializable, IESEntity {
     @Column(name = "place_of_birth")
     private String placeOfBirth;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "religion")
-    private Religion religion;
+    private String religion;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "caste")
-    private Caste caste;
+    private String caste;
 
     @Column(name = "sub_caste")
     private String subCaste;
@@ -106,22 +90,14 @@ public class Teacher implements Serializable, IESEntity {
     @Column(name = "age")
     private Integer age;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "sex")
-    private Gender sex;
+    private String sex;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "blood_group")
-    private Bloodgroup bloodGroup;
+    private String bloodGroup;
 
-    @Column(name = "address_line_one")
-    private String addressLineOne;
-
-    @Column(name = "address_line_two")
-    private String addressLineTwo;
-
-    @Column(name = "address_line_three")
-    private String addressLineThree;
+    @Column(name = "address")
+    private String address;
 
     @Column(name = "town")
     private String town;
@@ -132,8 +108,8 @@ public class Teacher implements Serializable, IESEntity {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "pincode")
-    private Long pincode;
+    @Column(name = "pin_code")
+    private String pinCode;
 
     @Column(name = "teacher_contact_number")
     private String teacherContactNumber;
@@ -147,9 +123,8 @@ public class Teacher implements Serializable, IESEntity {
     @Column(name = "alternate_email_address")
     private String alternateEmailAddress;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "relation_with_staff")
-    private RelationWithStudentEnum relationWithStaff;
+    private String relationWithStaff;
 
     @Column(name = "emergency_contact_name")
     private String emergencyContactName;
@@ -169,9 +144,8 @@ public class Teacher implements Serializable, IESEntity {
     @Column(name = "upload_photo")
     private String uploadPhoto;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private String status;
 
     @Column(name = "employee_id")
     private Long employeeId;
@@ -179,9 +153,8 @@ public class Teacher implements Serializable, IESEntity {
     @Column(name = "designation")
     private String designation;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "staff_type")
-    private StaffType staffType;
+    private String staffType;
 
     @ManyToOne
     @JsonIgnoreProperties("teachers")
@@ -356,16 +329,16 @@ public class Teacher implements Serializable, IESEntity {
         this.motherLastName = motherLastName;
     }
 
-    public Long getAadharNo() {
+    public String getAadharNo() {
         return aadharNo;
     }
 
-    public Teacher aadharNo(Long aadharNo) {
+    public Teacher aadharNo(String aadharNo) {
         this.aadharNo = aadharNo;
         return this;
     }
 
-    public void setAadharNo(Long aadharNo) {
+    public void setAadharNo(String aadharNo) {
         this.aadharNo = aadharNo;
     }
 
@@ -395,29 +368,29 @@ public class Teacher implements Serializable, IESEntity {
         this.placeOfBirth = placeOfBirth;
     }
 
-    public Religion getReligion() {
+    public String getReligion() {
         return religion;
     }
 
-    public Teacher religion(Religion religion) {
+    public Teacher religion(String religion) {
         this.religion = religion;
         return this;
     }
 
-    public void setReligion(Religion religion) {
+    public void setReligion(String religion) {
         this.religion = religion;
     }
 
-    public Caste getCaste() {
+    public String getCaste() {
         return caste;
     }
 
-    public Teacher caste(Caste caste) {
+    public Teacher caste(String caste) {
         this.caste = caste;
         return this;
     }
 
-    public void setCaste(Caste caste) {
+    public void setCaste(String caste) {
         this.caste = caste;
     }
 
@@ -447,69 +420,43 @@ public class Teacher implements Serializable, IESEntity {
         this.age = age;
     }
 
-    public Gender getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public Teacher sex(Gender sex) {
+    public Teacher sex(String sex) {
         this.sex = sex;
         return this;
     }
 
-    public void setSex(Gender sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
-    public Bloodgroup getBloodGroup() {
+    public String getBloodGroup() {
         return bloodGroup;
     }
 
-    public Teacher bloodGroup(Bloodgroup bloodGroup) {
+    public Teacher bloodGroup(String bloodGroup) {
         this.bloodGroup = bloodGroup;
         return this;
     }
 
-    public void setBloodGroup(Bloodgroup bloodGroup) {
+    public void setBloodGroup(String bloodGroup) {
         this.bloodGroup = bloodGroup;
     }
 
-    public String getAddressLineOne() {
-        return addressLineOne;
+    public String getAddress() {
+        return address;
     }
 
-    public Teacher addressLineOne(String addressLineOne) {
-        this.addressLineOne = addressLineOne;
+    public Teacher address(String address) {
+        this.address = address;
         return this;
     }
 
-    public void setAddressLineOne(String addressLineOne) {
-        this.addressLineOne = addressLineOne;
-    }
-
-    public String getAddressLineTwo() {
-        return addressLineTwo;
-    }
-
-    public Teacher addressLineTwo(String addressLineTwo) {
-        this.addressLineTwo = addressLineTwo;
-        return this;
-    }
-
-    public void setAddressLineTwo(String addressLineTwo) {
-        this.addressLineTwo = addressLineTwo;
-    }
-
-    public String getAddressLineThree() {
-        return addressLineThree;
-    }
-
-    public Teacher addressLineThree(String addressLineThree) {
-        this.addressLineThree = addressLineThree;
-        return this;
-    }
-
-    public void setAddressLineThree(String addressLineThree) {
-        this.addressLineThree = addressLineThree;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getTown() {
@@ -551,17 +498,17 @@ public class Teacher implements Serializable, IESEntity {
         this.country = country;
     }
 
-    public Long getPincode() {
-        return pincode;
+    public String getPinCode() {
+        return pinCode;
     }
 
-    public Teacher pincode(Long pincode) {
-        this.pincode = pincode;
+    public Teacher pinCode(String pinCode) {
+        this.pinCode = pinCode;
         return this;
     }
 
-    public void setPincode(Long pincode) {
-        this.pincode = pincode;
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
     }
 
     public String getTeacherContactNumber() {
@@ -616,16 +563,16 @@ public class Teacher implements Serializable, IESEntity {
         this.alternateEmailAddress = alternateEmailAddress;
     }
 
-    public RelationWithStudentEnum getRelationWithStaff() {
+    public String getRelationWithStaff() {
         return relationWithStaff;
     }
 
-    public Teacher relationWithStaff(RelationWithStudentEnum relationWithStaff) {
+    public Teacher relationWithStaff(String relationWithStaff) {
         this.relationWithStaff = relationWithStaff;
         return this;
     }
 
-    public void setRelationWithStaff(RelationWithStudentEnum relationWithStaff) {
+    public void setRelationWithStaff(String relationWithStaff) {
         this.relationWithStaff = relationWithStaff;
     }
 
@@ -707,16 +654,16 @@ public class Teacher implements Serializable, IESEntity {
         this.uploadPhoto = uploadPhoto;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public Teacher status(Status status) {
+    public Teacher status(String status) {
         this.status = status;
         return this;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -746,16 +693,16 @@ public class Teacher implements Serializable, IESEntity {
         this.designation = designation;
     }
 
-    public StaffType getStaffType() {
+    public String getStaffType() {
         return staffType;
     }
 
-    public Teacher staffType(StaffType staffType) {
+    public Teacher staffType(String staffType) {
         this.staffType = staffType;
         return this;
     }
 
-    public void setStaffType(StaffType staffType) {
+    public void setStaffType(String staffType) {
         this.staffType = staffType;
     }
 
@@ -818,7 +765,7 @@ public class Teacher implements Serializable, IESEntity {
             ", motherName='" + getMotherName() + "'" +
             ", motherMiddleName='" + getMotherMiddleName() + "'" +
             ", motherLastName='" + getMotherLastName() + "'" +
-            ", aadharNo=" + getAadharNo() +
+            ", aadharNo='" + getAadharNo() + "'" +
             ", dateOfBirth='" + getDateOfBirth() + "'" +
             ", placeOfBirth='" + getPlaceOfBirth() + "'" +
             ", religion='" + getReligion() + "'" +
@@ -827,13 +774,11 @@ public class Teacher implements Serializable, IESEntity {
             ", age=" + getAge() +
             ", sex='" + getSex() + "'" +
             ", bloodGroup='" + getBloodGroup() + "'" +
-            ", addressLineOne='" + getAddressLineOne() + "'" +
-            ", addressLineTwo='" + getAddressLineTwo() + "'" +
-            ", addressLineThree='" + getAddressLineThree() + "'" +
+            ", address='" + getAddress() + "'" +
             ", town='" + getTown() + "'" +
             ", state='" + getState() + "'" +
             ", country='" + getCountry() + "'" +
-            ", pincode=" + getPincode() +
+            ", pinCode='" + getPinCode() + "'" +
             ", teacherContactNumber='" + getTeacherContactNumber() + "'" +
             ", alternateContactNumber='" + getAlternateContactNumber() + "'" +
             ", teacherEmailAddress='" + getTeacherEmailAddress() + "'" +

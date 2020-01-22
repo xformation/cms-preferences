@@ -1,8 +1,6 @@
 package com.synectiks.pref.service.dto;
 import java.io.Serializable;
 import java.util.Objects;
-import com.synectiks.pref.domain.enumeration.SubTypeEnum;
-import com.synectiks.pref.domain.enumeration.Status;
 
 /**
  * A DTO for the {@link com.synectiks.pref.domain.Subject} entity.
@@ -13,11 +11,11 @@ public class SubjectDTO implements Serializable {
 
     private String subjectCode;
 
-    private SubTypeEnum subjectType;
+    private String subjectType;
 
     private String subjectDesc;
 
-    private Status status;
+    private String status;
 
 
     private Long departmentId;
@@ -40,11 +38,11 @@ public class SubjectDTO implements Serializable {
         this.subjectCode = subjectCode;
     }
 
-    public SubTypeEnum getSubjectType() {
+    public String getSubjectType() {
         return subjectType;
     }
 
-    public void setSubjectType(SubTypeEnum subjectType) {
+    public void setSubjectType(String subjectType) {
         this.subjectType = subjectType;
     }
 
@@ -56,11 +54,11 @@ public class SubjectDTO implements Serializable {
         this.subjectDesc = subjectDesc;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

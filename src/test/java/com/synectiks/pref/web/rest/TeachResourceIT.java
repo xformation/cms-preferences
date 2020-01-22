@@ -280,20 +280,20 @@ public class TeachResourceIT {
         verify(mockTeachSearchRepository, times(1)).deleteById(teach.getId());
     }
 
-//    @Test
-//    @Transactional
-//    public void searchTeach() throws Exception {
-//        // Initialize the database
-//        teachRepository.saveAndFlush(teach);
+    @Test
+    @Transactional
+    public void searchTeach() throws Exception {
+        // Initialize the database
+        teachRepository.saveAndFlush(teach);
 //        when(mockTeachSearchRepository.search(queryStringQuery("id:" + teach.getId())))
 //            .thenReturn(Collections.singletonList(teach));
-//        // Search the teach
-//        restTeachMockMvc.perform(get("/api/_search/teaches?query=id:" + teach.getId()))
-//            .andExpect(status().isOk())
-//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//            .andExpect(jsonPath("$.[*].id").value(hasItem(teach.getId().intValue())))
-//            .andExpect(jsonPath("$.[*].desc").value(hasItem(DEFAULT_DESC)));
-//    }
+        // Search the teach
+        restTeachMockMvc.perform(get("/api/_search/teaches?query=id:" + teach.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(teach.getId().intValue())))
+            .andExpect(jsonPath("$.[*].desc").value(hasItem(DEFAULT_DESC)));
+    }
 
     @Test
     @Transactional

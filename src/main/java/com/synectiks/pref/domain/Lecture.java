@@ -10,25 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.synectiks.pref.utils.IESEntity;
 
 /**
  * A Lecture.
  */
 @Entity
 @Table(name = "lecture")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Lecture implements Serializable, IESEntity {
+public class Lecture implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,28 +27,19 @@ public class Lecture implements Serializable, IESEntity {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
-    @Column(name = "lec_date", nullable = false)
-    @JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
+    @Column(name = "lec_date")
     private LocalDate lecDate;
 
-    @NotNull
-    @Column(name = "last_updated_on", nullable = false)
-    @JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
+    @Column(name = "last_updated_on")
     private LocalDate lastUpdatedOn;
 
-    @NotNull
-    @Column(name = "last_updated_by", nullable = false)
+    @Column(name = "last_updated_by")
     private String lastUpdatedBy;
 
-    @NotNull
-    @Column(name = "start_time", nullable = false)
+    @Column(name = "start_time")
     private String startTime;
 
-    @NotNull
-    @Column(name = "end_time", nullable = false)
+    @Column(name = "end_time")
     private String endTime;
 
     @ManyToOne

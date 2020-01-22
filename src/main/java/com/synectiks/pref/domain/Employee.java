@@ -34,89 +34,6 @@ public class Employee implements Serializable {
     @Column(name = "employee_name")
     private String employeeName;
 
-    @Column(name = "employee_middle_name")
-    private String employeeMiddleName;
-
-    @Column(name = "employee_last_name")
-    private String employeeLastName;
-
-    @Column(name = "father_name")
-    private String fatherName;
-
-    @Column(name = "father_middle_name")
-    private String fatherMiddleName;
-
-    @Column(name = "father_last_name")
-    private String fatherLastName;
-
-    @Column(name = "spouse_name")
-    private String spouseName;
-
-    @Column(name = "spouse_middle_name")
-    private String spouseMiddleName;
-
-    @Column(name = "spouse_last_name")
-    private String spouseLastName;
-
-    @Column(name = "mother_name")
-    private String motherName;
-
-    @Column(name = "mother_middle_name")
-    private String motherMiddleName;
-
-    @Column(name = "mother_last_name")
-    private String motherLastName;
-
-    @Column(name = "date_of_birth")
-    @JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-    private LocalDate dateOfBirth;
-
-    @Column(name = "place_of_birth")
-    private String placeOfBirth;
-
-    @Column(name = "religion")
-    private String religion;
-
-    @Column(name = "caste")
-    private String caste;
-
-    @Column(name = "sub_caste")
-    private String subCaste;
-
-    @Column(name = "gender")
-    private String gender;
-
-    @Column(name = "blood_group")
-    private String bloodGroup;
-
-    @Column(name = "pin_code")
-    private String pinCode;
-
-    @Column(name = "relation_of_emergency_contact")
-    private String relationOfEmergencyContact;
-
-    @Column(name = "emergency_contact_name")
-    private String emergencyContactName;
-
-    @Column(name = "emergency_contact_middle_name")
-    private String emergencyContactMiddleName;
-
-    @Column(name = "emergency_contact_last_name")
-    private String emergencyContactLastName;
-
-    @Column(name = "emergency_contact_no")
-    private String emergencyContactNo;
-
-    @Column(name = "emergency_contact_email_address")
-    private String emergencyContactEmailAddress;
-
-    @Column(name = "status")
-    private String status;
-
-    @Column(name = "staff_type")
-    private String staffType;
-
     @Column(name = "designation")
     private String designation;
 
@@ -140,6 +57,11 @@ public class Employee implements Serializable {
 	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate resignationAcceptanceDate;
 
+    @Column(name = "date_of_birth")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate dateOfBirth;
+    
     @Column(name = "aadhar_no")
     private String aadharNo;
 
@@ -155,11 +77,20 @@ public class Employee implements Serializable {
     @Column(name = "secondary_contact_no")
     private String secondaryContactNo;
 
+    @Column(name = "employee_father_name")
+    private String employeeFatherName;
+
+    @Column(name = "employee_mother_name")
+    private String employeeMotherName;
+
     @Column(name = "primary_address")
     private String primaryAddress;
 
     @Column(name = "secondary_address")
     private String secondaryAddress;
+
+    @Column(name = "employee_address")
+    private String employeeAddress;
 
     @Column(name = "personal_mail_id")
     private String personalMailId;
@@ -167,8 +98,19 @@ public class Employee implements Serializable {
     @Column(name = "official_mail_id")
     private String officialMailId;
 
+    @Column(name = "disability")
+    private String disability;
+
     @Column(name = "driving_licence_no")
     private String drivingLicenceNo;
+
+    @Column(name = "driving_licence_validity")
+    @JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate drivingLicenceValidity;
+
+    @Column(name = "gender")
+    private String gender;
 
     @Column(name = "type_of_employment")
     private String typeOfEmployment;
@@ -176,9 +118,15 @@ public class Employee implements Serializable {
     @Column(name = "manager_id")
     private Long managerId;
 
+    @Column(name = "status")
+    private String status;
+
     @Column(name = "marital_status")
     private String maritalStatus;
 
+    @Column(name = "staff_type")
+    private String staffType;
+    
     @ManyToOne
     @JsonIgnoreProperties("employees")
     private Department department;
@@ -207,357 +155,6 @@ public class Employee implements Serializable {
 
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
-    }
-
-    public String getEmployeeMiddleName() {
-        return employeeMiddleName;
-    }
-
-    public Employee employeeMiddleName(String employeeMiddleName) {
-        this.employeeMiddleName = employeeMiddleName;
-        return this;
-    }
-
-    public void setEmployeeMiddleName(String employeeMiddleName) {
-        this.employeeMiddleName = employeeMiddleName;
-    }
-
-    public String getEmployeeLastName() {
-        return employeeLastName;
-    }
-
-    public Employee employeeLastName(String employeeLastName) {
-        this.employeeLastName = employeeLastName;
-        return this;
-    }
-
-    public void setEmployeeLastName(String employeeLastName) {
-        this.employeeLastName = employeeLastName;
-    }
-
-    public String getFatherName() {
-        return fatherName;
-    }
-
-    public Employee fatherName(String fatherName) {
-        this.fatherName = fatherName;
-        return this;
-    }
-
-    public void setFatherName(String fatherName) {
-        this.fatherName = fatherName;
-    }
-
-    public String getFatherMiddleName() {
-        return fatherMiddleName;
-    }
-
-    public Employee fatherMiddleName(String fatherMiddleName) {
-        this.fatherMiddleName = fatherMiddleName;
-        return this;
-    }
-
-    public void setFatherMiddleName(String fatherMiddleName) {
-        this.fatherMiddleName = fatherMiddleName;
-    }
-
-    public String getFatherLastName() {
-        return fatherLastName;
-    }
-
-    public Employee fatherLastName(String fatherLastName) {
-        this.fatherLastName = fatherLastName;
-        return this;
-    }
-
-    public void setFatherLastName(String fatherLastName) {
-        this.fatherLastName = fatherLastName;
-    }
-
-    public String getSpouseName() {
-        return spouseName;
-    }
-
-    public Employee spouseName(String spouseName) {
-        this.spouseName = spouseName;
-        return this;
-    }
-
-    public void setSpouseName(String spouseName) {
-        this.spouseName = spouseName;
-    }
-
-    public String getSpouseMiddleName() {
-        return spouseMiddleName;
-    }
-
-    public Employee spouseMiddleName(String spouseMiddleName) {
-        this.spouseMiddleName = spouseMiddleName;
-        return this;
-    }
-
-    public void setSpouseMiddleName(String spouseMiddleName) {
-        this.spouseMiddleName = spouseMiddleName;
-    }
-
-    public String getSpouseLastName() {
-        return spouseLastName;
-    }
-
-    public Employee spouseLastName(String spouseLastName) {
-        this.spouseLastName = spouseLastName;
-        return this;
-    }
-
-    public void setSpouseLastName(String spouseLastName) {
-        this.spouseLastName = spouseLastName;
-    }
-
-    public String getMotherName() {
-        return motherName;
-    }
-
-    public Employee motherName(String motherName) {
-        this.motherName = motherName;
-        return this;
-    }
-
-    public void setMotherName(String motherName) {
-        this.motherName = motherName;
-    }
-
-    public String getMotherMiddleName() {
-        return motherMiddleName;
-    }
-
-    public Employee motherMiddleName(String motherMiddleName) {
-        this.motherMiddleName = motherMiddleName;
-        return this;
-    }
-
-    public void setMotherMiddleName(String motherMiddleName) {
-        this.motherMiddleName = motherMiddleName;
-    }
-
-    public String getMotherLastName() {
-        return motherLastName;
-    }
-
-    public Employee motherLastName(String motherLastName) {
-        this.motherLastName = motherLastName;
-        return this;
-    }
-
-    public void setMotherLastName(String motherLastName) {
-        this.motherLastName = motherLastName;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public Employee dateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-        return this;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getPlaceOfBirth() {
-        return placeOfBirth;
-    }
-
-    public Employee placeOfBirth(String placeOfBirth) {
-        this.placeOfBirth = placeOfBirth;
-        return this;
-    }
-
-    public void setPlaceOfBirth(String placeOfBirth) {
-        this.placeOfBirth = placeOfBirth;
-    }
-
-    public String getReligion() {
-        return religion;
-    }
-
-    public Employee religion(String religion) {
-        this.religion = religion;
-        return this;
-    }
-
-    public void setReligion(String religion) {
-        this.religion = religion;
-    }
-
-    public String getCaste() {
-        return caste;
-    }
-
-    public Employee caste(String caste) {
-        this.caste = caste;
-        return this;
-    }
-
-    public void setCaste(String caste) {
-        this.caste = caste;
-    }
-
-    public String getSubCaste() {
-        return subCaste;
-    }
-
-    public Employee subCaste(String subCaste) {
-        this.subCaste = subCaste;
-        return this;
-    }
-
-    public void setSubCaste(String subCaste) {
-        this.subCaste = subCaste;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public Employee gender(String gender) {
-        this.gender = gender;
-        return this;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getBloodGroup() {
-        return bloodGroup;
-    }
-
-    public Employee bloodGroup(String bloodGroup) {
-        this.bloodGroup = bloodGroup;
-        return this;
-    }
-
-    public void setBloodGroup(String bloodGroup) {
-        this.bloodGroup = bloodGroup;
-    }
-
-    public String getPinCode() {
-        return pinCode;
-    }
-
-    public Employee pinCode(String pinCode) {
-        this.pinCode = pinCode;
-        return this;
-    }
-
-    public void setPinCode(String pinCode) {
-        this.pinCode = pinCode;
-    }
-
-    public String getRelationOfEmergencyContact() {
-        return relationOfEmergencyContact;
-    }
-
-    public Employee relationOfEmergencyContact(String relationOfEmergencyContact) {
-        this.relationOfEmergencyContact = relationOfEmergencyContact;
-        return this;
-    }
-
-    public void setRelationOfEmergencyContact(String relationOfEmergencyContact) {
-        this.relationOfEmergencyContact = relationOfEmergencyContact;
-    }
-
-    public String getEmergencyContactName() {
-        return emergencyContactName;
-    }
-
-    public Employee emergencyContactName(String emergencyContactName) {
-        this.emergencyContactName = emergencyContactName;
-        return this;
-    }
-
-    public void setEmergencyContactName(String emergencyContactName) {
-        this.emergencyContactName = emergencyContactName;
-    }
-
-    public String getEmergencyContactMiddleName() {
-        return emergencyContactMiddleName;
-    }
-
-    public Employee emergencyContactMiddleName(String emergencyContactMiddleName) {
-        this.emergencyContactMiddleName = emergencyContactMiddleName;
-        return this;
-    }
-
-    public void setEmergencyContactMiddleName(String emergencyContactMiddleName) {
-        this.emergencyContactMiddleName = emergencyContactMiddleName;
-    }
-
-    public String getEmergencyContactLastName() {
-        return emergencyContactLastName;
-    }
-
-    public Employee emergencyContactLastName(String emergencyContactLastName) {
-        this.emergencyContactLastName = emergencyContactLastName;
-        return this;
-    }
-
-    public void setEmergencyContactLastName(String emergencyContactLastName) {
-        this.emergencyContactLastName = emergencyContactLastName;
-    }
-
-    public String getEmergencyContactNo() {
-        return emergencyContactNo;
-    }
-
-    public Employee emergencyContactNo(String emergencyContactNo) {
-        this.emergencyContactNo = emergencyContactNo;
-        return this;
-    }
-
-    public void setEmergencyContactNo(String emergencyContactNo) {
-        this.emergencyContactNo = emergencyContactNo;
-    }
-
-    public String getEmergencyContactEmailAddress() {
-        return emergencyContactEmailAddress;
-    }
-
-    public Employee emergencyContactEmailAddress(String emergencyContactEmailAddress) {
-        this.emergencyContactEmailAddress = emergencyContactEmailAddress;
-        return this;
-    }
-
-    public void setEmergencyContactEmailAddress(String emergencyContactEmailAddress) {
-        this.emergencyContactEmailAddress = emergencyContactEmailAddress;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public Employee status(String status) {
-        this.status = status;
-        return this;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getStaffType() {
-        return staffType;
-    }
-
-    public Employee staffType(String staffType) {
-        this.staffType = staffType;
-        return this;
-    }
-
-    public void setStaffType(String staffType) {
-        this.staffType = staffType;
     }
 
     public String getDesignation() {
@@ -690,6 +287,32 @@ public class Employee implements Serializable {
         this.secondaryContactNo = secondaryContactNo;
     }
 
+    public String getEmployeeFatherName() {
+        return employeeFatherName;
+    }
+
+    public Employee employeeFatherName(String employeeFatherName) {
+        this.employeeFatherName = employeeFatherName;
+        return this;
+    }
+
+    public void setEmployeeFatherName(String employeeFatherName) {
+        this.employeeFatherName = employeeFatherName;
+    }
+
+    public String getEmployeeMotherName() {
+        return employeeMotherName;
+    }
+
+    public Employee employeeMotherName(String employeeMotherName) {
+        this.employeeMotherName = employeeMotherName;
+        return this;
+    }
+
+    public void setEmployeeMotherName(String employeeMotherName) {
+        this.employeeMotherName = employeeMotherName;
+    }
+
     public String getPrimaryAddress() {
         return primaryAddress;
     }
@@ -714,6 +337,19 @@ public class Employee implements Serializable {
 
     public void setSecondaryAddress(String secondaryAddress) {
         this.secondaryAddress = secondaryAddress;
+    }
+
+    public String getEmployeeAddress() {
+        return employeeAddress;
+    }
+
+    public Employee employeeAddress(String employeeAddress) {
+        this.employeeAddress = employeeAddress;
+        return this;
+    }
+
+    public void setEmployeeAddress(String employeeAddress) {
+        this.employeeAddress = employeeAddress;
     }
 
     public String getPersonalMailId() {
@@ -742,6 +378,19 @@ public class Employee implements Serializable {
         this.officialMailId = officialMailId;
     }
 
+    public String getDisability() {
+        return disability;
+    }
+
+    public Employee disability(String disability) {
+        this.disability = disability;
+        return this;
+    }
+
+    public void setDisability(String disability) {
+        this.disability = disability;
+    }
+
     public String getDrivingLicenceNo() {
         return drivingLicenceNo;
     }
@@ -753,6 +402,32 @@ public class Employee implements Serializable {
 
     public void setDrivingLicenceNo(String drivingLicenceNo) {
         this.drivingLicenceNo = drivingLicenceNo;
+    }
+
+    public LocalDate getDrivingLicenceValidity() {
+        return drivingLicenceValidity;
+    }
+
+    public Employee drivingLicenceValidity(LocalDate drivingLicenceValidity) {
+        this.drivingLicenceValidity = drivingLicenceValidity;
+        return this;
+    }
+
+    public void setDrivingLicenceValidity(LocalDate drivingLicenceValidity) {
+        this.drivingLicenceValidity = drivingLicenceValidity;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public Employee gender(String gender) {
+        this.gender = gender;
+        return this;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getTypeOfEmployment() {
@@ -779,6 +454,19 @@ public class Employee implements Serializable {
 
     public void setManagerId(Long managerId) {
         this.managerId = managerId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Employee status(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getMaritalStatus() {
@@ -842,33 +530,6 @@ public class Employee implements Serializable {
         return "Employee{" +
             "id=" + getId() +
             ", employeeName='" + getEmployeeName() + "'" +
-            ", employeeMiddleName='" + getEmployeeMiddleName() + "'" +
-            ", employeeLastName='" + getEmployeeLastName() + "'" +
-            ", fatherName='" + getFatherName() + "'" +
-            ", fatherMiddleName='" + getFatherMiddleName() + "'" +
-            ", fatherLastName='" + getFatherLastName() + "'" +
-            ", spouseName='" + getSpouseName() + "'" +
-            ", spouseMiddleName='" + getSpouseMiddleName() + "'" +
-            ", spouseLastName='" + getSpouseLastName() + "'" +
-            ", motherName='" + getMotherName() + "'" +
-            ", motherMiddleName='" + getMotherMiddleName() + "'" +
-            ", motherLastName='" + getMotherLastName() + "'" +
-            ", dateOfBirth='" + getDateOfBirth() + "'" +
-            ", placeOfBirth='" + getPlaceOfBirth() + "'" +
-            ", religion='" + getReligion() + "'" +
-            ", caste='" + getCaste() + "'" +
-            ", subCaste='" + getSubCaste() + "'" +
-            ", gender='" + getGender() + "'" +
-            ", bloodGroup='" + getBloodGroup() + "'" +
-            ", pinCode='" + getPinCode() + "'" +
-            ", relationOfEmergencyContact='" + getRelationOfEmergencyContact() + "'" +
-            ", emergencyContactName='" + getEmergencyContactName() + "'" +
-            ", emergencyContactMiddleName='" + getEmergencyContactMiddleName() + "'" +
-            ", emergencyContactLastName='" + getEmergencyContactLastName() + "'" +
-            ", emergencyContactNo='" + getEmergencyContactNo() + "'" +
-            ", emergencyContactEmailAddress='" + getEmergencyContactEmailAddress() + "'" +
-            ", status='" + getStatus() + "'" +
-            ", staffType='" + getStaffType() + "'" +
             ", designation='" + getDesignation() + "'" +
             ", joiningDate='" + getJoiningDate() + "'" +
             ", jobEndDate='" + getJobEndDate() + "'" +
@@ -879,14 +540,37 @@ public class Employee implements Serializable {
             ", passportNo='" + getPassportNo() + "'" +
             ", primaryContactNo='" + getPrimaryContactNo() + "'" +
             ", secondaryContactNo='" + getSecondaryContactNo() + "'" +
+            ", employeeFatherName='" + getEmployeeFatherName() + "'" +
+            ", employeeMotherName='" + getEmployeeMotherName() + "'" +
             ", primaryAddress='" + getPrimaryAddress() + "'" +
             ", secondaryAddress='" + getSecondaryAddress() + "'" +
+            ", employeeAddress='" + getEmployeeAddress() + "'" +
             ", personalMailId='" + getPersonalMailId() + "'" +
             ", officialMailId='" + getOfficialMailId() + "'" +
+            ", disability='" + getDisability() + "'" +
             ", drivingLicenceNo='" + getDrivingLicenceNo() + "'" +
+            ", drivingLicenceValidity='" + getDrivingLicenceValidity() + "'" +
+            ", gender='" + getGender() + "'" +
             ", typeOfEmployment='" + getTypeOfEmployment() + "'" +
             ", managerId=" + getManagerId() +
+            ", status='" + getStatus() + "'" +
             ", maritalStatus='" + getMaritalStatus() + "'" +
             "}";
     }
+
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getStaffType() {
+		return staffType;
+	}
+
+	public void setStaffType(String staffType) {
+		this.staffType = staffType;
+	}
 }

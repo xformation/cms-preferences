@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.AttendanceMaster;
 import com.synectiks.pref.domain.Batch;
 import com.synectiks.pref.domain.Department;
@@ -262,7 +263,7 @@ public class AcademicSubjectService {
 			Subject sub = new Subject();
 			sub.setSubjectCode(dto.getSubjectCode());
 			if(dto.getSubjectType() == null) {
-				sub.setSubjectType(SubTypeEnum.COMMON);
+				sub.setSubjectType(CmsConstants.SUBJECT_TYPE_COMMON);
 			}else {
 				sub.setSubjectType(dto.getSubjectType());
 			}
@@ -276,7 +277,7 @@ public class AcademicSubjectService {
 			if(dto.getStatus() != null) {
 				sub.setStatus(dto.getStatus());
 			}else {
-				sub.setStatus(Status.ACTIVE);
+				sub.setStatus(CmsConstants.STATUS_ACTIVE);
 			}
 			
 			Department dt = commonService.getDepartmentById(dto.getDepartmentId());
@@ -310,7 +311,7 @@ public class AcademicSubjectService {
 		Subject sub = new Subject();
 		sub.setSubjectCode(cmsSubjectVo.getSubjectCode());
 		if(cmsSubjectVo.getSubjectType() == null) {
-			sub.setSubjectType(SubTypeEnum.COMMON);
+			sub.setSubjectType(CmsConstants.SUBJECT_TYPE_COMMON);
 		}else {
 			sub.setSubjectType(cmsSubjectVo.getSubjectType());
 		}
@@ -322,7 +323,7 @@ public class AcademicSubjectService {
 		}
 		
 		if(cmsSubjectVo.getStatus() == null) {
-			sub.setStatus(Status.DEACTIVE);
+			sub.setStatus(CmsConstants.STATUS_DEACTIVE);
 		}else {
 			sub.setStatus(cmsSubjectVo.getStatus());
 		}

@@ -30,12 +30,12 @@ public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectMapper subjectMapper;
 
-//    private final SubjectSearchRepository subjectSearchRepository;
+    private final SubjectSearchRepository subjectSearchRepository;
 
     public SubjectServiceImpl(SubjectRepository subjectRepository, SubjectMapper subjectMapper, SubjectSearchRepository subjectSearchRepository) {
         this.subjectRepository = subjectRepository;
         this.subjectMapper = subjectMapper;
-//        this.subjectSearchRepository = subjectSearchRepository;
+        this.subjectSearchRepository = subjectSearchRepository;
     }
 
     /**
@@ -50,7 +50,7 @@ public class SubjectServiceImpl implements SubjectService {
         Subject subject = subjectMapper.toEntity(subjectDTO);
         subject = subjectRepository.save(subject);
         SubjectDTO result = subjectMapper.toDto(subject);
-//        subjectSearchRepository.save(subject);
+        subjectSearchRepository.save(subject);
         return result;
     }
 
@@ -92,7 +92,7 @@ public class SubjectServiceImpl implements SubjectService {
     public void delete(Long id) {
         log.debug("Request to delete Subject : {}", id);
         subjectRepository.deleteById(id);
-//        subjectSearchRepository.deleteById(id);
+        subjectSearchRepository.deleteById(id);
     }
 
     /**

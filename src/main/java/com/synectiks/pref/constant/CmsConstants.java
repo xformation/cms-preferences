@@ -219,4 +219,23 @@ public interface CmsConstants {
         return s;
     }
     
+    String SUBJECT_TYPE_COMMON = "COMMON";
+    String SUBJECT_TYPE_ELECTIVE = "ELECTIVE";
+    
+    String STAFF_TYPE_TEACHING = "TEACHING";
+    String STAFF_TYPE_NONTEACHING = "NONTEACHING";
+    String STAFF_TYPE_GUEST = "GUEST";
+    
+    String RELIGION_HINDU = "HINDU";
+    String RELIGION_MUSLIM = "MUSLIM";
+    String RELIGION_SIKH = "SIKH";
+    String RELIGION_CHRISTIAN = "CHRISTIAN";
+    String RELIGION_BUDH = "BUDH";
+    String RELIGION_PARSIAN = "PARSIAN";
+    
+    String CAST_GENERAL = "GENERAL";
+    String CAST_SCHEDULED_CASTE = "SC";
+    String CAST_SCHEDULED_TRIBE = "ST";
+    String CAST_OTHER_BACKWARD_CLASSES="OBC";
+    
 }

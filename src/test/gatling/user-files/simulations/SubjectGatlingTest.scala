@@ -77,9 +77,9 @@ class SubjectGatlingTest extends Simulation {
             .body(StringBody("""{
                 "id":null
                 , "subjectCode":"SAMPLE_TEXT"
-                , "subjectType":"COMMON"
+                , "subjectType":"SAMPLE_TEXT"
                 , "subjectDesc":"SAMPLE_TEXT"
-                , "status":"ACTIVE"
+                , "status":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_subject_url"))).exitHereIfFailed

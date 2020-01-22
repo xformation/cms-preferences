@@ -18,6 +18,7 @@ public class CmsTermVo extends CmsCommonVo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
     private String description;
+    private String termsDesc;
 
     @JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
@@ -105,5 +106,11 @@ public class CmsTermVo extends CmsCommonVo implements Serializable {
 				+ ", getExitCode()=" + getExitCode() + ", getExitDescription()=" + getExitDescription()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 				+ "]";
+	}
+	public String getTermsDesc() {
+		return termsDesc;
+	}
+	public void setTermsDesc(String termsDesc) {
+		this.termsDesc = termsDesc;
 	}
 }

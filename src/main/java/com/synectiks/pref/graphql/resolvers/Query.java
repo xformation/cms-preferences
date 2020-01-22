@@ -19,7 +19,9 @@ import com.synectiks.pref.business.service.CmsEmployeeService;
 import com.synectiks.pref.business.service.CmsHolidayService;
 import com.synectiks.pref.business.service.CmsLegalEntityService;
 import com.synectiks.pref.business.service.CmsStateService;
+import com.synectiks.pref.business.service.CmsTeacherService;
 import com.synectiks.pref.business.service.CmsTermService;
+import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.City;
 import com.synectiks.pref.domain.State;
 import com.synectiks.pref.domain.vo.CmsAcademicYearVo;
@@ -31,6 +33,7 @@ import com.synectiks.pref.domain.vo.CmsDepartmentVo;
 import com.synectiks.pref.domain.vo.CmsEmployeeVo;
 import com.synectiks.pref.domain.vo.CmsHolidayVo;
 import com.synectiks.pref.domain.vo.CmsLegalEntityVo;
+import com.synectiks.pref.domain.vo.CmsTeacherVo;
 import com.synectiks.pref.domain.vo.CmsTermVo;
 import com.synectiks.pref.repository.UserPreferenceRepository;
 
@@ -81,6 +84,9 @@ public class Query implements GraphQLQueryResolver {
 	@Autowired
     CmsEmployeeService cmsEmployeeService;
 	
+	@Autowired
+    CmsTeacherService cmsTeacherService;
+	
 	public Query(UserPreferenceRepository userPreferenceRepository) {
 		this.userPreferenceRepository = userPreferenceRepository;
 	}
@@ -127,7 +133,7 @@ public class Query implements GraphQLQueryResolver {
 	
 	public List<CmsTermVo> getTermList() throws Exception {
     	logger.debug("Query - getTermList :");
-    	return this.cmsTermService.getTermList();
+    	return this.cmsTermService.getCmsTermList();
     }
 	
 	public List<CmsDepartmentVo> getDepartmentList() throws Exception {
@@ -143,5 +149,19 @@ public class Query implements GraphQLQueryResolver {
 	public List<CmsEmployeeVo> getEmployeeList() throws Exception {
     	logger.debug("Query - getEmployeeList :");
     	return this.cmsEmployeeService.getEmployeeList();
+    }
+	
+	public List<CmsTeacherVo> getTeacherList() throws Exception {
+    	logger.debug("Query - getTeacherList :");
+    	
+    	List<CmsTeacherVo> ls =  this.cmsTeacherService.getCmsTeacherList();
+    	List<CmsEmployeeVo> evoList = cmsEmployeeService.getEmployeeList();
+    	for(CmsEmployeeVo tempEvo: evoList) {
+    		if(CmsConstants.STAFF_TYPE_NONTEACHING.equalsIgnoreCase(tempEvo.getStaffType())) {
+    			CmsTeacherVo tempTvo = this.cmsTeacherService.convertCmsEmployeeToCmsTeacher(tempEvo);
+        		ls.add(tempTvo);
+        	}
+    	}
+    	return ls;
     }
 }

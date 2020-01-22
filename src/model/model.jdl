@@ -295,6 +295,50 @@ entity Course{
 	status String	
 }
 
+entity Teacher{
+	teacherName String 
+	teacherMiddleName String 
+	teacherLastName String 
+	fatherName String 
+	fatherMiddleName String 
+	fatherLastName String 
+	spouseName String
+	spouseMiddleName String
+	spouseLastName String
+	motherName String 
+	motherMiddleName String 
+	motherLastName String 
+	aadharNo String
+	dateOfBirth LocalDate 
+	placeOfBirth String 
+	religion String 
+	caste String
+	subCaste String 
+	age Integer 
+	sex String 
+	bloodGroup String
+	address String 
+	town String 
+	state String 
+	country String 
+	pinCode String 
+	teacherContactNumber String 
+	alternateContactNumber String
+	teacherEmailAddress String 
+	alternateEmailAddress String
+	relationWithStaff String 
+	emergencyContactName String 
+	emergencyContactMiddleName String
+	emergencyContactLastName String 
+	emergencyContactNo String 
+	emergencyContactEmailAddress String 
+	uploadPhoto String 
+	status String
+	employeeId Long
+	designation String 
+	staffType String
+}
+
 entity Batch{
 	batch BatchEnum
 }
@@ -305,34 +349,6 @@ entity Section{
 
 entity Employee{
 	employeeName String 
-	employeeMiddleName String 
-	employeeLastName String 
-	fatherName String 
-	fatherMiddleName String 
-	fatherLastName String 
-	spouseName String
-	spouseMiddleName String
-	spouseLastName String
-	motherName String 
-	motherMiddleName String 
-	motherLastName String 
-	dateOfBirth LocalDate 
-	placeOfBirth String 
-	religion String 
-	caste String 
-	subCaste String 
-	gender String
-	bloodGroup String 
-	pinCode String 
-	relationOfEmergencyContact String 
-	emergencyContactName String 
-	emergencyContactMiddleName String
-	emergencyContactLastName String 
-	emergencyContactNo String 
-	emergencyContactEmailAddress String 
-	status String 
-	staffType String
-	
 	designation String 
 	joiningDate LocalDate 
 	jobEndDate LocalDate
@@ -343,15 +359,23 @@ entity Employee{
 	passportNo String
 	primaryContactNo String
 	secondaryContactNo String
+	employeeFatherName String
+	employeeMotherName String
 	primaryAddress String
 	secondaryAddress String
+	employeeAddress String
 	personalMailId String
 	officialMailId String
+	disability String
 	drivingLicenceNo String
+	drivingLicenceValidity LocalDate
+	gender String
 	typeOfEmployment String
 	managerId Long
+	status String
 	maritalStatus String
-	
+	dateOfBirth LocalDate 
+	staffType String
 }
 
 entity Teach{
@@ -363,10 +387,10 @@ entity AttendanceMaster{
 }
 
 entity Subject{
-	subjectCode String 
-	subjectType SubTypeEnum 
-	subjectDesc  String 
-	status Status 
+	subjectCode String
+	subjectType String
+	subjectDesc  String
+	status String 
 }
 
 entity Notifications {
@@ -380,11 +404,11 @@ entity Notifications {
 }
 
 entity Lecture{
-	lecDate LocalDate required
-	lastUpdatedOn LocalDate required
-	lastUpdatedBy String required
-	startTime String required
-	endTime String required
+	lecDate LocalDate 
+	lastUpdatedOn LocalDate 
+	lastUpdatedBy String 
+	startTime String 
+	endTime String 
 }
 
 entity MetaLecture{
@@ -415,7 +439,7 @@ relationship ManyToOne {
 	Employee {branch} to Branch,
 	Subject{batch} to Batch,
 	Teach{subject} to Subject,
-	Teach{employee} to Employee,
+	Teach{teacher} to Teacher,
 	AttendanceMaster{batch} to Batch,
 	AttendanceMaster{section} to Section,
 	AttendanceMaster{teach} to Teach,
@@ -426,13 +450,15 @@ relationship ManyToOne {
 	MetaLecture{branch} to Branch,
 	MetaLecture{department} to Department,
 	MetaLecture{subject} to Subject,
-	MetaLecture{employee} to Employee,
+	MetaLecture{teacher} to Teacher,
 	MetaLecture{term} to Term,
 	MetaLecture{academicyear} to AcademicYear,
 	MetaLecture{section} to Section,
 	MetaLecture{batch} to Batch,
 	Course {department} to Department,
-	Course {branch} to Branch
+	Course {branch} to Branch,
+	Teacher {department} to Department,
+	Teacher{branch} to Branch
 }
 
 dto * with mapstruct
