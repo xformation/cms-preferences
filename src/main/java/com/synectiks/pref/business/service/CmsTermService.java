@@ -152,7 +152,6 @@ public class CmsTermService {
         return null;
     }
     
-    /////////////////////////////////////////////////////////////
     public List<CmsTermVo> getCmsTermList(){
     	List<Term> list = this.termRepository.findAll();
     	List<CmsTermVo> ls = changeTermToCmsTermList(list);

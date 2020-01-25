@@ -16,6 +16,7 @@ import com.synectiks.pref.business.service.CmsDepartmentService;
 import com.synectiks.pref.business.service.CmsEmployeeService;
 import com.synectiks.pref.business.service.CmsHolidayService;
 import com.synectiks.pref.business.service.CmsLegalEntityService;
+import com.synectiks.pref.business.service.CmsSubjectService;
 import com.synectiks.pref.business.service.CmsTeacherService;
 import com.synectiks.pref.business.service.CmsTermService;
 import com.synectiks.pref.domain.vo.CmsAcademicYearVo;
@@ -28,6 +29,7 @@ import com.synectiks.pref.domain.vo.CmsDepartmentVo;
 import com.synectiks.pref.domain.vo.CmsEmployeeVo;
 import com.synectiks.pref.domain.vo.CmsHolidayVo;
 import com.synectiks.pref.domain.vo.CmsLegalEntityVo;
+import com.synectiks.pref.domain.vo.CmsSubjectVo;
 import com.synectiks.pref.domain.vo.CmsTeacherVo;
 import com.synectiks.pref.domain.vo.CmsTermVo;
 import com.synectiks.pref.graphql.types.academicyear.AcademicYearInput;
@@ -50,6 +52,8 @@ import com.synectiks.pref.graphql.types.holiday.HolidayInput;
 import com.synectiks.pref.graphql.types.holiday.HolidayPayload;
 import com.synectiks.pref.graphql.types.legalentity.LegalEntityInput;
 import com.synectiks.pref.graphql.types.legalentity.LegalEntityPayload;
+import com.synectiks.pref.graphql.types.subject.SubjectInput;
+import com.synectiks.pref.graphql.types.subject.SubjectPayload;
 import com.synectiks.pref.graphql.types.teacher.TeacherInput;
 import com.synectiks.pref.graphql.types.teacher.TeacherPayload;
 import com.synectiks.pref.graphql.types.term.TermInput;
@@ -98,6 +102,9 @@ public class Mutation implements GraphQLMutationResolver {
     
     @Autowired
     CmsTeacherService cmsTeacherService;
+    
+    @Autowired
+    CmsSubjectService cmsSubjectService;
     
     public Mutation(UserPreferenceRepository userPreferenceRepository) {
     	this.userPreferenceRepository = userPreferenceRepository;
@@ -161,6 +168,10 @@ public class Mutation implements GraphQLMutationResolver {
     public TeacherPayload saveTeacher(TeacherInput cmsTeacherVo) {
     	CmsTeacherVo vo = this.cmsTeacherService.saveTeacher(cmsTeacherVo);
     	return new TeacherPayload(vo);
+    }
+    public SubjectPayload saveSubject(SubjectInput cmsSubjectVo) {
+    	CmsSubjectVo vo = this.cmsSubjectService.saveSubject(cmsSubjectVo);
+    	return new SubjectPayload(vo);
     }
     
 }

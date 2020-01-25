@@ -1,20 +1,22 @@
 package com.synectiks.pref.domain.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.synectiks.pref.domain.Department;
 import com.synectiks.pref.domain.enumeration.BatchEnum;
 
 /**
  * A Vo for the Batch entity.
  */
-public class CmsBatchVo implements Serializable {
+public class CmsBatchVo extends CmsCommonVo implements Serializable {
 
     private Long id;
     private BatchEnum batch;
-    private Long departmentId;
-    private Department department;
     private String description;
+    private Long departmentId;
+    private CmsDepartmentVo cmsDepartmentVo;
+    private List<CmsBatchVo> dataList = new ArrayList<CmsBatchVo>();
     
     public Long getId() {
         return id;
@@ -36,69 +38,42 @@ public class CmsBatchVo implements Serializable {
         return departmentId;
     }
 
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
-    }
-
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((batch == null) ? 0 : batch.hashCode());
-		result = prime * result + ((department == null) ? 0 : department.hashCode());
-		result = prime * result + ((departmentId == null) ? 0 : departmentId.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CmsBatchVo other = (CmsBatchVo) obj;
-		if (batch != other.batch)
-			return false;
-		if (department == null) {
-			if (other.department != null)
-				return false;
-		} else if (!department.equals(other.department))
-			return false;
-		if (departmentId == null) {
-			if (other.departmentId != null)
-				return false;
-		} else if (!departmentId.equals(other.departmentId))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "CmsBatchVo [id=" + id + ", batch=" + batch + ", departmentId=" + departmentId + ", department="
-				+ department + "]";
-	}
-
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public CmsDepartmentVo getCmsDepartmentVo() {
+		return cmsDepartmentVo;
+	}
+
+	public void setCmsDepartmentVo(CmsDepartmentVo cmsDepartmentVo) {
+		this.cmsDepartmentVo = cmsDepartmentVo;
+	}
+
+	public List<CmsBatchVo> getDataList() {
+		return dataList;
+	}
+
+	public void setDataList(List<CmsBatchVo> dataList) {
+		this.dataList = dataList;
+	}
+
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	@Override
+	public String toString() {
+		return "CmsBatchVo [id=" + id + ", batch=" + batch + ", description=" + description + ", departmentId="
+				+ departmentId + ", cmsDepartmentVo=" + cmsDepartmentVo + ", dataList=" + dataList + ", getCreatedBy()="
+				+ getCreatedBy() + ", getCreatedOn()=" + getCreatedOn() + ", getUpdatedBy()=" + getUpdatedBy()
+				+ ", getUpdatedOn()=" + getUpdatedOn() + ", getStatus()=" + getStatus() + ", getStrCreatedOn()="
+				+ getStrCreatedOn() + ", getStrUpdatedOn()=" + getStrUpdatedOn() + ", getExitCode()=" + getExitCode()
+				+ ", getExitDescription()=" + getExitDescription() + ", getClass()=" + getClass() + ", hashCode()="
+				+ hashCode() + ", toString()=" + super.toString() + "]";
 	}
 }

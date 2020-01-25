@@ -9,7 +9,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.synectiks.pref.business.service.AcademicSubjectService;
+import com.synectiks.pref.business.service.CmsSubjectService;
 import com.synectiks.pref.constant.CmsConstants;
+import com.synectiks.pref.domain.Batch;
+import com.synectiks.pref.domain.Department;
 import com.synectiks.pref.domain.Subject;
 import com.synectiks.pref.domain.Teach;
-import com.synectiks.pref.domain.enumeration.Status;
 import com.synectiks.pref.domain.vo.CmsSubjectVo;
 import com.synectiks.pref.repository.SubjectRepository;
 import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
@@ -47,6 +48,10 @@ public class SubjectRestController {
 	
 	@Autowired
 	private SubjectRepository subjectRepository;
+	
+	@Autowired
+	private CmsSubjectService cmsSubjectService; 
+	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/cmssubjects")
 	public List<CmsSubjectVo> getAllSubjects(@RequestParam Map<String, String> dataMap) {
@@ -162,5 +167,11 @@ public class SubjectRestController {
     	List<Teach> list = this.academicSubjectService.getAllSubjectsWithTeacher(departmentId);
     	logger.debug(String.format("Totale subjects-teacher records %d", list.size()));
     	return list;
+    }
+    
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/subject-by-department-batch-list")
+    public List<Subject> getSubjectWithDepartmentAndBatchList(List<Department> departmentList, List<Batch> batchList) {
+    	return cmsSubjectService.getSubjectWithDepartmentAndBatchList(departmentList, batchList);
     }
 }

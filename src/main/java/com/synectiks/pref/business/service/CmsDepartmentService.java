@@ -41,6 +41,9 @@ public class CmsDepartmentService {
     @Autowired
     CmsAcademicYearService cmsAcademicYearService;
     
+    @Autowired
+    CmsBatchService cmsBatchService;
+    
     public List<CmsDepartmentVo> getCmsDepartmentListOnFilterCriteria(Map<String, String> criteriaMap){
     	Department dp = new Department();
     	boolean isFilter = false;
@@ -199,7 +202,7 @@ public class CmsDepartmentService {
     	return ls;
     }
 
-	private void convertDatesAndProvideDependencies(Department o, CmsDepartmentVo vo) {
+	public void convertDatesAndProvideDependencies(Department o, CmsDepartmentVo vo) {
 		if(o.getCreatedOn() != null) {
 			vo.setStrCreatedOn(DateFormatUtil.changeLocalDateFormat(o.getCreatedOn(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 		}
@@ -258,6 +261,8 @@ public class CmsDepartmentService {
         	if(input.getId() == null) {
         		vo.setExitDescription("Department is added successfully");
         		logger.debug("Department is added successfully");
+        		logger.debug("Adding batches to the new department");
+        		this.cmsBatchService.saveBatch(department.getId());
         	}else {
         		vo.setExitDescription("Department is updated successfully");
         		logger.debug("Department is updated successfully");

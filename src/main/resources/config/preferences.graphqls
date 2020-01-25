@@ -14,6 +14,9 @@ type Query {
 	getCourseList: [CmsCourseVo]
 	getEmployeeList: [CmsEmployeeVo]
 	getTeacherList: [CmsTeacherVo]
+	getSubjectList: [CmsSubjectVo]
+	getBatchList: [CmsBatchVo]
+	getSectionList: [CmsSectionVo]
 }
 
 type Mutation {
@@ -29,8 +32,111 @@ type Mutation {
 	saveCourse(input: CourseInput): CoursePayload
 	saveEmployee(input: EmployeeInput): EmployeePayload
 	saveTeacher(input: TeacherInput): TeacherPayload
+	saveSubject(input: SubjectInput): SubjectPayload
+	
 }
 
+type CmsAttendanceMasterVo{
+	id: Long 
+    desc: String 
+    cmsBatchVo: CmsBatchVo 
+    cmsSectionVo: CmsSectionVo 
+    cmsTeachVo: CmsTeachVo 
+    batchId: Long 
+    sectionId: Long 
+    teachId: Long 
+}
+
+type CmsTeachVo{
+	id: Long 
+    desc: String 
+    cmsSubjectVo: CmsSubjectVo 
+    cmsTeacherVo: CmsTeacherVo 
+    subjectId: Long 
+    teacherId: Long 
+    dataList: [CmsTeachVo]
+}
+
+type CmsSectionVo{
+	id: Long 
+    section: SectionEnum 
+    batchId: Long 
+    cmsBatchVo: CmsBatchVo 
+    description: String 
+    createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    exitCode: Long 
+    exitDescription: String
+    dataList: [CmsSectionVo]
+}
+
+type CmsBatchVo {
+	id: Long
+    batch: BatchEnum
+    description: String 
+    departmentId: Long
+    cmsDepartmentVo: CmsDepartmentVo
+    createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    exitCode: Long 
+    exitDescription: String
+    dataList: [CmsBatchVo]
+}
+
+input SubjectInput {
+	id: Long 
+    subjectCode: String 
+    subjectType: String 
+    subjectDesc: String
+    status: String 
+    departmentId: Long
+    batchId: Long
+    teacherId: Long
+    sectionId: Long
+}
+
+type SubjectPayload {
+	cmsSubjectVo: CmsSubjectVo
+}
+
+type CmsSubjectVo {
+	id: Long 
+    subjectCode: String 
+    subjectType: String 
+    subjectDesc: String 
+    status: String
+    departmentId: Long
+    batchId: Long
+    cmsDepartmentVo: CmsDepartmentVo
+    cmsBatchVo: CmsBatchVo
+    subjectId: Long 
+    teacherId: Long 
+    sectionId: Long 
+    teachId: Long 
+    attendanceMasterId: Long 
+    cmsTeacherVo: CmsTeacherVo 
+    cmsSectionVo: CmsSectionVo  
+    cmsTeachVo: CmsTeachVo 
+    cmsAttendanceMasterVo: CmsAttendanceMasterVo 
+    
+	createdBy: String 
+    createdOn: Date 
+    updatedBy: String 
+    updatedOn: Date 
+    strCreatedOn: String 
+    strUpdatedOn: String 
+    exitCode: Long 
+    exitDescription: String
+    dataList: [CmsSubjectVo]
+}
 
 input TeacherInput {
 	id: Long 
@@ -712,4 +818,19 @@ type City{
     cityCode: String 
     stdCode: String 
     state: State 
+}
+
+enum BatchEnum {
+	FIRSTYEAR
+    SECONDYEAR
+    THIRDYEAR
+    FOURTHYEAR
+    FIFTHYEAR
+}
+
+enum SectionEnum {
+	A
+ 	B
+ 	C
+	D
 }

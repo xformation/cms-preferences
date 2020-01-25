@@ -196,12 +196,12 @@ public class AcademicSubjectService {
     		Batch bt = th.getSubject().getBatch(); //this.commonService.getBatchById(th.getSubject().getBatch().getId());
     		logger.debug("Department : "+dp+", Batch: "+bt);
     		CmsSubjectVo vo = new CmsSubjectVo();
-    		vo.setDepartment(dp);
-    		vo.setBatch(bt);
-    		vo.setSubject(th.getSubject());
-//    		vo.setTeacher(th.getTeacher());
-    		vo.setTeach(th);
-//    		vo.setTeacherId(th.getTeacher().getId());
+			/*
+			 * vo.setDepartment(dp); vo.setBatch(bt); vo.setSubject(th.getSubject());
+			 */
+//    		vo.setTeacher(th.getTeacher());------------
+			/* vo.setTeach(th); */
+//    		vo.setTeacherId(th.getTeacher().getId());-----------------
     		
     		vo.setId(th.getSubject().getId());
     		vo.setStatus(th.getSubject().getStatus());
@@ -420,7 +420,7 @@ public class AcademicSubjectService {
 		
 		cmsSubjectVo = CommonUtil.createCopyProperties(sub, CmsSubjectVo.class);
 		cmsSubjectVo.setId(sub.getId());
-		cmsSubjectVo.setTeacher(teacher);
+		/* cmsSubjectVo.setTeacher(teacher); */
 		cmsSubjectVo.setTeacherId(teacher.getId());
 		
 		logger.info("Subject and Teach records saved in database successfully.");
@@ -530,7 +530,7 @@ public class AcademicSubjectService {
 		
 		CmsSubjectVo vo = CommonUtil.createCopyProperties(sub, CmsSubjectVo.class);
 		vo.setId(sub.getId());
-		vo.setTeacher(teacher);
+		/* vo.setTeacher(teacher); */
 		vo.setTeacherId(teacher.getId());
 		
 		logger.info("Subject, Teach and attendance master records updated in database successfully.");

@@ -1,6 +1,8 @@
 package com.synectiks.pref.graphql.resolvers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,7 @@ import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.synectiks.pref.business.service.CmsAcademicYearService;
 import com.synectiks.pref.business.service.CmsAuthorizedSignatoryService;
 import com.synectiks.pref.business.service.CmsBankAccountsService;
+import com.synectiks.pref.business.service.CmsBatchService;
 import com.synectiks.pref.business.service.CmsBranchService;
 import com.synectiks.pref.business.service.CmsCityService;
 import com.synectiks.pref.business.service.CmsCourseService;
@@ -18,7 +21,9 @@ import com.synectiks.pref.business.service.CmsDepartmentService;
 import com.synectiks.pref.business.service.CmsEmployeeService;
 import com.synectiks.pref.business.service.CmsHolidayService;
 import com.synectiks.pref.business.service.CmsLegalEntityService;
+import com.synectiks.pref.business.service.CmsSectionService;
 import com.synectiks.pref.business.service.CmsStateService;
+import com.synectiks.pref.business.service.CmsSubjectService;
 import com.synectiks.pref.business.service.CmsTeacherService;
 import com.synectiks.pref.business.service.CmsTermService;
 import com.synectiks.pref.constant.CmsConstants;
@@ -27,12 +32,15 @@ import com.synectiks.pref.domain.State;
 import com.synectiks.pref.domain.vo.CmsAcademicYearVo;
 import com.synectiks.pref.domain.vo.CmsAuthorizedSignatoryVo;
 import com.synectiks.pref.domain.vo.CmsBankAccountsVo;
+import com.synectiks.pref.domain.vo.CmsBatchVo;
 import com.synectiks.pref.domain.vo.CmsBranchVo;
 import com.synectiks.pref.domain.vo.CmsCourseVo;
 import com.synectiks.pref.domain.vo.CmsDepartmentVo;
 import com.synectiks.pref.domain.vo.CmsEmployeeVo;
 import com.synectiks.pref.domain.vo.CmsHolidayVo;
 import com.synectiks.pref.domain.vo.CmsLegalEntityVo;
+import com.synectiks.pref.domain.vo.CmsSectionVo;
+import com.synectiks.pref.domain.vo.CmsSubjectVo;
 import com.synectiks.pref.domain.vo.CmsTeacherVo;
 import com.synectiks.pref.domain.vo.CmsTermVo;
 import com.synectiks.pref.repository.UserPreferenceRepository;
@@ -86,6 +94,15 @@ public class Query implements GraphQLQueryResolver {
 	
 	@Autowired
     CmsTeacherService cmsTeacherService;
+	
+	@Autowired
+    CmsSubjectService cmsSubjectService;
+	
+	@Autowired
+    CmsBatchService cmsBatchService;
+	
+	@Autowired
+    CmsSectionService cmsSectionService;
 	
 	public Query(UserPreferenceRepository userPreferenceRepository) {
 		this.userPreferenceRepository = userPreferenceRepository;
@@ -163,5 +180,23 @@ public class Query implements GraphQLQueryResolver {
         	}
     	}
     	return ls;
+    }
+	
+	public List<CmsSubjectVo> getSubjectList() throws Exception {
+    	logger.debug("Query - getSubjectList :");
+    	Map<String, String> m = new HashMap<String, String>();
+    	return this.cmsSubjectService.getMergedSubjectAndAttendanceMasterList();// getCmsSubjectListOnFilterCriteria(m);
+    }
+	
+	public List<CmsBatchVo> getBatchList() throws Exception {
+    	logger.debug("Query - getBatchList :");
+    	Map<String, String> m = new HashMap<String, String>();
+    	return this.cmsBatchService.getCmsBatchListOnFilterCriteria(m);
+    }
+	
+	public List<CmsSectionVo> getSectionList() throws Exception {
+    	logger.debug("Query - getSectionList :");
+    	Map<String, String> m = new HashMap<String, String>();
+    	return this.cmsSectionService.getCmsSectionListOnFilterCriteria(m);
     }
 }
