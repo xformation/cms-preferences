@@ -1,34 +1,25 @@
 package com.synectiks.pref.ems.rest;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.synectiks.pref.business.service.AcademicSubjectService;
 import com.synectiks.pref.business.service.CmsSubjectService;
-import com.synectiks.pref.constant.CmsConstants;
-import com.synectiks.pref.domain.Batch;
-import com.synectiks.pref.domain.Department;
 import com.synectiks.pref.domain.Subject;
-import com.synectiks.pref.domain.Teach;
 import com.synectiks.pref.domain.vo.CmsSubjectVo;
-import com.synectiks.pref.repository.SubjectRepository;
-import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
-import com.synectiks.pref.web.rest.util.HeaderUtil;
+
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing Subject and Teach.
@@ -38,140 +29,47 @@ import com.synectiks.pref.web.rest.util.HeaderUtil;
 public class SubjectRestController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private static final String ENTITY_NAME = "subject";
-	
-	
-    private String applicationName;
 	
 	@Autowired
-	private AcademicSubjectService academicSubjectService; 
+    private CmsSubjectService cmsSubjectService; 
 	
-	@Autowired
-	private SubjectRepository subjectRepository;
-	
-	@Autowired
-	private CmsSubjectService cmsSubjectService; 
-	
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/cmssubjects")
-	public List<CmsSubjectVo> getAllSubjects(@RequestParam Map<String, String> dataMap) {
-		List<CmsSubjectVo> list = this.academicSubjectService.getAllSubjectAndTeachData(dataMap);
-		logger.info("Returning list of subjects.");
-		return list;
-	}
-	
-	
-	
-	/**
-	 * createSubjects method will create an entry in subject and teach table.
-	 * @param list
-	 * 
-	 * [
-	 *	{"id":null,"subjectCode":"ww","subjectDesc":null,"departmentId":1101,"batchId":1151,"teacherId":1310},
-	 *	{"id":null,"subjectCode":"qq","subjectDesc":null,"departmentId":1101,"batchId":1151,"teacherId":1310},
-	 *	{"id":null,"subjectCode":"aa","subjectDesc":null,"departmentId":1101,"batchId":1151,"teacherId":1310}
-	 * ]
-	 */
-	@RequestMapping(method = RequestMethod.POST, value = "/cmscreatesubjects")
-	public void createSubjects(@RequestBody List<CmsSubjectVo> list) {
-		this.academicSubjectService.createSubjects(list);
-		logger.info("Subject and Teach data created successfully.");
-	}
+    @RequestMapping(method = RequestMethod.GET, value = "/cmssubject-by-filters")
+    public List<CmsSubjectVo> getCmsSubjectListOnFilterCriteria(@RequestParam Map<String, String> dataMap) throws Exception {
+        logger.debug("Rest request to get list of Cms Subjects based on filter criteria");
+        List<CmsSubjectVo> list = this.cmsSubjectService.getCmsSubjectListOnFilterCriteria(dataMap);
+        return list;
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/subject-by-filters")
+    public List<Subject> getSubjectListOnFilterCriteria(@RequestParam Map<String, String> dataMap) throws Exception {
+        logger.debug("Rest request to get list of Subjects based on filter criteria");
+        List<Subject> list = this.cmsSubjectService.getSubjectListOnFilterCriteria(dataMap);
+        return list;
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/cmssubject")
+    public List<CmsSubjectVo> getAllCmsSubject() throws Exception {
+        logger.debug("REST request to get all Cms Subjects");
+        Map<String, String> m = new HashMap<String, String>();
+        return this.cmsSubjectService.getCmsSubjectListOnFilterCriteria(m);
+    }
 
-	
-	@RequestMapping(method = RequestMethod.POST, value = "/cmssubjects")
-    public ResponseEntity<CmsSubjectVo> createSubject(@RequestBody CmsSubjectVo cmsSubjectvo, @RequestParam Map<String, String> dataMap) throws URISyntaxException {
-        logger.debug("REST request to save a subject : {}", cmsSubjectvo);
-        if (cmsSubjectvo.getId() != null) {
-            throw new BadRequestAlertException("A new subject cannot have an ID which already exists", ENTITY_NAME, "idexists");
-        }
-        cmsSubjectvo = this.academicSubjectService.createSubject(cmsSubjectvo, dataMap);
-        return ResponseEntity.created(new URI("/api/cmssubjects/" + cmsSubjectvo.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, cmsSubjectvo.getId().toString()))
-            .body(cmsSubjectvo);
+    @RequestMapping(method = RequestMethod.GET, value = "/all-subject")
+    public List<Subject> getAllSubject() throws Exception {
+        logger.debug("REST request to get all the Subjects");
+        Map<String, String> m = new HashMap<String, String>();
+        return this.cmsSubjectService.getSubjectListOnFilterCriteria(m);
     }
-	
-	@RequestMapping(method = RequestMethod.PUT, value = "/cmssubjects")
-    public ResponseEntity<CmsSubjectVo> updateSubject(@RequestBody CmsSubjectVo cmsSubjectvo, @RequestParam Map<String, String> dataMap) throws URISyntaxException {
-        logger.debug("REST request to save a subject : {}", cmsSubjectvo);
-        if (cmsSubjectvo.getId() == null) {
-            throw new BadRequestAlertException("Invalid subject id", ENTITY_NAME, "idexists");
-        }
-        cmsSubjectvo = this.academicSubjectService.updateSubject(cmsSubjectvo, dataMap);
-        return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, cmsSubjectvo.getId().toString()))
-                .body(cmsSubjectvo);
+
+    @RequestMapping(method = RequestMethod.GET, value = "/subject-by-id/{id}")
+    public ResponseEntity<Subject> getSubject(@PathVariable Long id) throws Exception {
+        logger.debug("REST request to get a Subject : {}", id);
+        return ResponseUtil.wrapOrNotFound(Optional.of(this.cmsSubjectService.getSubject(id)));
     }
-	
-	
-    @RequestMapping(method = RequestMethod.DELETE, value = "/cmssubjects/{id}")
-    public Integer deleteSubject(@PathVariable Long id) {
-    	try {
-    		logger.debug("REST request to delete a subject. Deactivating the subject : {}", id);
-    		Subject sub = new Subject();
-    		sub.setStatus(CmsConstants.STATUS_DEACTIVE);
-    		sub.setId(id);
-        	this.subjectRepository.save(sub);
-    	}catch(Exception e) {
-    		return HttpStatus.FAILED_DEPENDENCY.value();
-    	}
-    	return HttpStatus.OK.value();
-    }
-    
-    @RequestMapping(method = RequestMethod.GET, value = "/cmssubjects-bydepartment-batchid")
-    public List<Subject> getSubjectsByDepartmentBatchId(@RequestParam Map<String, String> dataMap) {
-    	Long departmentId =0L;
-    	Long batchId = 0L;
-    	if(dataMap.containsKey("departmentId")) {
-    		departmentId = Long.valueOf(dataMap.get("departmentId"));
-    	}else {
-    		logger.warn("Department id not provided. Returning empty list.");
-    		return Collections.emptyList();
-    	}
-    	if(dataMap.containsKey("batchId")) {
-    		batchId = Long.valueOf(dataMap.get("batchId"));
-    	}else {
-    		logger.warn("Batch id not provided. Returning empty list.");
-    		return Collections.emptyList();
-    	}
-    	logger.debug(String.format("Retrieving subject based on department id: %d and batch id: %d", departmentId, batchId));
-    	List<Subject> list = this.academicSubjectService.getSubjectList(departmentId, batchId);
-    	logger.debug(String.format("Totale subjects retrieved %d", list.size()));
-    	return list;
-    }
-    
-    @RequestMapping(method = RequestMethod.GET, value = "/cmssubjects-bydepartmentid")
-    public List<Subject> getSubjectsByDepartmentId(@RequestParam Map<String, String> dataMap) {
-    	Long departmentId =0L;
-    	if(dataMap.containsKey("departmentId")) {
-    		departmentId = Long.parseLong(dataMap.get("departmentId"));
-    	}else {
-    		logger.warn("Department id not provided. Returning empty subject list.");
-    		return Collections.emptyList();
-    	}
-    	logger.debug(String.format("Retrieving subject based on department id: %d ", departmentId));
-    	List<Subject> list = this.academicSubjectService.getSubjectList(departmentId);
-    	logger.debug(String.format("Totale subjects retrieved %d", list.size()));
-    	return list;
-    }
-    
-    @RequestMapping(method = RequestMethod.GET, value = "/cmssubjects-teacher-bydepartmentid")
-    public List<Teach> getSubjectsWithTeacher(@RequestParam Map<String, String> dataMap) {
-    	Long departmentId =0L;
-    	if(dataMap.containsKey("departmentId")) {
-    		departmentId = Long.parseLong(dataMap.get("departmentId"));
-    	}else {
-    		logger.warn("Department id not provided. Returning empty subject-teaher list.");
-    		return Collections.emptyList();
-    	}
-    	List<Teach> list = this.academicSubjectService.getAllSubjectsWithTeacher(departmentId);
-    	logger.debug(String.format("Totale subjects-teacher records %d", list.size()));
-    	return list;
-    }
-    
-    
-    @RequestMapping(method = RequestMethod.GET, value = "/subject-by-department-batch-list")
-    public List<Subject> getSubjectWithDepartmentAndBatchList(List<Department> departmentList, List<Batch> batchList) {
-    	return cmsSubjectService.getSubjectWithDepartmentAndBatchList(departmentList, batchList);
+
+    @RequestMapping(method = RequestMethod.GET, value = "/cmssubject/{id}")
+    public ResponseEntity<CmsSubjectVo> getCmsSubject(@PathVariable Long id) throws Exception {
+        logger.debug("REST request to get a Subject : {}", id);
+        return ResponseUtil.wrapOrNotFound(Optional.of(this.cmsSubjectService.getCmsSubject(id)));
     }
 }

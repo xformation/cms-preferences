@@ -118,4 +118,13 @@ public class CmsCollegeService {
     	}
     	return null;
     }
+    
+    public CmsCollegeVo getCmsCollege() {
+    	List<College> list = collegeRepository.findAll();
+    	if(list.size() > 0) {
+    		CmsCollegeVo vo = CommonUtil.createCopyProperties(list.get(0), CmsCollegeVo.class);
+    		return vo;
+    	}
+    	return null;
+    }
 }

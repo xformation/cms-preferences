@@ -1,7 +1,6 @@
 package com.synectiks.pref.ems.rest;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -9,20 +8,16 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.synectiks.pref.business.service.CommonService;
+import com.synectiks.pref.business.service.CmsTeachService;
 import com.synectiks.pref.domain.Teach;
-import com.synectiks.pref.repository.TeachRepository;
-import com.synectiks.pref.web.rest.errors.BadRequestAlertException;
-import com.synectiks.pref.web.rest.util.HeaderUtil;
+import com.synectiks.pref.domain.vo.CmsTeachVo;
 
 import io.github.jhipster.web.util.ResponseUtil;
 
@@ -35,79 +30,46 @@ public class TeachRestController {
 
     private final Logger logger = LoggerFactory.getLogger(TeachRestController.class);
 
-    private static final String ENTITY_NAME = "teach";
-    
-    
-    private String applicationName;
-    
     @Autowired
-    private TeachRepository teachRepository;
+    private CmsTeachService cmsTeachService; 
+	
+    @RequestMapping(method = RequestMethod.GET, value = "/cmsteach-by-filters")
+    public List<CmsTeachVo> getCmsTeachListOnFilterCriteria(@RequestParam Map<String, String> dataMap) throws Exception {
+        logger.debug("Rest request to get list of Cms Teach based on filter criteria");
+        List<CmsTeachVo> list = this.cmsTeachService.getCmsTeachListOnFilterCriteria(dataMap);
+        return list;
+    }
     
-    @Autowired
-    private CommonService commonService;
+    @RequestMapping(method = RequestMethod.GET, value = "/teach-by-filters")
+    public List<Teach> getTeachListOnFilterCriteria(@RequestParam Map<String, String> dataMap) throws Exception {
+        logger.debug("Rest request to get list of Teach based on filter criteria");
+        List<Teach> list = this.cmsTeachService.getTeachListOnFilterCriteria(dataMap);
+        return list;
+    }
     
-    @RequestMapping(method = RequestMethod.POST, value = "/cmsteaches")
-    public ResponseEntity<Teach> createTeach(@RequestBody Teach teach) throws URISyntaxException {
-        logger.debug("REST request to save a Teach : {}", teach);
-        if (teach.getId() != null) {
-            throw new BadRequestAlertException("A new teach cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        teach = this.teachRepository.save(teach);
-        return ResponseEntity.created(new URI("/api/teaches/" + teach.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, teach.getId().toString()))
-            .body(teach);
+    @RequestMapping(method = RequestMethod.GET, value = "/cmsteach")
+    public List<CmsTeachVo> getAllCmsTeach() throws Exception {
+        logger.debug("REST request to get all Cms Teach");
+        Map<String, String> m = new HashMap<String, String>();
+        return this.cmsTeachService.getCmsTeachListOnFilterCriteria(m);
     }
 
-    
-    @RequestMapping(method = RequestMethod.PUT, value = "/cmsteaches")
-    public ResponseEntity<Teach> updateTeach(@RequestBody Teach teach) throws URISyntaxException {
-        logger.debug("REST request to update a Teach : {}", teach);
-        if (teach.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        teach = teachRepository.save(teach);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, teach.getId().toString()))
-            .body(teach);
+    @RequestMapping(method = RequestMethod.GET, value = "/all-teach")
+    public List<Teach> getAllTeach() throws Exception {
+        logger.debug("REST request to get all the Teach");
+        Map<String, String> m = new HashMap<String, String>();
+        return this.cmsTeachService.getTeachListOnFilterCriteria(m);
     }
 
-  
-    @RequestMapping(method = RequestMethod.GET, value = "/cmsteaches")
-    public List<Teach> getAllTeaches() {
-        logger.debug("REST request to get all the Teach records");
-        return teachRepository.findAll();
+    @RequestMapping(method = RequestMethod.GET, value = "/teach-by-id/{id}")
+    public ResponseEntity<Teach> getTeach(@PathVariable Long id) throws Exception {
+        logger.debug("REST request to get a Teach : {}", id);
+        return ResponseUtil.wrapOrNotFound(Optional.of(this.cmsTeachService.getTeach(id)));
     }
 
-    
-    @RequestMapping(method = RequestMethod.GET, value = "/cmsteaches/{id}")
-    public ResponseEntity<Teach> getTeach(@PathVariable Long id) {
-        logger.debug("REST request to get a Teach record : {}", id);
-        Optional<Teach> teach = teachRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(teach);
-    }
-
-    
-    @RequestMapping(method = RequestMethod.DELETE, value = "/cmsteaches/{id}")
-    public ResponseEntity<Void> deleteTeach(@PathVariable Long id) {
-        logger.debug("REST request to delete a Teach : {}", id);
-        teachRepository.deleteById(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
-    }
-
-    
-    @RequestMapping(method = RequestMethod.GET, value = "/cmsteaches-bysubjectteacher")
-    public  ResponseEntity<Teach> getTeachBySubjectAndTeacherId(@RequestParam Map<String, String> dataMap) {
-    	if (!dataMap.containsKey("subjectId")) {
-            throw new BadRequestAlertException("Subject id not present", ENTITY_NAME, "subject id null");
-        }
-    	if (!dataMap.containsKey("teacherId")) {
-            throw new BadRequestAlertException("Teacher id not present", ENTITY_NAME, "teacher id null");
-        }
-    	String subjectId = dataMap.get("subjectId");
-    	String teacherId = dataMap.get("teacherId");
-    	logger.debug("Getting teach id for subject id : "+subjectId+" and teacher id : "+teacherId);
-    	Teach th = this.commonService.getTeachBySubjectAndTeacherId(Long.parseLong(teacherId), Long.parseLong(subjectId));
-    	logger.debug("Teach : "+th);
-    	return ResponseUtil.wrapOrNotFound(Optional.of(th));
+    @RequestMapping(method = RequestMethod.GET, value = "/cmsteach/{id}")
+    public ResponseEntity<CmsTeachVo> getCmsTeach(@PathVariable Long id) throws Exception {
+        logger.debug("REST request to get a Teach : {}", id);
+        return ResponseUtil.wrapOrNotFound(Optional.of(this.cmsTeachService.getCmsTeach(id)));
     }
 }
