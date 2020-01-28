@@ -18,6 +18,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.synectiks.pref.business.service.CommonService;
-import com.synectiks.pref.config.Constants;
 import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.AcademicYear;
 import com.synectiks.pref.domain.AttendanceMaster;
@@ -45,9 +45,7 @@ import com.synectiks.pref.filter.lecture.LectureService;
 import com.synectiks.pref.repository.AcademicYearRepository;
 import com.synectiks.pref.repository.AttendanceMasterRepository;
 import com.synectiks.pref.repository.LectureRepository;
-import com.synectiks.pref.repository.SubjectRepository;
 import com.synectiks.pref.repository.TeachRepository;
-import com.synectiks.pref.repository.TeacherRepository;
 import com.synectiks.pref.service.util.CommonUtil;
 import com.synectiks.pref.service.util.DateFormatUtil;
 
@@ -77,11 +75,11 @@ public class LectureRestController {
 	@Autowired
 	private TeachRepository teachRepository;
 	
-	@Autowired
-	private TeacherRepository teacherRepository;
-	
-	@Autowired
-	private SubjectRepository subjectRepository;
+//	@Autowired
+//	private TeacherRepository teacherRepository;
+//	
+//	@Autowired
+//	private SubjectRepository subjectRepository;
 	
 	@Autowired
 	private AttendanceMasterRepository attendanceMasterRepository;
@@ -249,6 +247,7 @@ public class LectureRestController {
 //	}
 
 	
+		
 	@RequestMapping(method = RequestMethod.GET, value = "/cmslectures")
     public List<CmsLectureVo> getAllLectures(@RequestParam Map<String, String> dataMap) throws Exception {
         logger.debug("REST request to get all the Lectures");
@@ -305,29 +304,36 @@ public class LectureRestController {
         return this.lectureService.getAllLecturess(ayId, brId, dpId, trId, btId, scId, sbId, thId, fromLecDate, toLecDate);
     }
 	
+
+	// New changes
 	
-	// Delete method will be uncommented when we have StudentAttendace rest service ready 
+	@RequestMapping(method = RequestMethod.GET, value = "/todays-lectures-by-teacher-id")
+    public List<Lecture> getAllCurrentDateLecturesOfTeacher(@RequestParam Map<String, String> dataMap) throws Exception {
+		String teacherId = dataMap.get("teacherId");
+		return this.lectureService.getAllLecturesOfTeacherOnGivenDate(Long.parseLong(teacherId), LocalDate.now());
+	}
 	
-//	@DeleteMapping("/cmslectures/{id}")
-//    public ResponseEntity<QueryResult> deleteLecture(@PathVariable Long id) {
-//        logger.debug("REST request to delete a Lecture : {}", id);
-//        QueryResult res = new QueryResult();
-//        
-//        Optional<Lecture> lc = this.lectureRepository.findById(id);
-//        StudentAttendance sa = new StudentAttendance();
-//        sa.setLecture(lc.get());
-//        if(!this.studentAttendanceRepository.exists(Example.of(sa))) {
-//        	this.lectureRepository.deleteById(id);
-//        	res.setStatusCode(0);
-//        	res.setStatusDesc("Lecture deleted successfully");
-//        }else {
-//        	res.setStatusCode(1);
-//        	res.setStatusDesc("Lecture cannot be deleted because it has the associated attendace data.");
-//        }
-//        
-////        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("Lecture", id.toString())).build();
-//        Optional<QueryResult> r = Optional.of(res);
-//		return ResponseUtil.wrapOrNotFound(r);
-//    }
-	
+	@RequestMapping(method = RequestMethod.GET, value = "/todays-cmslectures-by-teacher-id")
+    public List<CmsLectureVo> getAllCurrentDateCmsLecturesOfTeacher(@RequestParam Map<String, String> dataMap) throws Exception {
+		String teacherId = dataMap.get("teacherId");
+		return this.lectureService.getAllCmsLecturesOfTeacherOnGivenDate(Long.parseLong(teacherId), LocalDate.now());
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/lecture-by-id/{id}")
+    public ResponseEntity<Lecture> getLecture(@PathVariable Long id) throws Exception {
+        logger.debug("REST request to get a Lecture : {}", id);
+        return ResponseUtil.wrapOrNotFound(Optional.of(this.lectureService.getLectureById(id)));
+    }
+	@RequestMapping(method = RequestMethod.GET, value = "/cmslecture-by-id/{id}")
+    public ResponseEntity<CmsLectureVo> getCmsLecture(@PathVariable Long id) throws Exception {
+        logger.debug("REST request to get a Cms Lecture : {}", id);
+        return ResponseUtil.wrapOrNotFound(Optional.of(this.lectureService.getCmsLectureById(id)));
+    }
+	@RequestMapping(method = RequestMethod.GET, value = "/lecture-by-attendancemaster-and-date")
+    public ResponseEntity<Lecture> getLectureByAttendanceMasterAndLectureDate(@RequestParam Map<String, String> dataMap) throws Exception {
+		String strAmId = dataMap.get("attendanceMasterId");
+		String strLecDate = dataMap.get("lectureDate");
+        logger.debug("REST request to get Lecture based on attendance master id : "+strAmId+" and lecture date : "+strLecDate);
+        return ResponseUtil.wrapOrNotFound(Optional.of(this.lectureService.getLectureByAttendanceMasterAndLectureDate(Long.parseLong(strAmId), strLecDate)));
+    }
 }

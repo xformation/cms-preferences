@@ -27,6 +27,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.synectiks.pref.business.service.CmsAttendanceMasterService;
+import com.synectiks.pref.business.service.CmsTeachService;
+import com.synectiks.pref.business.service.CmsTeacherService;
 import com.synectiks.pref.business.service.CommonService;
 import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.AcademicYear;
@@ -79,6 +82,16 @@ public class LectureService {
     @Autowired
     private ExceptionRecordRepository exceptionRecordRepository;
 
+    @Autowired
+    private CmsTeacherService cmsTeacherService;
+
+    @Autowired
+    private CmsTeachService cmsTeachService;
+
+    @Autowired
+    private CmsAttendanceMasterService cmsAttendanceMasterService;
+
+    
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     private static final String MONDAY = "MONDAY";
     private static final String TUESDAY = "TUESDAY";
@@ -747,6 +760,118 @@ public class LectureService {
     	return ls;
     }
     
+    
+    public List<Lecture> getAllLecturesOfTeacherOnGivenDate(Long thId, LocalDate lecDate){
+    	logger.info("Getting scheduled lectures data:");
+    	
+    	Map<String, String> criteriaMap = new HashMap<String, String>();
+    	criteriaMap.put("teacherId", String.valueOf(thId));
+    	List<Teach> teachList = this.cmsTeachService.getTeachListOnFilterCriteria(criteriaMap);   //teachRepository.findAll(Example.of(teach));
+		if(teachList.size() == 0) {
+			logger.warn("No subject mapping assigned in teach. Returning empty list for given teacher id : "+thId);
+			return Collections.emptyList();
+		}
+    	
+    	Query query = null;
+		logger.debug("Getting attendance master list for given teach list : "+teachList);
+		query = this.entityManager.createQuery("select a from AttendanceMaster a where a.teach in (:th)");
+		query.setParameter("th", teachList);
+		
+		@SuppressWarnings("unchecked")
+		List<AttendanceMaster> amList = query.getResultList();
+    	if(amList.size() == 0) {
+    		logger.warn("No attendance master mapping found. Returning empty list for given teacher id : "+thId);
+			return Collections.emptyList();
+    	}
+    	
+		query = null;
+		query = this.entityManager.createQuery("select l from Lecture l where l.lecDate = :lcdt and l.attendancemaster in (:amId) ");
+		query.setParameter("lcdt", lecDate);
+		query.setParameter("amId", amList);
+    	
+		@SuppressWarnings("unchecked")
+		List<Lecture> list = query.getResultList();
+		
+		Collections.sort(list, (o1, o2) -> o1.getLecDate().compareTo(o2.getLecDate()));
+    	logger.debug("Total lectures scheduled today for teacher : "+list.size());
+    	return list;
+    }
+    
+    public List<CmsLectureVo> getAllCmsLecturesOfTeacherOnGivenDate(Long thId, LocalDate lecDate){
+    	logger.info("Getting scheduled lectures data:");
+    	
+    	Map<String, String> criteriaMap = new HashMap<String, String>();
+    	criteriaMap.put("teacherId", String.valueOf(thId));
+    	List<Teach> teachList = this.cmsTeachService.getTeachListOnFilterCriteria(criteriaMap);
+		if(teachList.size() == 0) {
+			logger.warn("No subject mapping assigned in teach. Returning empty list for given teacher id : "+thId);
+			return Collections.emptyList();
+		}
+    	
+    	Query query = null;
+		logger.debug("Getting attendance master list for given teach list : "+teachList);
+		query = this.entityManager.createQuery("select a from AttendanceMaster a where a.teach in (:th)");
+		query.setParameter("th", teachList);
+		
+		@SuppressWarnings("unchecked")
+		List<AttendanceMaster> amList = query.getResultList();
+    	if(amList.size() == 0) {
+    		logger.warn("No attendance master mapping found. Returning empty list for given teacher id : "+thId);
+			return Collections.emptyList();
+    	}
+    	
+		query = null;
+		query = this.entityManager.createQuery("select l from Lecture l where l.lecDate = :lcdt and l.attendancemaster in (:amId) ");
+		query.setParameter("lcdt", lecDate);
+		query.setParameter("amId", amList);
+    	
+		@SuppressWarnings("unchecked")
+		List<Lecture> list = query.getResultList();
+		List<CmsLectureVo> ls = new ArrayList<>();
+		
+		for(Lecture l: list) {
+			CmsLectureVo vo = CommonUtil.createCopyProperties(l, CmsLectureVo.class);
+			vo.setStrLecDate(DateFormatUtil.changeLocalDateFormat(l.getLecDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+			ls.add(vo);
+		}
+    	
+		Collections.sort(ls, (o1, o2) -> o1.getLecDate().compareTo(o2.getLecDate()));
+    	logger.debug("Total lectures scheduled today for teacher : "+ls.size());
+    	return ls;
+    }
+    
+    public Lecture getLectureById(Long lectureId) {
+    	Optional<Lecture> ol =  this.lectureRepository.findById(lectureId);
+    	if(ol.isPresent()) {
+    		return ol.get();
+    	}
+    	return null;
+    }
+    public CmsLectureVo getCmsLectureById(Long lectureId) {
+    	Optional<Lecture> ol =  this.lectureRepository.findById(lectureId);
+    	if(ol.isPresent()) {
+    		CmsLectureVo vo = CommonUtil.createCopyProperties(ol.get(), CmsLectureVo.class);
+    		return vo;
+    	}
+    	return null;
+    }
+    
+    public Lecture getLectureByAttendanceMasterAndLectureDate(Long amId, String strLecDate) {
+    	AttendanceMaster am = this.cmsAttendanceMasterService.getAttendanceMaster(amId);
+    	if(am == null) {
+    		return null;
+    	}
+    	LocalDate lecDate = DateFormatUtil.convertStringToLocalDate(strLecDate, CmsConstants.DATE_FORMAT_dd_MM_yyyy);
+    	Lecture lecture = new Lecture();
+    	lecture.setLecDate(lecDate);
+    	lecture.setAttendancemaster(am);
+    	Example<Lecture> example = Example.of(lecture);
+    	List<Lecture> nlec = this.lectureRepository.findAll(example);
+    	if(nlec.size() > 0) {
+    		return nlec.get(0);
+    	}
+    	return null;
+    }
     
 }
 
