@@ -72,4 +72,10 @@ public class SubjectRestController {
         logger.debug("REST request to get a Subject : {}", id);
         return ResponseUtil.wrapOrNotFound(Optional.of(this.cmsSubjectService.getCmsSubject(id)));
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/cmssubjects-bydepartmentid")
+    public List<Subject> getSubjectsByDepartmentId(@RequestParam Map<String, String> dataMap) {
+    	List<Subject> list = this.cmsSubjectService.getSubjectListOnFilterCriteria(dataMap);
+    	return list;
+    }
 }

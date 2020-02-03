@@ -2,10 +2,57 @@ package com.synectiks.pref.constant;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
+import com.synectiks.pref.dataimport.CmsTableWithDomainAndRepositoryMapper;
+import com.synectiks.pref.domain.AcademicYear;
+import com.synectiks.pref.domain.AttendanceMaster;
+import com.synectiks.pref.domain.AuthorizedSignatory;
+import com.synectiks.pref.domain.BankAccounts;
+import com.synectiks.pref.domain.Batch;
+import com.synectiks.pref.domain.Branch;
+import com.synectiks.pref.domain.City;
+import com.synectiks.pref.domain.College;
+import com.synectiks.pref.domain.Country;
+import com.synectiks.pref.domain.Currency;
+import com.synectiks.pref.domain.Department;
+import com.synectiks.pref.domain.Employee;
+import com.synectiks.pref.domain.ExceptionRecord;
+import com.synectiks.pref.domain.Holiday;
+import com.synectiks.pref.domain.LegalEntity;
+import com.synectiks.pref.domain.Section;
+import com.synectiks.pref.domain.State;
+import com.synectiks.pref.domain.Subject;
+import com.synectiks.pref.domain.Teach;
+import com.synectiks.pref.domain.Teacher;
+import com.synectiks.pref.domain.Term;
 import com.synectiks.pref.domain.vo.Config;
+import com.synectiks.pref.repository.AcademicYearRepository;
+import com.synectiks.pref.repository.AttendanceMasterRepository;
+import com.synectiks.pref.repository.AuthorizedSignatoryRepository;
+import com.synectiks.pref.repository.BankAccountsRepository;
+import com.synectiks.pref.repository.BatchRepository;
+import com.synectiks.pref.repository.BranchRepository;
+import com.synectiks.pref.repository.CityRepository;
+import com.synectiks.pref.repository.CollegeRepository;
+import com.synectiks.pref.repository.CountryRepository;
+import com.synectiks.pref.repository.CurrencyRepository;
+import com.synectiks.pref.repository.DepartmentRepository;
+import com.synectiks.pref.repository.EmployeeRepository;
+import com.synectiks.pref.repository.ExceptionRecordRepository;
+import com.synectiks.pref.repository.HolidayRepository;
+import com.synectiks.pref.repository.LegalEntityRepository;
+import com.synectiks.pref.repository.SectionRepository;
+import com.synectiks.pref.repository.StateRepository;
+import com.synectiks.pref.repository.SubjectRepository;
+import com.synectiks.pref.repository.TeachRepository;
+import com.synectiks.pref.repository.TeacherRepository;
+import com.synectiks.pref.repository.TermRepository;
 
 public interface CmsConstants {
 	
@@ -132,34 +179,35 @@ public interface CmsConstants {
 
 	ConcurrentHashMap<String, Config> USERS_CACHE = new ConcurrentHashMap<String, Config>();
 
-//	List<String> tabelName = initTableList();
-//	public static List<String> initTableList() {
-//		List<String> ls = initTableDomainRepositoryMapperMap().keySet().stream().collect(Collectors.toList());
-//		Collections.sort(ls);
-//	    return ls;
-//	}
+	List<String> TABLE_LIST = initTableList();
+	public static List<String> initTableList() {
+		List<String> ls = initTableDomainRepositoryMapperMap().keySet().stream().collect(Collectors.toList());
+		Collections.sort(ls);
+	    return ls;
+	}
 
-//	public static Map<String, CmsTableWithDomainAndRepositoryMapper> initTableDomainRepositoryMapperMap() {
-//		Map<String, CmsTableWithDomainAndRepositoryMapper> mpr = new HashMap<String, CmsTableWithDomainAndRepositoryMapper>();
+	public static Map<String, CmsTableWithDomainAndRepositoryMapper> initTableDomainRepositoryMapperMap() {
+		Map<String, CmsTableWithDomainAndRepositoryMapper> mpr = new HashMap<String, CmsTableWithDomainAndRepositoryMapper>();
 //		mpr.put("exception_record", new CmsTableWithDomainAndRepositoryMapper("exception_record", ExceptionRecord.class, ExceptionRecordRepository.class));
 //		mpr.put("country", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
 //		mpr.put("state", new CmsTableWithDomainAndRepositoryMapper("state", State.class, StateRepository.class));
 //		mpr.put("city", new CmsTableWithDomainAndRepositoryMapper("city", City.class, CityRepository.class));
 //		mpr.put("currency", new CmsTableWithDomainAndRepositoryMapper("currency", Currency.class, CurrencyRepository.class));
-//		mpr.put("college", new CmsTableWithDomainAndRepositoryMapper("college", College.class, CollegeRepository.class));
-//		mpr.put("branch", new CmsTableWithDomainAndRepositoryMapper("branch", Branch.class, BranchRepository.class));
-//		mpr.put("authorized_signatory", new CmsTableWithDomainAndRepositoryMapper("authorized_signatory", AuthorizedSignatory.class, AuthorizedSignatoryRepository.class));
-//	    mpr.put("bank_accounts", new CmsTableWithDomainAndRepositoryMapper("bank_accounts", BankAccounts.class, BankAccountsRepository.class));
-//	    mpr.put("legal_entity", new CmsTableWithDomainAndRepositoryMapper("legal_entity", LegalEntity.class, LegalEntityRepository.class));
-//	    mpr.put("academic_year", new CmsTableWithDomainAndRepositoryMapper("academic_year", AcademicYear.class, AcademicYearRepository.class));
-//	    mpr.put("holiday", new CmsTableWithDomainAndRepositoryMapper("holiday", Holiday.class, HolidayRepository.class));
-//	    mpr.put("term", new CmsTableWithDomainAndRepositoryMapper("term", Term.class, TermRepository.class));
-//	    mpr.put("department", new CmsTableWithDomainAndRepositoryMapper("department", Department.class, DepartmentRepository.class));
-//	    mpr.put("batch", new CmsTableWithDomainAndRepositoryMapper("batch", Batch.class, BatchRepository.class));
-//	    mpr.put("teacher", new CmsTableWithDomainAndRepositoryMapper("teacher", Teacher.class, TeacherRepository.class));
-//	    mpr.put("subject", new CmsTableWithDomainAndRepositoryMapper("subject", Subject.class, SubjectRepository.class));
-//	    mpr.put("teach", new CmsTableWithDomainAndRepositoryMapper("teach", Teach.class, TeachRepository.class));
-//	    mpr.put("attendance_master", new CmsTableWithDomainAndRepositoryMapper("attendance_master", AttendanceMaster.class, AttendanceMasterRepository.class));
+		mpr.put("college", new CmsTableWithDomainAndRepositoryMapper("college", College.class, CollegeRepository.class));
+		mpr.put("branch", new CmsTableWithDomainAndRepositoryMapper("branch", Branch.class, BranchRepository.class));
+		mpr.put("authorized_signatory", new CmsTableWithDomainAndRepositoryMapper("authorized_signatory", AuthorizedSignatory.class, AuthorizedSignatoryRepository.class));
+	    mpr.put("bank_accounts", new CmsTableWithDomainAndRepositoryMapper("bank_accounts", BankAccounts.class, BankAccountsRepository.class));
+	    mpr.put("legal_entity", new CmsTableWithDomainAndRepositoryMapper("legal_entity", LegalEntity.class, LegalEntityRepository.class));
+	    mpr.put("academic_year", new CmsTableWithDomainAndRepositoryMapper("academic_year", AcademicYear.class, AcademicYearRepository.class));
+	    mpr.put("holiday", new CmsTableWithDomainAndRepositoryMapper("holiday", Holiday.class, HolidayRepository.class));
+	    mpr.put("term", new CmsTableWithDomainAndRepositoryMapper("term", Term.class, TermRepository.class));
+	    mpr.put("department", new CmsTableWithDomainAndRepositoryMapper("department", Department.class, DepartmentRepository.class));
+	    mpr.put("batch", new CmsTableWithDomainAndRepositoryMapper("batch", Batch.class, BatchRepository.class));
+	    mpr.put("section", new CmsTableWithDomainAndRepositoryMapper("section", Section.class, SectionRepository.class));
+	    mpr.put("teacher", new CmsTableWithDomainAndRepositoryMapper("teacher", Teacher.class, TeacherRepository.class));
+	    mpr.put("subject", new CmsTableWithDomainAndRepositoryMapper("subject", Subject.class, SubjectRepository.class));
+	    mpr.put("teach", new CmsTableWithDomainAndRepositoryMapper("teach", Teach.class, TeachRepository.class));
+	    mpr.put("attendance_master", new CmsTableWithDomainAndRepositoryMapper("attendance_master", AttendanceMaster.class, AttendanceMasterRepository.class));
 //	    mpr.put("invoice", new CmsTableWithDomainAndRepositoryMapper("invoice", Invoice.class, InvoiceRepository.class));
 //	    mpr.put("due_date", new CmsTableWithDomainAndRepositoryMapper("due_date", DueDate.class, DueDateRepository.class));
 //	    mpr.put("payment_remainder", new CmsTableWithDomainAndRepositoryMapper("payment_remainder", PaymentRemainder.class, PaymentRemainderRepository.class));
@@ -174,19 +222,19 @@ public interface CmsConstants {
 //	    mpr.put("competitive_exam", new CmsTableWithDomainAndRepositoryMapper("competitive_exam", CompetitiveExam.class, CompetitiveExamRepository.class));
 //	    mpr.put("documents", new CmsTableWithDomainAndRepositoryMapper("documents", Documents.class, DocumentsRepository.class));
 //	    mpr.put("facility", new CmsTableWithDomainAndRepositoryMapper("facility", Facility.class, FacilityRepository.class));
-////	    mpr.put("meta_lecture", new CmsTableWithDomainAndRepositoryMapper("meta_lecture", MetaLecture.class, MetaLectureRepository.class));
-////	    mpr.put("lecture", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
-//	    mpr.put("section", new CmsTableWithDomainAndRepositoryMapper("section", Section.class, SectionRepository.class));
+//	    mpr.put("meta_lecture", new CmsTableWithDomainAndRepositoryMapper("meta_lecture", MetaLecture.class, MetaLectureRepository.class));
+//	    mpr.put("lecture", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
+	    
 //	    mpr.put("student", new CmsTableWithDomainAndRepositoryMapper("student", Student.class, StudentRepository.class));
-////	    mpr.put("student_attendance", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
+//	    mpr.put("student_attendance", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
 //	    mpr.put("student_exam_report", new CmsTableWithDomainAndRepositoryMapper("student_exam_report", StudentExamReport.class, StudentExamReportRepository.class));
-////	    mpr.put("student_facility_link", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
+//	    mpr.put("student_facility_link", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
 //	    mpr.put("transport_route", new CmsTableWithDomainAndRepositoryMapper("transport_route", TransportRoute.class, TransportRouteRepository.class));
 //	    mpr.put("type_of_grading", new CmsTableWithDomainAndRepositoryMapper("type_of_grading", TypeOfGrading.class, TypeOfGradingRepository.class));
 //	    mpr.put("employee", new CmsTableWithDomainAndRepositoryMapper("employee", Employee.class, EmployeeRepository.class));
-//
-//	    return mpr;
-//	}
+
+	    return mpr;
+	}
 
 
 	String XLSX_FILE_EXTENSION = "xlsx";

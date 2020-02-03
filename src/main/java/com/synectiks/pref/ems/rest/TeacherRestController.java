@@ -1,6 +1,7 @@
 package com.synectiks.pref.ems.rest;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -65,6 +66,21 @@ public class TeacherRestController {
     public ResponseEntity<CmsTeacherVo> getCmsTeacher(@PathVariable Long id) throws Exception {
         logger.debug("REST request to get a Teacher : {}", id);
         return ResponseUtil.wrapOrNotFound(Optional.of(this.cmsTeacherService.getCmsTeacher(id)));
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/cmsteachers-qryprms")
+    public List<CmsTeacherVo> getAllTeachersByDeptBranchId(@RequestParam Map<String, String> dataMap) {
+        logger.debug("REST request to get all the Teachers");
+        
+        Map<String, String> criteriaMap = new HashMap<String, String>();
+        if (dataMap.containsKey("deptId")) {
+        	criteriaMap.put("departmentId", dataMap.get("deptId"));
+        }
+        if (dataMap.containsKey("branchId")) {
+        	criteriaMap.put("branchId", dataMap.get("branchId"));
+        }
+        List<CmsTeacherVo> list = this.cmsTeacherService.getCmsTeacherListOnFilterCriteria(criteriaMap);
+        return list;
     }
     
 }

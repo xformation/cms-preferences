@@ -199,4 +199,10 @@ public class Query implements GraphQLQueryResolver {
     	Map<String, String> m = new HashMap<String, String>();
     	return this.cmsSectionService.getCmsSectionListOnFilterCriteria(m);
     }
+	
+	public List<String> getTableList() throws Exception {
+    	logger.debug("Query - getTableList :");
+    	return CmsConstants.TABLE_LIST;
+    }
+	
 }

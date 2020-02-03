@@ -17,6 +17,7 @@ type Query {
 	getSubjectList: [CmsSubjectVo]
 	getBatchList: [CmsBatchVo]
 	getSectionList: [CmsSectionVo]
+	getTableList: [String]
 }
 
 type Mutation {

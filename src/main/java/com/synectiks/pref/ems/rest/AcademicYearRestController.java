@@ -70,17 +70,17 @@ public class AcademicYearRestController {
         return ResponseUtil.wrapOrNotFound(Optional.of(this.cmsAcademicYearService.getCmsAcademicYear(id)));
     }
     
-    /**
-     * DELETE  /academic-years/:id : delete the "id" academicYear.
-     *
-     * @param id the id of the cmsAcademicYearVo to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
-//    @RequestMapping(method = RequestMethod.DELETE, value = "/cmsacademic-years/{id}")
-//    public ResponseEntity<Void> deleteAcademicYear(@PathVariable Long id) {
-//        logger.debug("REST request to delete an AcademicYear : {}", id);
-//        academicYearRepository.deleteById(id);
-//        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+//    @RequestMapping(method = RequestMethod.GET, value = "/cmsacademic-years/{id}")
+//    public ResponseEntity<CmsAcademicYearVo> getAcademicYear(@PathVariable Long id) throws Exception {
+//        logger.debug("REST request to get an AcademicYear : {}", id);
+//        Optional<AcademicYear> ay = academicYearRepository.findById(id);
+//        CmsAcademicYearVo cay = new CmsAcademicYearVo();
+//        if(ay.isPresent()) {
+//            cay = CommonUtil.createCopyProperties(ay.get(), CmsAcademicYearVo.class);
+//            cay.setStrStartDate(DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy, CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(ay.get().getStartDate()))));
+//            cay.setStrEndDate(DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_dd_MM_yyyy, CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.changeDateFormat(CmsConstants.DATE_FORMAT_yyyy_MM_dd, DateFormatUtil.converUtilDateFromLocaDate(ay.get().getEndDate()))));
+//        }
+//        return ResponseUtil.wrapOrNotFound(Optional.of(cay));
 //    }
 
 }

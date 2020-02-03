@@ -1,5 +1,6 @@
 package com.synectiks.pref.ems.rest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class AttendanceMasterRestController {
 
     @Autowired
     private CmsAttendanceMasterService cmsAttendanceMasterService; 
-	
+    
     @RequestMapping(method = RequestMethod.GET, value = "/cmsattendancemaster-by-filters")
     public List<CmsAttendanceMasterVo> getCmsAttendanceMasterListOnFilterCriteria(@RequestParam Map<String, String> dataMap) throws Exception {
         logger.debug("Rest request to get list of Cms AttendanceMaster based on filter criteria");
@@ -71,6 +72,23 @@ public class AttendanceMasterRestController {
     public ResponseEntity<CmsAttendanceMasterVo> getCmsAttendanceMaster(@PathVariable Long id) throws Exception {
         logger.debug("REST request to get a AttendanceMaster : {}", id);
         return ResponseUtil.wrapOrNotFound(Optional.of(this.cmsAttendanceMasterService.getCmsAttendanceMaster(id)));
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/cmsattendance-masters-bydepartmentid")
+    public List<AttendanceMaster> getAttendanceMasterByDepartment(@RequestParam Map<String, String> dataMap) {
+    	logger.debug("Getting attendance master");
+    	
+    	Long departmentId = Long.parseLong(dataMap.get("departmentId"));
+    	List<AttendanceMaster> list = new ArrayList<>();
+    	Map<String, String> criteriaMap = new HashMap<String, String>();
+    	List<AttendanceMaster> amList = cmsAttendanceMasterService.getAttendanceMasterListOnFilterCriteria(criteriaMap);
+    	
+    	for(AttendanceMaster am : amList) {
+    		if(departmentId == am.getTeach().getTeacher().getDepartment().getId()) {
+    			list.add(am);
+    		}
+    	}
+    	return list;
     }
     
 }

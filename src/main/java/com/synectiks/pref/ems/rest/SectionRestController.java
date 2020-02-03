@@ -73,4 +73,14 @@ public class SectionRestController {
         return ResponseUtil.wrapOrNotFound(Optional.of(this.cmsSectionService.getCmsSection(id)));
     }
     
+    @RequestMapping(method = RequestMethod.GET, value = "/cmssections-batchid/{id}")
+	public List<CmsSectionVo> getAllSectionsByBatchId(@PathVariable Long id){
+		
+    	Map<String, String> criteriaMap = new HashMap<String, String>();
+    	criteriaMap.put("batchId", String.valueOf(id));
+    	List<CmsSectionVo> list = this.cmsSectionService.getCmsSectionListOnFilterCriteria(criteriaMap);
+    	return list;
+    	
+	}
+    
 }

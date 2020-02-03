@@ -68,5 +68,11 @@ public class TermRestController {
         return ResponseUtil.wrapOrNotFound(Optional.of(this.cmsTermService.getCmsTerm(id)));
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/cmsterms-by_academicyearid")
+    public List<CmsTermVo> getAllTermsByAcademicYearId(@RequestParam Map<String, String> dataMap) throws Exception{
+    	List<CmsTermVo> list = this.cmsTermService.getCmsTermListOnFilterCriteria(dataMap);
+    	return list;
+
+    }
 }
 

@@ -119,42 +119,42 @@ public class CmsAttendanceMasterService {
     	return list;
     }
     
-    public List<AttendanceMaster> getTeachListOnFilterCriteria(Map<String, String> criteriaMap){
-    	AttendanceMaster obj = new AttendanceMaster();
-    	boolean isFilter = false;
-    	if(criteriaMap.get("id") != null) {
-    		obj.setId(Long.parseLong(criteriaMap.get("id")));
-    		isFilter = true;
-    	}
-    	if(criteriaMap.get("description") != null) {
-    		obj.setDesc(criteriaMap.get("description"));
-    		isFilter = true;
-    	}
-    	if(criteriaMap.get("batchId") != null) {
-    		Batch batch = cmsBatchService.getBatch(Long.parseLong(criteriaMap.get("batchId")));
-    		obj.setBatch(batch);
-    		isFilter = true;
-    	}
-    	if(criteriaMap.get("sectionId") != null) {
-    		Section section = cmsSectionService.getSection(Long.parseLong(criteriaMap.get("sectionId")));
-    		obj.setSection(section);
-    		isFilter = true;
-    	}
-    	if(criteriaMap.get("teachId") != null) {
-    		Teach teach = cmsTeachService.getTeach(Long.parseLong(criteriaMap.get("teachId")));
-    		obj.setTeach(teach);
-    		isFilter = true;
-    	}
-    	List<AttendanceMaster> list = null;
-    	if(isFilter) {
-    		list = this.attendanceMasterRepository.findAll(Example.of(obj), Sort.by(Direction.DESC, "id"));
-    	}else {
-    		list = this.attendanceMasterRepository.findAll(Sort.by(Direction.DESC, "id"));
-    	}
-        
-    	Collections.sort(list, (o1, o2) -> o1.getId().compareTo(o2.getId()));
-    	return list;
-    }
+//    public List<AttendanceMaster> getTeachListOnFilterCriteria(Map<String, String> criteriaMap){
+//    	AttendanceMaster obj = new AttendanceMaster();
+//    	boolean isFilter = false;
+//    	if(criteriaMap.get("id") != null) {
+//    		obj.setId(Long.parseLong(criteriaMap.get("id")));
+//    		isFilter = true;
+//    	}
+//    	if(criteriaMap.get("description") != null) {
+//    		obj.setDesc(criteriaMap.get("description"));
+//    		isFilter = true;
+//    	}
+//    	if(criteriaMap.get("batchId") != null) {
+//    		Batch batch = cmsBatchService.getBatch(Long.parseLong(criteriaMap.get("batchId")));
+//    		obj.setBatch(batch);
+//    		isFilter = true;
+//    	}
+//    	if(criteriaMap.get("sectionId") != null) {
+//    		Section section = cmsSectionService.getSection(Long.parseLong(criteriaMap.get("sectionId")));
+//    		obj.setSection(section);
+//    		isFilter = true;
+//    	}
+//    	if(criteriaMap.get("teachId") != null) {
+//    		Teach teach = cmsTeachService.getTeach(Long.parseLong(criteriaMap.get("teachId")));
+//    		obj.setTeach(teach);
+//    		isFilter = true;
+//    	}
+//    	List<AttendanceMaster> list = null;
+//    	if(isFilter) {
+//    		list = this.attendanceMasterRepository.findAll(Example.of(obj), Sort.by(Direction.DESC, "id"));
+//    	}else {
+//    		list = this.attendanceMasterRepository.findAll(Sort.by(Direction.DESC, "id"));
+//    	}
+//        
+//    	Collections.sort(list, (o1, o2) -> o1.getId().compareTo(o2.getId()));
+//    	return list;
+//    }
     
     public CmsAttendanceMasterVo getCmsAttendanceMaster(Long id){
     	Optional<AttendanceMaster> th = this.attendanceMasterRepository.findById(id);

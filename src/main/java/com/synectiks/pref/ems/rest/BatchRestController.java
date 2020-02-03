@@ -73,4 +73,13 @@ public class BatchRestController {
         return ResponseUtil.wrapOrNotFound(Optional.of(this.cmsBatchService.getCmsBatch(id)));
     }
     
+    @RequestMapping(method = RequestMethod.GET, value = "/cmsbatches-departmentid/{id}")
+	public List<CmsBatchVo> getAllBatchesByDepartmentId(@PathVariable Long id){
+    	
+    	Map<String, String> criteriaMap = new HashMap<String, String>();
+    	criteriaMap.put("departmentId", String.valueOf(id));
+    	
+    	List<CmsBatchVo> ls = cmsBatchService.getCmsBatchListOnFilterCriteria(criteriaMap);
+        return ls;
+	}
 }
