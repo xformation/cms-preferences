@@ -1,8 +1,9 @@
 package com.synectiks.pref.repository;
 
-import com.synectiks.pref.domain.AuthorizedSignatory;
-import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+
+import com.synectiks.pref.domain.AuthorizedSignatory;
+import com.synectiks.pref.utils.JPASearchRepository;
 
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface AuthorizedSignatoryRepository extends JpaRepository<AuthorizedSignatory, Long> {
+public interface AuthorizedSignatoryRepository extends JPASearchRepository<AuthorizedSignatory, Long> {
 
 }

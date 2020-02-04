@@ -1,8 +1,9 @@
 package com.synectiks.pref.repository;
 
-import com.synectiks.pref.domain.Term;
-import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+
+import com.synectiks.pref.domain.Term;
+import com.synectiks.pref.utils.JPASearchRepository;
 
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface TermRepository extends JpaRepository<Term, Long> {
+public interface TermRepository extends JPASearchRepository<Term, Long> {
 
 }

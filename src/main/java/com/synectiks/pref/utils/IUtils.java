@@ -4,6 +4,8 @@
 package com.synectiks.pref.utils;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,9 +32,16 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.synectiks.pref.PreferencesApp;
+import com.synectiks.pref.config.ApplicationProperties;
 
 /**
  * @author Rajesh Upadhyay
@@ -42,24 +51,35 @@ public interface IUtils {
 	Logger logger = LoggerFactory.getLogger(IUtils.class);
 	String JSON_DATE_FORMAT = "EEE MMM dd HH:mm:ss zzz yyyy";
 	ObjectMapper OBJECT_MAPPER = new ObjectMapper()
-			.setVisibility(PropertyAccessor.ALL, Visibility.NONE)
+			.registerModule(new JavaTimeModule()
+					.addSerializer(LocalDate.class,
+							new LocalDateSerializer(
+									DateTimeFormatter.ofPattern("yyyy-M-d")))
+					.addDeserializer(LocalDate.class,
+							new LocalDateDeserializer(
+									DateTimeFormatter.ofPattern("yyyy-M-d"))))
+//			.setVisibility(PropertyAccessor.ALL, Visibility.NONE)
 			.setVisibility(PropertyAccessor.FIELD, Visibility.ANY)
 			.setDateFormat(new SimpleDateFormat(JSON_DATE_FORMAT))
 			.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
-			.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+			.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true)
+			.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, true)
+			.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true)
 			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+			.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
 			.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+	
 	String PRM_EV_TYPE = "eventType";
 	String PRM_CLASS = "cls";
 	String PRM_ENTITY = "entity";
 	String KEY_INDX_EVENT_FIRE = "search.fire.event.url";
-	String URL_INDX_EVENT_FIRE = "http://localhost:8092/seach/fireEvent";
+	String URL_INDX_EVENT_FIRE = "http://100.81.5.26:8092/seach/fireEvent";
 	// String URL_INDX_EVENT_FIRE = "http://localhost:8092/api/v1/auth/seach/fireEvent";
 	String PRM_MSG = "msg";
 	String PRM_TOPIC = "topic";
 	String KEY_KAFKA_CONFIG = "kafka.url";
 	String KEY_KAFKA_TOPIC = "kafka.topic";
-	String URL_KAFKA_URL = "http://localhost:2181/kafka/send";
+	String URL_KAFKA_URL = "http://100.81.5.26:8190/kafka/send";
 
 	/**
 	 * Check if an object is null

@@ -10,14 +10,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.synectiks.pref.utils.IESEntity;
 
 /**
  * A AttendanceMaster.
  */
 @Entity
 @Table(name = "attendance_master")
-public class AttendanceMaster implements Serializable {
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public class AttendanceMaster implements Serializable, IESEntity {
 
     private static final long serialVersionUID = 1L;
 

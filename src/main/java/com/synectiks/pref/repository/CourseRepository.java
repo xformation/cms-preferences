@@ -1,8 +1,9 @@
 package com.synectiks.pref.repository;
 
-import com.synectiks.pref.domain.Course;
-import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+
+import com.synectiks.pref.domain.Course;
+import com.synectiks.pref.utils.JPASearchRepository;
 
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CourseRepository extends JpaRepository<Course, Long> {
+public interface CourseRepository extends JPASearchRepository<Course, Long> {
 
 }

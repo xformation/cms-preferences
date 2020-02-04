@@ -19,9 +19,7 @@ import com.synectiks.pref.domain.Branch;
 import com.synectiks.pref.domain.City;
 import com.synectiks.pref.domain.College;
 import com.synectiks.pref.domain.Country;
-import com.synectiks.pref.domain.Currency;
 import com.synectiks.pref.domain.Department;
-import com.synectiks.pref.domain.Employee;
 import com.synectiks.pref.domain.ExceptionRecord;
 import com.synectiks.pref.domain.Holiday;
 import com.synectiks.pref.domain.LegalEntity;
@@ -41,9 +39,7 @@ import com.synectiks.pref.repository.BranchRepository;
 import com.synectiks.pref.repository.CityRepository;
 import com.synectiks.pref.repository.CollegeRepository;
 import com.synectiks.pref.repository.CountryRepository;
-import com.synectiks.pref.repository.CurrencyRepository;
 import com.synectiks.pref.repository.DepartmentRepository;
-import com.synectiks.pref.repository.EmployeeRepository;
 import com.synectiks.pref.repository.ExceptionRecordRepository;
 import com.synectiks.pref.repository.HolidayRepository;
 import com.synectiks.pref.repository.LegalEntityRepository;
@@ -154,20 +150,13 @@ public interface CmsConstants {
     String YES = "YES";
 	String NO = "NO";
 	
-	
-	
-	
 	String CMS_IMAGE_FILE_PATH = "college_images/";
 
 	String CMS_COLLEGE_LOGO_FILE_NAME = "college_logo";
 	String CMS_COLLEGE_BACKGROUND_IMAGE_FILE_NAME = "dashboard";
 	String CMS_LEGAL_ENTITY_LOGO_FILE_NAME = "legalentity_logo";
 
-	
-
 	String LECTURE_NOT_SCHEDULED = "LECTURE_NOT_SCHEDULED";
-
-	
 
 	String OS_WINDOWS = "windows";
 	String OS_UNIX = "unix";

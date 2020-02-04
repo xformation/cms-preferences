@@ -20,6 +20,8 @@ public class ApplicationProperties {
 	private String secSrvUrl;
 	private String prefSrvUrl;
 	private String cmsBackEndUrl;
+	private String kafkaUrl;
+	private String indexEventFireUrl;
 	
 	public String getImagePath() {
 		return imagePath;
@@ -91,5 +93,21 @@ public class ApplicationProperties {
 
 	public void setCmsBackEndUrl(String cmsBackEndUrl) {
 		this.cmsBackEndUrl = cmsBackEndUrl;
+	}
+
+	public String getKafkaUrl() {
+		return kafkaUrl;
+	}
+
+	public void setKafkaUrl(String kafkaUrl) {
+		this.kafkaUrl = kafkaUrl;
+	}
+
+	public String getIndexEventFireUrl() {
+		return indexEventFireUrl;
+	}
+
+	public void setIndexEventFireUrl(String indexEventFireUrl) {
+		this.indexEventFireUrl = indexEventFireUrl;
 	}
 }

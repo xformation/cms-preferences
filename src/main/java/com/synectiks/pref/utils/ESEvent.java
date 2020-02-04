@@ -38,7 +38,7 @@ public class ESEvent implements Serializable {
 	public ESEvent(EventType type, Object entity) {
 		this.eventType = type;
 		this.entity = entity;
-		this.cls = entity.getClass().getName();
+		this.cls = "com.synectiks.cms.entities."+entity.getClass().getSimpleName();
 	}
 
 	public EventType getEventType() {

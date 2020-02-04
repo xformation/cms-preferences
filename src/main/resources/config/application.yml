@@ -57,7 +57,7 @@ spring:
                     data: target/elasticsearch/data
     liquibase:
         contexts: dev
-        dropFirst: false
+        dropFirst: true
     mail:
         host: localhost
         port: 25
@@ -88,7 +88,7 @@ spring:
 #        key-alias: preferences
 # ===================================================================
 #server:
-#    port: 8095
+#    port: 9091
 server:
      port: ${SERVER_PORT}
 # ===================================================================
@@ -163,3 +163,5 @@ application:
     secSrvUrl: http://100.81.5.26:8094
     prefSrvUrl: http://100.81.5.26:9091
     cmsBackEndUrl: http://100.81.5.26:8080
+    kafkaUrl: http://100.81.5.26:8091/kafka/send
+    indexEventFireUrl: http://100.81.5.26:8092/seach/fireEvent

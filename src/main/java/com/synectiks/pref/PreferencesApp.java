@@ -14,14 +14,17 @@ import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.synectiks.pref.config.ApplicationProperties;
 import com.synectiks.pref.config.DefaultProfileUtil;
+import com.synectiks.pref.utils.SynectiksJPARepo;
 import com.synectiks.pref.websocket.CmsPreferenceWebSocketServer;
 
 import io.github.jhipster.config.JHipsterConstants;
 
 @SpringBootApplication
+@EnableJpaRepositories(repositoryBaseClass = SynectiksJPARepo.class)
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
 public class PreferencesApp  {
 
@@ -31,6 +34,8 @@ public class PreferencesApp  {
     
     private final Environment env;
 
+    private static String serverIp;
+    
     public PreferencesApp(Environment env) {
         this.env = env;
     }
@@ -46,6 +51,7 @@ public class PreferencesApp  {
             log.error("You have misconfigured your application! It should not " +
                 "run with both the 'dev' and 'cloud' profiles at the same time.");
         }
+        
     }
 
     /**
@@ -66,6 +72,7 @@ public class PreferencesApp  {
         String hostAddress = "localhost";
         try {
             hostAddress = InetAddress.getLocalHost().getHostAddress();
+            serverIp = hostAddress;
         } catch (Exception e) {
             log.warn("The host name could not be determined, using `localhost` as fallback");
         }
@@ -88,4 +95,17 @@ public class PreferencesApp  {
     public static <T> T getBean(Class<T> cls) {
 		return ctx.getBean(cls);
 	}
+    
+    public static Environment getEnvironment() {
+		return ctx.getEnvironment();
+	}
+	
+	public static int getServerPort() {
+		return Integer.parseInt(ctx.getEnvironment().getProperty("server.port"));
+	}
+	
+	public static String getServer() {
+		return serverIp;
+	}
+	
 }
