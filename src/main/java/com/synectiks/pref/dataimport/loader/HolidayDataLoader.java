@@ -37,8 +37,8 @@ public class HolidayDataLoader extends DataLoader {
 
         String academicYear = row.getCellAsString(3).orElse(null);
         if(CommonUtil.isNullOrEmpty(academicYear)) {
-            sb.append("jhi_year, ");
-            logger.warn("Mandatory field missing. Field name - jhi_year");
+            sb.append("academic_year_id, ");
+            logger.warn("Mandatory field missing. Field name - academic_year_id");
         }else {
             AcademicYear ay = new AcademicYear();
             ay.setDescription(academicYear);
@@ -46,14 +46,14 @@ public class HolidayDataLoader extends DataLoader {
             if(oay.isPresent()) {
                 obj.setAcademicYear(oay.get());
             }else {
-                sb.append("jhi_year, ");
+                sb.append("academic_year_id, ");
                 logger.warn("AcademicYear not found. Given academicYear name : "+academicYear);
             }
         }
         
         String holidayDesc = row.getCellAsString(0).orElse(null);
         if (CommonUtil.isNullOrEmpty(holidayDesc)) {
-            sb.append("holiday_desc, ");
+            sb.append("description, ");
             logger.warn("Mandatory field missing. Field name - holiday_desc");
         } else {
             obj.setDescription(holidayDesc);
@@ -82,11 +82,7 @@ public class HolidayDataLoader extends DataLoader {
             sb.append("status, ");
             logger.warn("Mandatory field missing. Field name - holiday_status");
         } else {
-            if (CmsConstants.STATUS_ACTIVE.toString().equalsIgnoreCase(holidayStatus)) {
-                obj.setStatus(CmsConstants.STATUS_ACTIVE);
-            } else {
-                obj.setStatus(CmsConstants.STATUS_DEACTIVE);
-            }
+            obj.setStatus(holidayStatus);
         }
 
         if(sb.length() > 0) {

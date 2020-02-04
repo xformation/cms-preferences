@@ -37,8 +37,8 @@ public class TermDataLoader extends DataLoader {
 
         String termDesc = row.getCellAsString(0).orElse(null);
         if (CommonUtil.isNullOrEmpty(termDesc)) {
-            sb.append("term_desc, ");
-            logger.warn("Mandatory field missing. Field name - term_desc");
+            sb.append("description, ");
+            logger.warn("Mandatory field missing. Field name - description");
         } else {
             obj.setDescription(termDesc);
         }
@@ -58,16 +58,6 @@ public class TermDataLoader extends DataLoader {
                 logger.warn("AcademicYear not found. Given academicYear name : "+academicYear);
             }
         }
-        
-//        if(!CommonUtil.isNullOrEmpty(termDesc) && !CommonUtil.isNullOrEmpty(academicYear) && 
-//        		this.allRepositories.findRepository(this.sheetName).exists(Example.of(obj))) {
-//        	  String msg = "Application already have a term with the given term description : "+termDesc + " in the given academic year : "+academicYear;
-//              sb.append(msg+", ");
-//              logger.warn(msg);
-//              if (sb.length() > 0) {
-//                  throw new AdditionalTermFoundException(msg);
-//              }
-//        }
         
         String startDate = row.getCellAsString(1).orElse(null);
         if (CommonUtil.isNullOrEmpty(startDate)) {
@@ -90,11 +80,7 @@ public class TermDataLoader extends DataLoader {
             sb.append("status, ");
             logger.warn("Mandatory field missing. Field name - term_status");
         } else {
-            if (CmsConstants.STATUS_ACTIVE.toString().equalsIgnoreCase(termStatus)) {
-                obj.setStatus(CmsConstants.STATUS_ACTIVE);
-            } else {
-                obj.setStatus(CmsConstants.STATUS_DEACTIVE);
-            }
+            obj.setStatus(termStatus);
         }
 
         if(sb.length() > 0) {

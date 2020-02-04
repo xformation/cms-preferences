@@ -105,7 +105,7 @@ public abstract class DataLoader {
 		logger.debug(String.format("Saving %s data completed.", this.sheetName));
 	}
 	
-	private ExceptionRecord getExceptionObject(Row row, Exception exp) {
+	public ExceptionRecord getExceptionObject(Row row, Exception exp) {
 		ExceptionRecord obj = new ExceptionRecord(); 
 		obj.setExceptionSource((this.fileName != null ? "File - "+this.fileName : "") + ", worksheet - "+this.sheetName);
 		obj.setExceptionType(exp.getClass().getSimpleName()+" : "+exp.getMessage());

@@ -2,6 +2,7 @@ package com.synectiks.pref.dataimport;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +34,7 @@ public class CmsExcelDataImportRestController {
 	private AllRepositories allRepositories;
 	
 	private String [] allEntities = 
-		{		"country","state","city",
-				"academic_year","holiday","term",
+		{		"academic_year","holiday","term",
 				"college","branch","department",
 				"batch","section", "teacher", 
 				"attendance_master", "student"
@@ -109,8 +109,8 @@ public class CmsExcelDataImportRestController {
 	            .body(result);
 	}
 	
-//	@RequestMapping(method = RequestMethod.GET, value = "/cmsdataimport")
-//	public List<String> getTableLilst(){
-//		return CmsConstants.TABLE_LIST;
-//	}
+	@RequestMapping(method = RequestMethod.GET, value = "/cmsdataimport")
+	public List<String> getTableLilst(){
+		return CmsConstants.TABLE_LIST;
+	}
 }

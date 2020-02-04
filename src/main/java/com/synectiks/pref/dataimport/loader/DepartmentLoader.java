@@ -1,18 +1,28 @@
 package com.synectiks.pref.dataimport.loader;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import org.dhatim.fastexcel.reader.ReadableWorkbook;
 import org.dhatim.fastexcel.reader.Row;
+import org.dhatim.fastexcel.reader.Sheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
 
+import com.synectiks.pref.PreferencesApp;
+import com.synectiks.pref.business.service.CmsDepartmentService;
+import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.dataimport.AllRepositories;
 import com.synectiks.pref.dataimport.DataLoader;
 import com.synectiks.pref.domain.AcademicYear;
 import com.synectiks.pref.domain.Branch;
 import com.synectiks.pref.domain.Department;
+import com.synectiks.pref.domain.ExceptionRecord;
 import com.synectiks.pref.exceptions.MandatoryFieldMissingException;
+import com.synectiks.pref.graphql.types.department.DepartmentInput;
 import com.synectiks.pref.service.util.CommonUtil;
 
 
@@ -43,12 +53,7 @@ public class DepartmentLoader extends DataLoader {
         }
 
         String description = row.getCellAsString(1).orElse(null);
-        if(CommonUtil.isNullOrEmpty(description)) {
-            sb.append("description, ");
-            logger.warn("Mandatory field missing. Field name - description");
-        }else {
-            obj.setDescription(description);
-        }
+        obj.setDescription(description);
 
         String deptHead = row.getCellAsString(2).orElse(null);
         if(CommonUtil.isNullOrEmpty(deptHead)) {
@@ -90,6 +95,14 @@ public class DepartmentLoader extends DataLoader {
             }
         }
 
+        String status = row.getCellAsString(5).orElse(null);
+		if(CommonUtil.isNullOrEmpty(status)) {
+			sb.append("status, ");
+			logger.warn("Mandatory field missing. Field name - status");
+		}else {
+			obj.setStatus(status);
+		}
+		
         if(sb.length() > 0) {
             String msg = "Field name - ";
             throw new MandatoryFieldMissingException(msg+sb.substring(0, sb.lastIndexOf(",")));
@@ -97,4 +110,71 @@ public class DepartmentLoader extends DataLoader {
         return (T)obj;
 
     }
+    
+	public <T> void saveCmsData(ReadableWorkbook wb, Class<T> cls) {
+		logger.debug(String.format("Saving %s data started.",this.sheetName));
+		
+		Sheet sheet = wb.findSheet(this.sheetName).orElse(null);
+		try {
+			T instance = cls.newInstance();
+			try (Stream<Row> rows = sheet.openStream()) {
+//				List<T> list = new ArrayList<>();
+				List<ExceptionRecord> exceptionList = new ArrayList<>();
+				StringBuilder sb = new StringBuilder(String.format("\nInvalid records found for table - %s: \n", this.sheetName));
+				sb.append("Rows having invalid records\n");
+				CmsDepartmentService departmentService =  PreferencesApp.getBean(CmsDepartmentService.class);
+				
+				rows.forEach(row -> {
+
+//					if (list.size() == CmsConstants.BATCH_SIZE) {
+////						allRepositories.findRepository(cls).saveAll(list);
+//						allRepositories.findRepository(this.sheetName).saveAll(list);
+//						list.clear();
+//					}
+					if (exceptionList.size() == CmsConstants.BATCH_SIZE) {
+						allRepositories.findRepository("exception_record").saveAll(exceptionList);
+						exceptionList.clear();
+					}
+
+					// Skip first header row
+					if (row.getRowNum() > 1) {
+						try {
+							T obj = getObject(row, cls);
+							if(obj != null) {
+								if(!allRepositories.findRepository(this.sheetName).exists(Example.of(obj))) {
+									Department dep = CommonUtil.createCopyProperties(obj, Department.class);
+									DepartmentInput inp = CommonUtil.createCopyProperties(dep, DepartmentInput.class);
+									inp.setBranchId(dep.getBranch().getId());
+									inp.setAcademicYearId(dep.getAcademicYear().getId());
+									departmentService.saveDepartment(inp);
+								}
+							}
+							
+						} catch (InstantiationException | IllegalAccessException e) {
+							logger.error("Exception in loading data from excel file :"+e.getMessage(), e);
+						} catch(Exception e) {
+							ExceptionRecord expObj = getExceptionObject(row, e);
+							sb.append(String.format("%s : %s  , %s\n", e.getClass().getSimpleName(), e.getMessage(), row.toString()));
+							if(expObj != null) {
+								exceptionList.add(expObj);
+							}
+						}
+					}
+				});
+				// Save remaining items
+//				allRepositories.findRepository(this.sheetName).saveAll(list);
+//				list.clear();
+				if(exceptionList.size() > 0) {
+					logger.warn(sb.toString());
+					logger.info("Saving records having exceptions/errors in exception_record table");
+					allRepositories.findRepository("exception_record").saveAll(exceptionList);
+				}
+				exceptionList.clear();
+			}
+		} catch (Exception e) {
+			logger.error(String.format("Failed to iterate %s sheet rows ", this.sheetName), e);
+		}
+		logger.debug(String.format("Saving %s data completed.", this.sheetName));
+	}
+	
 }

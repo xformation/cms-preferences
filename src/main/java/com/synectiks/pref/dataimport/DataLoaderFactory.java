@@ -85,22 +85,5 @@ public class DataLoaderFactory {
 		return mapper.getDomain();
 	}
 	
-//	public Class getClassName(String entity) {
-//		if(entity.equalsIgnoreCase("COUNTRY")) {  
-//        	return Country.class;
-//        }
-//		if(entity.equalsIgnoreCase("STATE")) {  
-//        	return State.class;
-//        }
-//		if(entity.equalsIgnoreCase("CITY")) {  
-//        	return City.class;
-//        }
-//		if(entity.equalsIgnoreCase("COLLEGE")) {  
-//        	return College.class;
-//        }
-//		if(entity.equalsIgnoreCase("BRANCH")) {  
-//        	return Branch.class;
-//        }
-//		return null;
-//	}
+
 }

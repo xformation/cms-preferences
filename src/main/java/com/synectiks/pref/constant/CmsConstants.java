@@ -179,19 +179,31 @@ public interface CmsConstants {
 
 	ConcurrentHashMap<String, Config> USERS_CACHE = new ConcurrentHashMap<String, Config>();
 
+	public static List<String> EXCLUDE_TABLE_LIST = initExcludeTableList();
+    public static List<String> initExcludeTableList(){
+    	List<String> s = new ArrayList<>();
+    	s.add("exception_record");
+    	s.add("batch");
+    	s.add("section");
+    	s.add("teach");
+    	s.add("attendance_master");
+    	return s;
+    }
+    
 	List<String> TABLE_LIST = initTableList();
 	public static List<String> initTableList() {
 		List<String> ls = initTableDomainRepositoryMapperMap().keySet().stream().collect(Collectors.toList());
+		ls.removeAll(EXCLUDE_TABLE_LIST);
 		Collections.sort(ls);
 	    return ls;
 	}
 
 	public static Map<String, CmsTableWithDomainAndRepositoryMapper> initTableDomainRepositoryMapperMap() {
 		Map<String, CmsTableWithDomainAndRepositoryMapper> mpr = new HashMap<String, CmsTableWithDomainAndRepositoryMapper>();
-//		mpr.put("exception_record", new CmsTableWithDomainAndRepositoryMapper("exception_record", ExceptionRecord.class, ExceptionRecordRepository.class));
-//		mpr.put("country", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
-//		mpr.put("state", new CmsTableWithDomainAndRepositoryMapper("state", State.class, StateRepository.class));
-//		mpr.put("city", new CmsTableWithDomainAndRepositoryMapper("city", City.class, CityRepository.class));
+		mpr.put("exception_record", new CmsTableWithDomainAndRepositoryMapper("exception_record", ExceptionRecord.class, ExceptionRecordRepository.class));
+		mpr.put("country", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
+		mpr.put("state", new CmsTableWithDomainAndRepositoryMapper("state", State.class, StateRepository.class));
+		mpr.put("city", new CmsTableWithDomainAndRepositoryMapper("city", City.class, CityRepository.class));
 //		mpr.put("currency", new CmsTableWithDomainAndRepositoryMapper("currency", Currency.class, CurrencyRepository.class));
 		mpr.put("college", new CmsTableWithDomainAndRepositoryMapper("college", College.class, CollegeRepository.class));
 		mpr.put("branch", new CmsTableWithDomainAndRepositoryMapper("branch", Branch.class, BranchRepository.class));
