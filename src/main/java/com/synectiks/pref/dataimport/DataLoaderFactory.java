@@ -8,12 +8,12 @@ import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.dataimport.loader.AcademicYearLoader;
 import com.synectiks.pref.dataimport.loader.AttendanceMasterDataLoader;
 import com.synectiks.pref.dataimport.loader.AuthorizedSignatoryLoader;
-import com.synectiks.pref.dataimport.loader.BatchDataLoader;
+import com.synectiks.pref.dataimport.loader.BankAccountsDataLoader;
 import com.synectiks.pref.dataimport.loader.BranchDataLoader;
 import com.synectiks.pref.dataimport.loader.CollegeDataLoader;
 import com.synectiks.pref.dataimport.loader.DepartmentLoader;
 import com.synectiks.pref.dataimport.loader.HolidayDataLoader;
-import com.synectiks.pref.dataimport.loader.SectionDataLoader;
+import com.synectiks.pref.dataimport.loader.LegalEntityDataLoader;
 import com.synectiks.pref.dataimport.loader.TeacherDataLoader;
 import com.synectiks.pref.dataimport.loader.TermDataLoader;
 import com.synectiks.pref.service.util.CommonUtil;
@@ -60,9 +60,9 @@ public class DataLoaderFactory {
         if(tableName.equalsIgnoreCase("HOLIDAY")){
             return new HolidayDataLoader (tableName, allRepositories);
         }
-        if(tableName.equalsIgnoreCase("BATCH")){
-            return new BatchDataLoader (tableName, allRepositories);
-        }
+//        if(tableName.equalsIgnoreCase("BATCH")){
+//            return new BatchDataLoader (tableName, allRepositories);
+//        }
         if(tableName.equalsIgnoreCase("TEACHER")){
             return new TeacherDataLoader (tableName, allRepositories);
         }
@@ -72,8 +72,14 @@ public class DataLoaderFactory {
 //        if(tableName.equalsIgnoreCase("STUDENT")){
 //            return new StudentDataLoader(tableName, allRepositories);
 //        }
-        if(tableName.equalsIgnoreCase("SECTION")){
-            return new SectionDataLoader(tableName, allRepositories);
+//        if(tableName.equalsIgnoreCase("SECTION")){
+//            return new SectionDataLoader(tableName, allRepositories);
+//        }
+        if(tableName.equalsIgnoreCase("BANK_ACCOUNTS")){
+            return new BankAccountsDataLoader(tableName, allRepositories);
+        }
+        if(tableName.equalsIgnoreCase("LEGAL_ENTITY")){
+            return new LegalEntityDataLoader(tableName, allRepositories);
         }
         return null;  
 	}

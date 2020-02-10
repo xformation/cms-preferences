@@ -414,7 +414,6 @@ public class CmsEmployeeService {
         	eInp.setGender(tInp.getSex());
     	}
         
-//        private String typeOfEmployment;
 //        private Long managerId;
         if(!CommonUtil.isNullOrEmpty(tInp.getStatus())) {
         	eInp.setStatus(tInp.getStatus());
@@ -426,7 +425,14 @@ public class CmsEmployeeService {
 //        private String strResignationAcceptanceDate;
 //        private String strDrivingLicenceValidity;
         if(!CommonUtil.isNullOrEmpty(tInp.getStaffType())) {
-        	eInp.setStaffType(tInp.getStaffType());
+        	eInp.setTypeOfEmployment(tInp.getStaffType());
+    	}
+        
+        if(!CommonUtil.isNullOrEmpty(tInp.getDesignation()) && CmsConstants.DESIGNATION_LECTURER.equalsIgnoreCase(tInp.getDesignation()) 
+        		|| CmsConstants.DESIGNATION_PROFESSOR.equalsIgnoreCase(tInp.getDesignation())) {
+        	eInp.setStaffType(CmsConstants.STAFF_TYPE_TEACHING);
+    	}else {
+    		eInp.setStaffType(CmsConstants.STAFF_TYPE_NONTEACHING);
     	}
         
         if(tInp.getBranchId() != null) {

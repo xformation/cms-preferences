@@ -287,4 +287,7 @@ public interface CmsConstants {
     String CAST_SCHEDULED_TRIBE = "ST";
     String CAST_OTHER_BACKWARD_CLASSES="OBC";
     
+    String DESIGNATION_LECTURER = "Lecturer";
+    String DESIGNATION_PROFESSOR = "Professor";
+    
 }
