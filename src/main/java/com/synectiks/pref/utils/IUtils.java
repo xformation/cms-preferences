@@ -73,13 +73,13 @@ public interface IUtils {
 	String PRM_CLASS = "cls";
 	String PRM_ENTITY = "entity";
 	String KEY_INDX_EVENT_FIRE = "search.fire.event.url";
-	String URL_INDX_EVENT_FIRE = "http://100.81.5.26:8092/seach/fireEvent";
+	String URL_INDX_EVENT_FIRE = "http://localhost:8092/seach/fireEvent";
 	// String URL_INDX_EVENT_FIRE = "http://localhost:8092/api/v1/auth/seach/fireEvent";
 	String PRM_MSG = "msg";
 	String PRM_TOPIC = "topic";
 	String KEY_KAFKA_CONFIG = "kafka.url";
 	String KEY_KAFKA_TOPIC = "kafka.topic";
-	String URL_KAFKA_URL = "http://100.81.5.26:8190/kafka/send";
+	String URL_KAFKA_URL = "http://localhost:8190/kafka/send";
 
 	/**
 	 * Check if an object is null
