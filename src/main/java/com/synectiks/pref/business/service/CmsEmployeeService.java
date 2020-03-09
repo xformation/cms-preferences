@@ -1,15 +1,15 @@
 package com.synectiks.pref.business.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+import com.synectiks.pref.domain.Teacher;
+import com.synectiks.pref.domain.vo.CmsTeacherVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import com.synectiks.pref.constant.CmsConstants;
@@ -31,23 +31,129 @@ import com.synectiks.pref.service.util.DateFormatUtil;
 public class CmsEmployeeService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
     EmployeeRepository employeeRepository;
-	
+
 	@Autowired
     DepartmentRepository departmentRepository;
-    
+
     @Autowired
     BranchRepository branchRepository;
-    
-    @Autowired
-    CmsBranchService cmsBranchService; 
 
     @Autowired
-    CmsDepartmentService cmsDepartmentService; 
+    CmsBranchService cmsBranchService;
 
-    
+    @Autowired
+    CmsDepartmentService cmsDepartmentService;
+
+    public List<CmsEmployeeVo> getCmsEmployeeListOnFilterCriteria(Map<String, String> criteriaMap){
+        Employee obj = new Employee();
+        boolean isFilter = false;
+        if(criteriaMap.get("id") != null) {
+            obj.setId(Long.parseLong(criteriaMap.get("id")));
+            isFilter = true;
+        }
+        if(criteriaMap.get("branchId") != null) {
+            Branch branch = cmsBranchService.getBranch(Long.parseLong(criteriaMap.get("branchId")));
+            obj.setBranch(branch);
+            isFilter = true;
+        }
+        if(criteriaMap.get("departmentId") != null) {
+            Department department = cmsDepartmentService.getDepartment(Long.parseLong(criteriaMap.get("departmentId")));
+            obj.setDepartment(department);
+            isFilter = true;
+        }
+        if(criteriaMap.get("status") != null) {
+            obj.setStatus(criteriaMap.get("status"));
+            isFilter = true;
+        }
+        if(criteriaMap.get("employeeName") != null) {
+            obj.setEmployeeName(criteriaMap.get("employeeName"));
+            isFilter = true;
+        }
+        if(criteriaMap.get("designation") != null) {
+            obj.setDesignation(criteriaMap.get("designation"));
+            isFilter = true;
+        }
+        if(criteriaMap.get("staffType") != null) {
+            obj.setStaffType(criteriaMap.get("staffType"));
+            isFilter = true;
+        }
+        if(criteriaMap.get("gender") != null) {
+            obj.setGender(criteriaMap.get("gender"));
+            isFilter = true;
+        }
+        if(criteriaMap.get("typeOfEmployment") != null) {
+            obj.setTypeOfEmployment(criteriaMap.get("typeOfEmployment"));
+            isFilter = true;
+        }
+        List<Employee> list = null;
+        if(isFilter) {
+            list = this.employeeRepository.findAll(Example.of(obj), Sort.by(Sort.Direction.DESC, "id"));
+        }else {
+            list = this.employeeRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        }
+
+        List<CmsEmployeeVo> ls = changeEmployeeToCmsEmployeeList(list);
+        Collections.sort(ls, (o1, o2) -> o2.getId().compareTo(o1.getId()));
+        return ls;
+    }
+
+    public List<Employee> getEmployeeListOnFilterCriteria(Map<String, String> criteriaMap){
+        Employee obj = new Employee();
+        boolean isFilter = false;
+        if(criteriaMap.get("id") != null) {
+            obj.setId(Long.parseLong(criteriaMap.get("id")));
+            isFilter = true;
+        }
+        if(criteriaMap.get("branchId") != null) {
+            Branch branch = cmsBranchService.getBranch(Long.parseLong(criteriaMap.get("branchId")));
+            obj.setBranch(branch);
+            isFilter = true;
+        }
+        if(criteriaMap.get("departmentId") != null) {
+            Department department = cmsDepartmentService.getDepartment(Long.parseLong(criteriaMap.get("departmentId")));
+            obj.setDepartment(department);
+            isFilter = true;
+        }
+
+        if(criteriaMap.get("status") != null) {
+            obj.setStatus(criteriaMap.get("status"));
+            isFilter = true;
+        }
+        if(criteriaMap.get("employeeName") != null) {
+            obj.setEmployeeName(criteriaMap.get("employeeName"));
+            isFilter = true;
+        }
+        if(criteriaMap.get("designation") != null) {
+            obj.setDesignation(criteriaMap.get("designation"));
+            isFilter = true;
+        }
+        if(criteriaMap.get("staffType") != null) {
+            obj.setStaffType(criteriaMap.get("staffType"));
+            isFilter = true;
+        }
+        if(criteriaMap.get("gender") != null) {
+            obj.setGender(criteriaMap.get("gender"));
+            isFilter = true;
+        }
+        if(criteriaMap.get("typeOfEmployment") != null) {
+            obj.setTypeOfEmployment(criteriaMap.get("typeOfEmployment"));
+            isFilter = true;
+        }
+        List<Employee> list = null;
+        if(isFilter) {
+            list = this.employeeRepository.findAll(Example.of(obj), Sort.by(Sort.Direction.DESC, "id"));
+        }else {
+            list = this.employeeRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        }
+
+        Collections.sort(list, (o1, o2) -> o2.getId().compareTo(o1.getId()));
+        return list;
+    }
+
+
     public List<CmsEmployeeVo> getCmsEmployeeList(String status) {
     	Employee employee = new Employee();
         employee.setStatus(status);
@@ -56,14 +162,35 @@ public class CmsEmployeeService {
     	Collections.sort(ls, (o1, o2) -> o2.getId().compareTo(o1.getId()));
         return ls;
     }
-    
+
+    public List<CmsEmployeeVo> getCmsEmployeeList(){
+        List<Employee> list = this.employeeRepository.findAll();
+        List<CmsEmployeeVo> ls = changeEmployeeToCmsEmployeeList(list);
+        Collections.sort(ls, (o1, o2) -> o2.getId().compareTo(o1.getId()));
+        return ls;
+    }
     public List<CmsEmployeeVo> getEmployeeList(){
     	List<Employee> list = this.employeeRepository.findAll();
     	List<CmsEmployeeVo> ls = changeEmployeeToCmsEmployeeList(list);
     	Collections.sort(ls, (o1, o2) -> o2.getId().compareTo(o1.getId()));
     	return ls;
     }
-    
+
+    public List<Employee> getEmployeesList(){
+        List<Employee> list = this.employeeRepository.findAll();
+        Collections.sort(list, (o1, o2) -> o2.getId().compareTo(o1.getId()));
+        return list;
+    }
+
+    public Employee getEmployee(Long id){
+        Optional<Employee> e = this.employeeRepository.findById(id);
+        if(e.isPresent()) {
+            return e.get();
+        }
+        logger.debug("employee object not found for the given id. "+id+". Returning null");
+        return null;
+    }
+
     public CmsEmployeeVo getCmsEmployee(Long id){
     	Optional<Employee> ole = this.employeeRepository.findById(id);
     	CmsEmployeeVo vo = null;
@@ -73,7 +200,7 @@ public class CmsEmployeeService {
     	}
     	return vo;
     }
-    
+
     private List<CmsEmployeeVo> changeEmployeeToCmsEmployeeList(List<Employee> list){
     	List<CmsEmployeeVo> ls = new ArrayList<>();
     	for(Employee o: list) {
@@ -102,16 +229,16 @@ public class CmsEmployeeService {
 		}
 		if(o.getDepartment() != null) {
 			vo.setDepartmentId(o.getDepartment().getId());
-			CmsDepartmentVo cmsDvo =CommonUtil.createCopyProperties(o.getDepartment(), CmsDepartmentVo.class); 
+			CmsDepartmentVo cmsDvo =CommonUtil.createCopyProperties(o.getDepartment(), CmsDepartmentVo.class);
 			vo.setCmsDepartmentVo(cmsDvo);
 		}
 		if(o.getBranch() != null) {
 			vo.setBranchId(o.getBranch().getId());
-			CmsBranchVo cmsBvo =CommonUtil.createCopyProperties(o.getBranch(), CmsBranchVo.class); 
+			CmsBranchVo cmsBvo =CommonUtil.createCopyProperties(o.getBranch(), CmsBranchVo.class);
 			vo.setCmsBranchVo(cmsBvo);
 		}
 	}
-    
+
     public CmsEmployeeVo saveEmployee(EmployeeInput input) {
     	logger.info("Saving employee");
     	CmsEmployeeVo vo = null;
@@ -137,7 +264,7 @@ public class CmsEmployeeService {
 //    			if(!CommonUtil.isNullOrEmpty(input.getStrResignationAcceptanceDate())) {
 //    				vo.setResignationAcceptanceDate(DateFormatUtil.convertStringToLocalDate(input.getStrResignationAcceptanceDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
 //        		}
-    			
+
     			if(input.getDepartmentId() != null) {
     				Department dp = this.departmentRepository.findById(input.getDepartmentId()).get();
     				employee.setDepartment(dp);
@@ -149,7 +276,7 @@ public class CmsEmployeeService {
     		}else {
     			logger.debug("Updating existing course");
     			employee = this.employeeRepository.findById(input.getId()).get();
-    			
+
     			if(input.getEmployeeName() != null) {
     				employee.setEmployeeName(input.getEmployeeName());
     			}
@@ -159,7 +286,7 @@ public class CmsEmployeeService {
 //    			if(input.getEmployeeLastName() != null) {
 //    				employee.setEmployeeLastName(input.getEmployeeLastName());
 //    			}
-    			
+
     			if(input.getEmployeeFatherName() != null) {
     				employee.setEmployeeFatherName(input.getEmployeeFatherName());
     			}
@@ -169,7 +296,7 @@ public class CmsEmployeeService {
 //    			if(input.getFatherLastName() != null) {
 //    				employee.setFatherLastName(input.getFatherLastName());
 //    			}
-    			
+
     			if(input.getEmployeeMotherName() != null) {
     				employee.setEmployeeMotherName(input.getEmployeeMotherName());
     			}
@@ -179,7 +306,7 @@ public class CmsEmployeeService {
 //    			if(input.getMotherLastName() != null) {
 //    				employee.setMotherLastName(input.getMotherLastName());
 //    			}
-//    			
+//
 //    			if(input.getSpouseName() != null) {
 //    				employee.setSpouseName(input.getSpouseName());
 //    			}
@@ -189,7 +316,7 @@ public class CmsEmployeeService {
 //    			if(input.getSpouseLastName() != null) {
 //    				employee.setSpouseLastName(input.getSpouseLastName());
 //    			}
-    			
+
 //    			if(input.getPlaceOfBirth() != null) {
 //    				employee.setPlaceOfBirth(input.getPlaceOfBirth());
 //    			}
@@ -199,7 +326,7 @@ public class CmsEmployeeService {
 //    			if(input.getCaste() != null) {
 //    				employee.setCaste(input.getCaste());
 //    			}
-//    			
+//
 //    			if(input.getSubCaste() != null) {
 //    				employee.setSubCaste(input.getSubCaste());
 //    			}
@@ -209,7 +336,7 @@ public class CmsEmployeeService {
 //    			if(input.getBloodGroup() != null) {
 //    				employee.setBloodGroup(input.getBloodGroup());
 //    			}
-    			
+
 //    			if(input.getPinCode() != null) {
 //    				employee.setPinCode(input.getPinCode());
 //    			}
@@ -231,7 +358,7 @@ public class CmsEmployeeService {
 //    			if(input.getEmergencyContactEmailAddress() != null) {
 //    				employee.setEmergencyContactEmailAddress(input.getEmergencyContactEmailAddress());
 //    			}
-    			
+
 //    			if(input.getStatus() != null) {
 //    				employee.setStatus(input.getStatus());
 //    			}
@@ -241,7 +368,7 @@ public class CmsEmployeeService {
     			if(input.getDesignation() != null) {
     				employee.setDesignation(input.getDesignation());
     			}
-    			
+
     			if(input.getAadharNo() != null) {
     				employee.setAadharNo(input.getAadharNo());
     			}
@@ -251,7 +378,7 @@ public class CmsEmployeeService {
     			if(input.getPassportNo() != null) {
     				employee.setPassportNo(input.getPassportNo());
     			}
-    			
+
     			if(input.getPrimaryContactNo() != null) {
     				employee.setPrimaryContactNo(input.getPrimaryContactNo());
     			}
@@ -261,7 +388,7 @@ public class CmsEmployeeService {
     			if(input.getPrimaryAddress() != null) {
     				employee.setPrimaryAddress(input.getPrimaryAddress());
     			}
-    			
+
     			if(input.getSecondaryAddress() != null) {
     				employee.setSecondaryAddress(input.getSecondaryAddress());
     			}
@@ -271,7 +398,7 @@ public class CmsEmployeeService {
     			if(input.getOfficialMailId() != null) {
     				employee.setOfficialMailId(input.getOfficialMailId());
     			}
-    			
+
     			if(input.getDrivingLicenceNo() != null) {
     				employee.setDrivingLicenceNo(input.getDrivingLicenceNo());
     			}
@@ -281,7 +408,7 @@ public class CmsEmployeeService {
     			if(input.getManagerId() != null) {
     				employee.setManagerId(input.getManagerId());
     			}
-    			
+
     			if(input.getMaritalStatus() != null) {
     				employee.setMaritalStatus(input.getMaritalStatus());
     			}
@@ -290,7 +417,7 @@ public class CmsEmployeeService {
 //    			vo.setJobEndDate(input.getStrJobEndDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrJobEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
 //    			vo.setResignationDate(input.getStrResignationDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrResignationDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
 //    			vo.setResignationAcceptanceDate(input.getStrResignationAcceptanceDate() != null ? DateFormatUtil.convertStringToLocalDate(input.getStrResignationAcceptanceDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
-//    			
+//
     			if(input.getDepartmentId() != null) {
     				Department dp = this.departmentRepository.findById(input.getDepartmentId()).get();
     				employee.setDepartment(dp);
@@ -300,17 +427,17 @@ public class CmsEmployeeService {
     				employee.setBranch(b);
     			}
     		}
-    		
+
     		employee = this.employeeRepository.save(employee);
-        	
+
         	vo = CommonUtil.createCopyProperties(employee, CmsEmployeeVo.class);
-        	
+
 //        	vo.setStrDateOfBirth(employee.getDateOfBirth() != null ? DateFormatUtil.changeLocalDateFormat(employee.getDateOfBirth(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
 			vo.setStrJoiningDate(input.getJoiningDate() != null ? DateFormatUtil.changeLocalDateFormat(employee.getJoiningDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
 			vo.setStrJobEndDate(input.getJobEndDate() != null ? DateFormatUtil.changeLocalDateFormat(employee.getJobEndDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
 			vo.setStrResignationDate(input.getResignationDate() != null ? DateFormatUtil.changeLocalDateFormat(employee.getResignationDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
 			vo.setStrResignationAcceptanceDate(input.getResignationAcceptanceDate() != null ? DateFormatUtil.changeLocalDateFormat(employee.getResignationAcceptanceDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy) : null);
-		
+
         	vo.setCreatedOn(null);
         	vo.setUpdatedOn(null);
         	vo.setDateOfBirth(null);
@@ -318,7 +445,7 @@ public class CmsEmployeeService {
         	vo.setJobEndDate(null);
         	vo.setResignationDate(null);
         	vo.setResignationAcceptanceDate(null);
-        	
+
         	vo.setExitCode(0L);
         	if(input.getId() == null) {
         		vo.setExitDescription("Employee is added successfully");
@@ -327,7 +454,7 @@ public class CmsEmployeeService {
         		vo.setExitDescription("Employee is updated successfully");
         		logger.debug("Employee is updated successfully");
         	}
-        	
+
         }catch(Exception e) {
         	vo = new CmsEmployeeVo();
         	vo.setExitCode(1L);
@@ -338,9 +465,9 @@ public class CmsEmployeeService {
     	List ls =  getEmployeeList();
         vo.setDataList(ls);
     	return vo;
-        
+
     }
-    
+
     EmployeeInput convertCmsTeacherToCmsEmployee(TeacherInput tInp) {
     	EmployeeInput eInp = new EmployeeInput();
     	eInp.setId(tInp.getId());
@@ -352,11 +479,11 @@ public class CmsEmployeeService {
     		empName = empName + " "+ tInp.getTeacherLastName();
     	}
     	eInp.setEmployeeName(empName);
-    	
+
     	if(!CommonUtil.isNullOrEmpty(tInp.getDesignation())) {
     		eInp.setDesignation(tInp.getDesignation());
     	}
-    	
+
         eInp.setJoiningDate(LocalDate.now());
         if(!CommonUtil.isNullOrEmpty(tInp.getStrDateOfBirth())) {
         	eInp.setStrDateOfBirth(tInp.getStrDateOfBirth());
@@ -370,7 +497,7 @@ public class CmsEmployeeService {
         if(!CommonUtil.isNullOrEmpty(tInp.getPanNo())) {
         	eInp.setPanNo(tInp.getPanNo());
     	}
-        
+
 //        vo.setPassportNo(null);
         if(!CommonUtil.isNullOrEmpty(tInp.getTeacherContactNumber())) {
         	eInp.setPrimaryContactNo(tInp.getTeacherContactNumber());
@@ -386,7 +513,7 @@ public class CmsEmployeeService {
         	eFname = eFname + " "+tInp.getFatherLastName();
     	}
         eInp.setEmployeeFatherName(eFname);
-        
+
         String eMname = tInp.getMotherName();
         if(!CommonUtil.isNullOrEmpty(tInp.getFatherMiddleName())) {
         	eMname = eMname + " "+tInp.getMotherMiddleName();
@@ -395,17 +522,17 @@ public class CmsEmployeeService {
         	eMname = eMname + " "+tInp.getMotherLastName();
     	}
         eInp.setEmployeeMotherName(eMname);
-        
+
         if(!CommonUtil.isNullOrEmpty(tInp.getAddress())) {
         	eInp.setPrimaryAddress(tInp.getAddress());
     	}
-        
+
 //        vo.setSecondaryAddress(null);
 //        private String employeeAddress;
         if(!CommonUtil.isNullOrEmpty(tInp.getTeacherEmailAddress())) {
         	eInp.setPersonalMailId(tInp.getTeacherEmailAddress());
     	}
-        
+
 //        private String officialMailId;
 //        private String disability;
 //        private String drivingLicenceNo;
@@ -413,12 +540,12 @@ public class CmsEmployeeService {
         if(!CommonUtil.isNullOrEmpty(tInp.getSex())) {
         	eInp.setGender(tInp.getSex());
     	}
-        
+
 //        private Long managerId;
         if(!CommonUtil.isNullOrEmpty(tInp.getStatus())) {
         	eInp.setStatus(tInp.getStatus());
     	}
-        
+
 //        private String maritalStatus;
 //        private String strJobEndDate;
 //        private String strResignationDate;
@@ -427,27 +554,27 @@ public class CmsEmployeeService {
         if(!CommonUtil.isNullOrEmpty(tInp.getStaffType())) {
         	eInp.setTypeOfEmployment(tInp.getStaffType());
     	}
-        
-        if(!CommonUtil.isNullOrEmpty(tInp.getDesignation()) && CmsConstants.DESIGNATION_LECTURER.equalsIgnoreCase(tInp.getDesignation()) 
+
+        if(!CommonUtil.isNullOrEmpty(tInp.getDesignation()) && CmsConstants.DESIGNATION_LECTURER.equalsIgnoreCase(tInp.getDesignation())
         		|| CmsConstants.DESIGNATION_PROFESSOR.equalsIgnoreCase(tInp.getDesignation())) {
         	eInp.setStaffType(CmsConstants.STAFF_TYPE_TEACHING);
     	}else {
     		eInp.setStaffType(CmsConstants.STAFF_TYPE_NONTEACHING);
     	}
-        
+
         if(tInp.getBranchId() != null) {
 			eInp.setBranchId(tInp.getBranchId());
 			Branch branch = cmsBranchService.getBranch(tInp.getBranchId());
-			CmsBranchVo cmsBvo =CommonUtil.createCopyProperties(branch, CmsBranchVo.class); 
+			CmsBranchVo cmsBvo =CommonUtil.createCopyProperties(branch, CmsBranchVo.class);
 			eInp.setCmsBranchVo(cmsBvo);
 		}
         if(tInp.getDepartmentId() != null) {
 			eInp.setDepartmentId(tInp.getDepartmentId());
 			Department department = cmsDepartmentService.getDepartment(tInp.getDepartmentId());
-			CmsDepartmentVo cmsDvo =CommonUtil.createCopyProperties(department, CmsDepartmentVo.class); 
+			CmsDepartmentVo cmsDvo =CommonUtil.createCopyProperties(department, CmsDepartmentVo.class);
 			eInp.setCmsDepartmentVo(cmsDvo);
 		}
-		
+
     	return eInp;
     }
 }
