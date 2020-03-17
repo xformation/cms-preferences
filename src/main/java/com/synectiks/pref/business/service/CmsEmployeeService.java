@@ -1,24 +1,29 @@
 package com.synectiks.pref.business.service;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-import com.synectiks.pref.domain.Teacher;
-import com.synectiks.pref.domain.vo.CmsTeacherVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 
 import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.Branch;
 import com.synectiks.pref.domain.Department;
 import com.synectiks.pref.domain.Employee;
+import com.synectiks.pref.domain.Teacher;
 import com.synectiks.pref.domain.vo.CmsBranchVo;
 import com.synectiks.pref.domain.vo.CmsDepartmentVo;
 import com.synectiks.pref.domain.vo.CmsEmployeeVo;
+import com.synectiks.pref.domain.vo.CmsTeacherVo;
 import com.synectiks.pref.graphql.types.employee.EmployeeInput;
 import com.synectiks.pref.graphql.types.teacher.TeacherInput;
 import com.synectiks.pref.repository.BranchRepository;
@@ -31,129 +36,192 @@ import com.synectiks.pref.service.util.DateFormatUtil;
 public class CmsEmployeeService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
 	@Autowired
     EmployeeRepository employeeRepository;
-
+	
 	@Autowired
     DepartmentRepository departmentRepository;
-
+    
     @Autowired
     BranchRepository branchRepository;
+    
+    @Autowired
+    CmsBranchService cmsBranchService; 
 
     @Autowired
-    CmsBranchService cmsBranchService;
+    CmsDepartmentService cmsDepartmentService; 
 
-    @Autowired
-    CmsDepartmentService cmsDepartmentService;
-
+    
     public List<CmsEmployeeVo> getCmsEmployeeListOnFilterCriteria(Map<String, String> criteriaMap){
-        Employee obj = new Employee();
-        boolean isFilter = false;
-        if(criteriaMap.get("id") != null) {
-            obj.setId(Long.parseLong(criteriaMap.get("id")));
-            isFilter = true;
-        }
-        if(criteriaMap.get("branchId") != null) {
-            Branch branch = cmsBranchService.getBranch(Long.parseLong(criteriaMap.get("branchId")));
-            obj.setBranch(branch);
-            isFilter = true;
-        }
-        if(criteriaMap.get("departmentId") != null) {
-            Department department = cmsDepartmentService.getDepartment(Long.parseLong(criteriaMap.get("departmentId")));
-            obj.setDepartment(department);
-            isFilter = true;
-        }
-        if(criteriaMap.get("status") != null) {
-            obj.setStatus(criteriaMap.get("status"));
-            isFilter = true;
-        }
-        if(criteriaMap.get("employeeName") != null) {
-            obj.setEmployeeName(criteriaMap.get("employeeName"));
-            isFilter = true;
-        }
-        if(criteriaMap.get("designation") != null) {
-            obj.setDesignation(criteriaMap.get("designation"));
-            isFilter = true;
-        }
-        if(criteriaMap.get("staffType") != null) {
-            obj.setStaffType(criteriaMap.get("staffType"));
-            isFilter = true;
-        }
-        if(criteriaMap.get("gender") != null) {
-            obj.setGender(criteriaMap.get("gender"));
-            isFilter = true;
-        }
-        if(criteriaMap.get("typeOfEmployment") != null) {
-            obj.setTypeOfEmployment(criteriaMap.get("typeOfEmployment"));
-            isFilter = true;
-        }
-        List<Employee> list = null;
-        if(isFilter) {
-            list = this.employeeRepository.findAll(Example.of(obj), Sort.by(Sort.Direction.DESC, "id"));
-        }else {
-            list = this.employeeRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        }
-
-        List<CmsEmployeeVo> ls = changeEmployeeToCmsEmployeeList(list);
-        Collections.sort(ls, (o1, o2) -> o2.getId().compareTo(o1.getId()));
-        return ls;
+    	Employee obj = new Employee();
+    	boolean isFilter = false;
+    	if(criteriaMap.get("id") != null) {
+    		obj.setId(Long.parseLong(criteriaMap.get("id")));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("branchId") != null) {
+    		Branch branch = cmsBranchService.getBranch(Long.parseLong(criteriaMap.get("branchId")));
+    		obj.setBranch(branch);
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("employeeName") != null) {
+    		obj.setEmployeeName(criteriaMap.get("employeeName"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("designation") != null) {
+    		obj.setDesignation(criteriaMap.get("designation"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("status") != null) {
+    		obj.setStatus(criteriaMap.get("status"));
+    		isFilter = true;
+    	}
+    	
+    	if(criteriaMap.get("primaryAddress") != null) {
+    		obj.setPrimaryAddress(criteriaMap.get("primaryAddress"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("employeeAddress") != null) {
+    		obj.setEmployeeAddress(criteriaMap.get("employeeAddress"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("personalMailId") != null) {
+    		obj.setPersonalMailId(criteriaMap.get("personalMailId"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("officialMailId") != null) {
+    		obj.setOfficialMailId(criteriaMap.get("officialMailId"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("typeOfEmployment") != null) {
+    		obj.setTypeOfEmployment(criteriaMap.get("typeOfEmployment"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("managerId") != null) {
+    		obj.setManagerId(Long.parseLong(criteriaMap.get("managerId")));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("staffType") != null) {
+    		obj.setStaffType(criteriaMap.get("staffType"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("gender") != null) {
+    		obj.setGender(criteriaMap.get("gender"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("primaryContactNo") != null) {
+    		obj.setPrimaryContactNo(criteriaMap.get("primaryContactNo"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("secondaryContactNo") != null) {
+    		obj.setSecondaryContactNo(criteriaMap.get("secondaryContactNo"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("aadharNo") != null) {
+    		obj.setAadharNo(criteriaMap.get("aadharNo"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("panNo") != null) {
+    		obj.setPanNo(criteriaMap.get("panNo"));
+    		isFilter = true;
+    	}
+    	List<Employee> list = null;
+    	if(isFilter) {
+    		list = this.employeeRepository.findAll(Example.of(obj), Sort.by(Direction.DESC, "id"));
+    	}else {
+    		list = this.employeeRepository.findAll(Sort.by(Direction.DESC, "id"));
+    	}
+        
+    	List<CmsEmployeeVo> ls = changeEmployeeToCmsEmployeeList(list);
+    	Collections.sort(ls, (o1, o2) -> o2.getId().compareTo(o1.getId()));
+    	return ls;
     }
-
+    
     public List<Employee> getEmployeeListOnFilterCriteria(Map<String, String> criteriaMap){
-        Employee obj = new Employee();
-        boolean isFilter = false;
-        if(criteriaMap.get("id") != null) {
-            obj.setId(Long.parseLong(criteriaMap.get("id")));
-            isFilter = true;
-        }
-        if(criteriaMap.get("branchId") != null) {
-            Branch branch = cmsBranchService.getBranch(Long.parseLong(criteriaMap.get("branchId")));
-            obj.setBranch(branch);
-            isFilter = true;
-        }
-        if(criteriaMap.get("departmentId") != null) {
-            Department department = cmsDepartmentService.getDepartment(Long.parseLong(criteriaMap.get("departmentId")));
-            obj.setDepartment(department);
-            isFilter = true;
-        }
-
-        if(criteriaMap.get("status") != null) {
-            obj.setStatus(criteriaMap.get("status"));
-            isFilter = true;
-        }
-        if(criteriaMap.get("employeeName") != null) {
-            obj.setEmployeeName(criteriaMap.get("employeeName"));
-            isFilter = true;
-        }
-        if(criteriaMap.get("designation") != null) {
-            obj.setDesignation(criteriaMap.get("designation"));
-            isFilter = true;
-        }
-        if(criteriaMap.get("staffType") != null) {
-            obj.setStaffType(criteriaMap.get("staffType"));
-            isFilter = true;
-        }
-        if(criteriaMap.get("gender") != null) {
-            obj.setGender(criteriaMap.get("gender"));
-            isFilter = true;
-        }
-        if(criteriaMap.get("typeOfEmployment") != null) {
-            obj.setTypeOfEmployment(criteriaMap.get("typeOfEmployment"));
-            isFilter = true;
-        }
-        List<Employee> list = null;
-        if(isFilter) {
-            list = this.employeeRepository.findAll(Example.of(obj), Sort.by(Sort.Direction.DESC, "id"));
-        }else {
-            list = this.employeeRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        }
-
-        Collections.sort(list, (o1, o2) -> o2.getId().compareTo(o1.getId()));
-        return list;
+    	Employee obj = new Employee();
+    	boolean isFilter = false;
+    	if(criteriaMap.get("id") != null) {
+    		obj.setId(Long.parseLong(criteriaMap.get("id")));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("branchId") != null) {
+    		Branch branch = cmsBranchService.getBranch(Long.parseLong(criteriaMap.get("branchId")));
+    		obj.setBranch(branch);
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("employeeName") != null) {
+    		obj.setEmployeeName(criteriaMap.get("employeeName"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("designation") != null) {
+    		obj.setDesignation(criteriaMap.get("designation"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("status") != null) {
+    		obj.setStatus(criteriaMap.get("status"));
+    		isFilter = true;
+    	}
+    	
+    	if(criteriaMap.get("primaryAddress") != null) {
+    		obj.setPrimaryAddress(criteriaMap.get("primaryAddress"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("employeeAddress") != null) {
+    		obj.setEmployeeAddress(criteriaMap.get("employeeAddress"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("personalMailId") != null) {
+    		obj.setPersonalMailId(criteriaMap.get("personalMailId"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("officialMailId") != null) {
+    		obj.setOfficialMailId(criteriaMap.get("officialMailId"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("typeOfEmployment") != null) {
+    		obj.setTypeOfEmployment(criteriaMap.get("typeOfEmployment"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("managerId") != null) {
+    		obj.setManagerId(Long.parseLong(criteriaMap.get("managerId")));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("staffType") != null) {
+    		obj.setStaffType(criteriaMap.get("staffType"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("gender") != null) {
+    		obj.setGender(criteriaMap.get("gender"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("primaryContactNo") != null) {
+    		obj.setPrimaryContactNo(criteriaMap.get("primaryContactNo"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("secondaryContactNo") != null) {
+    		obj.setSecondaryContactNo(criteriaMap.get("secondaryContactNo"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("aadharNo") != null) {
+    		obj.setAadharNo(criteriaMap.get("aadharNo"));
+    		isFilter = true;
+    	}
+    	if(criteriaMap.get("panNo") != null) {
+    		obj.setPanNo(criteriaMap.get("panNo"));
+    		isFilter = true;
+    	}
+    	List<Employee> list = null;
+    	if(isFilter) {
+    		list = this.employeeRepository.findAll(Example.of(obj), Sort.by(Direction.DESC, "id"));
+    	}else {
+    		list = this.employeeRepository.findAll(Sort.by(Direction.DESC, "id"));
+    	}
+        
+    	Collections.sort(list, (o1, o2) -> o2.getId().compareTo(o1.getId()));
+    	return list;
     }
-
-
+    
     public List<CmsEmployeeVo> getCmsEmployeeList(String status) {
     	Employee employee = new Employee();
         employee.setStatus(status);
@@ -162,35 +230,26 @@ public class CmsEmployeeService {
     	Collections.sort(ls, (o1, o2) -> o2.getId().compareTo(o1.getId()));
         return ls;
     }
-
+    
     public List<CmsEmployeeVo> getCmsEmployeeList(){
-        List<Employee> list = this.employeeRepository.findAll();
-        List<CmsEmployeeVo> ls = changeEmployeeToCmsEmployeeList(list);
-        Collections.sort(ls, (o1, o2) -> o2.getId().compareTo(o1.getId()));
-        return ls;
-    }
-    public List<CmsEmployeeVo> getEmployeeList(){
     	List<Employee> list = this.employeeRepository.findAll();
     	List<CmsEmployeeVo> ls = changeEmployeeToCmsEmployeeList(list);
     	Collections.sort(ls, (o1, o2) -> o2.getId().compareTo(o1.getId()));
     	return ls;
     }
 
+    public List<Employee> getEmployeeList(){
+    	List<Employee> list = this.employeeRepository.findAll();
+    	Collections.sort(list, (o1, o2) -> o2.getId().compareTo(o1.getId()));
+    	return list;
+    }
+    
     public List<Employee> getEmployeesList(){
         List<Employee> list = this.employeeRepository.findAll();
         Collections.sort(list, (o1, o2) -> o2.getId().compareTo(o1.getId()));
         return list;
     }
-
-    public Employee getEmployee(Long id){
-        Optional<Employee> e = this.employeeRepository.findById(id);
-        if(e.isPresent()) {
-            return e.get();
-        }
-        logger.debug("employee object not found for the given id. "+id+". Returning null");
-        return null;
-    }
-
+    
     public CmsEmployeeVo getCmsEmployee(Long id){
     	Optional<Employee> ole = this.employeeRepository.findById(id);
     	CmsEmployeeVo vo = null;
@@ -200,7 +259,15 @@ public class CmsEmployeeService {
     	}
     	return vo;
     }
-
+    
+    public Employee getEmployee(Long id){
+    	Optional<Employee> ole = this.employeeRepository.findById(id);
+    	if(ole.isPresent()) {
+    		return ole.get();
+    	}
+    	return null;
+    }
+    
     private List<CmsEmployeeVo> changeEmployeeToCmsEmployeeList(List<Employee> list){
     	List<CmsEmployeeVo> ls = new ArrayList<>();
     	for(Employee o: list) {
@@ -462,7 +529,7 @@ public class CmsEmployeeService {
     		logger.error("Employee save failed. Exception : ",e);
     	}
     	logger.info("Employee saved successfully");
-    	List ls =  getEmployeeList();
+    	List ls =  getCmsEmployeeList();
         vo.setDataList(ls);
     	return vo;
 

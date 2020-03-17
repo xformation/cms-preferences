@@ -358,7 +358,7 @@ public class CmsTeacherService {
     	}
     	logger.info("Teacher saved successfully");
     	List ls =  getCmsTeacherList();
-    	List<CmsEmployeeVo> evoList = cmsEmployeeService.getEmployeeList();
+    	List<CmsEmployeeVo> evoList = cmsEmployeeService.getCmsEmployeeList();
     	for(CmsEmployeeVo tempEvo: evoList) {
     		if(CmsConstants.STAFF_TYPE_NONTEACHING.equalsIgnoreCase(tempEvo.getStaffType())) {
     			CmsTeacherVo tempTvo = convertCmsEmployeeToCmsTeacher(tempEvo);

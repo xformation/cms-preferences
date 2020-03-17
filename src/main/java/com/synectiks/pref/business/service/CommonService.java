@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,9 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
+import com.synectiks.pref.config.ApplicationProperties;
 import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.AcademicYear;
 import com.synectiks.pref.domain.AttendanceMaster;
@@ -48,6 +51,7 @@ import com.synectiks.pref.domain.vo.CmsAcademicYearVo;
 import com.synectiks.pref.domain.vo.CmsDepartmentVo;
 import com.synectiks.pref.domain.vo.CmsLectureVo;
 import com.synectiks.pref.domain.vo.CmsNotificationsVo;
+import com.synectiks.pref.domain.vo.CmsStudentVo;
 import com.synectiks.pref.domain.vo.CmsTermVo;
 import com.synectiks.pref.domain.vo.Config;
 import com.synectiks.pref.repository.AcademicYearRepository;
@@ -146,6 +150,13 @@ public class CommonService {
 //    @Autowired
 //    private LectureRepository lectureRepository;
 
+    @Autowired
+    ApplicationProperties applicationProperties;
+
+    @Autowired
+    RestTemplate restTemplate;
+
+    
     public AcademicYear findAcademicYearByYear(String academicYear) {
         if(CommonUtil.isNullOrEmpty(academicYear)) {
             return null;
@@ -1495,6 +1506,19 @@ public class CommonService {
           .getResultList();
       return list;
     }
+    
+    
+    public List<CmsStudentVo> getAllCmsStudentsByBranch(Long branchId) {
+		logger.debug("Getting cms students based on branch id : "+branchId);
+	    String url = applicationProperties.getCmsBackEndUrl()+"/api/cmsstudents?branchId="+branchId;
+	    CmsStudentVo[] temp = this.restTemplate.getForObject(url, CmsStudentVo[].class);
+	    if(temp.length == 0) {
+	    	return Collections.emptyList();
+	    }
+	    List<CmsStudentVo> studentList = Arrays.asList(temp);
+	    Collections.sort(studentList, (o1, o2) -> o2.getId().compareTo(o1.getId()));
+	    return studentList;
+	}
     
     public static void main(String a[]) {
 //        String dt = "10/10/2019";

@@ -165,14 +165,14 @@ public class Query implements GraphQLQueryResolver {
 	
 	public List<CmsEmployeeVo> getEmployeeList() throws Exception {
     	logger.debug("Query - getEmployeeList :");
-    	return this.cmsEmployeeService.getEmployeeList();
+    	return this.cmsEmployeeService.getCmsEmployeeList();
     }
 	
 	public List<CmsTeacherVo> getTeacherList() throws Exception {
     	logger.debug("Query - getTeacherList :");
     	
     	List<CmsTeacherVo> ls =  this.cmsTeacherService.getCmsTeacherList();
-    	List<CmsEmployeeVo> evoList = cmsEmployeeService.getEmployeeList();
+    	List<CmsEmployeeVo> evoList = cmsEmployeeService.getCmsEmployeeList();
     	for(CmsEmployeeVo tempEvo: evoList) {
     		if(CmsConstants.STAFF_TYPE_NONTEACHING.equalsIgnoreCase(tempEvo.getStaffType())) {
     			CmsTeacherVo tempTvo = this.cmsTeacherService.convertCmsEmployeeToCmsTeacher(tempEvo);
