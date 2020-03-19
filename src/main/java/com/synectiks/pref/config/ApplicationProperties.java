@@ -22,6 +22,9 @@ public class ApplicationProperties {
 	private String cmsBackEndUrl;
 	private String kafkaUrl;
 	private String indexEventFireUrl;
+	private String msAuthenticationUrl;
+	private String paymentResponseUrl;
+	private String paymentRedirectUrl;
 	
 	public String getImagePath() {
 		return imagePath;
@@ -109,5 +112,29 @@ public class ApplicationProperties {
 
 	public void setIndexEventFireUrl(String indexEventFireUrl) {
 		this.indexEventFireUrl = indexEventFireUrl;
+	}
+
+	public String getMsAuthenticationUrl() {
+		return msAuthenticationUrl;
+	}
+
+	public void setMsAuthenticationUrl(String msAuthenticationUrl) {
+		this.msAuthenticationUrl = msAuthenticationUrl;
+	}
+
+	public String getPaymentResponseUrl() {
+		return paymentResponseUrl;
+	}
+
+	public void setPaymentResponseUrl(String paymentResponseUrl) {
+		this.paymentResponseUrl = paymentResponseUrl;
+	}
+
+	public String getPaymentRedirectUrl() {
+		return paymentRedirectUrl;
+	}
+
+	public void setPaymentRedirectUrl(String paymentRedirectUrl) {
+		this.paymentRedirectUrl = paymentRedirectUrl;
 	}
 }

@@ -57,7 +57,7 @@ spring:
                     data: target/elasticsearch/data
     liquibase:
         contexts: dev
-        dropFirst: true
+        dropFirst: false
     mail:
         host: localhost
         port: 25
@@ -165,3 +165,7 @@ application:
     cmsBackEndUrl: http://100.81.5.26:8080
     kafkaUrl: http://100.81.5.26:8091/kafka/send
     indexEventFireUrl: http://100.81.5.26:8092/seach/fireEvent
+    msAuthenticationUrl: https://login.microsoftonline.com/TENANT_ID/oauth2/v2.0/token
+    paymentResponseUrl: http://100.81.5.26:9091/api/cmspaymentresponse
+    paymentRedirectUrl: http://100.81.5.26:3000/plugins/ems-preference/page/home
+    

@@ -247,9 +247,9 @@ public interface CmsConstants {
 	String HASH_ALGO = "HmacSHA256";
     String MERCHANT_ID = "HMACUAT";
     String SECURITY_ID = "hmacuat";
-    String RESPONSE_URL = "http://localhost:8080/api/cmspaymentresponse";
+//    String RESPONSE_URL = "http://localhost:9091/api/cmspaymentresponse";
 	String PAYMENT_STATUS_FAILED = "550";
-	String PAYMENT_REDIRECT_URL = "http://localhost:3000/payment-response";
+//	String PAYMENT_REDIRECT_URL = "http://localhost:3000/payment-response";
 
 	String ERROR_COLLEGE_ALREADY_EXISTS = "College alreay exists. Application allows only one college.";
 	String PRIVATE = "PRIVATE";
