@@ -233,11 +233,18 @@ public class CmsSubjectService {
     		
 			Batch b = this.cmsBatchService.getBatch(input.getBatchId());
 			subject.setBatch(b);
-    		
-			subject.setSubjectCode(input.getSubjectCode());
-			subject.setSubjectType(input.getSubjectType());
-			subject.setSubjectDesc(input.getSubjectDesc());
-			subject.setStatus(input.getStatus());
+    		if(input.getSubjectCode() != null) {
+    			subject.setSubjectCode(input.getSubjectCode());
+    		}
+    		if(input.getSubjectType() != null) {
+    			subject.setSubjectType(input.getSubjectType());
+    		}
+    		if(input.getSubjectDesc() != null) {
+    			subject.setSubjectDesc(input.getSubjectDesc());
+    		}
+    		if(input.getStatus() != null) {
+    			subject.setStatus(input.getStatus());
+    		}
     		
     		subject = subjectRepository.save(subject);
         	
