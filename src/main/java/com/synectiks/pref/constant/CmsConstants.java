@@ -172,6 +172,9 @@ public interface CmsConstants {
     public static List<String> initExcludeTableList(){
     	List<String> s = new ArrayList<>();
     	s.add("exception_record");
+    	s.add("country");
+    	s.add("state");
+    	s.add("city");
     	s.add("batch");
     	s.add("section");
     	s.add("teach");

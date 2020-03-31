@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.dataimport.loader.AcademicYearLoader;
-import com.synectiks.pref.dataimport.loader.AttendanceMasterDataLoader;
 import com.synectiks.pref.dataimport.loader.AuthorizedSignatoryLoader;
 import com.synectiks.pref.dataimport.loader.BankAccountsDataLoader;
 import com.synectiks.pref.dataimport.loader.BranchDataLoader;
@@ -26,9 +25,6 @@ public class DataLoaderFactory {
         if(tableName == null){  
         	return null;  
         }  
-//        if(tableName.equalsIgnoreCase("STUDENT")) {  
-//            return new StudentDataLoader(this.studentRepository, tableName);  
-//        }   
         
 //        if(tableName.equalsIgnoreCase("COUNTRY")) {  
 //        	return new CountryDataLoader(tableName, allRepositories); 
@@ -48,39 +44,36 @@ public class DataLoaderFactory {
         if(tableName.equalsIgnoreCase("AUTHORIZED_SIGNATORY")){
             return new AuthorizedSignatoryLoader (tableName, allRepositories);
         }
-        if(tableName.equalsIgnoreCase("ACADEMIC_YEAR")){
-            return new AcademicYearLoader (tableName, allRepositories);
-        }
-        if(tableName.equalsIgnoreCase("DEPARTMENT")){
-            return new DepartmentLoader (tableName, allRepositories);
-        }
-        if(tableName.equalsIgnoreCase("TERM")){
-            return new TermDataLoader (tableName, allRepositories);
-        }
-        if(tableName.equalsIgnoreCase("HOLIDAY")){
-            return new HolidayDataLoader (tableName, allRepositories);
-        }
-//        if(tableName.equalsIgnoreCase("BATCH")){
-//            return new BatchDataLoader (tableName, allRepositories);
-//        }
-        if(tableName.equalsIgnoreCase("TEACHER")){
-            return new TeacherDataLoader (tableName, allRepositories);
-        }
-        if(tableName.equalsIgnoreCase("ATTENDANCE_MASTER")){
-            return new AttendanceMasterDataLoader (tableName, allRepositories);
-        }
-//        if(tableName.equalsIgnoreCase("STUDENT")){
-//            return new StudentDataLoader(tableName, allRepositories);
-//        }
-//        if(tableName.equalsIgnoreCase("SECTION")){
-//            return new SectionDataLoader(tableName, allRepositories);
-//        }
         if(tableName.equalsIgnoreCase("BANK_ACCOUNTS")){
             return new BankAccountsDataLoader(tableName, allRepositories);
         }
         if(tableName.equalsIgnoreCase("LEGAL_ENTITY")){
             return new LegalEntityDataLoader(tableName, allRepositories);
         }
+        if(tableName.equalsIgnoreCase("ACADEMIC_YEAR")){
+            return new AcademicYearLoader (tableName, allRepositories);
+        }
+        if(tableName.equalsIgnoreCase("HOLIDAY")){
+            return new HolidayDataLoader (tableName, allRepositories);
+        }
+        if(tableName.equalsIgnoreCase("TERM")){
+            return new TermDataLoader (tableName, allRepositories);
+        }
+        if(tableName.equalsIgnoreCase("DEPARTMENT")){
+            return new DepartmentLoader (tableName, allRepositories);
+        }
+        
+        if(tableName.equalsIgnoreCase("TEACHER")){
+            return new TeacherDataLoader (tableName, allRepositories);
+        }
+//        if(tableName.equalsIgnoreCase("ATTENDANCE_MASTER")){
+//            return new AttendanceMasterDataLoader (tableName, allRepositories);
+//        }
+
+//        if(tableName.equalsIgnoreCase("STUDENT")){
+//            return new StudentDataLoader(tableName, allRepositories);
+//        }
+        
         return null;  
 	}
 	

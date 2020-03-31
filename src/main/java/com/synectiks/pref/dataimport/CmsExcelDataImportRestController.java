@@ -1,13 +1,13 @@
 package com.synectiks.pref.dataimport;
 
-import java.net.URI;
+import java.io.Serializable;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.vo.QueryResult;
 import com.synectiks.pref.service.util.CommonUtil;
-import com.synectiks.pref.web.rest.util.HeaderUtil;
 
 
 @RestController
@@ -34,20 +33,19 @@ public class CmsExcelDataImportRestController {
 	private AllRepositories allRepositories;
 	
 	private String [] allEntities = 
-		{		"academic_year","holiday","term",
-				"college","branch","department",
-				"teacher"
+		{		
+			"college","branch","authorized_signatory","bank_accounts","legal_entity",
+			"academic_year","holiday","term","department",
+			"teacher"
 //				, 
 //				"attendance_master", "student"
 		};
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/cmsdataimport/{tableName}")
-	public ResponseEntity<QueryResult> doImport(@RequestParam("file") MultipartFile file, @PathVariable String tableName) throws URISyntaxException {
+	public List<QueryResult> doImport(@RequestParam("file") MultipartFile file, @PathVariable String tableName) throws URISyntaxException {
 		String msg = "Data successfully imported for entity - "+tableName;
-		QueryResult result = new QueryResult();
-		result.setStatusCode(0);
-		result.setStatusDesc(msg);
-		
+		List<QueryResult> list = new ArrayList<>();
+		QueryResult qres = null;
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		
 		if(CommonUtil.isNullOrEmpty(tableName)) {
@@ -71,26 +69,15 @@ public class CmsExcelDataImportRestController {
 				}
 				try {
 					dataLoader.load(file,this.dataLoaderFactory.getClassName(allEntities[i]));
+					qres = new QueryResult(allEntities[i], "SUCCESS");
+					list.add(qres);
 				}catch(Exception e) {
 					msg = "Due to some error data import failed for entity - "+allEntities[i];
-					result.setStatusCode(1);
 					logger.error(msg, e);
+					qres = new QueryResult(allEntities[i], "FAILED");
+					list.add(qres);
 				}
 			}
-//			for(String entity: CmsConstants.tabelName) {
-//				try {
-//					if(!"ALL".equalsIgnoreCase(entity)) {
-//						DataLoader dataLoader = this.dataLoaderFactory.getLoader(entity, this.allRepositories);
-//						if(dataLoader == null) {
-//							logger.warn("Application does not support data import for entity - "+entity);
-//						}
-//						dataLoader.load(file, this.dataLoaderFactory.getClassName(entity));
-//						
-//					}
-//				}catch(Exception e) {
-//					logger.error("Data import failed for entiry : "+entity);
-//				}
-//			}
 		}else {
 			DataLoader dataLoader = this.dataLoaderFactory.getLoader(tableName, this.allRepositories);
 			if(dataLoader == null) {
@@ -99,15 +86,17 @@ public class CmsExcelDataImportRestController {
 			}
 			try {
 				dataLoader.load(file,this.dataLoaderFactory.getClassName(tableName));
+				qres = new QueryResult(tableName, "SUCCESS");
+				list.add(qres);
 			}catch(Exception e) {
 				msg = "Due to some error data import failed for entity - "+tableName;
-				result.setStatusCode(1);
+				qres = new QueryResult(tableName, "FAILED");
+				list.add(qres);
 				logger.error(msg, e);
 			}
 		}
-		return ResponseEntity.created(new URI("/api/cmsdataimport/"+tableName))
-	            .headers(HeaderUtil.createEntityCreationAlert(tableName, msg))
-	            .body(result);
+		logger.info("Master data uploaded successfully....");
+		return list;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/cmsdataimport")
