@@ -13,6 +13,7 @@ import com.synectiks.pref.dataimport.loader.CollegeDataLoader;
 import com.synectiks.pref.dataimport.loader.DepartmentLoader;
 import com.synectiks.pref.dataimport.loader.HolidayDataLoader;
 import com.synectiks.pref.dataimport.loader.LegalEntityDataLoader;
+import com.synectiks.pref.dataimport.loader.StudentDataLoader;
 import com.synectiks.pref.dataimport.loader.SubjectDataLoader;
 import com.synectiks.pref.dataimport.loader.TeacherDataLoader;
 import com.synectiks.pref.dataimport.loader.TermDataLoader;
@@ -74,9 +75,9 @@ public class DataLoaderFactory {
 //            return new AttendanceMasterDataLoader (tableName, allRepositories);
 //        }
 
-//        if(tableName.equalsIgnoreCase("STUDENT")){
-//            return new StudentDataLoader(tableName, allRepositories);
-//        }
+        if(tableName.equalsIgnoreCase("STUDENT")){
+            return new StudentDataLoader(tableName, allRepositories);
+        }
         
         return null;  
 	}

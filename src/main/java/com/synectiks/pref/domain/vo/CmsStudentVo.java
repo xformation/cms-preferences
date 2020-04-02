@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.synectiks.pref.domain.AcademicYear;
 import com.synectiks.pref.domain.Batch;
 import com.synectiks.pref.domain.Branch;
 import com.synectiks.pref.domain.Department;
@@ -154,6 +155,10 @@ public class CmsStudentVo extends CmsCommonVo implements Serializable {
     private Batch batch;
     private String strDisabilityCertificateIssueDate;
     private String strDateOfBirth;
+    private Long academicYearId;
+    private AcademicYear academicYear;
+    
+    
 	public Long getId() {
 		return id;
 	}
@@ -973,6 +978,18 @@ public class CmsStudentVo extends CmsCommonVo implements Serializable {
 				+ ", getExitCode()=" + getExitCode() + ", getExitDescription()=" + getExitDescription()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 				+ "]";
+	}
+	public Long getAcademicYearId() {
+		return academicYearId;
+	}
+	public void setAcademicYearId(Long academicYearId) {
+		this.academicYearId = academicYearId;
+	}
+	public AcademicYear getAcademicYear() {
+		return academicYear;
+	}
+	public void setAcademicYear(AcademicYear academicYear) {
+		this.academicYear = academicYear;
 	}
 
     

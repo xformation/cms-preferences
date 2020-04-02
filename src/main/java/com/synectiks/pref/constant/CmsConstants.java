@@ -29,6 +29,7 @@ import com.synectiks.pref.domain.Subject;
 import com.synectiks.pref.domain.Teach;
 import com.synectiks.pref.domain.Teacher;
 import com.synectiks.pref.domain.Term;
+import com.synectiks.pref.domain.vo.CmsStudentVo;
 import com.synectiks.pref.domain.vo.Config;
 import com.synectiks.pref.repository.AcademicYearRepository;
 import com.synectiks.pref.repository.AttendanceMasterRepository;
@@ -229,7 +230,7 @@ public interface CmsConstants {
 //	    mpr.put("meta_lecture", new CmsTableWithDomainAndRepositoryMapper("meta_lecture", MetaLecture.class, MetaLectureRepository.class));
 //	    mpr.put("lecture", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
 	    
-//	    mpr.put("student", new CmsTableWithDomainAndRepositoryMapper("student", Student.class, StudentRepository.class));
+	    mpr.put("student", new CmsTableWithDomainAndRepositoryMapper("student", CmsStudentVo.class, null));
 //	    mpr.put("student_attendance", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
 //	    mpr.put("student_exam_report", new CmsTableWithDomainAndRepositoryMapper("student_exam_report", StudentExamReport.class, StudentExamReportRepository.class));
 //	    mpr.put("student_facility_link", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
