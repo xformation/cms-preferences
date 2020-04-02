@@ -226,12 +226,18 @@ public class CmsAttendanceMasterService {
     public AttendanceMaster saveAttendanceMaster(Batch batch, Section section, Teach teach) {
     	logger.debug("Saving attendance master for the given subject id : "+teach.getSubject().getId()+"and teacher id : "+teach.getTeacher().getId()+" and teach id : "+teach.getId());
     	AttendanceMaster am = new AttendanceMaster();
-    	am.setDesc("Teacher - "+teach.getTeacher().getTeacherName()+". Subject - "+ teach.getSubject().getSubjectDesc()+". Branch - "+teach.getTeacher().getBranch().getBranchName()+". Department - "+teach.getTeacher().getDepartment().getName()+". Batch/Year - "+ batch.getBatch()+". Section - "+ section.getSection()  );
     	am.setBatch(batch);
     	am.setSection(section);
     	am.setTeach(teach);
-    	am = this.attendanceMasterRepository.save(am);
-    	return am;
+    	Optional<AttendanceMaster> oam = this.attendanceMasterRepository.findOne(Example.of(am));
+    	if(!oam.isPresent()) {
+        	am.setDesc("Teacher - "+teach.getTeacher().getTeacherName()+". Subject - "+ teach.getSubject().getSubjectDesc()+". Branch - "+teach.getTeacher().getBranch().getBranchName()+". Department - "+teach.getTeacher().getDepartment().getName()+". Batch/Year - "+ batch.getBatch()+". Section - "+ section.getSection()  );
+        	am = this.attendanceMasterRepository.save(am);
+        	return am;
+    	}else {
+    		logger.debug("Attendance master already exists.");
+    	}
+    	return oam.get();
     }
     
     
