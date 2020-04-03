@@ -98,7 +98,7 @@ public class LectureRestController {
 		filter.setDepartmentId(dataMap.get("departmentId") != null ? dataMap.get("departmentId").trim() : dataMap.get("departmentId"));
 		
 //		filter.setAcademicYear(dataMap.get("academicYear") != null ? dataMap.get("academicYear").trim() : dataMap.get("academicYear"));
-		Long id = Long.valueOf(dataMap.get("academicYearId"));
+		Long id = Long.parseLong(dataMap.get("academicYearId"));
 		Optional<AcademicYear> oay = this.academicYearRepository.findById(id);
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -111,10 +111,11 @@ public class LectureRestController {
 			i++;
 			logger.debug("Going in addMetaLectureData.");
 			boolean isFound = this.lectureService.addMetaLectureData(dto, filter, oay);
-			if(isFound == false) {
+//			if(isFound == false) {
 				addList.add(mapper.writeValueAsString(dto));
-			}
+//			}
 		}
+		
 		String values[] = new String[addList.size()];
 		int index=0;
 		for(String str: addList) {

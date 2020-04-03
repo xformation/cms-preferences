@@ -294,4 +294,16 @@ public interface CmsConstants {
     String DESIGNATION_LECTURER = "Lecturer";
     String DESIGNATION_PROFESSOR = "Professor";
     
+    public static Map<String, Integer> initWeekDayMap() {
+    	Map<String, Integer> WEEKDAY_MAP = new HashMap<String, Integer>();
+        WEEKDAY_MAP.put("MONDAY",0);
+        WEEKDAY_MAP.put("TUESDAY",1);
+        WEEKDAY_MAP.put("WEDNESDAY",2);
+        WEEKDAY_MAP.put("THURSDAY",3);
+        WEEKDAY_MAP.put("FRIDAY",4);
+        WEEKDAY_MAP.put("SATURDAY",5);
+        WEEKDAY_MAP.put("SUNDAY",6);
+        return WEEKDAY_MAP;
+    }
+    
 }

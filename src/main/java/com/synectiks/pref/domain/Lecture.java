@@ -19,7 +19,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.synectiks.pref.utils.IESEntity;
 
 /**
  * A Lecture.
@@ -27,7 +26,7 @@ import com.synectiks.pref.utils.IESEntity;
 @Entity
 @Table(name = "lecture")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Lecture implements Serializable, IESEntity {
+public class Lecture implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

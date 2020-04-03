@@ -100,7 +100,7 @@ public class LectureService {
     private static final String FRIDAY = "FRIDAY";
     private static final String SATURDAY = "SATURDAY";
     private static final String WEEKDAY= "weekDay";
-
+    
     private Batch bth = null;
     private Section sec = null;
     private Map<Object, Object> map = new HashMap<Object, Object>();
@@ -307,7 +307,9 @@ public class LectureService {
                     val = val.replaceAll("\\{", "\\{\"").replaceAll("=", "\":\"").replaceAll(",", "\",\"").replaceAll(" ", "").replaceAll("\\}", "\"\\}");
                     jsonObj = new JSONObject(val);
                 }
-                if(!dayName.equalsIgnoreCase(jsonObj.getString(WEEKDAY))) {
+                logger.debug("Day name : "+jsonObj.getString(WEEKDAY));
+                Integer dayOfWeek = CmsConstants.initWeekDayMap().get(dayName);
+                if(!dayOfWeek.equals(Integer.parseInt(jsonObj.getString(WEEKDAY)))) {
                     continue;
                 }else {
 //					if(this.map.get(th) != null) {
@@ -529,13 +531,20 @@ public class LectureService {
             metaLecture.setTeacher(teacher);
             logger.debug("Checking for existing data");
             Example<MetaLecture> example = Example.of(metaLecture);
-            isFound = this.metaLectureRepository.exists(example);
-            if(isFound == false) {
-                logger.debug("Record not found. Saving data in metalecture table.");
-                this.metaLectureRepository.save(metaLecture);
+//            isFound = this.metaLectureRepository.exists(example);
+            try {
+            	if(!this.metaLectureRepository.exists(example)) {
+                    logger.debug("Record not found. Saving data in metalecture table.");
+                    this.metaLectureRepository.save(metaLecture);
+                }
+            }catch(Exception e) {
+            	logger.warn("Exception :::: ",e);
             }
+            
+        }else {
+        	logger.debug("These lectures are already scheduled. So not storing this record in DB.", metaLecture);
         }
-        logger.debug("Record already exists. So not storing this record in DB.");
+        
         return isFound;
     }
 
