@@ -56,7 +56,7 @@ public class StudentDataLoader extends DataLoader {
         StringBuilder sb = new StringBuilder();
 
         CmsStudentVo obj = CommonUtil.createCopyProperties(cls.newInstance(), CmsStudentVo.class);
-        
+
         String studentName = row.getCellAsString(0).orElse(null);
         if(CommonUtil.isNullOrEmpty(studentName)) {
         	sb.append("student_name, ");
@@ -64,10 +64,10 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setStudentName(studentName);
         }
-        
+
         String studentMiddleName = row.getCellAsString(1).orElse(null);
         obj.setStudentMiddleName(studentMiddleName);
-        
+
         String studentLastName = row.getCellAsString(2).orElse(null);
         if(CommonUtil.isNullOrEmpty(studentLastName)) {
         	sb.append("student_last_name, ");
@@ -75,7 +75,7 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setStudentLastName(studentLastName);
         }
-        
+
         String fatherName = row.getCellAsString(3).orElse(null);
         if(CommonUtil.isNullOrEmpty(fatherName)) {
         	sb.append("father_name, ");
@@ -83,10 +83,10 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setFatherName(fatherName);
         }
-        
+
         String fatherMiddleName = row.getCellAsString(4).orElse(null);
         obj.setFatherMiddleName(fatherMiddleName);
-        
+
         String fatherLastName = row.getCellAsString(5).orElse(null);
         if(CommonUtil.isNullOrEmpty(fatherLastName)) {
         	sb.append("father_last_name, ");
@@ -94,16 +94,16 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setFatherLastName(fatherLastName);
         }
-        
+
         String motherName = row.getCellAsString(6).orElse(null);
         obj.setMotherName(motherName);
-        
+
         String motherMiddleName = row.getCellAsString(7).orElse(null);
         obj.setMotherMiddleName(motherMiddleName);
-        
+
         String motherLastName = row.getCellAsString(8).orElse(null);
         obj.setMotherLastName(motherLastName);
-        
+
         String studentAadharNo = row.getCellAsString(9).orElse(null);
         obj.setStudentAadharNo(studentAadharNo);
 
@@ -121,10 +121,10 @@ public class StudentDataLoader extends DataLoader {
 
         String studentDrivingLicenseNo = row.getCellAsString(14).orElse(null);
         obj.setStudentDrivingLicenseNo(studentDrivingLicenseNo);
-        
+
         String studentPassportNo = row.getCellAsString(15).orElse(null);
         obj.setStudentPassportNo(studentPassportNo);
-        
+
         String dob = row.getCellAsString(16).orElse(null);
         if(CommonUtil.isNullOrEmpty(dob)) {
         	sb.append("date_of_birth, ");
@@ -132,19 +132,19 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setDateOfBirth(DateFormatUtil.convertStringToLocalDate(dob, CmsConstants.DATE_FORMAT_dd_MM_yyyy));
         }
-        
+
         String placeOfBirth = row.getCellAsString(17).orElse(null);
         obj.setPlaceOfBirth(placeOfBirth);
-        
+
         String religion = row.getCellAsString(18).orElse(null);
         obj.setReligion(Religion.valueOf(religion));
-        
+
         String cast = row.getCellAsString(19).orElse(null);
         obj.setCaste(Caste.valueOf(cast));
-        
+
         String subCast = row.getCellAsString(20).orElse(null);
         obj.setSubCaste(subCast);
-        
+
         String gender = row.getCellAsString(21).orElse(null);
         if(CommonUtil.isNullOrEmpty(gender)) {
         	sb.append("gender, ");
@@ -152,7 +152,7 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setSex(Gender.valueOf(gender));
         }
-        
+
         String studentLocalAddress = row.getCellAsString(22).orElse(null);
         if(CommonUtil.isNullOrEmpty(studentLocalAddress)) {
         	sb.append("student_local_address, ");
@@ -160,7 +160,7 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setStudentLocalAddress(studentLocalAddress);
         }
-        
+
         String studentPermanentAddress = row.getCellAsString(23).orElse(null);
         if(CommonUtil.isNullOrEmpty(studentPermanentAddress)) {
         	sb.append("student_permanent_address, ");
@@ -168,19 +168,19 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setStudentPermanentAddress(studentPermanentAddress);
         }
-        
+
         String cityName = row.getCellAsString(24).orElse(null);
 		obj.setCity(cityName);
-		
+
         String stateName = row.getCellAsString(25).orElse(null);
 		obj.setState(stateName);
-		
+
         String countryName = row.getCellAsString(26).orElse(null);
 		obj.setCountry(countryName);
-		
+
 		String pinCode = row.getCellAsString(27).orElse(null);
         obj.setPinCode(pinCode);
-        
+
         String studentPrimaryCellNumber = row.getCellAsString(28).orElse(null);
         if(CommonUtil.isNullOrEmpty(studentPrimaryCellNumber)) {
         	sb.append("student_primary_cell_number, ");
@@ -188,13 +188,13 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setStudentPrimaryCellNumber(studentPrimaryCellNumber);
         }
-        
+
         String studentAlternateCellNumber = row.getCellAsString(29).orElse(null);
         obj.setStudentAlternateCellNumber(studentAlternateCellNumber);
-        
+
         String studentLandLinePhoneNumber = row.getCellAsString(30).orElse(null);
         obj.setStudentLandLinePhoneNumber(studentLandLinePhoneNumber);
-        
+
         String studentPrimaryEmailId = row.getCellAsString(31).orElse(null);
         if(CommonUtil.isNullOrEmpty(studentPrimaryEmailId)) {
         	sb.append("student_primary_email_id, ");
@@ -202,10 +202,10 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setStudentPrimaryEmailId(studentPrimaryEmailId);
         }
-        
+
         String studentAlternateEmailId = row.getCellAsString(32).orElse(null);
         obj.setStudentAlternateEmailId(studentAlternateEmailId);
-        
+
         String relationWithStudent = row.getCellAsString(33).orElse(null);
         if(CommonUtil.isNullOrEmpty(relationWithStudent)) {
         	sb.append("relation_with_student, ");
@@ -213,7 +213,7 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setRelationWithStudent(RelationWithStudentEnum.valueOf(relationWithStudent));
         }
-        
+
         String emergencyContactName = row.getCellAsString(34).orElse(null);
         if(CommonUtil.isNullOrEmpty(emergencyContactName)) {
         	sb.append("emergency_contact_name, ");
@@ -221,10 +221,10 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setEmergencyContactName(emergencyContactName);
         }
-        
+
         String emergencyContactMiddleName = row.getCellAsString(35).orElse(null);
         obj.setEmergencyContactMiddleName(emergencyContactMiddleName);
-        
+
         String emergencyContactLastName = row.getCellAsString(36).orElse(null);
         if(CommonUtil.isNullOrEmpty(emergencyContactLastName)) {
         	sb.append("emergency_contact_last_name, ");
@@ -232,7 +232,7 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setEmergencyContactLastName(emergencyContactLastName);
         }
-        
+
         String emergencyContactCellNumber = row.getCellAsString(37).orElse(null);
         if(CommonUtil.isNullOrEmpty(emergencyContactCellNumber)) {
         	sb.append("emergency_contact_no, ");
@@ -240,23 +240,23 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setEmergencyContactCellNumber(emergencyContactCellNumber);
         }
-        
+
         String emergencyContactLandLinePhoneNumber = row.getCellAsString(38).orElse(null);
         obj.setEmergencyContactLandLinePhoneNumber(emergencyContactLandLinePhoneNumber);
-        
-        
+
+
         String emergencyContactEmailId = row.getCellAsString(39).orElse(null);
         obj.setEmergencyContactEmailId(emergencyContactEmailId);
-        
+
         String admissionNo = row.getCellAsString(40).orElse(null);
         obj.setAdmissionNo(admissionNo);
-        
+
         String enrollmentNo = row.getCellAsString(41).orElse(null);
         obj.setEnrollmentNo(enrollmentNo);
-        
+
         String rollNo = row.getCellAsString(42).orElse(null);
         obj.setRollNo(rollNo);
-        
+
         String studentType = row.getCellAsString(43).orElse(null);
         if(CommonUtil.isNullOrEmpty(studentType)) {
         	sb.append("student_type, ");
@@ -264,7 +264,15 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setStudentType(StudentTypeEnum.valueOf(studentType));
         }
-        
+
+        String fatherEmailId = row.getCellAsString(45).orElse(null);
+        if(CommonUtil.isNullOrEmpty(fatherEmailId)) {
+            sb.append("father_email_id, ");
+            logger.warn("Mandatory field missing. Field name - father_email_id");
+        }else {
+            obj.setFatherEmailId(fatherEmailId);
+        }
+
         ///---------------------------------------------------------
         String status = row.getCellAsString(109).orElse(null);
         if(CommonUtil.isNullOrEmpty(status)) {
@@ -273,7 +281,7 @@ public class StudentDataLoader extends DataLoader {
         }else {
         	obj.setStatus(status);
         }
-        
+
         String academicYear = row.getCellAsString(111).orElse(null);
         if(CommonUtil.isNullOrEmpty(academicYear)) {
             sb.append("academic_year_id, ");
@@ -290,7 +298,7 @@ public class StudentDataLoader extends DataLoader {
                 logger.warn("AcademicYear not found. Given academicYear name : "+academicYear);
             }
         }
-        
+
         String branchName = row.getCellAsString(112).orElse(null);
         if(CommonUtil.isNullOrEmpty(branchName) ) {
         	sb.append("branch_id, ");
@@ -299,7 +307,7 @@ public class StudentDataLoader extends DataLoader {
             Branch branch = new Branch();
             branch.setBranchName(branchName);
             Optional<Branch> b = this.allRepositories.findRepository("branch").findOne(Example.of(branch));
-            
+
             if(b.isPresent()) {
             	obj.setBranch(b.get());
             	obj.setBranchId(b.get().getId());
@@ -308,7 +316,7 @@ public class StudentDataLoader extends DataLoader {
                 logger.warn("branch name not provided, Cannot find the branch");
             }
         }
-        
+
         if(obj.getBranch() != null) {
         	String departmentName = row.getCellAsString(113).orElse(null);
         	if(CommonUtil.isNullOrEmpty(departmentName)) {
@@ -328,7 +336,7 @@ public class StudentDataLoader extends DataLoader {
                 }
             }
         }
-        
+
         if(obj.getDepartment() != null) {
         	String batchName = row.getCellAsString(114).orElse(null);
         	if(CommonUtil.isNullOrEmpty(batchName)) {
@@ -348,7 +356,7 @@ public class StudentDataLoader extends DataLoader {
                 }
             }
         }
-        
+
         if(obj.getBatch() != null) {
         	String sectionName = row.getCellAsString(115).orElse(null);
         	if(CommonUtil.isNullOrEmpty(sectionName)) {
@@ -368,13 +376,13 @@ public class StudentDataLoader extends DataLoader {
                 }
             }
         }
-        
-        
+
+
         if (sb.length() > 0) {
             String msg = "Field name - ";
             throw new MandatoryFieldMissingException(msg + sb.substring(0, sb.lastIndexOf(",")));
         }
-        
+
 //        if (this.allRepositories.findRepository(this.sheetName).exists(Example.of(obj))) {
 //        	String msg = "Duplicate Student found";
 //        	sb.append(msg+",");
@@ -383,10 +391,10 @@ public class StudentDataLoader extends DataLoader {
 //                throw new DuplicateRecordFoundException(msg);
 //            }
 //        }
-        
+
         return (T)obj;
     }
-    
+
     private BatchEnum findBatch(String batchName) {
     	if(BatchEnum.FIRSTYEAR.toString().equalsIgnoreCase(batchName)) {
     		return BatchEnum.FIRSTYEAR;
@@ -399,16 +407,16 @@ public class StudentDataLoader extends DataLoader {
     	}
     	return null;
     }
-    
+
     public <T> void saveCmsData(ReadableWorkbook wb, Class<T> cls) {
 		logger.debug(String.format("Saving %s data started.",this.sheetName));
-		
+
 		Sheet sheet = wb.findSheet(this.sheetName).orElse(null);
 		try {
 //			T instance = cls.newInstance();
 			ApplicationProperties applicationProperties = PreferencesApp.getBean(ApplicationProperties.class);
 			RestTemplate restTemplate = PreferencesApp.getBean(RestTemplate.class);
-			
+
 			try (Stream<Row> rows = sheet.openStream()) {
 				List<T> list = new ArrayList<>();
 				List<ExceptionRecord> exceptionList = new ArrayList<>();
@@ -460,7 +468,7 @@ public class StudentDataLoader extends DataLoader {
 		}
 		logger.debug(String.format("Saving %s data completed.", this.sheetName));
 	}
-    
+
     private List<CmsStudentVo> postStudentData(List list, ApplicationProperties applicationProperties, RestTemplate restTemplate){
     	logger.debug("Posting student data to StudentRestController of cms-backend");
     	String url = applicationProperties.getCmsBackEndUrl()+"/api/cmsstudents-bulk-load";
