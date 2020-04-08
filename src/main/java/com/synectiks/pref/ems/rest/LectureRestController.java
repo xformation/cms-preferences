@@ -335,6 +335,11 @@ public class LectureRestController {
 		String strAmId = dataMap.get("attendanceMasterId");
 		String strLecDate = dataMap.get("lectureDate");
         logger.debug("REST request to get Lecture based on attendance master id : "+strAmId+" and lecture date : "+strLecDate);
-        return ResponseUtil.wrapOrNotFound(Optional.of(this.lectureService.getLectureByAttendanceMasterAndLectureDate(Long.parseLong(strAmId), strLecDate)));
+        Lecture lec = this.lectureService.getLectureByAttendanceMasterAndLectureDate(Long.parseLong(strAmId), strLecDate);
+        if(lec == null) {
+        	logger.debug("Lecture not scheduled for date : ",strLecDate);
+        	return null;
+        }
+        return ResponseUtil.wrapOrNotFound(Optional.of(lec));
     }
 }
