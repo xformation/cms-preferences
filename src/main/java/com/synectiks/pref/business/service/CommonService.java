@@ -337,8 +337,8 @@ public class CommonService {
             return Collections.emptyList();
         }
         Holiday hl = new Holiday();
-//        hl.setHolidayStatus(Status.ACTIVE);
-//        hl.setAcademicyear(oay.get());
+        hl.setStatus("ACTIVE");
+        hl.setAcademicYear(oay.get());
         Example<Holiday> example = Example.of(hl);
         List<Holiday> list = this.holidayRepository.findAll(example);
         return list;
@@ -349,7 +349,7 @@ public class CommonService {
             return null;
         }
         Term tm = new Term();
-//        tm.setTermStatus(Status.ACTIVE);
+//        tm.setStatus("ACTIVE");
         tm.setId(termId);
         Example<Term> example = Example.of(tm);
         Optional<Term> term = this.termRepository.findOne(example);
