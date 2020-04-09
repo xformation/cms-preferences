@@ -317,7 +317,9 @@ public class LectureRestController {
 	@RequestMapping(method = RequestMethod.GET, value = "/todays-cmslectures-by-teacher-id")
     public List<CmsLectureVo> getAllCurrentDateCmsLecturesOfTeacher(@RequestParam Map<String, String> dataMap) throws Exception {
 		String teacherId = dataMap.get("teacherId");
-		return this.lectureService.getAllCmsLecturesOfTeacherOnGivenDate(Long.parseLong(teacherId), LocalDate.now());
+		String lectureDate = dataMap.get("lectureDate");
+		LocalDate today = DateFormatUtil.convertStringToLocalDate(lectureDate, CmsConstants.DATE_FORMAT_dd_MM_yyyy);
+		return this.lectureService.getAllCmsLecturesOfTeacherOnGivenDate(Long.parseLong(teacherId), today);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/lecture-by-id/{id}")
