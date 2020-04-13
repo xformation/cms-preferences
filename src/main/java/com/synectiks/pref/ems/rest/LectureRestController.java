@@ -3,11 +3,15 @@ package com.synectiks.pref.ems.rest;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
 import org.json.JSONException;
@@ -27,6 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.synectiks.pref.business.service.CmsAcademicYearService;
+import com.synectiks.pref.business.service.CmsTeachService;
 import com.synectiks.pref.business.service.CommonService;
 import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.AcademicYear;
@@ -84,6 +90,15 @@ public class LectureRestController {
 	@Autowired
 	private AttendanceMasterRepository attendanceMasterRepository;
 	
+	@Autowired
+	private CmsAcademicYearService cmsAcademicYearService;
+	
+	@Autowired
+	private CmsTeachService cmsTeachService;
+	
+	@PersistenceContext
+    private EntityManager entityManager;
+
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/cmslectures")
 	@Transactional(propagation=Propagation.REQUIRED)
@@ -327,11 +342,13 @@ public class LectureRestController {
         logger.debug("REST request to get a Lecture : {}", id);
         return ResponseUtil.wrapOrNotFound(Optional.of(this.lectureService.getLectureById(id)));
     }
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/cmslecture-by-id/{id}")
     public ResponseEntity<CmsLectureVo> getCmsLecture(@PathVariable Long id) throws Exception {
         logger.debug("REST request to get a Cms Lecture : {}", id);
         return ResponseUtil.wrapOrNotFound(Optional.of(this.lectureService.getCmsLectureById(id)));
     }
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/lecture-by-attendancemaster-and-date")
     public ResponseEntity<Lecture> getLectureByAttendanceMasterAndLectureDate(@RequestParam Map<String, String> dataMap) throws Exception {
 		String strAmId = dataMap.get("attendanceMasterId");
@@ -344,4 +361,69 @@ public class LectureRestController {
         }
         return ResponseUtil.wrapOrNotFound(Optional.of(lec));
     }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/total-lectures-scheduled-for-teacher")
+	public List<Lecture> getTotalLecturesScheduledForTeacher(@RequestParam Map<String, String> dataMap) {
+		
+        List<AcademicYear> listAy = cmsAcademicYearService.getAcademicYearList("ACTIVE");
+        if(listAy.size() == 0) {
+        	logger.warn("Returning empty lecture list because no active academic year found");
+        	return Collections.emptyList();
+        }
+        
+        AcademicYear ay = listAy.get(0);
+        
+	    List<Teach> thList = cmsTeachService.getTeachListOnFilterCriteria(dataMap);
+
+        @SuppressWarnings("unchecked")
+        List<AttendanceMaster> amList = this.entityManager.createQuery("select a from AttendanceMaster a where a.teach in (:th)")
+            .setParameter("th", thList)
+            .getResultList();
+
+        if(amList.size() == 0) {
+        	logger.warn("getAllLecturesScheduledForTeacher(): Attendance master not found. Returning empty list");
+        	return Collections.emptyList();
+        }
+
+        @SuppressWarnings("unchecked")
+        List<Lecture> list = this.entityManager.createQuery("select l from Lecture l where l.lecDate between :startDate and :endDate and l.attendancemaster in (:amId) ")
+            .setParameter("startDate", ay.getStartDate())
+            .setParameter("endDate", ay.getEndDate())
+            .setParameter("amId", amList)
+            .getResultList();
+        return list;
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/total-lectures-conducted-for-teacher")
+	public List<Lecture> getTotalLecturesConductedForTeacher(@RequestParam Map<String, String> dataMap) {
+		List<AcademicYear> listAy = cmsAcademicYearService.getAcademicYearList("ACTIVE");
+        if(listAy.size() == 0) {
+        	logger.warn("Returning empty lecture list because no active academic year found");
+        	return Collections.emptyList();
+        }
+        
+        AcademicYear ay = listAy.get(0);
+        
+	    List<Teach> thList = cmsTeachService.getTeachListOnFilterCriteria(dataMap);
+
+        @SuppressWarnings("unchecked")
+        List<AttendanceMaster> amList = this.entityManager.createQuery("select a from AttendanceMaster a where a.teach in (:th)")
+            .setParameter("th", thList)
+            .getResultList();
+
+        if(amList.size() == 0) {
+        	logger.warn("getTotalLecturesConductedForTeacher(): Attendance master not found. Returning empty list");
+        	return Collections.emptyList();
+        }
+
+        @SuppressWarnings("unchecked")
+        List<Lecture> list = this.entityManager.createQuery("select l from Lecture l where l.lecDate between :startDate and :endDate and l.attendancemaster in (:amId) ")
+            .setParameter("startDate", ay.getStartDate())
+            .setParameter("endDate", LocalDate.now())
+            .setParameter("amId", amList)
+            .getResultList();
+        return list;
+    }
+	
+	
 }

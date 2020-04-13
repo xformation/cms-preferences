@@ -100,6 +100,9 @@ public class CmsTeachService {
     		list = this.teachRepository.findAll(Sort.by(Direction.DESC, "id"));
     	}
         
+    	if(list.size() ==0 ) {
+    		return Collections.emptyList();
+    	}
     	Collections.sort(list, (o1, o2) -> o1.getId().compareTo(o2.getId()));
     	return list;
     }
