@@ -57,7 +57,7 @@ public interface CmsConstants {
     String SYSTEM_ACCOUNT = "system";
     String ANONYMOUS_USER = "anonymoususer";
     String DEFAULT_LANGUAGE = "en";
-
+    String ZONE_ID = "Asia/Kolkata";
 	String DATE_FORMAT_yyyy_MM_dd = "yyyy-MM-dd";
 	String DATE_FORMAT_dd_MM_yyyy = "dd-MM-yyyy";
 	String DATE_FORMAT_MM_dd_yyyy = "MM-dd-yyyy";

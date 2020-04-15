@@ -2,13 +2,15 @@ package com.synectiks.pref.ems.rest;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.synectiks.pref.business.service.CmsAcademicYearService;
+import com.synectiks.pref.business.service.CmsAttendanceMasterService;
 import com.synectiks.pref.business.service.CmsTeachService;
 import com.synectiks.pref.business.service.CommonService;
 import com.synectiks.pref.constant.CmsConstants;
@@ -95,6 +98,10 @@ public class LectureRestController {
 	
 	@Autowired
 	private CmsTeachService cmsTeachService;
+	
+	@Autowired
+	private CmsAttendanceMasterService cmsAttendanceMasterService;
+	
 	
 	@PersistenceContext
     private EntityManager entityManager;
@@ -326,7 +333,7 @@ public class LectureRestController {
 	@RequestMapping(method = RequestMethod.GET, value = "/todays-lectures-by-teacher-id")
     public List<Lecture> getAllCurrentDateLecturesOfTeacher(@RequestParam Map<String, String> dataMap) throws Exception {
 		String teacherId = dataMap.get("teacherId");
-		return this.lectureService.getAllLecturesOfTeacherOnGivenDate(Long.parseLong(teacherId), LocalDate.now());
+		return this.lectureService.getAllLecturesOfTeacherOnGivenDate(Long.parseLong(teacherId), LocalDate.now(ZoneId.of(CmsConstants.ZONE_ID)));
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/todays-cmslectures-by-teacher-id")
@@ -362,8 +369,8 @@ public class LectureRestController {
         return ResponseUtil.wrapOrNotFound(Optional.of(lec));
     }
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/total-lectures-scheduled-for-teacher")
-	public List<Lecture> getTotalLecturesScheduledForTeacher(@RequestParam Map<String, String> dataMap) {
+	@RequestMapping(method = RequestMethod.GET, value = "/total-lectures-scheduled")
+	public List<Lecture> getTotalLecturesScheduled(@RequestParam Map<String, String> dataMap) {
 		
         List<AcademicYear> listAy = cmsAcademicYearService.getAcademicYearList("ACTIVE");
         if(listAy.size() == 0) {
@@ -394,8 +401,8 @@ public class LectureRestController {
         return list;
     }
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/total-lectures-conducted-for-teacher")
-	public List<Lecture> getTotalLecturesConductedForTeacher(@RequestParam Map<String, String> dataMap) {
+	@RequestMapping(method = RequestMethod.GET, value = "/total-lectures-conducted")
+	public List<Lecture> getTotalLecturesConducted(@RequestParam Map<String, String> dataMap) {
 		List<AcademicYear> listAy = cmsAcademicYearService.getAcademicYearList("ACTIVE");
         if(listAy.size() == 0) {
         	logger.warn("Returning empty lecture list because no active academic year found");
@@ -419,9 +426,31 @@ public class LectureRestController {
         @SuppressWarnings("unchecked")
         List<Lecture> list = this.entityManager.createQuery("select l from Lecture l where l.lecDate between :startDate and :endDate and l.attendancemaster in (:amId) ")
             .setParameter("startDate", ay.getStartDate())
-            .setParameter("endDate", LocalDate.now())
+            .setParameter("endDate", LocalDate.now(ZoneId.of(CmsConstants.ZONE_ID)))
             .setParameter("amId", amList)
             .getResultList();
+        return list;
+    }
+	
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/total-lectures-scheduled-on-current-day")
+	public List<Lecture> getTotalLecturesScheculedOnCurrentDay(@RequestParam Map<String, String> dataMap) {
+        
+        List<AttendanceMaster> amList = this.cmsAttendanceMasterService.getAttendanceMasterListOnFilterCriteria(dataMap);
+        LocalDate currentDate = LocalDate.now(ZoneId.of(CmsConstants.ZONE_ID));
+        
+        if(amList.size() == 0) {
+        	logger.warn("getTotalLecturesScheculedOnGivenDay(): Attendance master not found. Returning empty list");
+        	return Collections.emptyList();
+        }
+
+        @SuppressWarnings("unchecked")
+        List<Lecture> list = this.entityManager.createQuery("select l from Lecture l where l.lecDate :dt and l.attendancemaster in (:amId) ")
+            .setParameter("dt", currentDate)
+            .setParameter("amId", amList)
+            .getResultList();
+        
+        logger.debug("Total lectures scheduled today : ", list.size());
         return list;
     }
 	

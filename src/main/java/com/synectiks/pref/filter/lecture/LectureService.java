@@ -3,6 +3,7 @@ package com.synectiks.pref.filter.lecture;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -337,7 +338,7 @@ public class LectureService {
                     
                     if(!this.lectureRepository.exists(Example.of(lecture))) {
                     	lecture.setLastUpdatedBy(getLoggedInUser());
-                        lecture.setLastUpdatedOn(LocalDate.now());
+                        lecture.setLastUpdatedOn(LocalDate.now(ZoneId.of(CmsConstants.ZONE_ID)));
                         lecture = this.lectureRepository.save(lecture);
                         
                         CmsLectureVo vo = CommonUtil.createCopyProperties(lecture, CmsLectureVo.class);
@@ -346,7 +347,7 @@ public class LectureService {
                     }else {
                     	logger.warn("Lecture already exists. Discarding it. Lecture : "+lecture);
                     	ExceptionRecord er = new ExceptionRecord();
-                    	er.setExceptionDate(LocalDate.now());
+                    	er.setExceptionDate(LocalDate.now(ZoneId.of(CmsConstants.ZONE_ID)));
                     	er.setExceptionSource("EMS Application. api/cmslectures rest api. addLectures() method");
                     	er.setExceptionType("DuplicateRecordFoundException");
                     	er.setException(lecture.toString().length() > 255 ? lecture.toString().substring(0, 250) : lecture.toString());
@@ -388,7 +389,7 @@ public class LectureService {
                 lecture.setStartTime(jsonObj.getString("startTime"));
                 lecture.setEndTime(jsonObj.getString("endTime"));
                 lecture.setLastUpdatedBy(getLoggedInUser());
-                lecture.setLastUpdatedOn(LocalDate.now());
+                lecture.setLastUpdatedOn(LocalDate.now(ZoneId.of(CmsConstants.ZONE_ID)));
                 lectureRepository.save(lecture);
 //					insertLecture(dt, jsonObj, filter);
             }
