@@ -29,8 +29,7 @@ import com.synectiks.pref.domain.Subject;
 import com.synectiks.pref.domain.Teach;
 import com.synectiks.pref.domain.Teacher;
 import com.synectiks.pref.domain.Term;
-import com.synectiks.pref.domain.vo.CmsStudentVo;
-import com.synectiks.pref.domain.vo.Config;
+import com.synectiks.pref.domain.vo.*;
 import com.synectiks.pref.repository.AcademicYearRepository;
 import com.synectiks.pref.repository.AttendanceMasterRepository;
 import com.synectiks.pref.repository.AuthorizedSignatoryRepository;
@@ -52,28 +51,28 @@ import com.synectiks.pref.repository.TeacherRepository;
 import com.synectiks.pref.repository.TermRepository;
 
 public interface CmsConstants {
-	
+
 	String LOGIN_REGEX = "^[_.@A-Za-z0-9-]*$";
 
     String SYSTEM_ACCOUNT = "system";
     String ANONYMOUS_USER = "anonymoususer";
     String DEFAULT_LANGUAGE = "en";
-    
+
 	String DATE_FORMAT_yyyy_MM_dd = "yyyy-MM-dd";
 	String DATE_FORMAT_dd_MM_yyyy = "dd-MM-yyyy";
 	String DATE_FORMAT_MM_dd_yyyy = "MM-dd-yyyy";
 	String DATE_FORMAT_d_MMM_yyyy = "dd MMM yyyy";
-	
+
 	String ADD_SUCCESS_MESSAGE = "Records added successfully";
 	String ADD_FAILURE_MESSAGE = "Due to some exception, records could no be added.";
 	String UPDATE_SUCCESS_MESSAGE = "Records updated successfully";
 	String UPDATE_FAILURE_MESSAGE = "Due to some exception, records could no be updated.";
-	
+
 	String INFLUXDB_LOG_LEVEL_BASIC = "BASIC";
 	String INFLUXDB_LOG_LEVEL_FULL = "FULL";
 	String INFLUXDB_LOG_LEVEL_HEADERS = "HEADERS";
 	String INFLUXDB_LOG_LEVEL_NONE = "NONE";
-	
+
 	public static String STATUS_ACTIVE = "ACTIVE";
 	public static String STATUS_DEACTIVE = "DEACTIVE";
 	public static String STATUS_DRAFT = "DRAFT";
@@ -85,7 +84,7 @@ public interface CmsConstants {
     	s.add(STATUS_DRAFT);
     	return s;
     }
-    
+
     public static String MALE = "MALE";
     public static String FEMALE = "FEMALE";
     public static String BOTH = "BOTH";
@@ -97,7 +96,7 @@ public interface CmsConstants {
     	s.add(BOTH);
     	return s;
     }
-    
+
     public static String STATUS_RECEIVED = "RECEIVED";
     public static String STATUS_FOLLOWUP = "FOLLOWUP";
     public static String STATUS_DECLINED = "DECLINED";
@@ -141,16 +140,16 @@ public interface CmsConstants {
     	s.add(MODE_APPLICATION_LETTER);
     	return s;
     }
-	
+
     String ERROR_ADMISSIONENQUIRY_ALREADY_EXISTS = "Admission Enquiry already exists. Application allows only one Enquiry.";
     String VALIDATION_FAILURE = "Business validation failed: ";
     String TRANSACTION_SOURCE_ADMISSION_PAGE = "ADMISSION_PAGE";
     String SOURCE_ADMISSION_ENQUIRY = "ADMISSION_ENQUIRY";
     String SOURCE_STUDENT = "STUDENT";
-    
+
     String YES = "YES";
 	String NO = "NO";
-	
+
 	String CMS_IMAGE_FILE_PATH = "college_images/";
 
 	String CMS_COLLEGE_LOGO_FILE_NAME = "college_logo";
@@ -182,7 +181,7 @@ public interface CmsConstants {
     	s.add("attendance_master");
     	return s;
     }
-    
+
 	List<String> TABLE_LIST = initTableList();
 	public static List<String> initTableList() {
 		List<String> ls = initTableDomainRepositoryMapperMap().keySet().stream().collect(Collectors.toList());
@@ -217,8 +216,6 @@ public interface CmsConstants {
 //	    mpr.put("due_date", new CmsTableWithDomainAndRepositoryMapper("due_date", DueDate.class, DueDateRepository.class));
 //	    mpr.put("payment_remainder", new CmsTableWithDomainAndRepositoryMapper("payment_remainder", PaymentRemainder.class, PaymentRemainderRepository.class));
 //	    mpr.put("late_fee", new CmsTableWithDomainAndRepositoryMapper("late_fee", LateFee.class, LateFeeRepository.class));
-//	    mpr.put("fee_category", new CmsTableWithDomainAndRepositoryMapper("fee_category", FeeCategory.class, FeeCategoryRepository.class));
-//	    mpr.put("fee_details", new CmsTableWithDomainAndRepositoryMapper("fee_details", FeeDetails.class, FeeDetailsRepository.class));
 //	    mpr.put("academic_exam_setting", new CmsTableWithDomainAndRepositoryMapper("academic_exam_setting", AcademicExamSetting.class, AcademicExamSettingRepository.class));
 //	    mpr.put("academic_history", new CmsTableWithDomainAndRepositoryMapper("academic_history", AcademicHistory.class, AcademicHistoryRepository.class));
 //	    mpr.put("admin_attendance", new CmsTableWithDomainAndRepositoryMapper("admin_attendance", AdminAttendance.class, AdminAttendanceRepository.class));
@@ -226,11 +223,14 @@ public interface CmsConstants {
 //	    mpr.put("admission_enquiry", new CmsTableWithDomainAndRepositoryMapper("admission_enquiry", AdmissionEnquiry.class, AdmissionEnquiryRepository.class));
 //	    mpr.put("competitive_exam", new CmsTableWithDomainAndRepositoryMapper("competitive_exam", CompetitiveExam.class, CompetitiveExamRepository.class));
 //	    mpr.put("documents", new CmsTableWithDomainAndRepositoryMapper("documents", Documents.class, DocumentsRepository.class));
-//	    mpr.put("facility", new CmsTableWithDomainAndRepositoryMapper("facility", Facility.class, FacilityRepository.class));
-//	    mpr.put("meta_lecture", new CmsTableWithDomainAndRepositoryMapper("meta_lecture", MetaLecture.class, MetaLectureRepository.class));
+	    mpr.put("facility", new CmsTableWithDomainAndRepositoryMapper("facility", CmsFacility.class, null));
+        mpr.put("fee_details", new CmsTableWithDomainAndRepositoryMapper("fee_details", CmsFeeDetails.class, null));
+//	    mpr.put("meta_lecture", new CmsTableWithDomainAandRepositoryMapper("meta_lecture", MetaLecture.class, MetaLectureRepository.class));
 //	    mpr.put("lecture", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
-	    
+
 	    mpr.put("student", new CmsTableWithDomainAndRepositoryMapper("student", CmsStudentVo.class, null));
+        mpr.put("fee_category", new CmsTableWithDomainAndRepositoryMapper("fee_category", CmsFeeCategory.class, null));
+        mpr.put("transport_route", new CmsTableWithDomainAndRepositoryMapper("transport_route", CmsTransportVo.class, null));
 //	    mpr.put("student_attendance", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
 //	    mpr.put("student_exam_report", new CmsTableWithDomainAndRepositoryMapper("student_exam_report", StudentExamReport.class, StudentExamReportRepository.class));
 //	    mpr.put("student_facility_link", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
@@ -245,7 +245,7 @@ public interface CmsConstants {
 	String XLSX_FILE_EXTENSION = "xlsx";
 	String XLS_FILE_EXTENSION = "xls";
 	int BATCH_SIZE = 100;
-	
+
 	// BillDesk payment gateway specific constants
 	String HASH_KEY = "uIZ2iayX70hc";
 	String HASH_ALGO = "HmacSHA256";
@@ -271,29 +271,29 @@ public interface CmsConstants {
         s.add(SUPER);
         return s;
     }
-    
+
     String SUBJECT_TYPE_COMMON = "COMMON";
     String SUBJECT_TYPE_ELECTIVE = "ELECTIVE";
-    
+
     String STAFF_TYPE_TEACHING = "TEACHING";
     String STAFF_TYPE_NONTEACHING = "NONTEACHING";
     String STAFF_TYPE_GUEST = "GUEST";
-    
+
     String RELIGION_HINDU = "HINDU";
     String RELIGION_MUSLIM = "MUSLIM";
     String RELIGION_SIKH = "SIKH";
     String RELIGION_CHRISTIAN = "CHRISTIAN";
     String RELIGION_BUDH = "BUDH";
     String RELIGION_PARSIAN = "PARSIAN";
-    
+
     String CAST_GENERAL = "GENERAL";
     String CAST_SCHEDULED_CASTE = "SC";
     String CAST_SCHEDULED_TRIBE = "ST";
     String CAST_OTHER_BACKWARD_CLASSES="OBC";
-    
+
     String DESIGNATION_LECTURER = "Lecturer";
     String DESIGNATION_PROFESSOR = "Professor";
-    
+
     public static Map<String, Integer> initWeekDayMap() {
     	Map<String, Integer> WEEKDAY_MAP = new HashMap<String, Integer>();
         WEEKDAY_MAP.put("MONDAY",0);
@@ -305,5 +305,5 @@ public interface CmsConstants {
         WEEKDAY_MAP.put("SUNDAY",6);
         return WEEKDAY_MAP;
     }
-    
+
 }

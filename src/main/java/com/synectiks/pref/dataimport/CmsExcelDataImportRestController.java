@@ -25,27 +25,28 @@ import com.synectiks.pref.service.util.CommonUtil;
 @RequestMapping("/api")
 public class CmsExcelDataImportRestController {
 	private final Logger logger = LoggerFactory.getLogger(CmsExcelDataImportRestController.class);
-	
+
 	@Autowired
 	private DataLoaderFactory dataLoaderFactory;
-	
+
 	@Autowired
 	private AllRepositories allRepositories;
-	
-	private String [] allEntities = 
-		{		
+
+	private String [] allEntities =
+		{
 			"college","branch","authorized_signatory","bank_accounts","legal_entity",
-			"academic_year","holiday","term","department","teacher","subject","student"
-//				"attendance_master", 
+			"academic_year","holiday","term","department","teacher","subject","student","fee_category","transport_route","facility",
+            "fee_details"
+//				"attendance_master",
 		};
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/cmsdataimport/{tableName}")
 	public List<QueryResult> doImport(@RequestParam("file") MultipartFile file, @PathVariable String tableName) throws URISyntaxException {
 		String msg = "Data successfully imported for entity - "+tableName;
 		List<QueryResult> list = new ArrayList<>();
 		QueryResult qres = null;
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		
+
 		if(CommonUtil.isNullOrEmpty(tableName)) {
 			throw new RuntimeException("Invalid excel file name: " + fileName);
 		}
@@ -53,11 +54,11 @@ public class CmsExcelDataImportRestController {
 		if(fileName.contains("..")) {
             throw new RuntimeException("Filename contains invalid path sequence: " + fileName);
         }
-		
+
 		if(!fileName.contains(CmsConstants.XLS_FILE_EXTENSION) || !fileName.contains(CmsConstants.XLSX_FILE_EXTENSION)) {
 			throw new RuntimeException("Invalid excel file. File extension not found: " + fileName);
 		}
-		
+
 		if("ALL".equalsIgnoreCase(tableName)){
 			for(int i=0; i<allEntities.length; i++) {
 				DataLoader dataLoader = this.dataLoaderFactory.getLoader(allEntities[i], this.allRepositories);
@@ -96,7 +97,7 @@ public class CmsExcelDataImportRestController {
 		logger.info("Master data uploaded successfully....");
 		return list;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/cmsdataimport")
 	public List<String> getTableLilst(){
 		return CmsConstants.TABLE_LIST;

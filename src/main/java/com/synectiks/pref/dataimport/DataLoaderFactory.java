@@ -2,45 +2,34 @@ package com.synectiks.pref.dataimport;
 
 import java.util.Map;
 
+import com.synectiks.pref.dataimport.loader.*;
 import org.springframework.stereotype.Component;
 
 import com.synectiks.pref.constant.CmsConstants;
-import com.synectiks.pref.dataimport.loader.AcademicYearLoader;
-import com.synectiks.pref.dataimport.loader.AuthorizedSignatoryLoader;
-import com.synectiks.pref.dataimport.loader.BankAccountsDataLoader;
-import com.synectiks.pref.dataimport.loader.BranchDataLoader;
-import com.synectiks.pref.dataimport.loader.CollegeDataLoader;
-import com.synectiks.pref.dataimport.loader.DepartmentLoader;
-import com.synectiks.pref.dataimport.loader.HolidayDataLoader;
-import com.synectiks.pref.dataimport.loader.LegalEntityDataLoader;
-import com.synectiks.pref.dataimport.loader.StudentDataLoader;
-import com.synectiks.pref.dataimport.loader.SubjectDataLoader;
-import com.synectiks.pref.dataimport.loader.TeacherDataLoader;
-import com.synectiks.pref.dataimport.loader.TermDataLoader;
 import com.synectiks.pref.service.util.CommonUtil;
 
 @Component
 public class DataLoaderFactory {
-	
-	public DataLoader getLoader(String tableName, AllRepositories allRepositories){  
-		
-        if(tableName == null){  
-        	return null;  
-        }  
-        
-//        if(tableName.equalsIgnoreCase("COUNTRY")) {  
-//        	return new CountryDataLoader(tableName, allRepositories); 
+
+	public DataLoader getLoader(String tableName, AllRepositories allRepositories){
+
+        if(tableName == null){
+        	return null;
+        }
+
+//        if(tableName.equalsIgnoreCase("COUNTRY")) {
+//        	return new CountryDataLoader(tableName, allRepositories);
 //        }
-//        if(tableName.equalsIgnoreCase("STATE")) {  
-//        	return new StateDataLoader(tableName, allRepositories);  
+//        if(tableName.equalsIgnoreCase("STATE")) {
+//        	return new StateDataLoader(tableName, allRepositories);
 //        }
-//        if(tableName.equalsIgnoreCase("CITY")) {  
-//        	return new CityDataLoader(tableName, allRepositories); 
+//        if(tableName.equalsIgnoreCase("CITY")) {
+//        	return new CityDataLoader(tableName, allRepositories);
 //        }
-        if(tableName.equalsIgnoreCase("COLLEGE")) {  
+        if(tableName.equalsIgnoreCase("COLLEGE")) {
         	return new CollegeDataLoader(tableName, allRepositories);
         }
-        if(tableName.equalsIgnoreCase("BRANCH")) {  
+        if(tableName.equalsIgnoreCase("BRANCH")) {
         	return new BranchDataLoader(tableName, allRepositories);
         }
         if(tableName.equalsIgnoreCase("AUTHORIZED_SIGNATORY")){
@@ -70,7 +59,7 @@ public class DataLoaderFactory {
         if(tableName.equalsIgnoreCase("SUBJECT")){
             return new SubjectDataLoader (tableName, allRepositories);
         }
-        
+
 //        if(tableName.equalsIgnoreCase("ATTENDANCE_MASTER")){
 //            return new AttendanceMasterDataLoader (tableName, allRepositories);
 //        }
@@ -78,16 +67,32 @@ public class DataLoaderFactory {
         if(tableName.equalsIgnoreCase("STUDENT")){
             return new StudentDataLoader(tableName, allRepositories);
         }
-        
-        return null;  
+
+        if(tableName.equalsIgnoreCase("FEE_CATEGORY")){
+            return new FeeCategoryLoader(tableName, allRepositories);
+        }
+
+        if(tableName.equalsIgnoreCase("TRANSPORT_ROUTE")){
+            return new TransportRouteDataLoader(tableName, allRepositories);
+        }
+
+        if(tableName.equalsIgnoreCase("FACILITY")){
+            return new FacilityDataLoader(tableName, allRepositories);
+        }
+
+        if(tableName.equalsIgnoreCase("FEE_DETAILS")){
+            return new FeeDetailsDataLoader(tableName, allRepositories);
+        }
+
+        return null;
 	}
-	
+
 	public Class getClassName(String table) {
 		if(CommonUtil.isNullOrEmpty(table)) return null;
 		Map<String, CmsTableWithDomainAndRepositoryMapper> map = CmsConstants.initTableDomainRepositoryMapperMap();
 		CmsTableWithDomainAndRepositoryMapper mapper = map.get(table);
 		return mapper.getDomain();
 	}
-	
+
 
 }
