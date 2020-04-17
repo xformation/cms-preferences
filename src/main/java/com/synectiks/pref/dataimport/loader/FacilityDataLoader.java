@@ -70,40 +70,27 @@ public class FacilityDataLoader extends DataLoader {
         }
 
         String endDate = row.getCellAsString(3).orElse(null);
-        if (CommonUtil.isNullOrEmpty(endDate)) {
-            sb.append("end_date, ");
-            logger.warn("Mandatory field missing. Field name - end_date");
-        } else {
-            obj.setEndDate(DateFormatUtil.convertStringToLocalDate(endDate, CmsConstants.DATE_FORMAT_dd_MM_yyyy));
-        }
+        if (!CommonUtil.isNullOrEmpty(endDate)) {
+        	obj.setEndDate(DateFormatUtil.convertStringToLocalDate(endDate, CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+        } 
 
         String suspandStartDate = row.getCellAsString(4).orElse(null);
-        if (CommonUtil.isNullOrEmpty(suspandStartDate)) {
-            sb.append("suspand_start_date, ");
-            logger.warn("Mandatory field missing. Field name - suspand_start_date");
-        } else {
-            obj.setSuspandStartDate(DateFormatUtil.convertStringToLocalDate(suspandStartDate, CmsConstants.DATE_FORMAT_dd_MM_yyyy));
-        }
+        if (!CommonUtil.isNullOrEmpty(suspandStartDate)) {
+        	obj.setSuspandStartDate(DateFormatUtil.convertStringToLocalDate(suspandStartDate, CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+        } 
 
         String suspandEndDate = row.getCellAsString(5).orElse(null);
-        if (CommonUtil.isNullOrEmpty(suspandEndDate)) {
-            sb.append("suspand_end_date, ");
-            logger.warn("Mandatory field missing. Field name - suspand_end_date");
-        } else {
-            obj.setSuspandEndDate(DateFormatUtil.convertStringToLocalDate(suspandEndDate, CmsConstants.DATE_FORMAT_dd_MM_yyyy));
-        }
+        if (!CommonUtil.isNullOrEmpty(suspandEndDate)) {
+        	obj.setSuspandEndDate(DateFormatUtil.convertStringToLocalDate(suspandEndDate, CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+        } 
 
         String academicYear = row.getCellAsString(6).orElse(null);
-        if(CommonUtil.isNullOrEmpty(academicYear)) {
-            sb.append("academic_year_id, ");
-            logger.warn("Mandatory field missing. Field name - academic_year_id");
-        }else {
-            AcademicYear academicYear1 = new AcademicYear();
-            academicYear1.setDescription(academicYear);
-            Optional<AcademicYear> ay = this.allRepositories.findRepository("academic_year").findOne(Example.of(academicYear1));
-            if(ay.isPresent()) {
-                obj.setAcademicYear(ay.get());
-                obj.setAcademicYearId(ay.get().getId());
+        if(!CommonUtil.isNullOrEmpty(academicYear)) {
+        	AcademicYear ay = new AcademicYear();
+            ay.setDescription(academicYear);
+            Optional<AcademicYear> oay = this.allRepositories.findRepository("academic_year").findOne(Example.of(ay));
+            if(oay.isPresent()) {
+                obj.setAcademicYearId(oay.get().getId());
             }else {
                 sb.append("academic_year_id, ");
                 logger.warn("AcademicYear not found. Given academicYear name : "+academicYear);
@@ -119,13 +106,21 @@ public class FacilityDataLoader extends DataLoader {
             branch.setBranchName(branchName);
             Optional<Branch> b = this.allRepositories.findRepository("branch").findOne(Example.of(branch));
             if(b.isPresent()) {
-                obj.setBranch(b.get());
+                obj.setBranchId(b.get().getId());
             }else {
                 sb.append("branch_id, ");
                 logger.warn("Branch not found. Given branch name : "+branchName);
             }
         }
 
+        String amount = row.getCellAsString(8).orElse(null);
+        if (CommonUtil.isNullOrEmpty(amount)) {
+            sb.append("amount, ");
+            logger.warn("Mandatory field missing. Field name - amount");
+        } else {
+            obj.setAmount(Long.parseLong(amount));
+        }
+        
         if (sb.length() > 0) {
             String msg = "Field name - ";
             throw new MandatoryFieldMissingException(msg + sb.substring(0, sb.lastIndexOf(",")));
