@@ -106,6 +106,9 @@ public class CmsSubjectService {
     	}
         
     	List<CmsSubjectVo> ls = changeSubjectToCmsSubjectList(list);
+    	if(ls.size() == 0) {
+    		return Collections.emptyList();
+    	}
     	Collections.sort(ls, (o1, o2) -> o2.getId().compareTo(o1.getId()));
     	return ls;
     }
@@ -148,6 +151,9 @@ public class CmsSubjectService {
     		list = this.subjectRepository.findAll(Example.of(obj), Sort.by(Direction.DESC, "id"));
     	}else {
     		list = this.subjectRepository.findAll(Sort.by(Direction.DESC, "id"));
+    	}
+    	if(list.size() == 0) {
+    		return Collections.emptyList();
     	}
     	Collections.sort(list, (o1, o2) -> o2.getId().compareTo(o1.getId()));
     	return list;
@@ -198,7 +204,12 @@ public class CmsSubjectService {
 	
 	
 	public List<Subject> getSubjectWithDepartmentAndBatchList(List<Department> departmentList, List<Batch> batchList) {
-        @SuppressWarnings("unchecked")
+        if(departmentList.size() == 0 || batchList.size() == 0) {
+        	logger.warn("Empty department list or batch list. Department list length : "+departmentList.size()+", batch list length : "+batchList.size());
+        	return Collections.emptyList();
+        }
+        
+		@SuppressWarnings("unchecked")
         List<Subject> list = this.entityManager.createQuery("select l from Subject l where l.department in (:departmentList) and l.batch in (:batchList)")
             .setParameter("departmentList", departmentList)
             .setParameter("batchList", batchList)

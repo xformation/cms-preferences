@@ -382,6 +382,11 @@ public class LectureRestController {
         
 	    List<Teach> thList = cmsTeachService.getTeachListOnFilterCriteria(dataMap);
 
+	    if(thList.size() == 0) {
+        	logger.warn("getAllLecturesScheduledForTeacher(): teach not found. Returning empty list");
+        	return Collections.emptyList();
+        }
+	    
         @SuppressWarnings("unchecked")
         List<AttendanceMaster> amList = this.entityManager.createQuery("select a from AttendanceMaster a where a.teach in (:th)")
             .setParameter("th", thList)
@@ -413,6 +418,11 @@ public class LectureRestController {
         
 	    List<Teach> thList = cmsTeachService.getTeachListOnFilterCriteria(dataMap);
 
+	    if(thList.size() == 0) {
+        	logger.warn("getTotalLecturesConductedForTeacher(): teach not found. Returning empty list");
+        	return Collections.emptyList();
+        }
+	    
         @SuppressWarnings("unchecked")
         List<AttendanceMaster> amList = this.entityManager.createQuery("select a from AttendanceMaster a where a.teach in (:th)")
             .setParameter("th", thList)
@@ -445,7 +455,7 @@ public class LectureRestController {
         }
 
         @SuppressWarnings("unchecked")
-        List<Lecture> list = this.entityManager.createQuery("select l from Lecture l where l.lecDate :dt and l.attendancemaster in (:amId) ")
+        List<Lecture> list = this.entityManager.createQuery("select l from Lecture l where l.lecDate = :dt and l.attendancemaster in (:amId) ")
             .setParameter("dt", currentDate)
             .setParameter("amId", amList)
             .getResultList();
