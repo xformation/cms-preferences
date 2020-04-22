@@ -79,7 +79,7 @@ public interface IUtils {
 	String PRM_TOPIC = "topic";
 	String KEY_KAFKA_CONFIG = "kafka.url";
 	String KEY_KAFKA_TOPIC = "kafka.topic";
-	String URL_KAFKA_URL = "http://localhost:8190/kafka/send";
+//	String URL_KAFKA_URL = "http://localhost:8190/kafka/send";
 
 	/**
 	 * Check if an object is null

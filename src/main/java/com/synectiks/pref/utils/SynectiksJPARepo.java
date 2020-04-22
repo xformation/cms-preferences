@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.web.client.RestTemplate;
 
 import com.synectiks.pref.PreferencesApp;
+import com.synectiks.pref.config.ApplicationProperties;
 import com.synectiks.pref.utils.ESEvent.EventType;
 
 /**
@@ -28,7 +29,8 @@ public class SynectiksJPARepo<T, ID extends Serializable>
 
 	private Environment env;
 	private RestTemplate rest;
-
+	private ApplicationProperties applicationProperties;
+	
 	public SynectiksJPARepo(Class<T> domainClass, EntityManager entityManager) {
         super(domainClass, entityManager);
     }
@@ -128,6 +130,9 @@ public class SynectiksJPARepo<T, ID extends Serializable>
         if (IUtils.isNull(rest)) {
         	rest = PreferencesApp.getBean(RestTemplate.class);
         }
+        if (IUtils.isNull(applicationProperties)) {
+        	applicationProperties = PreferencesApp.getBean(ApplicationProperties.class);
+        }
 		logger.info(type + ": " + IUtils.getStringFromValue(entity));
 		if (!IUtils.isNull(entity) && entity instanceof IESEntity) {
 			ESEvent event = ESEvent.builder(type, entity).build();
@@ -135,7 +140,7 @@ public class SynectiksJPARepo<T, ID extends Serializable>
 			String res = null;
 			try {
 				res = IUtils.sendGetRestRequest(rest, IUtils.getValueByKey(
-						env, IUtils.KEY_KAFKA_CONFIG, IUtils.URL_KAFKA_URL),
+						env, IUtils.KEY_KAFKA_CONFIG, applicationProperties.getKafkaUrl()),
 						IUtils.getRestParamMap(IUtils.PRM_TOPIC,
 								IUtils.getValueByKey(env, IUtils.KEY_KAFKA_TOPIC, "cms"),
 								IUtils.PRM_MSG,

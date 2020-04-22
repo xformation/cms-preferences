@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.synectiks.pref.PreferencesApp;
+import com.synectiks.pref.config.ApplicationProperties;
 import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.Branch;
 import com.synectiks.pref.domain.Department;
@@ -33,9 +34,9 @@ import com.synectiks.pref.repository.TeacherRepository;
 import com.synectiks.pref.service.util.CommonUtil;
 import com.synectiks.pref.service.util.DateFormatUtil;
 import com.synectiks.pref.utils.ESEvent;
+import com.synectiks.pref.utils.ESEvent.EventType;
 import com.synectiks.pref.utils.IESEntity;
 import com.synectiks.pref.utils.IUtils;
-import com.synectiks.pref.utils.ESEvent.EventType;
 
 @Component
 public class CmsTeacherService {
@@ -478,6 +479,7 @@ public class CmsTeacherService {
     private void fireEvent(EventType type, Teacher entity) {
     	Environment env = PreferencesApp.getBean(Environment.class);
     	RestTemplate rest = PreferencesApp.getBean(RestTemplate.class);
+    	ApplicationProperties applicationProperties = PreferencesApp.getBean(ApplicationProperties.class);
     	
         logger.info("Event type - "+type + ": " + IUtils.getStringFromValue(entity));
 		if (!IUtils.isNull(entity) && entity instanceof IESEntity) {
@@ -486,7 +488,7 @@ public class CmsTeacherService {
 			String res = null;
 			try {
 				res = IUtils.sendGetRestRequest(rest, IUtils.getValueByKey(
-						env, IUtils.KEY_KAFKA_CONFIG, IUtils.URL_KAFKA_URL),
+						env, IUtils.KEY_KAFKA_CONFIG, applicationProperties.getKafkaUrl()),
 						IUtils.getRestParamMap(IUtils.PRM_TOPIC,
 								IUtils.getValueByKey(env, IUtils.KEY_KAFKA_TOPIC, "cms"),
 								IUtils.PRM_MSG,
