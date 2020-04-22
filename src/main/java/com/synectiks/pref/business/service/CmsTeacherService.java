@@ -2,6 +2,7 @@ package com.synectiks.pref.business.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -10,11 +11,14 @@ import java.util.StringTokenizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
+import com.synectiks.pref.PreferencesApp;
 import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.Branch;
 import com.synectiks.pref.domain.Department;
@@ -28,6 +32,10 @@ import com.synectiks.pref.graphql.types.teacher.TeacherInput;
 import com.synectiks.pref.repository.TeacherRepository;
 import com.synectiks.pref.service.util.CommonUtil;
 import com.synectiks.pref.service.util.DateFormatUtil;
+import com.synectiks.pref.utils.ESEvent;
+import com.synectiks.pref.utils.IESEntity;
+import com.synectiks.pref.utils.IUtils;
+import com.synectiks.pref.utils.ESEvent.EventType;
 
 @Component
 public class CmsTeacherService {
@@ -460,4 +468,36 @@ public class CmsTeacherService {
     	return vo;
     }
     
+    public void pushToKafka() {
+    	List<Teacher> list = getTeacherListOnFilterCriteria(new HashMap<String, String>());
+    	for(Teacher teacher: list) {
+    		fireEvent(EventType.CREATE, teacher);
+    	}
+    }
+    
+    private void fireEvent(EventType type, Teacher entity) {
+    	Environment env = PreferencesApp.getBean(Environment.class);
+    	RestTemplate rest = PreferencesApp.getBean(RestTemplate.class);
+    	
+        logger.info("Event type - "+type + ": " + IUtils.getStringFromValue(entity));
+		if (!IUtils.isNull(entity) && entity instanceof IESEntity) {
+			ESEvent event = ESEvent.builder(type, entity).build();
+			logger.info("Event string :: " + IUtils.getStringFromValue(event));
+			String res = null;
+			try {
+				res = IUtils.sendGetRestRequest(rest, IUtils.getValueByKey(
+						env, IUtils.KEY_KAFKA_CONFIG, IUtils.URL_KAFKA_URL),
+						IUtils.getRestParamMap(IUtils.PRM_TOPIC,
+								IUtils.getValueByKey(env, IUtils.KEY_KAFKA_TOPIC, "cms"),
+								IUtils.PRM_MSG,
+								IUtils.getStringFromValue(event)), String.class);
+			} catch(Exception ex) {
+				logger.error(ex.getMessage(), ex);
+				res = null;
+			}
+			
+		} else {
+			logger.error("Teacher entity should not be null");
+		}
+	}
 }

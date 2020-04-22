@@ -27,6 +27,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 public class TeacherRestController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     @Autowired
     private CmsTeacherService cmsTeacherService; 
 	
@@ -83,4 +84,10 @@ public class TeacherRestController {
         return list;
     }
     
+    @RequestMapping(method = RequestMethod.POST, value = "/send-teacher-to-kafka")
+    public void pushToKafka() {
+    	logger.info("Start pushing teacher entities to kafka"); 
+    	this.cmsTeacherService.pushToKafka();
+    	logger.info("All teacher entities successfully uploaded to kafka");
+    }
 }
