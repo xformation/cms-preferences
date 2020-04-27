@@ -4,13 +4,14 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -36,6 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.synectiks.pref.business.service.CmsAcademicYearService;
 import com.synectiks.pref.business.service.CmsAttendanceMasterService;
 import com.synectiks.pref.business.service.CmsTeachService;
+import com.synectiks.pref.business.service.CmsTeacherService;
 import com.synectiks.pref.business.service.CommonService;
 import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.domain.AcademicYear;
@@ -46,6 +48,7 @@ import com.synectiks.pref.domain.Section;
 import com.synectiks.pref.domain.Subject;
 import com.synectiks.pref.domain.Teach;
 import com.synectiks.pref.domain.Teacher;
+import com.synectiks.pref.domain.vo.CmsLectureBadgeVo;
 import com.synectiks.pref.domain.vo.CmsLectureVo;
 import com.synectiks.pref.domain.vo.QueryResult;
 import com.synectiks.pref.filter.lecture.LectureScheduleFilter;
@@ -84,12 +87,6 @@ public class LectureRestController {
 	@Autowired
 	private TeachRepository teachRepository;
 	
-//	@Autowired
-//	private TeacherRepository teacherRepository;
-//	
-//	@Autowired
-//	private SubjectRepository subjectRepository;
-	
 	@Autowired
 	private AttendanceMasterRepository attendanceMasterRepository;
 	
@@ -101,7 +98,10 @@ public class LectureRestController {
 	
 	@Autowired
 	private CmsAttendanceMasterService cmsAttendanceMasterService;
-	
+
+	@Autowired
+	private CmsTeacherService cmsTeacherService;
+
 	
 	@PersistenceContext
     private EntityManager entityManager;
@@ -464,5 +464,61 @@ public class LectureRestController {
         return list;
     }
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/lectures-report-for-dashboard-badge")
+	public List<CmsLectureBadgeVo> getLectureReportForBadge(@RequestParam Map<String, String> dataMap) {
+		List<CmsLectureBadgeVo> voList = new ArrayList<>();
+		List<Teacher> teacherList = this.cmsTeacherService.getTeacherListOnFilterCriteria(dataMap);
+		Teacher teacher = teacherList.get(0);
+		Map<String, String> map = new HashMap<>();
+		map.put("teacherId", String.valueOf(teacher.getId()));
+		
+		List<Teach> teachList = this.cmsTeachService.getTeachListOnFilterCriteria(map);
+		
+		for(Teach teach: teachList) {
+			map.put("subjectId", String.valueOf(teach.getSubject().getId()));
+			List<Lecture> scheduledLectureList = getTotalLecturesScheduled(map);
+			List<Lecture> conductedLectureList = getTotalLecturesConducted(map);
+			CmsLectureBadgeVo vo = new CmsLectureBadgeVo();
+			vo.setSubjectCode(teach.getSubject().getSubjectCode());
+			vo.setSubjectDes(teach.getSubject().getSubjectDesc());
+			vo.setTotalScheduledLectures(new Long(scheduledLectureList.size()));
+			vo.setTotalConductedLectures(new Long(conductedLectureList.size()));
+			vo.setTotalRemainingLectures(new Long(scheduledLectureList.size() - conductedLectureList.size()));
+			vo.setDepartmentName(teach.getSubject().getDepartment().getName());
+			vo.setClassName(teach.getSubject().getBatch().getBatch().toString());
+			if(scheduledLectureList.size() > 0) {
+				Collections.sort(scheduledLectureList, (o1, o2) -> o1.getId().compareTo(o2.getId()));
+				int cnt =0;
+				for(Lecture lecture: scheduledLectureList) {
+					if(lecture.getLecDate().compareTo(LocalDate.now(ZoneId.of(CmsConstants.ZONE_ID))) >= 0) {
+						vo.setNextLectureDate(DateFormatUtil.changeLocalDateFormat(lecture.getLecDate(), CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+						List<Lecture> ls = scheduledLectureList.subList(cnt, scheduledLectureList.size());
+						for(Lecture lec: ls) {
+							LocalTime now = LocalTime.now(ZoneId.of(CmsConstants.ZONE_ID));
+							LocalTime isoTime = LocalTime.parse(lec.getStartTime()+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+							if(isoTime.compareTo(now) >= 0) {
+								vo.setNextLectureTime(lec.getStartTime());
+								break;
+							}
+						}
+						break;
+					}
+					cnt++;
+				}
+			}
+			voList.add(vo);
+		}
+		return voList;
+	}
 	
+	public static void main(String aars[]) {
+		LocalTime isoTime = LocalTime.parse("04:15"+":00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+		DateTimeFormatter df = DateTimeFormatter.ofPattern("hh:mm:ss a");
+		System.out.println("Time 1 : "+isoTime.format(df));
+		
+		LocalTime now = LocalTime.now(ZoneId.of(CmsConstants.ZONE_ID));
+		System.out.println("Time 2 : "+now.format(df));
+		int x = isoTime.compareTo(now);
+		System.out.println(x);
+	}
 }
