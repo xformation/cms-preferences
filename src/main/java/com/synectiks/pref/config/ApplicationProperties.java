@@ -25,7 +25,8 @@ public class ApplicationProperties {
 	private String msAuthenticationUrl;
 	private String paymentResponseUrl;
 	private String paymentRedirectUrl;
-	
+    private String cmsAdmissionEndUrl;
+
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -137,4 +138,12 @@ public class ApplicationProperties {
 	public void setPaymentRedirectUrl(String paymentRedirectUrl) {
 		this.paymentRedirectUrl = paymentRedirectUrl;
 	}
+
+    public String getCmsAdmissionEndUrl() {
+        return cmsAdmissionEndUrl;
+    }
+
+    public void setCmsAdmissionEndUrl(String cmsAdmissionEndUrl) {
+        this.cmsAdmissionEndUrl = cmsAdmissionEndUrl;
+    }
 }

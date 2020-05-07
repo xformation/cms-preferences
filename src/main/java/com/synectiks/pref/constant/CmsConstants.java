@@ -225,6 +225,8 @@ public interface CmsConstants {
 //	    mpr.put("documents", new CmsTableWithDomainAndRepositoryMapper("documents", Documents.class, DocumentsRepository.class));
 	    mpr.put("facility", new CmsTableWithDomainAndRepositoryMapper("facility", CmsFacility.class, null));
         mpr.put("fee_details", new CmsTableWithDomainAndRepositoryMapper("fee_details", CmsFeeDetails.class, null));
+        mpr.put("admission_enquiry", new CmsTableWithDomainAndRepositoryMapper("admission_enquiry", CmsAdmissionEnquiryVo.class, null));
+        mpr.put("admission_application", new CmsTableWithDomainAndRepositoryMapper("admission_application", CmsAdmissionApplicationVo.class, null));
 //	    mpr.put("meta_lecture", new CmsTableWithDomainAandRepositoryMapper("meta_lecture", MetaLecture.class, MetaLectureRepository.class));
 //	    mpr.put("lecture", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
 

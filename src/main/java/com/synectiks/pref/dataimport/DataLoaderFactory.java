@@ -84,6 +84,14 @@ public class DataLoaderFactory {
             return new FeeDetailsDataLoader(tableName, allRepositories);
         }
 
+        if(tableName.equalsIgnoreCase("ADMISSION_ENQUIRY")){
+            return new AdmissionEnquiryDataLoader(tableName, allRepositories);
+        }
+
+        if(tableName.equalsIgnoreCase("ADMISSION_APPLICATION")){
+            return new AdmissionApplicationDataLoader(tableName, allRepositories);
+        }
+
         return null;
 	}
 

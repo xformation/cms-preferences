@@ -36,7 +36,7 @@ public class CmsExcelDataImportRestController {
 		{
 			"college","branch","authorized_signatory","bank_accounts","legal_entity",
 			"academic_year","holiday","term","department","teacher","subject","student","fee_category","transport_route","facility",
-            "fee_details"
+            "fee_details","admission_enquiry","admission_application"
 //				"attendance_master",
 		};
 
