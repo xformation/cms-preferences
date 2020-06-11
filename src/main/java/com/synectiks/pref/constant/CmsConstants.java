@@ -233,6 +233,7 @@ public interface CmsConstants {
 	    mpr.put("student", new CmsTableWithDomainAndRepositoryMapper("student", CmsStudentVo.class, null));
         mpr.put("fee_category", new CmsTableWithDomainAndRepositoryMapper("fee_category", CmsFeeCategory.class, null));
         mpr.put("transport_route", new CmsTableWithDomainAndRepositoryMapper("transport_route", CmsTransportVo.class, null));
+        mpr.put("contract", new CmsTableWithDomainAndRepositoryMapper("contract", CmsContractVo.class, null));
 //	    mpr.put("student_attendance", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));
 //	    mpr.put("student_exam_report", new CmsTableWithDomainAndRepositoryMapper("student_exam_report", StudentExamReport.class, StudentExamReportRepository.class));
 //	    mpr.put("student_facility_link", new CmsTableWithDomainAndRepositoryMapper("country", Country.class, CountryRepository.class));

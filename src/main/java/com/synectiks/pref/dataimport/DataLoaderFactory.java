@@ -92,6 +92,11 @@ public class DataLoaderFactory {
             return new AdmissionApplicationDataLoader(tableName, allRepositories);
         }
 
+        if(tableName.equalsIgnoreCase("CONTRACT")){
+            return new ContractDataLoader(tableName, allRepositories);
+        }
+
+
         return null;
 	}
 
