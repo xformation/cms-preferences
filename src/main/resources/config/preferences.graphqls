@@ -18,6 +18,7 @@ type Query {
 	getBatchList: [CmsBatchVo]
 	getSectionList: [CmsSectionVo]
 	getTableList: [String]
+	getFacilityList: [CmsFacility]
 }
 
 type Mutation {
@@ -34,43 +35,43 @@ type Mutation {
 	saveEmployee(input: EmployeeInput): EmployeePayload
 	saveTeacher(input: TeacherInput): TeacherPayload
 	saveSubject(input: SubjectInput): SubjectPayload
-	
+	saveFacility(input: FacilityInput): FacilityPayload
 }
 
 type CmsAttendanceMasterVo{
-	id: Long 
-    desc: String 
-    cmsBatchVo: CmsBatchVo 
-    cmsSectionVo: CmsSectionVo 
-    cmsTeachVo: CmsTeachVo 
-    batchId: Long 
-    sectionId: Long 
-    teachId: Long 
+	id: Long
+    desc: String
+    cmsBatchVo: CmsBatchVo
+    cmsSectionVo: CmsSectionVo
+    cmsTeachVo: CmsTeachVo
+    batchId: Long
+    sectionId: Long
+    teachId: Long
 }
 
 type CmsTeachVo{
-	id: Long 
-    desc: String 
-    cmsSubjectVo: CmsSubjectVo 
-    cmsTeacherVo: CmsTeacherVo 
-    subjectId: Long 
-    teacherId: Long 
+	id: Long
+    desc: String
+    cmsSubjectVo: CmsSubjectVo
+    cmsTeacherVo: CmsTeacherVo
+    subjectId: Long
+    teacherId: Long
     dataList: [CmsTeachVo]
 }
 
 type CmsSectionVo{
-	id: Long 
-    section: SectionEnum 
-    batchId: Long 
-    cmsBatchVo: CmsBatchVo 
-    description: String 
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    strCreatedOn: String 
-    strUpdatedOn: String 
-    exitCode: Long 
+	id: Long
+    section: SectionEnum
+    batchId: Long
+    cmsBatchVo: CmsBatchVo
+    description: String
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    strCreatedOn: String
+    strUpdatedOn: String
+    exitCode: Long
     exitDescription: String
     dataList: [CmsSectionVo]
 }
@@ -78,26 +79,26 @@ type CmsSectionVo{
 type CmsBatchVo {
 	id: Long
     batch: BatchEnum
-    description: String 
+    description: String
     departmentId: Long
     cmsDepartmentVo: CmsDepartmentVo
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    strCreatedOn: String 
-    strUpdatedOn: String 
-    exitCode: Long 
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    strCreatedOn: String
+    strUpdatedOn: String
+    exitCode: Long
     exitDescription: String
     dataList: [CmsBatchVo]
 }
 
 input SubjectInput {
-	id: Long 
-    subjectCode: String 
-    subjectType: String 
+	id: Long
+    subjectCode: String
+    subjectType: String
     subjectDesc: String
-    status: String 
+    status: String
     departmentId: Long
     batchId: Long
     teacherId: Long
@@ -109,38 +110,38 @@ type SubjectPayload {
 }
 
 type CmsSubjectVo {
-	id: Long 
-    subjectCode: String 
-    subjectType: String 
-    subjectDesc: String 
+	id: Long
+    subjectCode: String
+    subjectType: String
+    subjectDesc: String
     status: String
     departmentId: Long
     batchId: Long
     cmsDepartmentVo: CmsDepartmentVo
     cmsBatchVo: CmsBatchVo
-    subjectId: Long 
-    teacherId: Long 
-    sectionId: Long 
-    teachId: Long 
-    attendanceMasterId: Long 
-    cmsTeacherVo: CmsTeacherVo 
-    cmsSectionVo: CmsSectionVo  
-    cmsTeachVo: CmsTeachVo 
-    cmsAttendanceMasterVo: CmsAttendanceMasterVo 
-    
-	createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    strCreatedOn: String 
-    strUpdatedOn: String 
-    exitCode: Long 
+    subjectId: Long
+    teacherId: Long
+    sectionId: Long
+    teachId: Long
+    attendanceMasterId: Long
+    cmsTeacherVo: CmsTeacherVo
+    cmsSectionVo: CmsSectionVo
+    cmsTeachVo: CmsTeachVo
+    cmsAttendanceMasterVo: CmsAttendanceMasterVo
+
+	createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    strCreatedOn: String
+    strUpdatedOn: String
+    exitCode: Long
     exitDescription: String
     dataList: [CmsSubjectVo]
 }
 
 input TeacherInput {
-	id: Long 
+	id: Long
     uploadPhoto: String
     logoFilePath: String
     logoFileName: String
@@ -186,9 +187,9 @@ input TeacherInput {
     employeeId: Long
     designation: String
     staffType: String
-    departmentId: Long 
-    branchId: Long 
-    strDateOfBirth: String 
+    departmentId: Long
+    branchId: Long
+    strDateOfBirth: String
 }
 
 type TeacherPayload {
@@ -196,7 +197,7 @@ type TeacherPayload {
 }
 
 type CmsTeacherVo {
-	id: Long 
+	id: Long
     uploadPhoto: String
     logoFilePath: String
     logoFileName: String
@@ -244,57 +245,57 @@ type CmsTeacherVo {
     staffType: String
     cmsDepartmentVo: CmsDepartmentVo
     cmsBranchVo: CmsBranchVo
-    departmentId: Long 
-    branchId: Long 
-    strDateOfBirth: String 
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    strCreatedOn: String 
-    strUpdatedOn: String 
-    exitCode: Long 
+    departmentId: Long
+    branchId: Long
+    strDateOfBirth: String
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    strCreatedOn: String
+    strUpdatedOn: String
+    exitCode: Long
     exitDescription: String
     dataList: [CmsTeacherVo]
 }
 
 input EmployeeInput {
 	id: Long
-	employeeName: String 
+	employeeName: String
     designation: String
-    joiningDate: Date 
+    joiningDate: Date
     jobEndDate: Date
     resignationDate: Date
-    resignationAcceptanceDate: Date 
-    dateOfBirth: Date 
-    aadharNo: String 
-    panNo: String 
-    passportNo: String 
-    primaryContactNo: String 
-    secondaryContactNo: String 
-    employeeFatherName: String 
-    employeeMotherName: String 
-    primaryAddress: String 
-    secondaryAddress: String 
-    employeeAddress: String 
-    personalMailId: String 
-    officialMailId: String 
-    disability: String 
-    drivingLicenceNo: String 
+    resignationAcceptanceDate: Date
+    dateOfBirth: Date
+    aadharNo: String
+    panNo: String
+    passportNo: String
+    primaryContactNo: String
+    secondaryContactNo: String
+    employeeFatherName: String
+    employeeMotherName: String
+    primaryAddress: String
+    secondaryAddress: String
+    employeeAddress: String
+    personalMailId: String
+    officialMailId: String
+    disability: String
+    drivingLicenceNo: String
     drivingLicenceValidity: Date
-    gender: String 
-    typeOfEmployment: String 
+    gender: String
+    typeOfEmployment: String
     managerId: Long
-    status: String 
-    maritalStatus: String 
-    strJoiningDate: String 
-    strJobEndDate: String 
-    strResignationDate: String 
-    strResignationAcceptanceDate: String 
-    strDrivingLicenceValidity: String 
-    strDateOfBirth: String 
-    staffType: String 
-    departmentId: Long 
+    status: String
+    maritalStatus: String
+    strJoiningDate: String
+    strJobEndDate: String
+    strResignationDate: String
+    strResignationAcceptanceDate: String
+    strDrivingLicenceValidity: String
+    strDateOfBirth: String
+    staffType: String
+    departmentId: Long
     branchId: Long
 }
 
@@ -303,53 +304,53 @@ type EmployeePayload {
 }
 
 type CmsEmployeeVo {
-	id: Long 
-    employeeName: String 
+	id: Long
+    employeeName: String
     designation: String
-    joiningDate: Date 
+    joiningDate: Date
     jobEndDate: Date
     resignationDate: Date
-    resignationAcceptanceDate: Date 
-    dateOfBirth: Date 
-    aadharNo: String 
-    panNo: String 
-    passportNo: String 
-    primaryContactNo: String 
-    secondaryContactNo: String 
-    employeeFatherName: String 
-    employeeMotherName: String 
-    primaryAddress: String 
-    secondaryAddress: String 
-    employeeAddress: String 
-    personalMailId: String 
-    officialMailId: String 
-    disability: String 
-    drivingLicenceNo: String 
+    resignationAcceptanceDate: Date
+    dateOfBirth: Date
+    aadharNo: String
+    panNo: String
+    passportNo: String
+    primaryContactNo: String
+    secondaryContactNo: String
+    employeeFatherName: String
+    employeeMotherName: String
+    primaryAddress: String
+    secondaryAddress: String
+    employeeAddress: String
+    personalMailId: String
+    officialMailId: String
+    disability: String
+    drivingLicenceNo: String
     drivingLicenceValidity: Date
-    gender: String 
-    typeOfEmployment: String 
+    gender: String
+    typeOfEmployment: String
     managerId: Long
-    status: String 
-    maritalStatus: String 
-    strJoiningDate: String 
-    strJobEndDate: String 
-    strResignationDate: String 
-    strResignationAcceptanceDate: String 
-    strDrivingLicenceValidity: String 
-    strDateOfBirth: String 
-    staffType: String 
+    status: String
+    maritalStatus: String
+    strJoiningDate: String
+    strJobEndDate: String
+    strResignationDate: String
+    strResignationAcceptanceDate: String
+    strDrivingLicenceValidity: String
+    strDateOfBirth: String
+    staffType: String
     cmsDepartmentVo: CmsDepartmentVo
     cmsBranchVo: CmsBranchVo
-    departmentId: Long 
+    departmentId: Long
     branchId: Long
-    
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    strCreatedOn: String 
-    strUpdatedOn: String 
-    exitCode: Long 
+
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    strCreatedOn: String
+    strUpdatedOn: String
+    exitCode: Long
     exitDescription: String
     dataList: [CmsEmployeeVo]
 }
@@ -359,7 +360,7 @@ input CourseInput {
 	id: Long
 	name: String
 	description: String
-    courseDuration: String 
+    courseDuration: String
     courseType: String
     yearOrSemesterType: String
     totalFee: Long
@@ -379,22 +380,22 @@ type CmsCourseVo {
 	id: Long
 	name: String
 	description: String
-    courseDuration: String 
+    courseDuration: String
     courseType: String
     yearOrSemesterType: String
     totalFee: Long
     yearlyFee: Long
     perSemesterFee: Long
     comments: String
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    strCreatedOn: String 
-    strUpdatedOn: String 
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    strCreatedOn: String
+    strUpdatedOn: String
     status: String
-    exitCode: Long 
-    exitDescription: String 
+    exitCode: Long
+    exitDescription: String
     departmentId: Long
     cmsDepartmentVo: CmsDepartmentVo
     branchId: Long
@@ -405,7 +406,7 @@ type CmsCourseVo {
 input DepartmentInput {
 	id: Long
 	name: String
-    deptHead: String 
+    deptHead: String
     comments: String
     status: String
     academicYearId: Long
@@ -419,18 +420,18 @@ type DepartmentPayload {
 type CmsDepartmentVo {
 	id: Long
 	name: String
-    deptHead: String 
+    deptHead: String
     comments: String
 	description: String
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    strCreatedOn: String 
-    strUpdatedOn: String 
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    strCreatedOn: String
+    strUpdatedOn: String
     status: String
-    exitCode: Long 
-    exitDescription: String 
+    exitCode: Long
+    exitDescription: String
     academicYearId: Long
     cmsAcademicYearVo: CmsAcademicYearVo
     branchId: Long
@@ -441,10 +442,10 @@ type CmsDepartmentVo {
 input TermInput {
 	id: Long
 	description: String
-    startDate: Date 
+    startDate: Date
     endDate: Date
 	comments: String
-    strStartDate: String 
+    strStartDate: String
     strEndDate: String
     status: String
     academicYearId: Long
@@ -457,20 +458,20 @@ type TermPayload {
 type CmsTermVo {
 	id: Long
 	description: String
-    startDate: Date 
+    startDate: Date
     endDate: Date
 	comments: String
-    strStartDate: String 
+    strStartDate: String
     strEndDate: String
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    strCreatedOn: String 
-    strUpdatedOn: String 
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    strCreatedOn: String
+    strUpdatedOn: String
     status: String
-    exitCode: Long 
-    exitDescription: String 
+    exitCode: Long
+    exitDescription: String
     academicYearId: Long
     cmsAcademicYearVo: CmsAcademicYearVo
     dataList: [CmsTermVo]
@@ -479,9 +480,9 @@ type CmsTermVo {
 input HolidayInput {
 	id: Long
 	description: String
-    holidayDate: Date 
+    holidayDate: Date
 	comments: String
-    strHolidayDate: String 
+    strHolidayDate: String
     status: String
     academicYearId: Long
 }
@@ -493,18 +494,18 @@ type HolidayPayload {
 type CmsHolidayVo {
 	id: Long
 	description: String
-    holidayDate: Date 
+    holidayDate: Date
 	comments: String
-    strHolidayDate: String 
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    strCreatedOn: String 
-    strUpdatedOn: String 
+    strHolidayDate: String
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    strCreatedOn: String
+    strUpdatedOn: String
     status: String
-    exitCode: Long 
-    exitDescription: String 
+    exitCode: Long
+    exitDescription: String
     academicYearId: Long
     cmsAcademicYearVo: CmsAcademicYearVo
     dataList: [CmsHolidayVo]
@@ -513,10 +514,10 @@ type CmsHolidayVo {
 input AcademicYearInput {
 	id: Long
 	description: String
-    startDate: Date 
+    startDate: Date
     endDate: Date
     comments: String
-    strStartDate: String 
+    strStartDate: String
     strEndDate: String
     status: String
 }
@@ -528,52 +529,52 @@ type AcademicYearPayload {
 type CmsAcademicYearVo {
 	id: Long
 	description: String
-    startDate: Date 
+    startDate: Date
     endDate: Date
     comments: String
-    strStartDate: String 
+    strStartDate: String
     strEndDate: String
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    status: String 
-    strCreatedOn: String 
-    strUpdatedOn: String 
-    exitCode: Long 
-    exitDescription: String 
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    status: String
+    strCreatedOn: String
+    strUpdatedOn: String
+    exitCode: Long
+    exitDescription: String
     dataList: [CmsAcademicYearVo]
 }
 
 input LegalEntityInput {
-	id: Long 		
-	logoFile: String 		
-	logoFilePath: String 		
-	logoFileName: String 		
-	logoFileExtension: String 		
-	legalNameOfCollege: String 		
-	typeOfCollege: String 		
-	dateOfIncorporation: Date 		
-	registeredOfficeAddress: String 		
-	collegeIdentificationNumber: String 		
-	pan: String 		
-	tan: String 		
-	tanCircleNumber: String 		
-	citTdsLocation: String 		
-	formSignatory: Long 		
-	pfNumber: String 		
-	pfRegistrationDate: Date 		
-	pfSignatory: Long 		
-	esiNumber: String 		
-	esiRegistrationDate: Date 		
-	esiSignatory: Long 		
-	ptNumber: String 		
-	ptRegistrationDate: Date 		
-	ptSignatory: Long 		
-	strDateOfIncorporation: String 		
-	strPfRegistrationDate: String 		
-	strEsiRegistrationDate: String 		
-	strPtRegistrationDate: String 		
+	id: Long
+	logoFile: String
+	logoFilePath: String
+	logoFileName: String
+	logoFileExtension: String
+	legalNameOfCollege: String
+	typeOfCollege: String
+	dateOfIncorporation: Date
+	registeredOfficeAddress: String
+	collegeIdentificationNumber: String
+	pan: String
+	tan: String
+	tanCircleNumber: String
+	citTdsLocation: String
+	formSignatory: Long
+	pfNumber: String
+	pfRegistrationDate: Date
+	pfSignatory: Long
+	esiNumber: String
+	esiRegistrationDate: Date
+	esiSignatory: Long
+	ptNumber: String
+	ptRegistrationDate: Date
+	ptSignatory: Long
+	strDateOfIncorporation: String
+	strPfRegistrationDate: String
+	strEsiRegistrationDate: String
+	strPtRegistrationDate: String
     branchId: Long
     status: String
 }
@@ -583,45 +584,45 @@ type LegalEntityPayload {
 }
 
 type CmsLegalEntityVo {
-	id: Long 		
-	logoFile: String 		
-	logoFilePath: String 		
-	logoFileName: String 		
-	logoFileExtension: String 		
-	legalNameOfCollege: String 		
-	typeOfCollege: String 		
-	dateOfIncorporation: Date 		
-	registeredOfficeAddress: String 		
-	collegeIdentificationNumber: String 		
-	pan: String 		
-	tan: String 		
-	tanCircleNumber: String 		
-	citTdsLocation: String 		
-	formSignatory: Long 		
-	pfNumber: String 		
-	pfRegistrationDate: Date 		
-	pfSignatory: Long 		
-	esiNumber: String 		
-	esiRegistrationDate: Date 		
-	esiSignatory: Long 		
-	ptNumber: String 		
-	ptRegistrationDate: Date 		
-	ptSignatory: Long 		
-	strDateOfIncorporation: String 		
-	strPfRegistrationDate: String 		
-	strEsiRegistrationDate: String 		
-	strPtRegistrationDate: String 		
+	id: Long
+	logoFile: String
+	logoFilePath: String
+	logoFileName: String
+	logoFileExtension: String
+	legalNameOfCollege: String
+	typeOfCollege: String
+	dateOfIncorporation: Date
+	registeredOfficeAddress: String
+	collegeIdentificationNumber: String
+	pan: String
+	tan: String
+	tanCircleNumber: String
+	citTdsLocation: String
+	formSignatory: Long
+	pfNumber: String
+	pfRegistrationDate: Date
+	pfSignatory: Long
+	esiNumber: String
+	esiRegistrationDate: Date
+	esiSignatory: Long
+	ptNumber: String
+	ptRegistrationDate: Date
+	ptSignatory: Long
+	strDateOfIncorporation: String
+	strPfRegistrationDate: String
+	strEsiRegistrationDate: String
+	strPtRegistrationDate: String
     branchId: Long
-    cmsBranchVo: CmsBranchVo 
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    status: String 
-    strCreatedOn: String 
-    strUpdatedOn: String 
-    exitCode: Long 
-    exitDescription: String 
+    cmsBranchVo: CmsBranchVo
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    status: String
+    strCreatedOn: String
+    strUpdatedOn: String
+    exitCode: Long
+    exitDescription: String
     dataList: [CmsLegalEntityVo]
 }
 
@@ -629,12 +630,12 @@ type CmsLegalEntityVo {
 
 input BankAccountsInput {
 	id: Long
-    bankName: String 
-    accountNumber: String 
-    typeOfAccount: String 
-    ifscCode: String 
-    address: String 
-    corporateId: String 
+    bankName: String
+    accountNumber: String
+    typeOfAccount: String
+    ifscCode: String
+    address: String
+    corporateId: String
     branchId: Long
     status: String
 }
@@ -645,36 +646,36 @@ type BankAccountsPayload {
 
 type CmsBankAccountsVo {
 	id: Long
-    bankName: String 
-    accountNumber: String 
-    typeOfAccount: String 
-    ifscCode: String 
-    address: String 
-    corporateId: String 
+    bankName: String
+    accountNumber: String
+    typeOfAccount: String
+    ifscCode: String
+    address: String
+    corporateId: String
     branchId: Long
-    cmsBranchVo: CmsBranchVo 
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    status: String 
-    strCreatedOn: String 
-    strUpdatedOn: String 
-    exitCode: Long 
-    exitDescription: String 
+    cmsBranchVo: CmsBranchVo
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    status: String
+    strCreatedOn: String
+    strUpdatedOn: String
+    exitCode: Long
+    exitDescription: String
     dataList: [CmsBankAccountsVo]
 }
 
 
 input AuthorizedSignatoryInput {
 	id: Long
-    name: String 
-    fatherName: String 
-    designation: String 
-    address: String 
-    emailId: String 
-    cellPhoneNumber: String 
-    panNo: String 
+    name: String
+    fatherName: String
+    designation: String
+    address: String
+    emailId: String
+    cellPhoneNumber: String
+    panNo: String
     branchId: Long
     status: String
 }
@@ -685,35 +686,35 @@ type AuthorizedSignatoryPayload {
 
 type CmsAuthorizedSignatoryVo {
 	id: Long
-    name: String 
-    fatherName: String 
-    designation: String 
-    address: String 
-    emailId: String 
-    cellPhoneNumber: String 
-    panNo: String 
+    name: String
+    fatherName: String
+    designation: String
+    address: String
+    emailId: String
+    cellPhoneNumber: String
+    panNo: String
     branchId: Long
-    cmsBranchVo: CmsBranchVo 
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    status: String 
-    strCreatedOn: String 
-    strUpdatedOn: String 
-    exitCode: Long 
-    exitDescription: String 
+    cmsBranchVo: CmsBranchVo
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    status: String
+    strCreatedOn: String
+    strUpdatedOn: String
+    exitCode: Long
+    exitDescription: String
     dataList: [CmsAuthorizedSignatoryVo]
 }
 
 input BranchInput{
 	id: Long
-	branchName: String 
-	address: String 
-	pinCode: String 
-	branchHead: String 
-	cityId: Long 
-	stateId: Long 
+	branchName: String
+	address: String
+	pinCode: String
+	branchHead: String
+	cityId: Long
+	stateId: Long
 	status: String
 }
 
@@ -726,71 +727,71 @@ type CollegePayload {
 }
 
 input CollegeInput {
-	collegeName: String 
-    logoFilePath: String 
-    logoFileName: String 
-    logoFileExtension: String 
+	collegeName: String
+    logoFilePath: String
+    logoFileName: String
+    logoFileExtension: String
     logoFile: String
-    status: String   
+    status: String
 }
 
 type College {
-	id: Long 
-    collegeName: String 
-    logoFilePath: String 
-    logoFileName: String 
-    logoFileExtension: String 
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    status: String 
+	id: Long
+    collegeName: String
+    logoFilePath: String
+    logoFileName: String
+    logoFileExtension: String
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    status: String
     country: Country
 }
 
 type CmsCollegeVo {
-	id: Long 
-    collegeName: String 
-    logoFilePath: String 
-    logoFileName: String 
-    logoFileExtension: String 
+	id: Long
+    collegeName: String
+    logoFilePath: String
+    logoFileName: String
+    logoFileExtension: String
     logoFile: String
-    createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    status: String 
-    strCreatedOn: String 
-    strUpdatedOn: String 
-    exitCode: Long 
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    status: String
+    strCreatedOn: String
+    strUpdatedOn: String
+    exitCode: Long
     exitDescription: String
     branchList: [CmsBranchVo]
 }
 
 type CmsBranchVo {
 	id: Long
-	branchName: String 
-	address: String 
-	pinCode: String 
-	branchHead: String 
-	cellPhoneNo: String 
-	landLinePhoneNo: String 
-	emailId: String 
-	faxNo: String 
-	isMainBranch: String 
-	startDate: Date 
-	college: College 
-	city: City 
-	state: State 
-	strStartDate: String 
-	collegeId: Long 
-	cityId: Long 
-	stateId: Long 
-	createdBy: String 
-    createdOn: Date 
-    updatedBy: String 
-    updatedOn: Date 
-    strCreatedOn: String 
+	branchName: String
+	address: String
+	pinCode: String
+	branchHead: String
+	cellPhoneNo: String
+	landLinePhoneNo: String
+	emailId: String
+	faxNo: String
+	isMainBranch: String
+	startDate: Date
+	college: College
+	city: City
+	state: State
+	strStartDate: String
+	collegeId: Long
+	cityId: Long
+	stateId: Long
+	createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    strCreatedOn: String
     strUpdatedOn: String
     exitCode: Long
     exitDescription: String
@@ -800,25 +801,25 @@ type CmsBranchVo {
 
 type Country{
 	id: Long
-    countryName: String 
-    countryCode: String 
-    isdCode: String 
+    countryName: String
+    countryCode: String
+    isdCode: String
 }
 
 type State{
 	id: Long
-    stateName: String 
-    divisionType: String 
-	stateCode: String 
-    country: Country 
+    stateName: String
+    divisionType: String
+	stateCode: String
+    country: Country
 }
 
 type City{
-	id: Long 
-    cityName: String 
-    cityCode: String 
-    stdCode: String 
-    state: State 
+	id: Long
+    cityName: String
+    cityCode: String
+    stdCode: String
+    state: State
 }
 
 enum BatchEnum {
@@ -834,4 +835,47 @@ enum SectionEnum {
  	B
  	C
 	D
+}
+
+input FacilityInput {
+	id: Long
+	name: String
+    startDate: Date
+	endDate: Date
+    suspandStartDate: Date
+    suspandEndDate: Date
+    strStartDate: String
+    strEndDate: String
+    strSuspandStartDate: String
+    strSuspandEndDate: String
+    status: String
+    amount: Long
+    academicYearId: Long
+    branchId: Long
+}
+
+type FacilityPayload {
+	cmsFacility: CmsFacility
+}
+
+type CmsFacility {
+	id: Long
+	name: String
+    startDate: Date
+    endDate: Date
+    suspandStartDate: Date
+    suspandEndDate: Date
+    status: String
+    amount: Long
+    academicYearId: Long
+    branchId: Long
+    strStartDate: String
+    strEndDate: String
+    strSuspandStartDate: String
+    strSuspandEndDate: String
+    exitCode: Long
+    exitDescription: String
+    cmsAcademicYearVo: CmsAcademicYearVo
+    cmsBranchVo: CmsBranchVo
+    dataList: [CmsFacility]
 }

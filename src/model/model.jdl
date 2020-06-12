@@ -47,25 +47,25 @@ enum MaritalStatus{
 }
 
 entity Country{
-	CountryName String 
-	CountryCode String 
+	CountryName String
+	CountryCode String
 	IsdCode String
 }
 
 entity Currency{
-	CurrencyName String 
+	CurrencyName String
 	CurrencyCode String
 	CurrencySymbol String
 }
 
 entity State{
-	StateName String 
-	DivisionType String 
-	StateCode String 
+	StateName String
+	DivisionType String
+	StateCode String
 }
 
 entity City{
-	CityName String 
+	CityName String
 	CityCode String
 	StdCode String
 }
@@ -84,7 +84,7 @@ entity UserPreference{
 }
 
 entity College {
-	collegeName String 
+	collegeName String
 	logoFilePath String
 	logoFileName String
 	logoFileExtension String
@@ -96,9 +96,9 @@ entity College {
 }
 
 entity Branch{
-	branchName String 
+	branchName String
 	address String
-	pinCode String 
+	pinCode String
 	branchHead String
 	cellPhoneNo String
 	landLinePhoneNo String
@@ -117,40 +117,40 @@ entity LegalEntity{
 	logoFilePath String
 	logoFileName String
 	logoFileExtension String
-	legalNameOfCollege String 
-	typeOfCollege String 
-	dateOfIncorporation LocalDate 
-	registeredOfficeAddress String 
-	collegeIdentificationNumber String 
-	pan String 
-	tan String 
-	tanCircleNumber String 
-	citTdsLocation String 
-	formSignatory Long 
-	pfNumber String 
-	pfRegistrationDate LocalDate 
-	pfSignatory Long 
-	esiNumber String 
-	esiRegistrationDate LocalDate 
-	esiSignatory Long 
-	ptNumber String 
-	ptRegistrationDate LocalDate 
+	legalNameOfCollege String
+	typeOfCollege String
+	dateOfIncorporation LocalDate
+	registeredOfficeAddress String
+	collegeIdentificationNumber String
+	pan String
+	tan String
+	tanCircleNumber String
+	citTdsLocation String
+	formSignatory Long
+	pfNumber String
+	pfRegistrationDate LocalDate
+	pfSignatory Long
+	esiNumber String
+	esiRegistrationDate LocalDate
+	esiSignatory Long
+	ptNumber String
+	ptRegistrationDate LocalDate
 	ptSignatory Long
 	createdBy String
 	createdOn LocalDate
 	updatedBy String
 	updatedOn LocalDate
-	Status String 
+	Status String
 }
 
 entity AuthorizedSignatory{
-	name String 
-	fatherName String 
-	designation String 
-	address String 
+	name String
+	fatherName String
+	designation String
+	address String
 	emailId String
 	cellPhoneNumber String
-	panNo String 
+	panNo String
 	createdBy String
 	createdOn LocalDate
 	updatedBy String
@@ -159,12 +159,12 @@ entity AuthorizedSignatory{
 }
 
 entity BankAccounts{
-	bankName String 
-	accountNumber String 
-	typeOfAccount String 
-	ifscCode String 
-	address String 
-	corporateId String 
+	bankName String
+	accountNumber String
+	typeOfAccount String
+	ifscCode String
+	address String
+	corporateId String
 	createdBy String
 	createdOn LocalDate
 	updatedBy String
@@ -232,20 +232,20 @@ entity PaymentRequestResponse {
 }
 
 entity AcademicYear{
-	description String 
-	startDate LocalDate 
-	endDate LocalDate 
+	description String
+	startDate LocalDate
+	endDate LocalDate
 	comments String
 	createdBy String
 	createdOn LocalDate
 	updatedBy String
 	updatedOn LocalDate
-	status String 
+	status String
 }
 
 entity Holiday{
-	description String 
-	holidayDate LocalDate 
+	description String
+	holidayDate LocalDate
 	comments String
 	createdBy String
 	createdOn LocalDate
@@ -255,32 +255,32 @@ entity Holiday{
 }
 
 entity Term{
-	description String 
-	startDate LocalDate 
-	endDate LocalDate 
+	description String
+	startDate LocalDate
+	endDate LocalDate
 	comments String
 	createdBy String
 	createdOn LocalDate
 	updatedBy String
 	updatedOn LocalDate
-	status String 
+	status String
 }
 
 entity Department{
-	name String 
-	description String 
-	deptHead String 
+	name String
+	description String
+	deptHead String
 	comments String
 	createdBy String
 	createdOn LocalDate
 	updatedBy String
 	updatedOn LocalDate
-	status String		
+	status String
 }
 
 entity Course{
-	name String 
-	description String 
+	name String
+	description String
 	courseDuration String
 	courseType String
 	yearOrSemesterType String
@@ -292,50 +292,50 @@ entity Course{
 	createdOn LocalDate
 	updatedBy String
 	updatedOn LocalDate
-	status String	
+	status String
 }
 
 entity Teacher{
-	teacherName String 
-	teacherMiddleName String 
-	teacherLastName String 
-	fatherName String 
-	fatherMiddleName String 
-	fatherLastName String 
+	teacherName String
+	teacherMiddleName String
+	teacherLastName String
+	fatherName String
+	fatherMiddleName String
+	fatherLastName String
 	spouseName String
 	spouseMiddleName String
 	spouseLastName String
-	motherName String 
-	motherMiddleName String 
-	motherLastName String 
+	motherName String
+	motherMiddleName String
+	motherLastName String
 	aadharNo String
-	dateOfBirth LocalDate 
-	placeOfBirth String 
-	religion String 
+	dateOfBirth LocalDate
+	placeOfBirth String
+	religion String
 	caste String
-	subCaste String 
-	age Integer 
-	sex String 
+	subCaste String
+	age Integer
+	sex String
 	bloodGroup String
-	address String 
-	town String 
-	state String 
-	country String 
-	pinCode String 
-	teacherContactNumber String 
+	address String
+	town String
+	state String
+	country String
+	pinCode String
+	teacherContactNumber String
 	alternateContactNumber String
-	teacherEmailAddress String 
+	teacherEmailAddress String
 	alternateEmailAddress String
-	relationWithStaff String 
-	emergencyContactName String 
+	relationWithStaff String
+	emergencyContactName String
 	emergencyContactMiddleName String
-	emergencyContactLastName String 
-	emergencyContactNo String 
-	emergencyContactEmailAddress String 
-	uploadPhoto String 
+	emergencyContactLastName String
+	emergencyContactNo String
+	emergencyContactEmailAddress String
+	uploadPhoto String
 	status String
 	employeeId Long
-	designation String 
+	designation String
 	staffType String
 }
 
@@ -348,9 +348,9 @@ entity Section{
 }
 
 entity Employee{
-	employeeName String 
-	designation String 
-	joiningDate LocalDate 
+	employeeName String
+	designation String
+	joiningDate LocalDate
 	jobEndDate LocalDate
 	resignationDate LocalDate
 	resignationAcceptanceDate LocalDate
@@ -374,7 +374,7 @@ entity Employee{
 	managerId Long
 	status String
 	maritalStatus String
-	dateOfBirth LocalDate 
+	dateOfBirth LocalDate
 	staffType String
 }
 
@@ -390,7 +390,7 @@ entity Subject{
 	subjectCode String
 	subjectType String
 	subjectDesc  String
-	status String 
+	status String
 }
 
 entity Notifications {
@@ -404,17 +404,27 @@ entity Notifications {
 }
 
 entity Lecture{
-	lecDate LocalDate 
-	lastUpdatedOn LocalDate 
-	lastUpdatedBy String 
-	startTime String 
-	endTime String 
+	lecDate LocalDate
+	lastUpdatedOn LocalDate
+	lastUpdatedBy String
+	startTime String
+	endTime String
 }
 
 entity MetaLecture{
 	weekDay String
   	startTime String
   	endTime String
+}
+
+entity Facility {
+	name String
+	status String
+	startDate LocalDate
+	endDate LocalDate
+	suspandStartDate LocalDate
+	suspandEndDate LocalDate
+	amount Long
 }
 
 relationship ManyToOne {
@@ -434,6 +444,8 @@ relationship ManyToOne {
 	Batch{department} to Department,
 	Section{batch} to Batch,
 	Holiday{academicYear} to AcademicYear,
+	Facility{academicYear} to AcademicYear,
+	Facility{branch} to Branch,
 	Term{academicYear} to AcademicYear,
 	Employee {department} to Department,
 	Employee {branch} to Branch,

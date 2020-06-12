@@ -5,6 +5,8 @@ import com.synectiks.pref.domain.Branch;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CmsFacility extends CmsCommonVo implements Serializable {
@@ -22,12 +24,16 @@ public class CmsFacility extends CmsCommonVo implements Serializable {
     private AcademicYear academicYear;
     private Branch branch;
 
+    private CmsAcademicYearVo cmsAcademicYearVo;
+    private CmsBranchVo cmsBranchVo;
+
     private String strStartDate;
     private String strEndDate;
     private String strSuspandStartDate;
     private String strSuspandEndDate;
     private Long amount;
     private String strAmount;
+    private List<CmsFacility> dataList = new ArrayList<CmsFacility>();
 
     public Long getId() {
         return id;
@@ -157,6 +163,30 @@ public class CmsFacility extends CmsCommonVo implements Serializable {
         this.strAmount = strAmount;
     }
 
+    public CmsAcademicYearVo getCmsAcademicYearVo() {
+        return cmsAcademicYearVo;
+    }
+
+    public void setCmsAcademicYearVo(CmsAcademicYearVo cmsAcademicYearVo) {
+        this.cmsAcademicYearVo = cmsAcademicYearVo;
+    }
+
+    public CmsBranchVo getCmsBranchVo() {
+        return cmsBranchVo;
+    }
+
+    public void setCmsBranchVo(CmsBranchVo cmsBranchVo) {
+        this.cmsBranchVo = cmsBranchVo;
+    }
+
+    public List<CmsFacility> getDataList() {
+        return dataList;
+    }
+
+    public void setDataList(List<CmsFacility> dataList) {
+        this.dataList = dataList;
+    }
+
     @Override
     public String toString() {
         return "CmsFacility{" +
@@ -170,6 +200,8 @@ public class CmsFacility extends CmsCommonVo implements Serializable {
             ", branchId=" + branchId +
             ", academicYear=" + academicYear +
             ", branch=" + branch +
+            ", cmsAcademicYearVo=" + cmsAcademicYearVo +
+            ", cmsBranchVo=" + cmsBranchVo +
             ", strStartDate='" + strStartDate + '\'' +
             ", strEndDate='" + strEndDate + '\'' +
             ", strSuspandStartDate='" + strSuspandStartDate + '\'' +
