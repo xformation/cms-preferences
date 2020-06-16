@@ -154,6 +154,8 @@ jhipster:
 # ===================================================================
 
 application:
+    feeSrvUrl: http://localhost:9095
+    stdSrvUrl: http://localhost:9093
     imagePath: webapp/static/images
     influxDbUrl: http://localhost:8086
     influxDb: cmsdb
@@ -169,3 +171,5 @@ application:
     msAuthenticationUrl: https://login.microsoftonline.com/TENANT_ID/oauth2/v2.0/token
     paymentResponseUrl: http://localhost:9091/api/cmspaymentresponse
     paymentRedirectUrl: http://localhost:3000/plugins/ems-preference/page/home
+    transportSrvUrl: http://localhost:9098
+

@@ -6,12 +6,12 @@ import com.synectiks.pref.constant.CmsConstants;
 import com.synectiks.pref.dataimport.AllRepositories;
 import com.synectiks.pref.dataimport.DataLoader;
 import com.synectiks.pref.domain.Branch;
+import com.synectiks.pref.domain.DueDate;
 import com.synectiks.pref.domain.ExceptionRecord;
-import com.synectiks.pref.domain.vo.CmsFeeCategory;
+import com.synectiks.pref.domain.enumeration.Frequency;
 import com.synectiks.pref.exceptions.DuplicateRecordFoundException;
 import com.synectiks.pref.exceptions.MandatoryFieldMissingException;
 import com.synectiks.pref.service.util.CommonUtil;
-import com.synectiks.pref.service.util.DateFormatUtil;
 import org.dhatim.fastexcel.reader.ReadableWorkbook;
 import org.dhatim.fastexcel.reader.Row;
 import org.dhatim.fastexcel.reader.Sheet;
@@ -25,108 +25,86 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class FeeCategoryLoader extends DataLoader {
+public class DueDateDataLoader extends DataLoader {
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private AllRepositories allRepositories;
     private String sheetName;
 
-    public FeeCategoryLoader(String sheetName, AllRepositories allRepositories) {
+    public DueDateDataLoader(String sheetName, AllRepositories allRepositories) {
         super(sheetName, allRepositories);
-        this.allRepositories = allRepositories;
         this.sheetName = sheetName;
+        this.allRepositories = allRepositories;
     }
 
     @Override
     public <T> T getObject(Row row, Class<T> cls) throws InstantiationException, IllegalAccessException, DuplicateRecordFoundException, MandatoryFieldMissingException {
         StringBuilder sb = new StringBuilder();
 
-        CmsFeeCategory obj = CommonUtil.createCopyProperties(cls.newInstance(), CmsFeeCategory.class);
+        DueDate obj = CommonUtil.createCopyProperties(cls.newInstance(), DueDate.class);
 
-        String categoryName = row.getCellAsString(0).orElse(null);
-        if (CommonUtil.isNullOrEmpty(categoryName)) {
-            sb.append("category_name, ");
-            logger.warn("Mandatory field missing. Field name - category_name");
+
+        String paymentMethod = row.getCellAsString(0).orElse(null);
+        if (CommonUtil.isNullOrEmpty(paymentMethod)) {
+            sb.append("payment_method, ");
+            logger.warn("Mandatory field missing. Field name - payment_method");
         } else {
-            obj.setCategoryName(categoryName);
+            obj.setPaymentMethod(paymentMethod);
         }
 
-        String description = row.getCellAsString(1).orElse(null);
-        if (CommonUtil.isNullOrEmpty(description)) {
-            sb.append("description, ");
-            logger.warn("Mandatory field missing. Field name - description");
+        String installments = row.getCellAsString(1).orElse(null);
+        if (CommonUtil.isNullOrEmpty(installments)) {
+            sb.append("installments, ");
+            logger.warn("Mandatory field missing. Field name - installments");
         } else {
-            obj.setDescription(description);
+            obj.setInstallments(Long.parseLong(installments));
         }
 
-        String status = row.getCellAsString(2).orElse(null);
-        if (CommonUtil.isNullOrEmpty(status)) {
-            sb.append("status, ");
-            logger.warn("Mandatory field missing. Field name - status");
+
+        String dayDesc = row.getCellAsString(2).orElse(null);
+        if (CommonUtil.isNullOrEmpty(dayDesc)) {
+            sb.append("day_desc, ");
+            logger.warn("Mandatory field missing. Field name - day_desc");
         } else {
-            obj.setStatus(status);
+            obj.setDayDesc(dayDesc);
         }
 
-        String createdBy = row.getCellAsString(3).orElse(null);
-        obj.setCreatedBy(createdBy);
-
-        String createdOn = row.getCellAsString(4).orElse(null);
-        if (CommonUtil.isNullOrEmpty(createdOn)) {
-            sb.append("created_on, ");
-            logger.warn("Mandatory field missing. Field name - created_on");
+        String paymentDay = row.getCellAsString(3).orElse(null);
+        if (CommonUtil.isNullOrEmpty(paymentDay)) {
+            sb.append("payment_day, ");
+            logger.warn("Mandatory field missing. Field name - payment_day");
         } else {
-            obj.setCreatedOn(DateFormatUtil.convertStringToLocalDate(createdOn, CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+            obj.setPaymentDay(Long.parseLong(paymentDay));
         }
 
-        String updatedBy = row.getCellAsString(5).orElse(null);
-        obj.setUpdatedBy(updatedBy);
-
-        String updatedOn = row.getCellAsString(6).orElse(null);
-        if (CommonUtil.isNullOrEmpty(updatedOn)) {
-            sb.append("updated_on, ");
-            logger.warn("Mandatory field missing. Field name - updated_on");
+        String frequency = row.getCellAsString(4).orElse(null);
+        if (CommonUtil.isNullOrEmpty(frequency)) {
+            sb.append("frequency, ");
+            logger.warn("Mandatory field missing. Field name - frequency");
         } else {
-            obj.setUpdatedOn(DateFormatUtil.convertStringToLocalDate(updatedOn, CmsConstants.DATE_FORMAT_dd_MM_yyyy));
-        }
-        String startDate = row.getCellAsString(7).orElse(null);
-        if (CommonUtil.isNullOrEmpty(startDate)) {
-            sb.append("start_date, ");
-            logger.warn("Mandatory field missing. Field name - start_date");
-        } else {
-            obj.setStartDate(DateFormatUtil.convertStringToLocalDate(startDate, CmsConstants.DATE_FORMAT_dd_MM_yyyy));
-        }
-        String endDate = row.getCellAsString(8).orElse(null);
-        if (CommonUtil.isNullOrEmpty(endDate)) {
-            sb.append("end_date, ");
-            logger.warn("Mandatory field missing. Field name - end_date");
-        } else {
-            obj.setEndDate(DateFormatUtil.convertStringToLocalDate(endDate, CmsConstants.DATE_FORMAT_dd_MM_yyyy));
+            obj.setFrequency(frequency);
         }
 
-        String branchName = row.getCellAsString(9).orElse(null);
-        if (CommonUtil.isNullOrEmpty(branchName)) {
+        String branchName = row.getCellAsString(5).orElse(null);
+        if(CommonUtil.isNullOrEmpty(branchName)) {
             sb.append("branch_id, ");
-            logger.warn("branch name not provided, Cannot find the branch");
-        } else {
+            logger.warn("Mandatory field missing. Field name - branch_id");
+        }else {
             Branch branch = new Branch();
             branch.setBranchName(branchName);
             Optional<Branch> b = this.allRepositories.findRepository("branch").findOne(Example.of(branch));
-
-            if (b.isPresent()) {
-                obj.setBranch(b.get());
+            if(b.isPresent()) {
+//                obj.setBranch(b.get());
                 obj.setBranchId(b.get().getId());
-            } else {
+            }else {
                 sb.append("branch_id, ");
-                logger.warn("branch name not provided, Cannot find the branch");
+                logger.warn("Branch not found. Given branch name : "+branchName);
             }
         }
 
-        if (sb.length() > 0) {
-            String msg = "Field name - ";
-            throw new MandatoryFieldMissingException(msg + sb.substring(0, sb.lastIndexOf(",")));
-        }
+        return (T) obj;
 
-        return (T)obj;
     }
 
     public <T> void saveCmsData(ReadableWorkbook wb, Class<T> cls) {
@@ -146,7 +124,7 @@ public class FeeCategoryLoader extends DataLoader {
                 rows.forEach(row -> {
 
                     if (list.size() == CmsConstants.BATCH_SIZE) {
-                        List expList = postFeeCategoryData(list, applicationProperties, restTemplate);
+                        List expList = postDueDateData(list, applicationProperties, restTemplate);
                         exceptionList.addAll(expList);
                         list.clear();
                     }
@@ -174,7 +152,7 @@ public class FeeCategoryLoader extends DataLoader {
                     }
                 });
                 // Save remaining items
-                List expList = postFeeCategoryData(list, applicationProperties, restTemplate);
+                List expList = postDueDateData(list, applicationProperties, restTemplate);
                 list.clear();
                 exceptionList.addAll(expList);
                 if(exceptionList.size() > 0) {
@@ -190,18 +168,20 @@ public class FeeCategoryLoader extends DataLoader {
         logger.debug(String.format("Saving %s data completed.", this.sheetName));
     }
 
-    private List<CmsFeeCategory> postFeeCategoryData(List list, ApplicationProperties applicationProperties, RestTemplate restTemplate){
-        logger.debug("Posting feeCategory data to FeeCategoryController of cms-fee");
-        String url = applicationProperties.getFeeSrvUrl()+"/api/cmsfeecategory-bulk-load";
-        List<CmsFeeCategory> ls = null;
+    private List<DueDate> postDueDateData(List list, ApplicationProperties applicationProperties, RestTemplate restTemplate){
+        logger.debug("Posting duedate data to DueDateRestController of cms-fee");
+        String url = applicationProperties.getFeeSrvUrl()+"/api/cmsduedate-bulk-load";
+        List<DueDate> ls = null;
         try {
             ls = restTemplate.postForObject(url, list, List.class);
             if(ls != null && ls.size() >0 ) {
-                logger.debug("List of feeCategory records could not be saved : ",ls);
+                logger.debug("List of duedate records could not be saved : ",ls);
             }
         }catch(Exception e) {
-            logger.error("FeeCategory records could not be saved. Exception : ", e);
+            logger.error("duedate could not be saved. Exception : ", e);
         }
         return ls;
     }
+
+
 }
