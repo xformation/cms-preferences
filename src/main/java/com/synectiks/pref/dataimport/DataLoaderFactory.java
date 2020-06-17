@@ -96,6 +96,10 @@ public class DataLoaderFactory {
             return new ContractDataLoader(tableName, allRepositories);
         }
 
+        if(tableName.equalsIgnoreCase("DUE_DATE")){
+            return new DueDateDataLoader(tableName, allRepositories);
+        }
+
 
         return null;
 	}

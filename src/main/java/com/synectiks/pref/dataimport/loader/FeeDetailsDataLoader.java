@@ -298,8 +298,8 @@ public class FeeDetailsDataLoader extends DataLoader {
     }
 
     private List<CmsFacility> postFeeDetailsData(List list, ApplicationProperties applicationProperties, RestTemplate restTemplate){
-        logger.debug("Posting FeeDetails data to FeeDetailsRestController of cms-backend");
-        String url = applicationProperties.getCmsBackEndUrl()+"/api/cmsfeedetails-bulk-load";
+        logger.debug("Posting FeeDetails data to FeeDetailsRestController of cms-fee");
+        String url = applicationProperties.getFeeSrvUrl()+"/api/cmsfeedetails-bulk-load";
         List<CmsFacility> ls = null;
         try {
             ls = restTemplate.postForObject(url, list, List.class);

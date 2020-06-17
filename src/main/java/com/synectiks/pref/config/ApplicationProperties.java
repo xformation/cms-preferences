@@ -26,6 +26,9 @@ public class ApplicationProperties {
 	private String paymentResponseUrl;
 	private String paymentRedirectUrl;
     private String cmsAdmissionEndUrl;
+    private String transportSrvUrl;
+    private String feeSrvUrl;
+    private String stdSrvUrl;
 
 	public String getImagePath() {
 		return imagePath;
@@ -145,5 +148,29 @@ public class ApplicationProperties {
 
     public void setCmsAdmissionEndUrl(String cmsAdmissionEndUrl) {
         this.cmsAdmissionEndUrl = cmsAdmissionEndUrl;
+    }
+
+    public String getTransportSrvUrl() {
+        return transportSrvUrl;
+    }
+
+    public void setTransportSrvUrl(String transportSrvUrl) {
+        this.transportSrvUrl = transportSrvUrl;
+    }
+
+    public String getFeeSrvUrl() {
+        return feeSrvUrl;
+    }
+
+    public void setFeeSrvUrl(String feeSrvUrl) {
+        this.feeSrvUrl = feeSrvUrl;
+    }
+
+    public String getStdSrvUrl() {
+        return stdSrvUrl;
+    }
+
+    public void setStdSrvUrl(String stdSrvUrl) {
+        this.stdSrvUrl = stdSrvUrl;
     }
 }
