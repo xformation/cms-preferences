@@ -6,7 +6,7 @@ import com.synectiks.pref.service.dto.NotificationsDTO;
 import org.mapstruct.*;
 
 /**
- * Mapper for the entity {@link Notifications} and its DTO {@link NotificationsDTO}.
+ * Mapper for the entity Notifications and its DTO NotificationsDTO.
  */
 @Mapper(componentModel = "spring", uses = {AcademicYearMapper.class})
 public interface NotificationsMapper extends EntityMapper<NotificationsDTO, Notifications> {

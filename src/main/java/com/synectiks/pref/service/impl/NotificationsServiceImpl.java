@@ -1,24 +1,27 @@
 package com.synectiks.pref.service.impl;
 
+import com.synectiks.pref.service.NotificationsService;
+import com.synectiks.pref.domain.Notifications;
+import com.synectiks.pref.repository.NotificationsRepository;
+import com.synectiks.pref.repository.search.NotificationsSearchRepository;
+import com.synectiks.pref.service.dto.NotificationsDTO;
+import com.synectiks.pref.service.mapper.NotificationsMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.synectiks.pref.domain.Notifications;
-import com.synectiks.pref.repository.NotificationsRepository;
-import com.synectiks.pref.repository.search.NotificationsSearchRepository;
-import com.synectiks.pref.service.NotificationsService;
-import com.synectiks.pref.service.dto.NotificationsDTO;
-import com.synectiks.pref.service.mapper.NotificationsMapper;
 
 /**
- * Service Implementation for managing {@link Notifications}.
+ * Service Implementation for managing Notifications.
  */
 @Service
 @Transactional
@@ -30,19 +33,19 @@ public class NotificationsServiceImpl implements NotificationsService {
 
     private final NotificationsMapper notificationsMapper;
 
-//    private final NotificationsSearchRepository notificationsSearchRepository;
+    private final NotificationsSearchRepository notificationsSearchRepository;
 
     public NotificationsServiceImpl(NotificationsRepository notificationsRepository, NotificationsMapper notificationsMapper, NotificationsSearchRepository notificationsSearchRepository) {
         this.notificationsRepository = notificationsRepository;
         this.notificationsMapper = notificationsMapper;
-//        this.notificationsSearchRepository = notificationsSearchRepository;
+        this.notificationsSearchRepository = notificationsSearchRepository;
     }
 
     /**
      * Save a notifications.
      *
-     * @param notificationsDTO the entity to save.
-     * @return the persisted entity.
+     * @param notificationsDTO the entity to save
+     * @return the persisted entity
      */
     @Override
     public NotificationsDTO save(NotificationsDTO notificationsDTO) {
@@ -50,14 +53,14 @@ public class NotificationsServiceImpl implements NotificationsService {
         Notifications notifications = notificationsMapper.toEntity(notificationsDTO);
         notifications = notificationsRepository.save(notifications);
         NotificationsDTO result = notificationsMapper.toDto(notifications);
-//        notificationsSearchRepository.save(notifications);
+        notificationsSearchRepository.save(notifications);
         return result;
     }
 
     /**
      * Get all the notifications.
      *
-     * @return the list of entities.
+     * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
@@ -72,8 +75,8 @@ public class NotificationsServiceImpl implements NotificationsService {
     /**
      * Get one notifications by id.
      *
-     * @param id the id of the entity.
-     * @return the entity.
+     * @param id the id of the entity
+     * @return the entity
      */
     @Override
     @Transactional(readOnly = true)
@@ -86,25 +89,29 @@ public class NotificationsServiceImpl implements NotificationsService {
     /**
      * Delete the notifications by id.
      *
-     * @param id the id of the entity.
+     * @param id the id of the entity
      */
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Notifications : {}", id);
         notificationsRepository.deleteById(id);
-//        notificationsSearchRepository.deleteById(id);
+        notificationsSearchRepository.deleteById(id);
     }
 
     /**
      * Search for the notifications corresponding to the query.
      *
-     * @param query the query of the search.
-     * @return the list of entities.
+     * @param query the query of the search
+     * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public List<NotificationsDTO> search(String query) {
         log.debug("Request to search Notifications for query {}", query);
+//        return StreamSupport
+//            .stream(notificationsSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .map(notificationsMapper::toDto)
+//            .collect(Collectors.toList());
         return null;
     }
 }

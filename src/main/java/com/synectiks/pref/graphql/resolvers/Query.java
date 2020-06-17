@@ -37,6 +37,7 @@ public class Query implements GraphQLQueryResolver {
 	@Autowired
 	CmsCityService cmsCityService;
 
+
 	@Autowired
     CmsAuthorizedSignatoryService cmsAuthorizedSignatoryService;
 
@@ -87,6 +88,7 @@ public class Query implements GraphQLQueryResolver {
     	logger.debug("Query - getBranchList :");
     	return this.cmsBranchService.getCmsBranchList();
     }
+
 
 	public List<State> getStateList() throws Exception {
     	logger.debug("Query - getStateList :");

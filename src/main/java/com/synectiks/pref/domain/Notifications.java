@@ -1,29 +1,19 @@
 package com.synectiks.pref.domain;
-import java.io.Serializable;
-import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Objects;
+
 import com.synectiks.pref.domain.enumeration.Status;
-import com.synectiks.pref.utils.IESEntity;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 
 /**
  * A Notifications.
@@ -31,7 +21,7 @@ import com.synectiks.pref.utils.IESEntity;
 @Entity
 @Table(name = "notifications")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Notifications implements Serializable, IESEntity {
+public class Notifications implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -55,17 +45,25 @@ public class Notifications implements Serializable, IESEntity {
     private String createdBy;
 
     @Column(name = "created_on")
-    @JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate createdOn;
 
     @Column(name = "updated_by")
     private String updatedBy;
 
     @Column(name = "updated_on")
-    @JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate updatedOn;
+
+    @Column(name = "start_time")
+    private String startTime;
+
+    @Column(name = "end_time")
+    private String endTime;
+
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    private LocalDate endDate;
 
     @ManyToOne
     @JsonIgnoreProperties("notifications")
@@ -171,6 +169,58 @@ public class Notifications implements Serializable, IESEntity {
         this.updatedOn = updatedOn;
     }
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public Notifications startTime(String startTime) {
+        this.startTime = startTime;
+        return this;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public Notifications endTime(String endTime) {
+        this.endTime = endTime;
+        return this;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public Notifications startDate(LocalDate startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public Notifications endDate(LocalDate endDate) {
+        this.endDate = endDate;
+        return this;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
     public AcademicYear getAcademicYear() {
         return academicYear;
     }
@@ -190,15 +240,19 @@ public class Notifications implements Serializable, IESEntity {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Notifications)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        return id != null && id.equals(((Notifications) o).id);
+        Notifications notifications = (Notifications) o;
+        if (notifications.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), notifications.getId());
     }
 
     @Override
     public int hashCode() {
-        return 31;
+        return Objects.hashCode(getId());
     }
 
     @Override
@@ -212,6 +266,10 @@ public class Notifications implements Serializable, IESEntity {
             ", createdOn='" + getCreatedOn() + "'" +
             ", updatedBy='" + getUpdatedBy() + "'" +
             ", updatedOn='" + getUpdatedOn() + "'" +
+            ", startTime='" + getStartTime() + "'" +
+            ", endTime='" + getEndTime() + "'" +
+            ", startDate='" + getStartDate() + "'" +
+            ", endDate='" + getEndDate() + "'" +
             "}";
     }
 }

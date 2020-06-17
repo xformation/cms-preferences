@@ -401,6 +401,10 @@ entity Notifications {
 	createdOn LocalDate
 	updatedBy String
 	updatedOn LocalDate
+	startTime String
+    endTime String
+    startDate LocalDate
+    endDate LocalDate
 }
 
 entity Lecture{

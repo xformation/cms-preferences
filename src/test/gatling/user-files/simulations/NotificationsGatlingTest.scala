@@ -20,7 +20,7 @@ class NotificationsGatlingTest extends Simulation {
     val baseURL = Option(System.getProperty("baseURL")) getOrElse """http://localhost:8080"""
 
     val httpConf = http
-        .baseUrl(baseURL)
+        .baseURL(baseURL)
         .inferHtmlResources()
         .acceptHeader("*/*")
         .acceptEncodingHeader("gzip, deflate")
@@ -83,7 +83,11 @@ class NotificationsGatlingTest extends Simulation {
                 , "createdOn":"2020-01-01T00:00:00.000Z"
                 , "updatedBy":"SAMPLE_TEXT"
                 , "updatedOn":"2020-01-01T00:00:00.000Z"
-                }""")).asJson
+                , "startTime":"SAMPLE_TEXT"
+                , "endTime":"SAMPLE_TEXT"
+                , "startDate":"2020-01-01T00:00:00.000Z"
+                , "endDate":"2020-01-01T00:00:00.000Z"
+                }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_notifications_url"))).exitHereIfFailed
             .pause(10)
@@ -102,6 +106,6 @@ class NotificationsGatlingTest extends Simulation {
     val users = scenario("Users").exec(scn)
 
     setUp(
-        users.inject(rampUsers(Integer.getInteger("users", 100)) during (Integer.getInteger("ramp", 1) minutes))
+        users.inject(rampUsers(Integer.getInteger("users", 100)) over (Integer.getInteger("ramp", 1) minutes))
     ).protocols(httpConf)
 }

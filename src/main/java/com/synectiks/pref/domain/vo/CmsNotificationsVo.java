@@ -18,11 +18,17 @@ public class CmsNotificationsVo implements Serializable {
     private LocalDate createdOn;
     private String updatedBy;
     private LocalDate updatedOn;
+    private String startTime;
+    private String endTime;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private AcademicYear academicYear;
 
     private String strCreatedOn;
     private String strUpdatedOn;
-    
+    private String strStartDate;
+    private String strEndDate;
+
     public Long getId() {
         return id;
     }
@@ -121,7 +127,52 @@ public class CmsNotificationsVo implements Serializable {
     public void setUpdatedOn(LocalDate updatedOn) {
         this.updatedOn = updatedOn;
     }
+    public String getStartTime() {
+        return startTime;
+    }
 
+    public CmsNotificationsVo startTime(String startTime) {
+        this.startTime = startTime;
+        return this;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+    public String getEndTime() {
+        return endTime;
+    }
+    public CmsNotificationsVo endTime(String endTime) {
+        this.endTime = endTime;
+        return this;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+    public CmsNotificationsVo startDate(LocalDate startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+    public CmsNotificationsVo endDate(LocalDate endDate) {
+        this.endDate = endDate;
+        return this;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
     public AcademicYear getAcademicYear() {
         return academicYear;
     }
@@ -162,6 +213,12 @@ public class CmsNotificationsVo implements Serializable {
             ", createdOn='" + getCreatedOn() + "'" +
             ", updatedBy='" + getUpdatedBy() + "'" +
             ", updatedOn='" + getUpdatedOn() + "'" +
+            ", startTime='" + getStartTime() + "'" +
+            ", endTime='" + getEndTime() + "'" +
+            ", startDate='" + getStartDate() + "'" +
+            ", endDate='" + getEndDate() + "'" +
+
+
             "}";
     }
 
@@ -180,4 +237,18 @@ public class CmsNotificationsVo implements Serializable {
 	public void setStrUpdatedOn(String strUpdatedOn) {
 		this.strUpdatedOn = strUpdatedOn;
 	}
+    public String getStrStartDate() {
+        return strStartDate;
+    }
+
+    public void setStrStartDate(String strStartDate) {
+        this.strStartDate = strStartDate;
+    }
+    public String getStrEndDate() {
+        return strEndDate;
+    }
+
+    public void setStrEndDate(String strEndDate) {
+        this.strEndDate = strEndDate;
+    }
 }

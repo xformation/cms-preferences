@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.synectiks.pref.domain.enumeration.Status;
 
 /**
- * A DTO for the {@link com.synectiks.pref.domain.Notifications} entity.
+ * A DTO for the Notifications entity.
  */
 public class NotificationsDTO implements Serializable {
 
@@ -26,6 +26,14 @@ public class NotificationsDTO implements Serializable {
     private String updatedBy;
 
     private LocalDate updatedOn;
+
+    private String startTime;
+
+    private String endTime;
+
+    private LocalDate startDate;
+
+    private LocalDate endDate;
 
 
     private Long academicYearId;
@@ -94,6 +102,38 @@ public class NotificationsDTO implements Serializable {
         this.updatedOn = updatedOn;
     }
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
     public Long getAcademicYearId() {
         return academicYearId;
     }
@@ -134,6 +174,10 @@ public class NotificationsDTO implements Serializable {
             ", createdOn='" + getCreatedOn() + "'" +
             ", updatedBy='" + getUpdatedBy() + "'" +
             ", updatedOn='" + getUpdatedOn() + "'" +
+            ", startTime='" + getStartTime() + "'" +
+            ", endTime='" + getEndTime() + "'" +
+            ", startDate='" + getStartDate() + "'" +
+            ", endDate='" + getEndDate() + "'" +
             ", academicYear=" + getAcademicYearId() +
             "}";
     }

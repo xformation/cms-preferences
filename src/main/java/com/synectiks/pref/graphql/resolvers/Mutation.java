@@ -1,9 +1,12 @@
 package com.synectiks.pref.graphql.resolvers;
 
 import com.synectiks.pref.business.service.*;
+//import com.synectiks.pref.domain.Notifications;
 import com.synectiks.pref.domain.vo.*;
 import com.synectiks.pref.graphql.types.facility.FacilityInput;
 import com.synectiks.pref.graphql.types.facility.FacilityPayload;
+import com.synectiks.pref.graphql.types.notifications.NotificationsInput;
+import com.synectiks.pref.graphql.types.notifications.NotificationsPayload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +103,7 @@ public class Mutation implements GraphQLMutationResolver {
     	CmsBranchVo vo = this.cmsBranchService.saveBranch(cmsBranchVo);
     	return new BranchPayload(vo);
     }
+
 
     public AuthorizedSignatoryPayload saveAuthorizedSignatory(AuthorizedSignatoryInput cmsAuthorizedSignatoryVo) {
     	CmsAuthorizedSignatoryVo vo = this.cmsAuthorizedSignatoryService.saveAuthorizedSignatory(cmsAuthorizedSignatoryVo);

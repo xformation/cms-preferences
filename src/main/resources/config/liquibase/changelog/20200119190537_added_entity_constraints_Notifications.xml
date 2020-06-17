@@ -7,12 +7,13 @@
         Added the constraints for entity Notifications.
     -->
     <changeSet id="20200119190537-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="academic_year_id"
                                  baseTableName="notifications"
                                  constraintName="fk_notifications_academic_year_id"
                                  referencedColumnNames="id"
                                  referencedTableName="academic_year"/>
+
 
     </changeSet>
 </databaseChangeLog>
