@@ -83,7 +83,8 @@ public class Mutation implements GraphQLMutationResolver {
 
     @Autowired
     CmsTeacherService cmsTeacherService;
-
+    @Autowired
+    CmsNotificationsService cmsNotificationsService;
     @Autowired
     CmsSubjectService cmsSubjectService;
 
@@ -114,7 +115,10 @@ public class Mutation implements GraphQLMutationResolver {
     	CmsBankAccountsVo vo = this.cmsBankAccountsService.saveBankAccounts(cmsBankAccountsVo);
     	return new BankAccountsPayload(vo);
     }
-
+    public NotificationsPayload saveNotifications(NotificationsInput cmsNotificationsVo) {
+        CmsNotificationsVo vo = this.cmsNotificationsService.saveNotifications(cmsNotificationsVo);
+        return new NotificationsPayload(vo);
+    }
     public LegalEntityPayload saveLegalEntity(LegalEntityInput cmsLegalEntityVo) {
     	CmsLegalEntityVo vo = this.cmsLegalEntityService.saveLegalEntity(cmsLegalEntityVo);
     	return new LegalEntityPayload(vo);

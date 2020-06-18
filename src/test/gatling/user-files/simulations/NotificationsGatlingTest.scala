@@ -78,7 +78,7 @@ class NotificationsGatlingTest extends Simulation {
                 "id":null
                 , "messageCode":"SAMPLE_TEXT"
                 , "message":"SAMPLE_TEXT"
-                , "status":"ACTIVE"
+                , "status":"SAMPLE_TEXT"
                 , "createdBy":"SAMPLE_TEXT"
                 , "createdOn":"2020-01-01T00:00:00.000Z"
                 , "updatedBy":"SAMPLE_TEXT"

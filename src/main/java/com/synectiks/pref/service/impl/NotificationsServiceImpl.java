@@ -20,9 +20,9 @@ import java.util.stream.StreamSupport;
 
 
 
-/**
- * Service Implementation for managing Notifications.
- */
+
+  //Service Implementation for managing Notifications.
+
 @Service
 @Transactional
 public class NotificationsServiceImpl implements NotificationsService {
@@ -53,7 +53,7 @@ public class NotificationsServiceImpl implements NotificationsService {
         Notifications notifications = notificationsMapper.toEntity(notificationsDTO);
         notifications = notificationsRepository.save(notifications);
         NotificationsDTO result = notificationsMapper.toDto(notifications);
-        notificationsSearchRepository.save(notifications);
+        //notificationsSearchRepository.save(notifications);
         return result;
     }
 

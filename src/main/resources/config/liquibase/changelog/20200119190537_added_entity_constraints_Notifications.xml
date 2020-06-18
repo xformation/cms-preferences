@@ -14,6 +14,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="academic_year"/>
 
-
     </changeSet>
 </databaseChangeLog>

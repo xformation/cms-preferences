@@ -3,7 +3,6 @@ import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
-import com.synectiks.pref.domain.enumeration.Status;
 
 /**
  * A DTO for the Notifications entity.
@@ -17,7 +16,7 @@ public class NotificationsDTO implements Serializable {
     @Size(max = 2000)
     private String message;
 
-    private Status status;
+    private String status;
 
     private String createdBy;
 
@@ -62,11 +61,11 @@ public class NotificationsDTO implements Serializable {
         this.message = message;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

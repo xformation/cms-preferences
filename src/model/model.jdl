@@ -396,7 +396,7 @@ entity Subject{
 entity Notifications {
 	messageCode String
 	message String maxlength(2000)
-	status Status
+	status String
 	createdBy String
 	createdOn LocalDate
 	updatedBy String
@@ -471,6 +471,7 @@ relationship ManyToOne {
 	MetaLecture{academicyear} to AcademicYear,
 	MetaLecture{section} to Section,
 	MetaLecture{batch} to Batch,
+	Course {department} to Department,
 	Course {department} to Department,
 	Course {branch} to Branch,
 	Teacher {department} to Department,

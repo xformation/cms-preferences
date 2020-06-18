@@ -40,7 +40,6 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.synectiks.pref.domain.enumeration.Status;
 /**
  * Test class for the NotificationsResource REST controller.
  *
@@ -56,8 +55,8 @@ public class NotificationsResourceIntTest {
     private static final String DEFAULT_MESSAGE = "AAAAAAAAAA";
     private static final String UPDATED_MESSAGE = "BBBBBBBBBB";
 
-    private static final Status DEFAULT_STATUS = Status.ACTIVE;
-    private static final Status UPDATED_STATUS = Status.DEACTIVE;
+    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBB";
 
     private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
     private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
@@ -377,7 +376,7 @@ public class NotificationsResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(notifications.getId().intValue())))
             .andExpect(jsonPath("$.[*].messageCode").value(hasItem(DEFAULT_MESSAGE_CODE)))
             .andExpect(jsonPath("$.[*].message").value(hasItem(DEFAULT_MESSAGE)))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
             .andExpect(jsonPath("$.[*].createdOn").value(hasItem(DEFAULT_CREATED_ON.toString())))
             .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)))

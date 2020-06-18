@@ -33,6 +33,8 @@ public class Query implements GraphQLQueryResolver {
 
 	@Autowired
 	CmsStateService cmsStateService;
+    @Autowired
+    CmsNotificationsService cmsNotificationsService;
 
 	@Autowired
 	CmsCityService cmsCityService;
@@ -88,7 +90,10 @@ public class Query implements GraphQLQueryResolver {
     	logger.debug("Query - getBranchList :");
     	return this.cmsBranchService.getCmsBranchList();
     }
-
+    public List<CmsNotificationsVo> getNotificationsList() throws Exception {
+        logger.debug("Query - getNotificationsList :");
+        return this.cmsNotificationsService.getNotificationsList();
+    }
 
 	public List<State> getStateList() throws Exception {
     	logger.debug("Query - getStateList :");

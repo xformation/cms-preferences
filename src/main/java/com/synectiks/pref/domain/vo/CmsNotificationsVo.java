@@ -1,33 +1,47 @@
 package com.synectiks.pref.domain.vo;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.synectiks.pref.domain.AcademicYear;
 import com.synectiks.pref.domain.enumeration.Status;
 
 
-public class CmsNotificationsVo implements Serializable {
+public class CmsNotificationsVo extends CmsCommonVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
     private String messageCode;
     private String message;
-    private Status status;
+    private String status;
     private String createdBy;
     private LocalDate createdOn;
     private String updatedBy;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate updatedOn;
     private String startTime;
     private String endTime;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate startDate;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate endDate;
-    private AcademicYear academicYear;
-
+    private CmsAcademicYearVo cmsAcademicYearVo;
+    private Long academicYearId;
     private String strCreatedOn;
     private String strUpdatedOn;
     private String strStartDate;
     private String strEndDate;
+    private List<CmsNotificationsVo> dataList = new ArrayList<CmsNotificationsVo>();
 
     public Long getId() {
         return id;
@@ -63,18 +77,14 @@ public class CmsNotificationsVo implements Serializable {
         this.message = message;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
-
-    public CmsNotificationsVo status(Status status) {
-        this.status = status;
-        return this;
-    }
-
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
+
+
 
     public String getCreatedBy() {
         return createdBy;
@@ -173,56 +183,84 @@ public class CmsNotificationsVo implements Serializable {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-    public AcademicYear getAcademicYear() {
-        return academicYear;
+
+
+    public void setCmsAcademicYearVo(CmsAcademicYearVo cmsAcademicYearVo) {
+        this.cmsAcademicYearVo = cmsAcademicYearVo;
+    }
+    public Long getAcademicYearId() {
+        return academicYearId;
+    }
+    public void setAcademicYearId(Long academicYearId) {
+        this.academicYearId = academicYearId;
     }
 
-    public CmsNotificationsVo academicYear(AcademicYear academicYear) {
-        this.academicYear = academicYear;
-        return this;
+    public List<CmsNotificationsVo> getDataList() {
+        return dataList;
     }
-
-    public void setAcademicYear(AcademicYear academicYear) {
-        this.academicYear = academicYear;
+    public void setDataList(List<CmsNotificationsVo> dataList) {
+        this.dataList = dataList;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof CmsNotificationsVo)) {
-            return false;
-        }
-        return id != null && id.equals(((CmsNotificationsVo) o).id);
+        if (this == o) return true;
+        if (!(o instanceof CmsNotificationsVo)) return false;
+        CmsNotificationsVo that = (CmsNotificationsVo) o;
+        return Objects.equals(getId(), that.getId()) &&
+            Objects.equals(getMessageCode(), that.getMessageCode()) &&
+            Objects.equals(getMessage(), that.getMessage()) &&
+            getStatus() == that.getStatus() &&
+            Objects.equals(getCreatedBy(), that.getCreatedBy()) &&
+            Objects.equals(getCreatedOn(), that.getCreatedOn()) &&
+            Objects.equals(getUpdatedBy(), that.getUpdatedBy()) &&
+            Objects.equals(getUpdatedOn(), that.getUpdatedOn()) &&
+            Objects.equals(getStartTime(), that.getStartTime()) &&
+            Objects.equals(getEndTime(), that.getEndTime()) &&
+            Objects.equals(getStartDate(), that.getStartDate()) &&
+            Objects.equals(getEndDate(), that.getEndDate()) &&
+            Objects.equals(cmsAcademicYearVo, that.cmsAcademicYearVo) &&
+            Objects.equals(getAcademicYearId(), that.getAcademicYearId()) &&
+            Objects.equals(getStrCreatedOn(), that.getStrCreatedOn()) &&
+            Objects.equals(getStrUpdatedOn(), that.getStrUpdatedOn()) &&
+            Objects.equals(getStrStartDate(), that.getStrStartDate()) &&
+            Objects.equals(getStrEndDate(), that.getStrEndDate()) &&
+            Objects.equals(getDataList(), that.getDataList());
     }
 
     @Override
     public int hashCode() {
-        return 31;
+        return Objects.hash(getId(), getMessageCode(), getMessage(), getStatus(), getCreatedBy(), getCreatedOn(), getUpdatedBy(), getUpdatedOn(), getStartTime(), getEndTime(), getStartDate(), getEndDate(), cmsAcademicYearVo, getAcademicYearId(), getStrCreatedOn(), getStrUpdatedOn(), getStrStartDate(), getStrEndDate(), getDataList());
     }
 
     @Override
     public String toString() {
-        return "Notifications{" +
-            "id=" + getId() +
-            ", messageCode='" + getMessageCode() + "'" +
-            ", message='" + getMessage() + "'" +
-            ", status='" + getStatus() + "'" +
-            ", createdBy='" + getCreatedBy() + "'" +
-            ", createdOn='" + getCreatedOn() + "'" +
-            ", updatedBy='" + getUpdatedBy() + "'" +
-            ", updatedOn='" + getUpdatedOn() + "'" +
-            ", startTime='" + getStartTime() + "'" +
-            ", endTime='" + getEndTime() + "'" +
-            ", startDate='" + getStartDate() + "'" +
-            ", endDate='" + getEndDate() + "'" +
+        return "CmsNotificationsVo{" +
+            "id=" + id +
+            ", messageCode='" + messageCode + '\'' +
+            ", message='" + message + '\'' +
+            ", status=" + status +
+            ", createdBy='" + createdBy + '\'' +
+            ", createdOn=" + createdOn +
+            ", updatedBy='" + updatedBy + '\'' +
+            ", updatedOn=" + updatedOn +
+            ", startTime='" + startTime + '\'' +
+            ", endTime='" + endTime + '\'' +
+            ", startDate=" + startDate +
+            ", endDate=" + endDate +
+            ", cmsAcademicYearVo=" + cmsAcademicYearVo +
+            ", academicYearId=" + academicYearId +
+            ", strCreatedOn='" + strCreatedOn + '\'' +
+            ", strUpdatedOn='" + strUpdatedOn + '\'' +
+            ", strStartDate='" + strStartDate + '\'' +
+            ", strEndDate='" + strEndDate + '\'' +
+            ", dataList=" + dataList +
 
-
-            "}";
+            '}';
     }
 
-	public String getStrCreatedOn() {
+
+    public String getStrCreatedOn() {
 		return strCreatedOn;
 	}
 

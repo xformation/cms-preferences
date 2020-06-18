@@ -11,16 +11,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import com.synectiks.pref.domain.enumeration.Status;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Cache;
-
 /**
  * A Notifications.
  */
 @Entity
 @Table(name = "notifications")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+
 public class Notifications implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,9 +33,8 @@ public class Notifications implements Serializable {
     @Column(name = "message", length = 2000)
     private String message;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private String status;
 
     @Column(name = "created_by")
     private String createdBy;
@@ -104,16 +99,16 @@ public class Notifications implements Serializable {
         this.message = message;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public Notifications status(Status status) {
+    public Notifications status(String status) {
         this.status = status;
         return this;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
