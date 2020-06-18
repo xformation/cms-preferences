@@ -9,6 +9,7 @@ type Query {
 	getLegalEntityList: [CmsLegalEntityVo]
 	getAcademicYearList: [CmsAcademicYearVo]
 	getHolidayList: [CmsHolidayVo]
+	getNotificationsList: [CmsNotificationsVo]
 	getTermList: [CmsTermVo]
 	getDepartmentList: [CmsDepartmentVo]
 	getCourseList: [CmsCourseVo]
@@ -29,6 +30,7 @@ type Mutation {
 	saveLegalEntity(input: LegalEntityInput): LegalEntityPayload
 	saveAcademicYear(input: AcademicYearInput): AcademicYearPayload
 	saveHoliday(input: HolidayInput): HolidayPayload
+	saveNotifications(input: NotificationsInput): NotificationsPayload
 	saveTerm(input: TermInput): TermPayload
 	saveDepartment(input: DepartmentInput): DepartmentPayload
 	saveCourse(input: CourseInput): CoursePayload
@@ -510,7 +512,43 @@ type CmsHolidayVo {
     cmsAcademicYearVo: CmsAcademicYearVo
     dataList: [CmsHolidayVo]
 }
-
+input NotificationsInput{
+      id: Long
+      messageCode:String
+      message: String
+     status: String
+     startTime: String
+     endTime: String
+     strStartDate: String
+      strEndDate: String
+     academicYearId: Long
+}
+type NotificationsPayload {
+	cmsNotificationsVo: CmsNotificationsVo
+	}
+type CmsNotificationsVo {
+	id: Long
+	messageCode:String
+    message : String
+	status: String
+    createdBy: String
+    createdOn: Date
+    updatedBy: String
+    updatedOn: Date
+    startDate: Date
+    endDate :Date
+    startTime: String
+    endTime: String
+    strCreatedOn: String
+    strUpdatedOn: String
+    strStartDate: String
+    strEndDate: String
+    exitCode: Long
+    exitDescription: String
+    academicYearId: Long
+    cmsAcademicYearVo: CmsAcademicYearVo
+    dataList: [CmsNotificationsVo]
+}
 input AcademicYearInput {
 	id: Long
 	description: String
